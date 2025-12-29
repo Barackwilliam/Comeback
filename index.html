@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Comeback African Safaris - Coming Soon</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), 
+                        url('https://images.unsplash.com/photo-1516426122078-c23e76319801?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            color: #fff;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 900px;
+            width: 100%;
+            background-color: rgba(22, 78, 48, 0.85);
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.5);
+            border: 2px solid #d4af37;
+            animation: fadeIn 1.5s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .logo {
+            font-size: 3.5rem;
+            color: #d4af37;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+
+        h1 {
+            font-size: 2.8rem;
+            margin-bottom: 15px;
+            color: #f8f8f8;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .tagline {
+            font-size: 1.4rem;
+            margin-bottom: 30px;
+            color: #e6e6e6;
+            font-style: italic;
+        }
+
+        .divider {
+            width: 150px;
+            height: 3px;
+            background-color: #d4af37;
+            margin: 20px auto 30px;
+            border-radius: 2px;
+        }
+
+        .message {
+            font-size: 1.2rem;
+            line-height: 1.8;
+            margin-bottom: 40px;
+            color: #f0f0f0;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .highlight {
+            color: #d4af37;
+            font-weight: bold;
+        }
+
+        .countdown {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin: 40px 0;
+            flex-wrap: wrap;
+        }
+
+        .countdown-item {
+            background-color: rgba(0, 0, 0, 0.6);
+            border-radius: 10px;
+            padding: 20px 15px;
+            min-width: 100px;
+            border: 1px solid #d4af37;
+        }
+
+        .countdown-value {
+            font-size: 2.8rem;
+            font-weight: bold;
+            color: #d4af37;
+            display: block;
+            line-height: 1;
+        }
+
+        .countdown-label {
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-top: 8px;
+            color: #ccc;
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 25px;
+            margin: 40px 0 30px;
+            flex-wrap: wrap;
+        }
+
+        .social-icon {
+            color: #fff;
+            background-color: rgba(212, 175, 55, 0.8);
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+
+        .social-icon:hover {
+            background-color: #d4af37;
+            transform: translateY(-5px);
+        }
+
+        .contact-info {
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .contact-info p {
+            margin: 8px 0;
+            font-size: 1rem;
+            color: #ddd;
+        }
+
+        .contact-info i {
+            color: #d4af37;
+            margin-right: 10px;
+        }
+
+        .footer {
+            margin-top: 30px;
+            color: #aaa;
+            font-size: 0.9rem;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 25px;
+            }
+            
+            h1 {
+                font-size: 2.2rem;
+            }
+            
+            .countdown-item {
+                min-width: 80px;
+                padding: 15px 10px;
+            }
+            
+            .countdown-value {
+                font-size: 2.2rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            h1 {
+                font-size: 1.8rem;
+            }
+            
+            .logo {
+                font-size: 2.8rem;
+            }
+            
+            .countdown {
+                gap: 10px;
+            }
+            
+            .countdown-item {
+                min-width: 70px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="logo">
+            <i class="fas fa-paw"></i>
+        </div>
+        <h1>Comeback African Safaris</h1>
+        <p class="tagline">Experience the Wild Heart of Tanzania</p>
+        
+        <div class="divider"></div>
+        
+        <p class="message">
+            We're preparing something <span class="highlight">extraordinary</span> for you! Our brand new website is under construction and will be launching in 
+            <span class="highlight">7 days</span>. Get ready to explore Tanzania's most iconic landscapes, from the Serengeti plains to Mount Kilimanjaro, with our expert-guided safaris.
+        </p>
+        
+        <h2>Website Launching In:</h2>
+        
+        <div class="countdown">
+            <div class="countdown-item">
+                <span class="countdown-value" id="days">7</span>
+                <span class="countdown-label">Days</span>
+            </div>
+            <div class="countdown-item">
+                <span class="countdown-value" id="hours">0</span>
+                <span class="countdown-label">Hours</span>
+            </div>
+            <div class="countdown-item">
+                <span class="countdown-value" id="minutes">0</span>
+                <span class="countdown-label">Minutes</span>
+            </div>
+            <div class="countdown-item">
+                <span class="countdown-value" id="seconds">0</span>
+                <span class="countdown-label">Seconds</span>
+            </div>
+        </div>
+        
+        <div class="social-links">
+            <a href="https://facebook.com/comebackafricansafaris" class="social-icon" target="_blank">
+                <i class="fab fa-facebook-f"></i>
+            </a>
+            <a href="https://instagram.com/comebackafricansafaris" class="social-icon" target="_blank">
+                <i class="fab fa-instagram"></i>
+            </a>
+            <a href="https://tiktok.com/@comebackafricansafaris" class="social-icon" target="_blank">
+                <i class="fab fa-tiktok"></i>
+            </a>
+            <a href="https://youtube.com/@comebackafricansafaris" class="social-icon" target="_blank">
+                <i class="fab fa-youtube"></i>
+            </a>
+            <a href="mailto:comebackafricansafaris@gmail.com" class="social-icon">
+                <i class="fas fa-envelope"></i>
+            </a>
+        </div>
+        
+        <div class="contact-info">
+            <p><i class="fas fa-map-marker-alt"></i> Street Mji Mwema, Leganga, USA River, Arusha - Tanzania</p>
+            <p><i class="fas fa-phone"></i> +255 689 861 041 / +255 742 561 041</p>
+            <p><i class="fas fa-globe"></i> www.comebackafricansafaris.com</p>
+        </div>
+        
+        <div class="footer">
+            <p>&copy; 2025 Comeback African Safaris. All rights reserved.</p>
+            <p>Your adventure begins soon...</p>
+        </div>
+    </div>
+
+    <script>
+        // Set the launch date (7 days from now)
+        const launchDate = new Date();
+        launchDate.setDate(launchDate.getDate() + 7);
+        launchDate.setHours(0, 0, 0, 0);
+        
+        function updateCountdown() {
+            const now = new Date().getTime();
+            const distance = launchDate - now;
+            
+            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+            
+            document.getElementById("days").innerHTML = days;
+            document.getElementById("hours").innerHTML = hours;
+            document.getElementById("minutes").innerHTML = minutes;
+            document.getElementById("seconds").innerHTML = seconds;
+            
+            if (distance < 0) {
+                clearInterval(countdownInterval);
+                document.querySelector(".countdown").innerHTML = "<h2>Website is Live Now!</h2>";
+            }
+        }
+        
+        // Update countdown every second
+        const countdownInterval = setInterval(updateCountdown, 1000);
+        updateCountdown(); // Initial call
+    </script>
+</body>
+</html>
