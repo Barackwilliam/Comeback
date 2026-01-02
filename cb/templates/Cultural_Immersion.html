@@ -1,0 +1,79 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+<div class="container py-5">
+  <!-- Title & Intro -->
+  <div class="text-center mb-5">
+    <h2 class="fw-bold text-primary display-5">🌍 Cultural Encounters in Tanzania</h2>
+    <p style="color: black;" class="fs-5" style="max-width: 750px; margin:auto;">
+      Cultural encounters with Tanzania's indigenous communities provide a once-in-a-lifetime experience. 
+      From hunter-gatherers to the proud Maasai, every moment connects you to centuries of tradition and wisdom. 
+    </p>
+  </div>
+
+
+  <!-- Image with Overlay -->
+    <div class="col-lg-6 text-center">
+      <div class="position-relative d-inline-block w-100">
+        <img src="{% static 'img/cultural-experience.jpg' %}" 
+             alt="Cultural Experience in Tanzania"
+             class="img-fluid rounded-4 shadow-lg"
+             style="max-height:480px; object-fit:cover; width:100%;">
+        
+        <!-- Overlay Button -->
+        <div class="overlay-icons position-absolute top-50 start-50 translate-middle">
+        <a href="https://wa.me/255658571653" class="btn btn-danger fw-semibold shadow-lg px-4 py-2 rounded-pill"onclick="showLoading(event)">🎥 Watch Experience</a>
+
+        </div>
+      </div>
+    </div>
+
+  <!-- Experience Timeline -->
+  <div class="row g-5 align-items-center">
+    <!-- Text Content -->
+    <div class="col-lg-6">
+      <div class="bg-light rounded-4 shadow-lg p-4">
+        <h5 class="text-primary mb-4">📌 Itinerary & Highlights</h5>
+
+        <div class="mb-4">
+          <h6 class="text-warning">🌅 Morning</h6>
+          <p class="mb-0 text-dark small">
+            Drive to <strong>Lake Eyasi</strong> to meet the <strong>Hadzabe</strong> (hunter-gatherers).  
+            Join them in traditional hunting, fire-making, and learn their unique <em>"click"</em> language.
+          </p>
+        </div>
+
+        <div class="mb-4">
+          <h6 class="text-info">☀️ Afternoon</h6>
+          <p class="mb-0 text-dark small">
+            Visit the <strong>Maasai community</strong>, known for their nomadic lifestyle, traditional dances, and iconic red attire.  
+            Learn about their culture, cattle herding, and family structures.
+          </p>
+        </div>
+
+        <div>
+          <h6 class="text-primary">🌇 Evening</h6>
+          <p class="mb-0 text-dark small">
+            Experience a <strong>Maasai dance</strong> as the sun sets over the savannah, 
+            creating an unforgettable memory.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Hover Effect CSS -->
+<style>
+.overlay-icons {
+  opacity: 0;
+  transition: opacity 0.4s ease;
+}
+.position-relative:hover .overlay-icons {
+  opacity: 1;
+}
+</style>
+
+{% endblock %}

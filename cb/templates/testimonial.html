@@ -1,0 +1,437 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<style>
+  :root {
+    --primary: #FF4500; /* Fiery orange */
+    --secondary: #228B22; /* Forest green */
+    --accent: #FFD700; /* Golden shine */
+    --dark: #1C2526; /* Deep charcoal */
+    --light: #F8F1E9; /* Warm cream */
+    --shadow-luxe: 0 8px 20px rgba(0, 0, 0, 0.2);
+    --transition-ease: cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  }
+
+  /* Hero Section */
+  .hero-header {
+    background: url('{% static "img/3.jpg" %}') no-repeat center center;
+    background-size: cover;
+    background-attachment: fixed;
+    min-height: 65vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    text-align: center;
+    color: #ffffff;
+    font-family: 'Poppins', sans-serif;
+    margin-bottom: 5rem;
+  }
+
+  .hero-header::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(34, 139, 34, 0.3));
+    z-index: 1;
+  }
+
+  .hero-header .content {
+    position: relative;
+    z-index: 2;
+    max-width: clamp(600px, 80vw, 900px);
+    padding: clamp(20px, 5vw, 30px);
+  }
+
+  .hero-header h1 {
+    font-family: 'Merienda', cursive;
+    font-size: clamp(3rem, 7vw, 5rem);
+    font-weight: 900;
+    text-shadow: 0 4px 12px rgba(0, 0, 0, 0.7);
+    color: var(--accent);
+    margin-bottom: 1.5rem;
+  }
+
+  .hero-header .breadcrumb {
+    background: transparent;
+    justify-content: center;
+    margin-bottom: 0;
+    animation: fadeInUp 1s ease-out 0.3s both;
+  }
+
+  .hero-header .breadcrumb a {
+    color: var(--accent);
+    text-decoration: none;
+    font-size: clamp(0.95rem, 2.5vw, 1.1rem);
+    transition: color 0.3s var(--transition-ease);
+  }
+
+  .hero-header .breadcrumb a:hover {
+    color: var(--primary);
+  }
+
+  .hero-header .breadcrumb .active {
+    color: var(--light);
+    font-weight: 600;
+  }
+
+  /* Testimonial Section */
+  .testimonial-section {
+    background: linear-gradient(to bottom right, var(--light), #ffffff);
+    padding: clamp(40px, 8vw, 60px) 20px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .testimonial-section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: url('{% static "img/safari-pattern.png" %}') repeat;
+    opacity: 0.03;
+    z-index: 0;
+  }
+
+  .testimonial-section .container {
+    position: relative;
+    z-index: 1;
+  }
+
+  .testimonial-section .section-title {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    font-size: clamp(0.95rem, 2.5vw, 1.1rem);
+    color: var(--primary);
+  }
+
+  .testimonial-section h1 {
+    font-family: 'Merienda', cursive;
+    font-size: clamp(2rem, 5vw, 3rem);
+    color: var(--dark);
+    margin-bottom: 3rem;
+  }
+
+  .testimonial-item {
+    background: #ffffff;
+    border-radius: 20px;
+    padding: clamp(20px, 4vw, 30px);
+    text-align: center;
+    box-shadow: var(--shadow-luxe);
+    transition: transform 0.4s var(--transition-ease), box-shadow 0.4s var(--transition-ease);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .testimonial-item:hover {
+    transform: translateY(-8px) rotate(2deg);
+    box-shadow: 0 12px 30px rgba(255, 69, 0, 0.3);
+  }
+
+  .testimonial-item::before {
+    content: '\f10d';
+    font-family: 'Font Awesome 6 Free';
+    font-weight: 900;
+    color: var(--accent);
+    font-size: clamp(2rem, 5vw, 3rem);
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    opacity: 0.15;
+  }
+
+  .testimonial-img {
+    width: clamp(100px, 20vw, 120px);
+    height: clamp(100px, 20vw, 120px);
+    border-radius: 50%;
+    overflow: hidden;
+    margin: 0 auto 1.5rem;
+    border: 4px solid var(--accent);
+    box-shadow: 0 0 12px rgba(255, 69, 0, 0.4);
+    transition: box-shadow 0.3s var(--transition-ease), transform 0.3s var(--transition-ease);
+  }
+
+  .testimonial-item:hover .testimonial-img {
+    box-shadow: 0 0 20px rgba(255, 69, 0, 0.6);
+    transform: scale(1.05);
+  }
+
+  .testimonial-img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+  }
+
+  .testimonial-item h5 {
+    font-family: 'Merienda', cursive;
+    font-size: clamp(1.2rem, 3vw, 1.5rem);
+    color: var(--dark);
+    margin-bottom: 0.5rem;
+  }
+
+  .testimonial-item p.country {
+    font-family: 'Poppins', sans-serif;
+    font-size: clamp(0.9rem, 2.5vw, 1rem);
+    color: var(--secondary);
+    margin-bottom: 1rem;
+    font-weight: 600;
+  }
+
+  .testimonial-item p.description {
+    font-family: 'Poppins', sans-serif;
+    font-size: clamp(0.85rem, 2.5vw, 0.95rem);
+    color: var(--dark);
+    line-height: 1.8;
+  }
+
+  .owl-carousel .owl-nav button {
+    background: var(--primary) !important;
+    color: #ffffff !important;
+    border-radius: 50%;
+    width: clamp(45px, 8vw, 50px);
+    height: clamp(45px, 8vw, 50px);
+    font-size: clamp(1.2rem, 3vw, 1.4rem) !important;
+    transition: all 0.3s var(--transition-ease);
+    margin: 0 0.75rem;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+  }
+
+  .owl-carousel .owl-nav button:hover {
+    background: var(--accent) !important;
+    transform: scale(1.1);
+    box-shadow: 0 0 15px rgba(255, 69, 0, 0.5);
+  }
+
+  /* Responsive Adjustments */
+  @media (max-width: 576px) {
+    .hero-header {
+      min-height: 50vh;
+    }
+    .hero-header h1 {
+      font-size: clamp(2.2rem, 5vw, 3rem);
+    }
+    .hero-header .breadcrumb a, .hero-header .breadcrumb .active {
+      font-size: clamp(0.85rem, 2vw, 0.95rem);
+    }
+    .testimonial-section {
+      padding: clamp(30px, 6vw, 40px) 15px;
+    }
+    .testimonial-item {
+      padding: clamp(15px, 3vw, 20px);
+    }
+    .testimonial-img {
+      width: clamp(80px, 18vw, 100px);
+      height: clamp(80px, 18vw, 100px);
+    }
+    .testimonial-item h5 {
+      font-size: clamp(1rem, 2.5vw, 1.2rem);
+    }
+    .testimonial-item p.country {
+      font-size: clamp(0.85rem, 2vw, 0.95rem);
+    }
+    .testimonial-item p.description {
+      font-size: clamp(0.8rem, 2vw, 0.9rem);
+    }
+    .owl-carousel .owl-nav {
+      display: none;
+    }
+  }
+
+  @media (min-width: 769px) and (max-width: 991px) {
+    .hero-header h1 {
+      font-size: clamp(2.5rem, 6vw, 3.5rem);
+    }
+    .testimonial-img {
+      width: clamp(90px, 15vw, 110px);
+      height: clamp(90px, 15vw, 110px);
+    }
+  }
+</style>
+
+
+
+<!-- Hero Header -->
+<div class="hero-header wow fadeIn" data-wow-delay="0.2s">
+  <div class="content">
+    <h1 class="animated slideInDown">Testimonials</h1>
+    <nav aria-label="breadcrumb">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="{% url 'index' %}" onclick="showLoading(event)">Home</a></li>
+        <li class="breadcrumb-item"><a href="#">Pages</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Testimonials</li>
+      </ol>
+    </nav>
+  </div>
+</div>
+
+<!-- Testimonial Section -->
+{% load static %}
+
+<!-- Reviews Section -->
+<section class="reviews-section">
+  <div class="container text-center">
+    <h3 class="reviews-title">Reviews</h3>
+    <p class="reviews-subtitle">Discover what our clients say about their journeys</p>
+
+    <div class="owl-carousel review-carousel">
+      {% for test in testimonial %}
+      <div class="review-card">
+        <!-- Profile Image -->
+        <div class="review-image">
+          <img src="{{ test.image|default:'{% static "img/default-testimonial.jpg" %}' }}" alt="{{ test.Full_name }}">
+        </div>
+
+        <!-- Review Text -->
+        <p class="review-text">
+          {{ test.description }}
+        </p>
+
+        <!-- Reviewer Info -->
+        <h5 class="review-name">{{ test.Full_name }}</h5>
+        <p class="review-source">Google Reviews</p>
+        <div class="review-stars">
+          ⭐⭐⭐⭐⭐
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+
+    <div class="review-controls mt-3">
+      <button class="review-btn prev">‹ Prev</button>
+      <button class="review-btn next">Next ›</button>
+    </div>
+  </div>
+</section>
+
+<!-- ================= CSS ================= -->
+<style>
+.reviews-section {
+  background: url("{% static 'img/birdwatching.jpg' %}") center/cover no-repeat;
+  padding: 100px 0;
+  color: white;
+  position: relative;
+}
+
+.reviews-title {
+  color: #f6b10c;
+  font-size: 28px;
+  margin-bottom: 5px;
+  font-weight: 600;
+}
+
+.reviews-subtitle {
+  color: #eee;
+  font-size: 15px;
+  margin-bottom: 40px;
+}
+
+.review-card {
+  background: rgba(0, 0, 0, 0.6);
+  padding: 40px 30px;
+  border-radius: 12px;
+  max-width: 500px;
+  margin: 0 auto;
+  text-align: center;
+  color: #fff;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+  position: relative;
+}
+
+.review-image {
+  width: 90px;
+  height: 90px;
+  margin: 0 auto 20px auto;
+}
+
+.review-image img {
+  width: 90px;
+  height: 90px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 3px solid #f6b10c;
+  box-shadow: 0 0 15px rgba(246, 177, 12, 0.4);
+}
+
+.review-text {
+  font-size: 16px;
+  line-height: 1.7;
+  margin-bottom: 20px;
+  font-style: italic;
+}
+
+.review-name {
+  color: #f6b10c;
+  font-weight: 600;
+  margin-bottom: 5px;
+  font-size: 17px;
+}
+
+.review-source {
+  font-size: 14px;
+  color: #ccc;
+  margin-bottom: 10px;
+}
+
+.review-stars {
+  font-size: 18px;
+  color: #ffcc00;
+}
+
+.review-btn {
+  background: #f6b10c;
+  border: none;
+  padding: 8px 20px;
+  border-radius: 30px;
+  margin: 5px;
+  cursor: pointer;
+  color: #000;
+  font-weight: 600;
+}
+
+.review-btn:hover {
+  background: #ffc107;
+}
+
+.owl-carousel .owl-nav {
+  display: none;
+}
+</style>
+
+<!-- ================= SCRIPTS ================= -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.theme.default.min.css">
+
+<script>
+  $(document).ready(function(){
+    $(".review-carousel").owlCarousel({
+      items: 1,
+      loop: true,
+      autoplay: true,
+      autoplayTimeout: 6000,
+      autoplayHoverPause: true,
+      dots: false,
+      nav: false,
+      animateOut: 'fadeOut',
+      animateIn: 'fadeIn'
+    });
+
+    $(".review-btn.prev").click(function() {
+      $(".review-carousel").trigger('prev.owl.carousel');
+    });
+
+    $(".review-btn.next").click(function() {
+      $(".review-carousel").trigger('next.owl.carousel');
+    });
+  });
+</script>
+
+
+
+{% endblock %}

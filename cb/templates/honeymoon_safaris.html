@@ -1,0 +1,189 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+  <!-- Bootstrap 5 -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"/>
+
+  <style>
+    :root{
+      --green:#0c8a3e;
+      --olive:#ffa600;
+      --olive-dark:#645824;
+      --muted:#6c757d;
+      --card-radius:14px;
+    }
+
+    body{line-height:1.7;color:#111;background:#fff}
+    .hero{
+      position:relative;
+      min-height:240px;
+      display:flex;
+      align-items:center;
+      background:url("https://36w5gsdu79.ucarecd.net/cc86fc89-affa-4012-8750-bb0fea449f4b/") center/cover no-repeat;
+      border-bottom:1px solid #eaeaea;
+    }
+    .hero::after{
+      content:"";
+      position:absolute;inset:0;
+      background:linear-gradient(to bottom, rgba(0,0,0,.45), rgba(0,0,0,.25), rgba(0,0,0,.15));
+    }
+    .hero-content{
+      position:relative;z-index:1;
+      width:100%;
+      padding:50px 0;
+      color:#fff;text-align:center;
+    }
+    .hero h2{font-weight:700;letter-spacing:.3px;margin-bottom:.35rem}
+    .breadcrumb{
+      --bs-breadcrumb-divider: "–";
+      justify-content:center;
+      margin-bottom:0;
+    }
+    .breadcrumb .breadcrumb-item,
+    .breadcrumb a{color:#f1f1f1;text-decoration:none}
+    .breadcrumb .active{opacity:.85}
+
+    .section-title{
+      color:var(--green);
+      font-weight:700;
+      text-align:center;
+      margin:32px 0 12px;
+    }
+    .copy p{
+      margin:0 auto 10px;
+      max-width:950px;
+      text-align:justify;
+      color:#222;
+    }
+
+    /* Cards */
+    .tour-card{
+      border:1px solid #e7e7e7;
+      border-radius:var(--card-radius);
+      overflow:hidden;
+      background:#fff;
+      box-shadow:0 4px 10px rgba(0,0,0,.05);
+      transition:transform .2s ease, box-shadow .2s ease;
+    }
+    .tour-card:hover{
+      transform:translateY(-2px);
+      box-shadow:0 8px 18px rgba(0,0,0,.09);
+    }
+    .tour-card .thumb{
+      height:160px;
+      object-fit:cover;
+      width:100%;
+      display:block;
+    }
+    .tour-card .title{
+      font-weight:700;
+      font-size:1.05rem;
+      margin:12px 0 0;
+    }
+    .tour-card .price-bar{
+      display:flex;align-items:center;gap:.75rem;
+      justify-content:space-between;
+      background:#efe9d0;
+      border-top:1px solid #e0d7b5;
+      padding:14px 16px;
+    }
+    .price{
+      line-height:1.1;
+      white-space:nowrap;
+    }
+    .price .amount{
+      font-weight:800;
+      font-size:1.15rem;
+    }
+    .price .per{
+      display:block;
+      font-size:.8rem;
+      color:var(--muted);
+      margin-top:.15rem;
+    }
+    .btn-olive{
+      background:var(--olive);
+      color:#fff;
+      font-weight:700;
+      border:none;
+      border-radius:8px;
+      padding:8px 14px;
+      text-transform:uppercase;
+      font-size:.8rem;
+      letter-spacing:.5px;
+    }
+    .btn-olive:hover{background:var(--olive-dark);color:#fff}
+
+    @media (min-width:768px){
+      .tour-card .thumb{height:180px}
+    }
+    @media (min-width:992px){
+      .tour-card .thumb{height:190px}
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Hero -->
+  <header class="hero">
+    <div class="container hero-content">
+      <h2 class="mb-1">Tanzania Honeymoon Safaris</h2>
+      <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a href="#">Home</a></li>
+          <li class="breadcrumb-item active" aria-current="page">Honeymoon Safaris</li>
+        </ol>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Intro -->
+  <main class="container my-4">
+    <!-- <h3 class="section-title">Explore Zanzibar – The Jewel of the Indian Ocean</h3> -->
+     <h1 style="text-align: center; font-family: 'Times New Roman', Times, serif; color: #b21f1f;">
+        <b>Tanzania Honeymoon Safaris
+</b>
+    </h1>
+    <div class="copy">
+      <p>
+Tanzania honeymoon safaris are an extraordinary way to combine romance, adventure, and luxury. From the iconic Serengeti National Park, where couples can witness the awe-inspiring Great Migration, to the lush and wildlife-rich Ngorongoro Crater, Tanzania offers diverse experiences for newlyweds. For those seeking tranquility and exclusivity, destinations like the Selous Game Reserve and Tarangire National Park provide intimate settings surrounded by natural beauty.      </p>
+      <p>
+Luxury lodges and camps are a hallmark of Tanzania honeymoon safaris, offering private suites, plunge pools, and romantic touches like candlelit dinners under the stars. Couples can enhance their experience with activities such as hot air balloon rides, which include champagne breakfasts, or relaxing spa treatments. Accommodations such as Singita Lodges and the Ngorongoro Crater Lodge ensure that newlyweds enjoy the utmost privacy and comfort during their stay.      </p>
+      
+      <p>
+No Tanzania honeymoon safari is complete without a visit to Zanzibar, where pristine beaches and turquoise waters await. This idyllic island provides the perfect escape after a safari, allowing couples to relax and reflect on their adventures. Exclusive resorts like Baraza Resort and Mnemba Island deliver unmatched luxury, making Zanzibar a key highlight of many Tanzania honeymoon safaris. Together, these experiences create a once-in-a-lifetime journey filled with romance, adventure, and unforgettable memories      </p>
+    </div>
+
+    <!-- Cards Grid -->      
+
+    <div class="row g-3 g-md-4 mt-2">
+               {% for tour in tour_list %}
+      <!-- Card 1 -->
+      <div class="col-12 col-md-6 col-lg-4">
+        <article class="tour-card h-100">
+          <img class="thumb" src="{{ tour.image }}" alt="1-Day Zanzibar Tour">
+          <div class="px-3 pb-2">
+            <h5 class="title">{{ tour.Tour_title }}</h5>
+          </div>
+          <div class="price-bar">
+            <div class="price">
+              <span class="amount">$ {{ tour.Tour_price }}</span>
+              <span class="per">per person</span>
+            </div>
+            <a href="{% url 'honeymoon_Tour' tour.pk %}" class="btn btn-olive"onclick="showLoading(event)">View Tour</a>
+
+          </div>
+        </article>
+      </div>
+
+      {% endfor %}
+
+    </div>
+  </main>
+
+  <!-- Bootstrap JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+{% endblock %}

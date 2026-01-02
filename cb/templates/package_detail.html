@@ -1,0 +1,97 @@
+{% extends 'base.html' %}
+
+{% block content %}
+   <!-- Hero Section Start -->
+<div class="container-fluid hero-bg py-5 mb-5 position-relative overflow-hidden">
+    <div class="container text-center text-white position-relative z-index-1">
+        <h1 class="display-3 fw-bold text-uppercase animated fadeInUp">{{ package.location }} Adventure</h1>
+        <p class="lead mb-5 animated fadeInUp fs-2">Experience the majestic beauty of Tanzania like never before. Adventure awaits!</p>
+        <a href="{% url 'package' %}" class="btn btn-warning btn-lg rounded-pill shadow-lg animated pulse infinite">Explore More</a>
+    </div>
+    <div class="hero-overlay"></div>
+</div>
+<!-- Hero Section End -->
+
+
+    <!-- Package Details Section Start -->
+    <section id="package-details" class="container-xxl py-5">
+        <div class="container">
+            <div class="row justify-content-between align-items-center">
+                <!-- Image Section -->
+                <div class="col-lg-6 col-md-12 mb-4 mb-lg-0">
+                    <img src="{{ package.image }}" alt="{{ package.location }} Package Image" class="img-fluid rounded-3 shadow-lg w-100">
+                </div>
+
+                <!-- Information Section -->
+                <div class="col-lg-5 col-md-12">
+                    <div class="package-details-info">
+                        <h2 class="display-5 text-dark mb-3">{{ package.title }}</h2>
+                        <p class="lead mb-4">{{ package.description }}</p>
+
+                        <div class="d-flex flex-wrap mb-4">
+                            <div class="package-info-item mb-2 me-4">
+                                <i class="fa fa-map-marker-alt text-warning me-2"></i>
+                                <span>{{ package.location }}</span>
+                            </div>
+                            <div class="package-info-item mb-2 me-4">
+                                <i class="fa fa-calendar-alt text-warning me-2"></i>
+                                <span>{{ package.number_of_day }} Days</span>
+                            </div>
+                            <div class="package-info-item mb-2">
+                                <i class="fa fa-user text-warning me-2"></i>
+                                <span>{{ package.number_of_people }} People</span>
+                            </div>
+                        </div>
+
+                        <div class="d-flex justify-content-between align-items-center">
+                            <h3 class="text-warning">$ {{ package.price }}</h3>
+                            <a href="https://wa.me/255658571653" class="btn btn-warning rounded-pill px-4 py-2 shadow-lg animated bounceIn">Book Now</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Package Details Section End -->
+
+    <!-- Reviews and Testimonials Section Start -->
+    <section class="container-xxl py-5 bg-light">
+        <div class="container text-center">
+            <h2 class="display-6 mb-4 text-primary">What Our Customers Say</h2>
+            <div class="row g-4 justify-content-center">
+                <!-- Testimonial Block 1 -->
+                <div class="col-lg-4 col-md-6">
+                    <div class="testimonial-item bg-white p-4 shadow-lg rounded transition-all hover:scale-105">
+                        <p class="mb-2">"Amazing experience! The package exceeded my expectations. Highly recommend!"</p>
+                        <p><strong>- John Osman</strong></p>
+                    </div>
+                </div>
+                <!-- Testimonial Block 2 -->
+                <div class="col-lg-4 col-md-6">
+                    <div class="testimonial-item bg-white p-4 shadow-lg rounded transition-all hover:scale-105">
+                        <p class="mb-2">"An unforgettable journey. The trip was seamless and exciting from start to finish."</p>
+                        <p><strong>- Sarah Lee</strong></p>
+                    </div>
+                </div>
+                <!-- Testimonial Block 3 -->
+                <div class="col-lg-4 col-md-6">
+                    <div class="testimonial-item bg-white p-4 shadow-lg rounded transition-all hover:scale-105">
+                        <p class="mb-2">"Everything was perfect! Beautiful locations and an expertly arranged tour."</p>
+                        <p><strong>- Michael Smith</strong></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Reviews and Testimonials Section End -->
+
+    <!-- Booking Form Section Start -->
+    <section id="booking-form" class="container-xxl py-5">
+        <div class="container">
+            <h3 class="text-center mb-4 text-primary">Book Your Adventure Now</h3>
+            {% include 'booking_form.html' %}
+        </div>
+    </section>
+    <!-- Booking Form Section End -->
+
+{% endblock %}

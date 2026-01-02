@@ -1,0 +1,120 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+<style>
+/* Hero / Image Section */
+.destination-hero {
+    position: relative;
+    overflow: hidden;
+    border-radius: 25px;
+}
+.destination-hero img {
+    width: 100%;
+    height: auto;
+    border-radius: 25px;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+}
+.destination-hero:hover img {
+    transform: scale(1.05);
+}
+
+/* Badge */
+.destination-badge {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    background: linear-gradient(135deg, #d4af37, #f4d03f);
+    color: #fff;
+    font-weight: 600;
+    padding: 0.5rem 1rem;
+    border-radius: 30px;
+    font-size: 0.9rem;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+}
+
+/* Headings */
+.destination-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 2.8rem;
+    font-weight: 900;
+    color: #222;
+    margin-bottom: 0.5rem;
+}
+.destination-location {
+    font-family: 'Open Sans', sans-serif;
+    font-size: 1.1rem;
+    color: #666;
+    margin-bottom: 1.5rem;
+}
+
+/* Description */
+.destination-description {
+    font-family: 'Open Sans', sans-serif;
+    font-size: 1rem;
+    color: #333;
+    line-height: 1.8;
+}
+
+/* Luxury Details Box */
+.luxury-details {
+    background: linear-gradient(135deg, #fff8f0, #ffe5d4);
+    border-radius: 25px;
+    padding: 30px 25px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    margin-top: 30px;
+}
+
+/* Buttons */
+.btn-book-now {
+    background: linear-gradient(135deg, #d4af37, #f4d03f);
+    color: #fff;
+    font-weight: 600;
+    border-radius: 50px;
+    padding: 0.8rem 2rem;
+    transition: all 0.3s ease;
+}
+.btn-book-now:hover {
+    transform: translateY(-3px) scale(1.05);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.25);
+}
+
+/* Responsive */
+@media (max-width: 991px) {
+    .destination-title {
+        font-size: 2.2rem;
+    }
+    .destination-description {
+        font-size: 0.95rem;
+    }
+}
+</style>
+
+<div class="container-xxl py-5">
+  <div class="container">
+    <div class="row g-4">
+      <div class="col-lg-12">
+        <div class="destination-hero mb-4">
+          <img src="{{ destination.image }}" alt="{{ destination.name }}">
+          {% if destination.is_unesco_site %}
+          <span class="destination-badge"><i class="fas fa-landmark me-1"></i>UNESCO Site</span>
+          {% endif %}
+        </div>
+
+        <h1 class="destination-title">{{ destination.name }}</h1>
+        <p class="destination-location"><i class="fas fa-map-marker-alt me-1"></i>{{ destination.location }}</p>
+
+        <div class="destination-description">
+          {{ destination.description }}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+        {% include "booking_form.html" %}
+
+
+{% endblock %}

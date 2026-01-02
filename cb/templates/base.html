@@ -1,0 +1,1603 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Comeback African Safaris | Luxury Tanzania Safari Adventures</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Merienda:wght@300..900&family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <!-- SEO Basics -->
+  <meta name="description" content="Premium African safari experiences in Tanzania. Luxury wildlife tours, Kilimanjaro climbing, Serengeti migration adventures with expert guides.">
+  <meta name="keywords" content="Tanzania safari, Kilimanjaro climbing, Serengeti migration, Zanzibar beach, luxury safari Tanzania, wildlife tours">
+  <meta name="author" content="Comeback African Safaris">
+  <meta name="robots" content="index, follow">
+  <!-- Open Graph Tags -->
+  <meta property="og:title" content="Comeback African Safaris" />
+  <meta property="og:description" content="Premium African safari experiences in Tanzania. Luxury wildlife tours, Kilimanjaro climbing, Serengeti migration adventures with expert guides." />
+  <meta property="og:image" content="{% static 'images/logo.jpg' %}" />
+  <meta property="og:image:alt" content="Comeback African Safaris Logo" />
+  <meta property="og:url" content="www.comebackafricansafaris.com" />
+  <meta property="og:type" content="website" />
+  <link rel="icon" type="image/png" href="{% static 'images/favicon.png' %}">
+  <link rel="shortcut icon" href="{% static 'images/favicon.png' %}">
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Comeback African Safaris" />
+  <meta name="twitter:description" content="Premium African safari experiences in Tanzania. Luxury wildlife tours, Kilimanjaro climbing, Serengeti migration adventures with expert guides." />
+  <meta name="twitter:image" content="{% static 'images/logo.jpg' %}" />
+  <!-- Favicon -->
+  <link href="{% static 'images/favicon.ico' %}" rel="icon">
+  <!-- Icon Font Stylesheet -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
+  <!-- Libraries Stylesheet -->
+  <link href="{% static 'lib/animate/animate.min.css' %}" rel="stylesheet">
+  <link href="{% static 'lib/owlcarousel/assets/owl.carousel.min.css' %}" rel="stylesheet">
+  <link href="{% static 'lib/tempusdominus/css/tempusdominus-bootstrap-4.min.css' %}" rel="stylesheet">
+  <!-- Customized Bootstrap Stylesheet -->
+  <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
+  <!-- Template Stylesheet -->
+  <link href="{% static 'css/style.css' %}" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #D4A017; /* Safari Gold */
+      --secondary: #228B22; /* Forest green */
+      --accent: #E67E22; /* Safari Sunset Orange */
+      --dark: #1C2526; /* Deep charcoal */
+      --light: #F8F1E9; /* Warm cream */
+      --shadow-luxe: 0 6px 15px rgba(0, 0, 0, 0.2);
+      --transition-ease: cubic-bezier(0.4, 0, 0.2, 1);
+      --whatsapp-green: #25D366; /* WhatsApp primary green */
+      --whatsapp-gradient: linear-gradient(135deg, #25D366 0%, #128C7E 50%, #25D366 100%);
+      --whatsapp-glow: 0 0 20px rgba(37, 211, 102, 0.6);
+    }
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(180deg, var(--light), #e0f7fa);
+      color: var(--dark);
+      overflow-x: hidden;
+      position: relative;
+      -webkit-tap-highlight-color: transparent;
+    }
+    body::before {
+      content: '';
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: url('{% static "images/safari-pattern.png" %}') repeat;
+      opacity: 0.05;
+      z-index: -1;
+    }
+    /* Navigation Bar */
+    .premium-navbar {
+      background: linear-gradient(135deg, var(--dark) 0%, var(--secondary) 100%);
+      box-shadow: var(--shadow-luxe);
+      padding: clamp(0.5rem, 2vw, 0.8rem) 0;
+      position: sticky;
+      top: 0;
+      z-index: 1030;
+      transition: all 0.3s var(--transition-ease);
+    }
+    .premium-navbar.scrolled {
+      background: rgba(28, 37, 38, 0.95);
+      backdrop-filter: blur(8px);
+      padding: clamp(0.4rem, 1.5vw, 0.6rem) 0;
+    }
+    .navbar-brand {
+      font-family: 'Merienda', cursive;
+      font-size: clamp(1.2rem, 4vw, 1.8rem);
+      font-weight: 900;
+      color: var(--accent) !important;
+      text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+      display: flex;
+      align-items: center;
+    }
+    .navbar-brand img {
+      width: clamp(40px, 8vw, 50px);
+      height: clamp(40px, 8vw, 50px);
+      border-radius: 50%;
+      border: 3px solid var(--primary);
+      margin-right: 0.75rem;
+      transition: transform 0.3s var(--transition-ease), box-shadow 0.3s var(--transition-ease);
+    }
+    .navbar-brand:hover img, .navbar-brand:active img {
+      transform: rotate(10deg) scale(1.1);
+      box-shadow: 0 0 15px rgba(212, 160, 23, 0.5);
+    }
+    .navbar-toggler {
+      border: none;
+      font-size: clamp(1.2rem, 3vw, 1.5rem);
+      padding: clamp(0.5rem, 2vw, 0.75rem);
+      transition: transform 0.3s var(--transition-ease);
+    }
+    .navbar-toggler:hover, .navbar-toggler:active {
+      transform: scale(1.1);
+    }
+    .navbar-nav {
+      display: flex;
+      flex-direction: row;
+      gap: clamp(0.3rem, 1vw, 0.5rem);
+      align-items: center;
+      justify-content: center;
+    }
+    .nav-link {
+      color: #ffffff !important;
+      font-weight: 600;
+      padding: clamp(0.4rem, 1.5vw, 0.6rem) clamp(0.8rem, 2.5vw, 1.2rem) !important;
+      transition: all 0.3s var(--transition-ease);
+      position: relative;
+      border-radius: 10px;
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(5px);
+      border: 1px solid rgba(212, 160, 23, 0.2);
+      font-size: clamp(0.85rem, 2.2vw, 0.95rem);
+      touch-action: manipulation;
+    }
+    .nav-link i {
+      margin-right: 0.4rem;
+      font-size: clamp(0.85rem, 2.2vw, 1rem);
+    }
+    .nav-link:hover, .nav-link.active, .nav-link:active {
+      color: var(--primary) !important;
+      background: linear-gradient(135deg, rgba(212, 160, 23, 0.3), rgba(230, 126, 34, 0.2));
+      transform: translateY(-2px);
+      box-shadow: 0 0 20px rgba(212, 160, 23, 0.5);
+    }
+    .nav-link::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      width: 0;
+      height: 2px;
+      background: var(--primary);
+      transition: all 0.3s var(--transition-ease);
+      transform: translateX(-50%);
+    }
+    .nav-link:hover::after, .nav-link.active::after {
+      width: 70%;
+    }
+    .dropdown-menu {
+      background: linear-gradient(135deg, var(--dark), var(--secondary));
+      border: none;
+      box-shadow: var(--shadow-luxe);
+      border-radius: 12px;
+      padding: 0.5rem;
+      min-width: clamp(160px, 25vw, 200px);
+    }
+    .dropdown-item {
+      color: #ffffff;
+      padding: clamp(0.5rem, 1.5vw, 0.7rem) 1.2rem;
+      border-radius: 8px;
+      transition: all 0.3s var(--transition-ease);
+      display: flex;
+      align-items: center;
+      font-size: clamp(0.8rem, 2vw, 0.9rem);
+      touch-action: manipulation;
+    }
+    .dropdown-item i {
+      margin-right: 0.5rem;
+      font-size: clamp(0.85rem, 2vw, 0.95rem);
+    }
+    .dropdown-item:hover, .dropdown-item:active {
+      background: rgba(212, 160, 23, 0.3);
+      color: var(--primary);
+      transform: translateX(5px);
+    }
+    .book-btn {
+      background: linear-gradient(135deg, var(--primary), var(--accent));
+      color: #ffffff;
+      padding: clamp(0.5rem, 1.5vw, 0.7rem) clamp(1rem, 2.5vw, 1.5rem);
+      border-radius: 30px;
+      font-weight: 600;
+      border: none;
+      transition: all 0.3s var(--transition-ease);
+      box-shadow: var(--shadow-luxe);
+      display: flex;
+      align-items: center;
+      font-size: clamp(0.8rem, 2vw, 0.9rem);
+      touch-action: manipulation;
+    }
+    .book-btn i {
+      margin-right: 0.4rem;
+      font-size: clamp(0.85rem, 2vw, 1rem);
+    }
+    .book-btn:hover, .book-btn:active {
+      transform: translateY(-2px) scale(1.05);
+      box-shadow: 0 6px 20px rgba(212, 160, 23, 0.6);
+    }
+    .navbar-decorator {
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      width: 50%;
+      height: 3px;
+      background: repeating-linear-gradient(
+        to right,
+        transparent 0px,
+        var(--primary) 0px,
+        var(--primary) 4px,
+        transparent 4px,
+        transparent 8px
+      );
+      transform: translateX(-50%);
+      animation: dottedSparkle 2s infinite ease-in-out;
+    }
+    @keyframes dottedSparkle {
+      0%, 100% { opacity: 0.7; transform: translateX(-50%) scaleX(1); }
+      50% { opacity: 1; transform: translateX(-50%) scaleX(1.05); }
+    }
+    /* Sidebar Styles */
+    .sidebar {
+      position: fixed;
+      top: 0;
+      left: -100%;
+      width: clamp(260px, 90vw, 300px);
+      height: 100vh;
+      background: linear-gradient(180deg, var(--dark), var(--secondary));
+      transition: left 0.4s var(--transition-ease);
+      z-index: 1040;
+      box-shadow: 3px 0 20px rgba(0, 0, 0, 0.4);
+      overflow-y: auto;
+      overscroll-behavior: contain;
+    }
+    .sidebar.active {
+      left: 0;
+      animation: slideIn 0.4s var(--transition-ease);
+    }
+    @keyframes slideIn {
+      from { left: -100%; opacity: 0; }
+      to { left: 0; opacity: 1; }
+    }
+    .sidebar-header {
+      padding: clamp(1rem, 3vw, 1.2rem);
+      background: linear-gradient(135deg, rgba(212, 160, 23, 0.3), transparent);
+      border-bottom: 2px solid rgba(212, 160, 23, 0.4);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .sidebar-header img {
+      width: clamp(40px, 8vw, 50px);
+      height: clamp(40px, 8vw, 50px);
+      border-radius: 50%;
+      border: 2px solid var(--primary);
+      box-shadow: 0 0 10px rgba(212, 160, 23, 0.3);
+    }
+    .sidebar-header h4 {
+      color: var(--primary);
+      font-family: 'Merienda', cursive;
+      font-size: clamp(1.2rem, 3.5vw, 1.5rem);
+      text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+    }
+    .close-sidebar {
+      color: #ffffff;
+      font-size: clamp(1.2rem, 3vw, 1.5rem);
+      cursor: pointer;
+      transition: all 0.3s var(--transition-ease);
+      padding: clamp(0.4rem, 1.5vw, 0.6rem);
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.1);
+      line-height: 1;
+    }
+    .close-sidebar:hover, .close-sidebar:active {
+      color: var(--primary);
+      transform: rotate(90deg);
+      background: rgba(212, 160, 23, 0.3);
+      box-shadow: 0 0 8px rgba(212, 160, 23, 0.4);
+    }
+    .sidebar-nav {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+    .sidebar-nav a {
+      color: #ffffff;
+      padding: clamp(0.6rem, 2vw, 0.9rem) clamp(1.2rem, 3vw, 1.5rem);
+      display: flex;
+      align-items: center;
+      transition: all 0.3s var(--transition-ease);
+      position: relative;
+      font-size: clamp(0.9rem, 2.2vw, 1rem);
+      border-left: 3px solid transparent;
+      touch-action: manipulation;
+    }
+    .sidebar-nav a:hover, .sidebar-nav a:active {
+      color: var(--primary);
+      background: rgba(212, 160, 23, 0.2);
+      border-left: 3px solid var(--primary);
+      transform: translateX(3px);
+    }
+    .sidebar-nav i {
+      margin-right: 0.75rem;
+      font-size: clamp(0.9rem, 2.5vw, 1.2rem);
+      transition: transform 0.3s var(--transition-ease);
+    }
+    .sidebar-nav a:hover i, .sidebar-nav a:active i {
+      transform: scale(1.1);
+    }
+    .sidebar-submenu {
+      list-style: none;
+      background: rgba(212, 160, 23, 0.1);
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.3s var(--transition-ease);
+      padding: 0;
+    }
+    .sidebar-nav > li.open .sidebar-submenu {
+      max-height: 500px;
+      padding: 0.4rem 0;
+    }
+    .sidebar-submenu li a {
+      padding: clamp(0.5rem, 1.5vw, 0.7rem) clamp(2rem, 4vw, 2.5rem);
+      font-size: clamp(0.8rem, 2vw, 0.9rem);
+      border-left: 2px solid transparent;
+    }
+    .sidebar-submenu li a:hover, .sidebar-submenu li a:active {
+      border-left: 2px solid var(--primary);
+      background: rgba(212, 160, 23, 0.2);
+    }
+    .sidebar-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.6);
+      z-index: 1035;
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.3s var(--transition-ease);
+    }
+    .sidebar-overlay.active {
+      opacity: 1;
+      visibility: visible;
+    }
+    /* Hero Section */
+    .hero-bg {
+      background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url("{% static 'images/safari-hero.jpg' %}") center/cover no-repeat;
+      height: clamp(60vh, 80vw, 70vh);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero-bg::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: radial-gradient(circle, rgba(212, 160, 23, 0.2), transparent);
+      animation: pulseBackground 6s infinite ease-in-out;
+    }
+    @keyframes pulseBackground {
+      0% { opacity: 0.3; }
+      50% { opacity: 0.6; }
+      100% { opacity: 0.3; }
+    }
+    .hero-bg h1 {
+      font-family: 'Merienda', cursive;
+      font-size: clamp(2rem, 6vw, 3.5rem);
+      color: #ffffff;
+      text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.7);
+      animation: fadeInUp 1.5s ease-out;
+      position: relative;
+      padding: clamp(0.4rem, 1.5vw, 0.6rem) clamp(0.8rem, 2vw, 1rem);
+      max-width: 95%;
+    }
+    .hero-bg h1::before {
+      content: '\f6c0';
+      font-family: 'Font Awesome 6 Free';
+      font-weight: 900;
+      color: var(--primary);
+      font-size: clamp(1.2rem, 3.5vw, 1.5rem);
+      position: absolute;
+      top: -25px;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+    .hero-bg p {
+      font-size: clamp(1rem, 2.8vw, 1.4rem);
+      color: var(--primary);
+      text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.5);
+      margin: clamp(1rem, 2.5vw, 1.5rem) 0;
+      animation: fadeInUp 2s ease-out;
+      max-width: 95%;
+    }
+    .btn-warning {
+      background: linear-gradient(135deg, var(--primary), var(--accent));
+      border: none;
+      padding: clamp(0.6rem, 2vw, 0.8rem) clamp(1.5rem, 3vw, 2rem);
+      font-size: clamp(0.85rem, 2.2vw, 0.95rem);
+      font-weight: 600;
+      color: #ffffff;
+      border-radius: 40px;
+      box-shadow: var(--shadow-luxe);
+      transition: all 0.3s var(--transition-ease);
+      animation: pulse 2s infinite;
+      display: inline-flex;
+      align-items: center;
+      touch-action: manipulation;
+    }
+    .btn-warning i {
+      margin-right: 0.4rem;
+      font-size: clamp(0.85rem, 2.2vw, 1rem);
+    }
+    .btn-warning:hover, .btn-warning:active {
+      background: linear-gradient(135deg, var(--accent), var(--primary));
+      transform: scale(1.05);
+      box-shadow: 0 8px 20px rgba(212, 160, 23, 0.7);
+    }
+    /* Card Styles */
+    .card-dest {
+      border-radius: 15px;
+      overflow: hidden;
+      position: relative;
+      transition: transform 0.3s var(--transition-ease), box-shadow 0.3s var(--transition-ease);
+      background: #ffffff;
+      box-shadow: var(--shadow-luxe);
+    }
+    .card-dest:hover, .card-dest:active {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 25px rgba(212, 160, 23, 0.3);
+    }
+    .card-dest img {
+      width: 100%;
+      height: clamp(140px, 25vw, 180px);
+      object-fit: cover;
+      transition: transform 0.4s var(--transition-ease);
+    }
+    .card-dest:hover img, .card-dest:active img {
+      transform: scale(1.08);
+    }
+    .badge-offer, .badge-scenic {
+      position: absolute;
+      top: 10px;
+      padding: clamp(5px, 1.5vw, 7px) clamp(8px, 2vw, 12px);
+      font-size: clamp(0.75rem, 1.8vw, 0.85rem);
+      font-weight: 600;
+      border-radius: 20px;
+      color: #ffffff;
+      display: flex;
+      align-items: center;
+    }
+    .badge-offer i, .badge-scenic i {
+      margin-right: 0.4rem;
+      font-size: clamp(0.75rem, 1.8vw, 0.9rem);
+    }
+    .badge-offer {
+      left: 10px;
+      background: var(--accent);
+    }
+    .badge-scenic {
+      right: 10px;
+      background: var(--secondary);
+    }
+    .animated-view-btn {
+      background: linear-gradient(135deg, var(--primary), var(--accent));
+      color: #ffffff;
+      padding: clamp(8px, 2vw, 10px) clamp(15px, 3vw, 20px);
+      font-weight: 600;
+      border-radius: 25px;
+      border: none;
+      transition: all 0.3s var(--transition-ease);
+      box-shadow: var(--shadow-luxe);
+      display: inline-flex;
+      align-items: center;
+      font-size: clamp(0.8rem, 2vw, 0.9rem);
+      touch-action: manipulation;
+    }
+    .animated-view-btn i {
+      margin-right: 0.4rem;
+      font-size: clamp(0.85rem, 2vw, 0.95rem);
+    }
+    .animated-view-btn:hover, .animated-view-btn:active {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 20px rgba(212, 160, 23, 0.7);
+    }
+    .location-tag {
+      background: rgba(255, 255, 255, 0.9);
+      color: var(--dark);
+      padding: clamp(5px, 1.5vw, 7px) clamp(8px, 2vw, 12px);
+      font-size: clamp(0.7rem, 1.8vw, 0.8rem);
+      border-radius: 20px;
+      bottom: 10px;
+      right: 10px;
+      display: flex;
+      align-items: center;
+    }
+    .location-tag i {
+      margin-right: 0.4rem;
+      font-size: clamp(0.75rem, 1.8vw, 0.9rem);
+    }
+    /* Enhanced Footer */
+    .footer {
+      background: linear-gradient(180deg, var(--dark), var(--secondary));
+      color: #ffffff;
+      padding: clamp(1.5rem, 4vw, 2.5rem) 0;
+      position: relative;
+      border-top: 2px solid var(--primary);
+    }
+    .footer::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      width: 85%;
+      height: 2px;
+      background: repeating-linear-gradient(
+        to right,
+        transparent 0px,
+        var(--primary) 0px,
+        var(--primary) 3px,
+        transparent 3px,
+        transparent 6px
+      );
+      transform: translateX(-50%);
+      animation: dottedSparkle 2s infinite ease-in-out;
+    }
+    .footer h4 {
+      font-family: 'Merienda', cursive;
+      color: var(--primary);
+      font-size: clamp(1.1rem, 3vw, 1.4rem);
+      margin-bottom: 1rem;
+      text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+    }
+    .footer a.btn-link {
+      color: #ffffff;
+      transition: all 0.3s var(--transition-ease);
+      display: flex;
+      align-items: center;
+      padding: clamp(0.3rem, 1vw, 0.4rem) 0;
+      font-size: clamp(0.8rem, 2vw, 0.9rem);
+      text-decoration: none;
+      touch-action: manipulation;
+    }
+    .footer a.btn-link i {
+      margin-right: 0.4rem;
+      font-size: clamp(0.85rem, 2vw, 0.95rem);
+      transition: transform 0.3s var(--transition-ease);
+    }
+    .footer a.btn-link:hover, .footer a.btn-link:active {
+      color: var(--primary);
+      transform: translateX(3px);
+    }
+    .footer a.btn-link:hover i, .footer a.btn-link:active i {
+      transform: scale(1.1);
+    }
+    .footer .btn-primary {
+      background: linear-gradient(135deg, var(--primary), var(--accent));
+      border: none;
+      border-radius: 20px;
+      padding: clamp(0.5rem, 1.5vw, 0.7rem) clamp(0.8rem, 2vw, 1.2rem);
+      font-size: clamp(0.8rem, 2vw, 0.9rem);
+      font-weight: 600;
+      color: #ffffff;
+      box-shadow: var(--shadow-luxe);
+      transition: all 0.3s var(--transition-ease);
+      display: inline-flex;
+      align-items: center;
+      touch-action: manipulation;
+    }
+    .footer .btn-primary i {
+      margin-right: 0.4rem;
+      font-size: clamp(0.85rem, 2vw, 0.95rem);
+    }
+    .footer .btn-primary:hover, .footer .btn-primary:active {
+      background: linear-gradient(135deg, var(--accent), var(--primary));
+      transform: translateY(-2px);
+      box-shadow: 0 6px 15px rgba(212, 160, 23, 0.5);
+    }
+    .footer .btn-social {
+      background: rgba(255, 255, 255, 0.15);
+      border: 1px solid var(--primary);
+      border-radius: 50%;
+      width: clamp(30px, 6vw, 35px);
+      height: clamp(30px, 6vw, 35px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.3s var(--transition-ease);
+      margin: 0 0.2rem;
+      touch-action: manipulation;
+    }
+    .footer .btn-social:hover, .footer .btn-social:active {
+      background: var(--primary);
+      color: var(--dark);
+      transform: scale(1.1);
+      box-shadow: 0 0 8px rgba(212, 160, 23, 0.4);
+    }
+    .footer .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));
+      gap: clamp(0.4rem, 1.5vw, 0.6rem);
+    }
+    .footer .gallery-grid img {
+      width: 100%;
+      border-radius: 8px;
+      transition: transform 0.3s var(--transition-ease), box-shadow 0.3s var(--transition-ease);
+      box-shadow: 0 1px 6px rgba(0, 0, 0, 0.1);
+    }
+    .footer .gallery-grid img:hover, .footer .gallery-grid img:active {
+      transform: scale(1.05);
+      box-shadow: 0 3px 10px rgba(212, 160, 23, 0.2);
+    }
+    .footer .newsletter-form {
+      position: relative;
+      max-width: clamp(220px, 80vw, 300px);
+      margin: 0 auto;
+    }
+    .footer .newsletter-form input {
+      background: #ffffff;
+      border: 1px solid var(--primary);
+      border-radius: 20px;
+      padding: clamp(0.5rem, 1.5vw, 0.7rem) clamp(0.8rem, 2vw, 1rem);
+      font-size: clamp(0.8rem, 2vw, 0.9rem);
+      transition: all 0.3s var(--transition-ease);
+      box-shadow: var(--shadow-luxe);
+      width: 100%;
+    }
+    .footer .newsletter-form input:focus {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 0.15rem rgba(212, 160, 23, 0.2);
+    }
+    .footer .newsletter-form button {
+      background: linear-gradient(135deg, var(--primary), var(--accent));
+      border: none;
+      border-radius: 20px;
+      padding: clamp(0.5rem, 1.5vw, 0.7rem) clamp(0.8rem, 2vw, 1rem);
+      font-size: clamp(0.8rem, 2vw, 0.9rem);
+      font-weight: 600;
+      color: #ffffff;
+      position: absolute;
+      top: 50%;
+      right: 0.2rem;
+      transform: translateY(-50%);
+      transition: all 0.3s var(--transition-ease);
+      touch-action: manipulation;
+    }
+    .footer .newsletter-form button:hover, .footer .newsletter-form button:active {
+      background: linear-gradient(135deg, var(--accent), var(--primary));
+      transform: translateY(-50%) scale(1.05);
+      box-shadow: 0 5px 12px rgba(212, 160, 23, 0.5);
+    }
+    .footer .copyright {
+      border-top: 1px solid rgba(212, 160, 23, 0.15);
+      padding: clamp(0.8rem, 2vw, 1.2rem) 0;
+      margin-top: clamp(1rem, 2.5vw, 1.5rem);
+      font-size: clamp(0.75rem, 1.8vw, 0.85rem);
+    }
+    .footer .copyright a {
+      color: var(--primary);
+      text-decoration: none;
+      transition: all 0.3s var(--transition-ease);
+    }
+    .footer .copyright a:hover, .footer .copyright a:active {
+      color: var(--accent);
+      text-decoration: underline;
+    }
+    .footer .footer-menu a {
+      color: #ffffff;
+      margin: 0 clamp(0.4rem, 1vw, 0.6rem);
+      font-size: clamp(0.75rem, 1.8vw, 0.85rem);
+      transition: all 0.3s var(--transition-ease);
+      display: inline-flex;
+      align-items: center;
+      touch-action: manipulation;
+    }
+    .footer .footer-menu a i {
+      margin-right: 0.3rem;
+      font-size: clamp(0.8rem, 1.8vw, 0.9rem);
+    }
+    .footer .footer-menu a:hover, .footer .footer-menu a:active {
+      color: var(--primary);
+      transform: translateY(-2px);
+    }
+    /* Premium WhatsApp Button - Left Side, Modern & Attractive */
+    .whatsapp-icon {
+      position: fixed;
+      bottom: clamp(15px, 4vw, 20px);
+      left: clamp(15px, 4vw, 20px);
+      z-index: 1000;
+      cursor: pointer;
+      width: clamp(60px, 12vw, 70px);
+      height: clamp(60px, 12vw, 70px);
+      border-radius: 50%;
+      background: var(--whatsapp-gradient);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: var(--shadow-luxe), var(--whatsapp-glow);
+      transition: all 0.4s var(--transition-ease);
+      animation: premiumFloat 4s ease-in-out infinite, premiumPulse 2s infinite;
+      border: 3px solid rgba(255, 255, 255, 0.3);
+      backdrop-filter: blur(10px);
+      touch-action: manipulation;
+    }
+    .whatsapp-icon::before {
+      content: '';
+      position: absolute;
+      top: -5px;
+      left: -5px;
+      right: -5px;
+      bottom: -5px;
+      background: var(--whatsapp-gradient);
+      border-radius: 50%;
+      z-index: -1;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+    .whatsapp-icon:hover::before,
+    .whatsapp-icon:active::before {
+      opacity: 0.5;
+    }
+    .whatsapp-icon img {
+      width: clamp(28px, 6vw, 32px);
+      height: clamp(28px, 6vw, 32px);
+      filter: brightness(0) invert(1);
+      transition: transform 0.3s var(--transition-ease);
+    }
+    .whatsapp-icon:hover img,
+    .whatsapp-icon:active img {
+      transform: scale(1.15) rotate(5deg);
+    }
+    .whatsapp-icon:hover,
+    .whatsapp-icon:active {
+      transform: translateY(-10px) scale(1.1);
+      box-shadow: 0 12px 30px rgba(37, 211, 102, 0.4), var(--whatsapp-glow);
+      background: linear-gradient(135deg, #128C7E 0%, #25D366 50%, #128C7E 100%);
+    }
+    @keyframes premiumFloat {
+      0%, 100% { transform: translateY(0) rotate(0deg); }
+      33% { transform: translateY(-8px) rotate(2deg); }
+      66% { transform: translateY(-4px) rotate(-2deg); }
+    }
+    @keyframes premiumPulse {
+      0% { box-shadow: var(--shadow-luxe), var(--whatsapp-glow); }
+      50% { box-shadow: var(--shadow-luxe), 0 0 30px rgba(37, 211, 102, 0.8); }
+      100% { box-shadow: var(--shadow-luxe), var(--whatsapp-glow); }
+    }
+    .whatsapp-chat-popup {
+      position: fixed;
+      bottom: clamp(80px, 14vw, 100px);
+      left: clamp(15px, 4vw, 20px);
+      width: clamp(280px, 90vw, 320px);
+      border-radius: 20px;
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3), var(--whatsapp-glow);
+      background: linear-gradient(135deg, rgba(37, 211, 102, 0.95), rgba(18, 140, 126, 0.95));
+      opacity: 0;
+      visibility: hidden;
+      transform: translateX(-20px);
+      transition: all 0.4s var(--transition-ease);
+      z-index: 1000;
+      overscroll-behavior: contain;
+      backdrop-filter: blur(15px);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+    }
+    .whatsapp-chat-popup.open {
+      opacity: 1;
+      visibility: visible;
+      transform: translateX(0);
+      animation: slideInLeftPremium 0.5s ease-out;
+    }
+    @keyframes slideInLeftPremium {
+      from {
+        opacity: 0;
+        transform: translateX(-30px) scale(0.95);
+      }
+      to {
+        opacity: 1;
+        transform: translateX(0) scale(1);
+      }
+    }
+    .chat-header {
+      background: linear-gradient(135deg, var(--whatsapp-gradient), var(--whatsapp-green));
+      color: #ffffff;
+      border-radius: 20px 20px 0 0;
+      padding: clamp(12px, 3vw, 16px);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: relative;
+      overflow: hidden;
+    }
+    .chat-header::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: radial-gradient(circle at 20% 80%, rgba(255, 255, 255, 0.1), transparent);
+      z-index: 0;
+    }
+    .chat-header > * {
+      position: relative;
+      z-index: 1;
+    }
+    .chat-header img {
+      width: clamp(24px, 5.5vw, 28px);
+      height: clamp(24px, 5.5vw, 28px);
+      margin-right: 8px;
+      filter: brightness(0) invert(1);
+    }
+    .chat-header h6 {
+      margin: 0;
+      font-size: clamp(0.85rem, 2.2vw, 0.95rem);
+      flex-grow: 1;
+      color: #ffffff;
+      font-weight: 600;
+      text-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+    }
+    .chat-header .close-chat {
+      font-size: clamp(1.1rem, 2.5vw, 1.3rem);
+      cursor: pointer;
+      color: rgba(255, 255, 255, 0.9);
+      transition: all 0.3s var(--transition-ease);
+      padding: clamp(0.4rem, 1.2vw, 0.6rem);
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.2);
+      line-height: 1;
+      backdrop-filter: blur(5px);
+    }
+    .chat-header .close-chat:hover,
+    .chat-header .close-chat:active {
+      color: #ffffff;
+      background: rgba(255, 255, 255, 0.3);
+      transform: rotate(90deg) scale(1.1);
+      box-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+    }
+    .chat-button {
+      background: linear-gradient(135deg, var(--whatsapp-green), #128C7E);
+      border-radius: 0 0 20px 20px;
+      padding: clamp(12px, 3vw, 16px);
+      color: #ffffff;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: clamp(0.85rem, 2.2vw, 0.95rem);
+      transition: all 0.3s var(--transition-ease);
+      text-decoration: none;
+      touch-action: manipulation;
+      box-shadow: 0 4px 15px rgba(37, 211, 102, 0.3);
+      position: relative;
+      overflow: hidden;
+    }
+    .chat-button::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+      transition: left 0.5s ease;
+    }
+    .chat-button:hover::before,
+    .chat-button:active::before {
+      left: 100%;
+    }
+    .chat-button img {
+      width: clamp(20px, 4.5vw, 24px);
+      height: clamp(20px, 4.5vw, 24px);
+      margin-right: 8px;
+      filter: brightness(0) invert(1);
+    }
+    .chat-button:hover,
+    .chat-button:active {
+      background: linear-gradient(135deg, #128C7E, var(--whatsapp-green));
+      transform: scale(1.02);
+      box-shadow: 0 6px 20px rgba(37, 211, 102, 0.5);
+      color: #ffffff;
+    }
+    /* Animations */
+    @keyframes pulse {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.06); }
+      100% { transform: scale(1); }
+    }
+    @keyframes fadeInUp {
+      0% { opacity: 0; transform: translateY(30px); }
+      100% { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes dottedSparkle {
+      0%, 100% { opacity: 0.7; transform: translateX(-50%) scaleX(1); }
+      50% { opacity: 1; transform: translateX(-50%) scaleX(1.05); }
+    }
+    /* Mobile-First Responsive Adjustments */
+    @media (max-width: 576px) {
+      .premium-navbar {
+        padding: clamp(0.4rem, 1.5vw, 0.6rem) 0;
+      }
+      .navbar-brand {
+        font-size: clamp(1.1rem, 3.5vw, 1.3rem);
+      }
+      .navbar-brand img {
+        width: clamp(35px, 7vw, 40px);
+        height: clamp(35px, 7vw, 40px);
+      }
+      .navbar-toggler {
+        font-size: clamp(1rem, 2.5vw, 1.2rem);
+        padding: clamp(0.4rem, 1.5vw, 0.6rem);
+      }
+      .navbar-nav {
+        flex-direction: column;
+        gap: 0.4rem;
+        padding: clamp(0.8rem, 2vw, 1rem);
+      }
+      .nav-link {
+        padding: clamp(0.4rem, 1.5vw, 0.6rem) clamp(0.8rem, 2vw, 1rem) !important;
+        font-size: clamp(0.8rem, 2vw, 0.9rem);
+      }
+      .nav-link i {
+        font-size: clamp(0.8rem, 2vw, 0.9rem);
+      }
+      .dropdown-menu {
+        min-width: 100%;
+        border-radius: 8px;
+        padding: 0.4rem;
+      }
+      .dropdown-item {
+        font-size: clamp(0.75rem, 1.8vw, 0.85rem);
+        padding: clamp(0.4rem, 1.2vw, 0.6rem) 1rem;
+      }
+      .book-btn {
+        padding: clamp(0.4rem, 1.2vw, 0.6rem) clamp(0.8rem, 2vw, 1rem);
+        font-size: clamp(0.75rem, 1.8vw, 0.85rem);
+      }
+      .hero-bg {
+        height: clamp(50vh, 70vw, 60vh);
+      }
+      .hero-bg h1 {
+        font-size: clamp(1.8rem, 5vw, 2.5rem);
+      }
+      .hero-bg p {
+        font-size: clamp(0.9rem, 2.5vw, 1.1rem);
+      }
+      .card-dest img {
+        height: clamp(120px, 22vw, 150px);
+      }
+      .badge-offer, .badge-scenic {
+        padding: clamp(4px, 1.2vw, 6px) clamp(6px, 1.8vw, 10px);
+        font-size: clamp(0.7rem, 1.5vw, 0.8rem);
+      }
+      .animated-view-btn {
+        padding: clamp(6px, 1.8vw, 8px) clamp(12px, 2.5vw, 15px);
+        font-size: clamp(0.75rem, 1.8vw, 0.85rem);
+      }
+      .location-tag {
+        padding: clamp(4px, 1.2vw, 6px) clamp(6px, 1.8vw, 10px);
+        font-size: clamp(0.65rem, 1.5vw, 0.75rem);
+      }
+      .footer {
+        padding: clamp(1rem, 3vw, 1.5rem) 0;
+      }
+      .footer .row {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+      }
+      .footer .col-md-6, .footer .col-lg-3 {
+        width: 100%;
+        max-width: 400px;
+        margin-bottom: clamp(1rem, 2.5vw, 1.5rem);
+      }
+      .footer h4 {
+        font-size: clamp(1rem, 2.5vw, 1.2rem);
+      }
+      .footer a.btn-link {
+        justify-content: center;
+        font-size: clamp(0.75rem, 1.8vw, 0.85rem);
+      }
+      .footer .btn-social {
+        width: clamp(28px, 5.5vw, 32px);
+        height: clamp(28px, 5.5vw, 32px);
+        margin: 0.2rem;
+      }
+      .footer .gallery-grid {
+        grid-template-columns: 1fr;
+        gap: clamp(0.3rem, 1vw, 0.5rem);
+      }
+      .footer .newsletter-form {
+        max-width: 90%;
+      }
+      .footer .newsletter-form input {
+        padding: clamp(0.4rem, 1.2vw, 0.6rem) clamp(0.7rem, 1.8vw, 0.9rem);
+        font-size: clamp(0.75rem, 1.8vw, 0.85rem);
+      }
+      .footer .newsletter-form button {
+        padding: clamp(0.4rem, 1.2vw, 0.6rem) clamp(0.7rem, 1.8vw, 0.9rem);
+        font-size: clamp(0.75rem, 1.8vw, 0.85rem);
+      }
+      .whatsapp-icon {
+        bottom: clamp(10px, 3vw, 15px);
+        left: clamp(10px, 3vw, 15px);
+        width: clamp(55px, 11vw, 65px);
+        height: clamp(55px, 11vw, 65px);
+      }
+      .whatsapp-icon img {
+        width: clamp(24px, 5.5vw, 28px);
+        height: clamp(24px, 5.5vw, 28px);
+      }
+      .whatsapp-chat-popup {
+        width: clamp(260px, 95vw, 300px);
+        bottom: clamp(75px, 12vw, 90px);
+        left: clamp(10px, 3vw, 15px);
+      }
+      .chat-header {
+        padding: clamp(10px, 2.5vw, 14px);
+      }
+      .chat-header img {
+        width: clamp(20px, 5vw, 24px);
+        height: clamp(20px, 5vw, 24px);
+      }
+      .chat-header h6 {
+        font-size: clamp(0.8rem, 2vw, 0.9rem);
+      }
+      .chat-header .close-chat {
+        font-size: clamp(1rem, 2.2vw, 1.2rem);
+        padding: clamp(0.3rem, 1vw, 0.5rem);
+      }
+      .chat-button {
+        padding: clamp(10px, 2.5vw, 14px);
+        font-size: clamp(0.8rem, 2vw, 0.9rem);
+      }
+      .chat-button img {
+        width: clamp(18px, 4vw, 20px);
+      }
+    }
+    @media (min-width: 577px) and (max-width: 767px) {
+      .premium-navbar {
+        padding: clamp(0.5rem, 1.8vw, 0.7rem) 0;
+      }
+      .navbar-brand {
+        font-size: clamp(1.2rem, 3.8vw, 1.5rem);
+      }
+      .navbar-brand img {
+        width: clamp(38px, 7.5vw, 45px);
+        height: clamp(38px, 7.5vw, 45px);
+      }
+      .navbar-nav {
+        gap: 0.4rem;
+      }
+      .nav-link {
+        padding: clamp(0.4rem, 1.5vw, 0.6rem) clamp(0.8rem, 2vw, 1rem) !important;
+        font-size: clamp(0.8rem, 2vw, 0.9rem);
+      }
+      .hero-bg h1 {
+        font-size: clamp(2rem, 5.5vw, 3rem);
+      }
+      .hero-bg p {
+        font-size: clamp(1rem, 2.5vw, 1.2rem);
+      }
+      .card-dest img {
+        height: clamp(130px, 23vw, 160px);
+      }
+      .footer .gallery-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+    @media (min-width: 768px) and (max-width: 991px) {
+      .premium-navbar {
+        padding: clamp(0.6rem, 2vw, 0.8rem) 0;
+      }
+      .navbar-brand {
+        font-size: clamp(1.3rem, 4vw, 1.6rem);
+      }
+      .navbar-nav {
+        gap: 0.5rem;
+      }
+      .nav-link {
+        padding: clamp(0.5rem, 1.8vw, 0.7rem) clamp(1rem, 2.5vw, 1.2rem) !important;
+        font-size: clamp(0.85rem, 2.2vw, 0.95rem);
+      }
+      .hero-bg h1 {
+        font-size: clamp(2.2rem, 5.5vw, 3.2rem);
+      }
+      .hero-bg p {
+        font-size: clamp(1.1rem, 2.8vw, 1.3rem);
+      }
+      .card-dest img {
+        height: clamp(150px, 25vw, 180px);
+      }
+      .footer .gallery-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+      .footer .newsletter-form {
+        max-width: 85%;
+      }
+    }
+    @media (max-width: 991px) {
+      .top-bar {
+        display: none !important;
+      }
+      .navbar-collapse {
+        display: none !important;
+      }
+      .navbar-decorator {
+        display: none;
+      }
+      .footer .row {
+        flex-direction: column;
+        align-items: center;
+      }
+      .footer .col-md-6, .footer .col-lg-3 {
+        width: 100%;
+        max-width: 400px;
+        margin-bottom: clamp(1rem, 2.5vw, 1.5rem);
+        text-align: center;
+      }
+      .footer .btn-social {
+        margin: 0.2rem;
+      }
+      .footer .newsletter-form {
+        max-width: 85%;
+      }
+    }
+    @media (min-width: 992px) {
+      .navbar-collapse {
+        display: flex !important;
+        justify-content: center;
+      }
+      .navbar-decorator {
+        display: block;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Spinner -->
+  <div id="spinner" class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
+    <div class="spinner-border" style="width: 2.5rem; height: 2.5rem; border-color: var(--primary);" role="status">
+      <span class="visually-hidden">Loading...</span>
+    </div>
+  </div>
+  <!-- Top Bar - COMEBACK AFRICAN SAFARIS -->
+  <div class="container-fluid top-bar px-4 d-none d-lg-block" style="background: var(--dark);">
+    <div class="row gx-0">
+      <div class="col-lg-8 text-center text-lg-start mb-2 mb-lg-0">
+        <div class="d-inline-flex align-items-center" style="height: 40px;">
+          <small class="me-3 text-light"><i class="fas fa-map-marked-alt me-2"></i>Street Mji Mwema, Leganga, USA River, Arusha - Tanzania</small>
+          <small class="me-3 text-light">
+            <a href="https://wa.me/255689861041" class="text-light text-decoration-none">
+              <i class="fab fa-whatsapp me-2" style="color: var(--secondary);"></i>+255 689 861 041
+            </a>
+          </small>
+          <small class="text-light"><i class="fas fa-envelope-open-text me-2"></i>info@comebackafricansafaris.com</small>
+        </div>
+      </div>
+      <div class="col-lg-4 text-center text-lg-end">
+        <div class="d-inline-flex align-items-center" style="height: 40px;">
+          <a class="btn btn-sm btn-outline-light btn-sm-square rounded-circle me-2" href="#"><i class="fab fa-facebook-f fw-normal"></i></a>
+          <a class="btn btn-sm btn-outline-light btn-sm-square rounded-circle me-2" href="#"><i class="fab fa-instagram fw-normal"></i></a>
+          <a class="btn btn-sm btn-outline-light btn-sm-square rounded-circle me-2" href="#"><i class="fab fa-tiktok fw-normal"></i></a>
+          <a class="btn btn-sm btn-outline-light btn-sm-square rounded-circle me-2" href="#"><i class="fab fa-youtube fw-normal"></i></a>
+          <a class="btn btn-sm btn-outline-light btn-sm-square rounded-circle" href="#"><i class="fab fa-twitter fw-normal"></i></a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Navigation Bar -->
+
+  <!-- Navigation Bar -->
+  <nav class="container-fluid premium-navbar px-3 px-lg-4 position-relative">
+    <div class="container">
+      <div class="d-flex align-items-center justify-content-between w-100">
+        <a href="{% url 'index' %}" class="navbar-brand">
+          {% for i in compan %}
+          <img src="{{ i.image|default:'{% static "images/logo.jpg" %}' }}" 
+               alt="Comeback African Safaris Logo" 
+               style="width: 70px !important; height: 70px !important; object-fit: cover;">
+          <span>{{ i.company_name|default:'Comeback African Safaris' }}</span>
+          {% empty %}
+          <img src="{% static 'images/logo.jpg' %}" 
+               alt="Comeback African Safaris Logo" 
+               style="width: 70px !important; height: 70px !important; object-fit: cover;">
+          <span>Comeback African Safaris</span>
+          {% endfor %}
+        </a>
+
+        <button class="navbar-toggler d-lg-none me-2 custom-toggler" type="button" onclick="toggleSidebar()">
+          <i class="fas fa-bars"></i>
+        </button>
+        <style>
+        .custom-toggler {
+            width: 70px;
+            height: 70px;
+        }
+
+        .custom-toggler i {
+            font-size: 40px;
+            color: var(--accent);
+        }
+        </style>
+
+        <div class="navbar-collapse collapse d-none d-lg-flex justify-content-center flex-grow-1" id="navbarNav">
+          <ul class="navbar-nav mx-auto">
+            <li class="nav-item">
+              <a href="{% url 'index' %}" class="nav-link active" onclick="showLoading(event)"><i class="fas fa-home"></i>Home</a>
+            </li>
+            <li class="nav-item">
+              <a href="{% url 'about' %}" class="nav-link" onclick="showLoading(event)"><i class="fas fa-info-circle"></i>About Us</a>
+            </li>
+            <li class="nav-item dropdown">
+              <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i class="fas fa-lion"></i>Safari</a>
+              <ul class="dropdown-menu">
+                {% for s in safari_list %}
+                <li><a href="{% url 'safari_detail' s.id %}" class="dropdown-item" onclick="showLoading(event)"><i class="fas fa-hippo"></i>{{ s.title }}</a></li>
+                {% empty %}
+                <li><span class="dropdown-item text-muted"><i class="fas fa-exclamation-triangle"></i>No Safari available</span></li>
+                {% endfor %}
+                <li><hr class="dropdown-divider"></li>
+                <li><a href="{% url 'serengeti_migration' %}" class="dropdown-item" onclick="showLoading(event)"><i class="fas fa-running"></i>Great Migration</a></li>
+                <li><a href="{% url 'honeymoon_safaris' %}" class="dropdown-item" onclick="showLoading(event)"><i class="fas fa-heart"></i>Honeymoon Safaris</a></li>
+                <li><a href="{% url 'camping_safaris' %}" class="dropdown-item" onclick="showLoading(event)"><i class="fas fa-campground"></i>Camping Safaris</a></li>
+              </ul>
+            </li>
+            <li class="nav-item dropdown">
+              <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i class="fas fa-mountain"></i>Mountains</a>
+              <ul class="dropdown-menu">
+                {% for tour in tours %}
+                <li><a href="{% url 'tour_detail' tour.id %}" class="dropdown-item" onclick="showLoading(event)"><i class="fas fa-hiking"></i>{{ tour.title }}</a></li>
+                {% empty %}
+                <li><span class="dropdown-item text-muted"><i class="fas fa-exclamation-triangle"></i>No tours available</span></li>
+                {% endfor %}
+                <li><hr class="dropdown-divider"></li>
+                <li><a href="{% url 'meru_climbing' %}" class="dropdown-item" onclick="showLoading(event)"><i class="fas fa-hiking"></i>Mount Meru</a></li>
+              </ul>
+            </li>
+            <li class="nav-item">
+              <a href="{% url 'explore_zanzibar' %}" class="nav-link" onclick="showLoading(event)"><i class="fas fa-umbrella-beach"></i>Zanzibar</a>
+            </li>
+            <li class="nav-item">
+              <a href="{% url 'destinations_list' %}" class="nav-link" onclick="showLoading(event)"><i class="fas fa-map-marked-alt"></i>Destinations</a>
+            </li>
+            <li class="nav-item dropdown">
+              <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i class="fas fa-globe-africa"></i>More</a>
+              <ul class="dropdown-menu">
+                <li><a href="{% url 'team' %}" class="dropdown-item" onclick="showLoading(event)"><i class="fas fa-users"></i>Our Team</a></li>
+                <li><a href="{% url 'testimonial' %}" class="dropdown-item" onclick="showLoading(event)"><i class="fas fa-quote-left"></i>Testimonials</a></li>
+                <li><a href="{% url 'contact' %}" class="dropdown-item" onclick="showLoading(event)"><i class="fas fa-envelope"></i>Contact</a></li>
+                <li><a href="{% url 'questions' %}" class="dropdown-item" onclick="showLoading(event)"><i class="fas fa-question-circle"></i>FAQ</a></li>
+              </ul>
+            </li>
+          </ul>
+          <div class="navbar-decorator d-none d-lg-block"></div>
+        </div>
+        <div class="d-none d-lg-flex">
+          <a href="{% url 'form' %}" class="book-btn ms-2" onclick="showLoading(event)"><i class="fas fa-gem"></i>Book Safari</a>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Sidebar -->
+  <div class="sidebar" id="sidebar">
+    <div class="sidebar-header">
+      <div class="d-flex align-items-center">
+        {% for i in compan %}
+        <img src="{{i.image|default:'{% static "images/logo.jpg" %}' }}" alt="Comeback African Safaris Logo">
+        {% empty %}
+        <img src="{% static 'images/logo.jpg' %}" alt="Comeback African Safaris Logo">
+        {% endfor %}
+        <h4></h4>
+      </div>
+      <i class="fas fa-times close-sidebar" onclick="toggleSidebar()"></i>
+    </div>
+    <ul class="sidebar-nav">
+      <li><a href="{% url 'index' %}" onclick="toggleSidebar(); showLoading(event)"><i class="fas fa-home"></i>Home</a></li>
+      <li><a href="{% url 'about' %}" onclick="toggleSidebar(); showLoading(event)"><i class="fas fa-info-circle"></i>About Us</a></li>
+      <li>
+        <a href="#" class="dropdown-toggle" onclick="toggleSubmenu(this)"><i class="fas fa-lion"></i>Safari</a>
+        <ul class="sidebar-submenu">
+          {% for s in safari_list %}
+          <li><a href="{% url 'safari_detail' s.id %}" onclick="toggleSidebar(); showLoading(event)"><i class="fas fa-hippo"></i>{{ s.title }}</a></li>
+          {% empty %}
+          <li><a><i class="fas fa-exclamation-triangle"></i>No Safari available</a></li>
+          {% endfor %}
+          <li><a href="{% url 'serengeti_migration' %}" onclick="toggleSidebar(); showLoading(event)"><i class="fas fa-running"></i>Great Migration</a></li>
+          <li><a href="{% url 'honeymoon_safaris' %}" onclick="toggleSidebar(); showLoading(event)"><i class="fas fa-heart"></i>Honeymoon Safaris</a></li>
+          <li><a href="{% url 'camping_safaris' %}" onclick="toggleSidebar(); showLoading(event)"><i class="fas fa-campground"></i>Camping Safaris</a></li>
+        </ul>
+      </li>
+      <li>
+        <a href="#" class="dropdown-toggle" onclick="toggleSubmenu(this)"><i class="fas fa-mountain"></i>Mountains</a>
+        <ul class="sidebar-submenu">
+          {% for tour in tours %}
+          <li><a href="{% url 'tour_detail' tour.id %}" onclick="toggleSidebar(); showLoading(event)"><i class="fas fa-hiking"></i>{{ tour.title }}</a></li>
+          {% empty %}
+          <li><a><i class="fas fa-exclamation-triangle"></i>No tours available</a></li>
+          {% endfor %}
+          <li><a href="{% url 'meru_climbing' %}" onclick="toggleSidebar(); showLoading(event)"><i class="fas fa-hiking"></i>Mount Meru</a></li>
+        </ul>
+      </li>
+      <li><a href="{% url 'explore_zanzibar' %}" onclick="toggleSidebar(); showLoading(event)"><i class="fas fa-umbrella-beach"></i>Zanzibar</a></li>
+      <li><a href="{% url 'destinations_list' %}" onclick="toggleSidebar(); showLoading(event)"><i class="fas fa-map-marked-alt"></i>Destinations</a></li>
+      <li>
+        <a href="#" class="dropdown-toggle" onclick="toggleSubmenu(this)"><i class="fas fa-globe-africa"></i>More</a>
+        <ul class="sidebar-submenu">
+          <li><a href="{% url 'team' %}" onclick="toggleSidebar(); showLoading(event)"><i class="fas fa-users"></i>Our Team</a></li>
+          <li><a href="{% url 'testimonial' %}" onclick="toggleSidebar(); showLoading(event)"><i class="fas fa-quote-left"></i>Testimonials</a></li>
+          <li><a href="{% url 'contact' %}" onclick="toggleSidebar(); showLoading(event)"><i class="fas fa-envelope"></i>Contact</a></li>
+          <li><a href="{% url 'questions' %}" onclick="toggleSidebar(); showLoading(event)"><i class="fas fa-question-circle"></i>FAQ</a></li>
+        </ul>
+      </li>
+      <li><a href="{% url 'form' %}" onclick="toggleSidebar(); showLoading(event)"><i class="fas fa-gem"></i>Book Safari</a></li>
+    </ul>
+  </div>
+  <!-- Sidebar Overlay -->
+  <div class="sidebar-overlay" id="sidebarOverlay" onclick="toggleSidebar()"></div>
+  <!-- Main Wrapper -->
+  <div class="main-wrapper" id="mainWrapper">
+    <!-- Content Block -->
+    {% block content %}
+    {% endblock %}
+    <!-- Footer -->
+    <div class="container-fluid footer pt-4 mt-4 wow fadeIn" data-wow-delay="0.1s">
+      <div class="container py-4">
+        <div class="row g-4 align-items-start">
+          <div class="col-lg-3 col-md-6">
+            <h4 class="mb-3">Quick Links</h4>
+            <div class="d-flex flex-column">
+              <a class="btn btn-link" href="{% url 'index' %}" onclick="showLoading(event)"><i class="fas fa-home"></i>Home</a>
+              <a class="btn btn-link" href="{% url 'about' %}" onclick="showLoading(event)"><i class="fas fa-info-circle"></i>About Us</a>
+              <a class="btn btn-link" href="{% url 'safari_list' %}" onclick="showLoading(event)"><i class="fas fa-lion"></i>Wildlife Safaris</a>
+              <a href="#" class="btn btn-link" onclick="showLoading(event)"><i class="fas fa-mountain"></i>Mountain Climbing</a>
+              <a class="btn btn-link" href="{% url 'explore_zanzibar' %}" onclick="showLoading(event)"><i class="fas fa-umbrella-beach"></i>Beach Holidays</a>
+              <a class="btn btn-link" href="{% url 'destinations_list' %}" onclick="showLoading(event)"><i class="fas fa-map-marked-alt"></i>Destinations</a>
+              <a class="btn btn-link" href="{% url 'team' %}" onclick="showLoading(event)"><i class="fas fa-users"></i>Our Team</a>
+              <a class="btn btn-link" href="{% url 'testimonial' %}" onclick="showLoading(event)"><i class="fas fa-quote-left"></i>Testimonials</a>
+            </div>
+          </div>
+          <div class="col-lg-3 col-md-6">
+            <h4 class="mb-3">Contact Info</h4>
+            <div class="d-flex flex-column mb-2">
+              <p class="mb-2"><i class="fas fa-map-marker-alt me-2"></i>Street Mji Mwema, Leganga</p>
+              <p class="mb-2"><i class="fas fa-map-marker-alt me-2"></i>USA River, Arusha - Tanzania</p>
+              <p class="mb-2">
+                <a href="https://wa.me/255689861041" class="text-light text-decoration-none">
+                  <i class="fab fa-whatsapp me-2" style="color: var(--secondary);"></i>+255 689 861 041
+                </a>
+              </p>
+              <p class="mb-2">
+                <a href="tel:+255742561041" class="text-light text-decoration-none">
+                  <i class="fas fa-phone me-2"></i>+255 742 561 041
+                </a>
+              </p>
+              <p class="mb-2"><i class="fas fa-envelope-open-text me-2"></i>info@comebackafricansafaris</p>
+            </div>
+            <div class="d-flex pt-1">
+              <a class="btn btn-social" href="#"><i class="fab fa-facebook-f"></i></a>
+              <a class="btn btn-social" href="#"><i class="fab fa-instagram"></i></a>
+              <a class="btn btn-social" href="#"><i class="fab fa-tiktok"></i></a>
+              <a class="btn btn-social" href="#"><i class="fab fa-youtube"></i></a>
+              <a class="btn btn-social" href="#"><i class="fab fa-twitter"></i></a>
+            </div>
+          </div>
+          <div class="col-lg-3 col-md-6">
+            <h4 class="mb-3">Safari Gallery</h4>
+            <div class="gallery-grid">
+              {% for i in gallery %}
+              <div>
+                <img class="img-fluid" src="{{i.image|default:'{% static "images/default-safari.jpg" %}' }}" alt="{{i.Title|default:'Safari Image'}}">
+              </div>
+              {% empty %}
+              <!-- Default safari images -->
+              <div><img class="img-fluid" src="{% static 'images/safari1.jpg' %}" alt="Wildlife Safari"></div>
+              <div><img class="img-fluid" src="{% static 'images/safari2.jpg' %}" alt="Kilimanjaro"></div>
+              <div><img class="img-fluid" src="{% static 'images/safari3.jpg' %}" alt="Serengeti"></div>
+              <div><img class="img-fluid" src="{% static 'images/safari4.jpg' %}" alt="Zanzibar"></div>
+              {% endfor %}
+            </div>
+          </div>
+          <div class="col-lg-3 col-md-6">
+            <h4 class="mb-3">Safari Newsletter</h4>
+            <p><i class="fas fa-newspaper me-2"></i>Get exclusive safari offers, travel tips, and adventure updates.</p>
+            <div class="newsletter-form">
+              <input class="form-control" type="email" placeholder="Your email address">
+              <button type="button" class="btn btn-primary"><i class="fas fa-paper-plane"></i> Subscribe</button>
+            </div>
+            <div class="mt-4">
+              <h6 class="mb-2">We Accept:</h6>
+              <div class="d-flex align-items-center gap-2">
+                <i class="fab fa-cc-visa fa-2x text-light"></i>
+                <i class="fab fa-cc-mastercard fa-2x text-light"></i>
+                <i class="fab fa-cc-paypal fa-2x text-light"></i>
+                <i class="fab fa-cc-amex fa-2x text-light"></i>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="container">
+        <div class="copyright">
+          <div class="row align-items-center">
+            <div class="col-md-6 text-center text-md-start mb-2 mb-md-0">
+              &copy; <a class="border-bottom" href="{% url 'index' %}"><i class="fas fa-globe-africa me-2"></i>Comeback African Safaris</a>, All Rights Reserved. 2024 | Tanzania Tourism License: TTL/123456/2024
+            </div>
+            <div class="col-md-6 text-center text-md-end">
+              <div class="footer-menu">
+                <a href="#"><i class="fas fa-shield-alt"></i>Privacy Policy</a>
+                <a href="#"><i class="fas fa-file-contract"></i>Terms & Conditions</a>
+                <a href="#"><i class="fas fa-cookie-bite"></i>Cookies</a>
+                <a href="{% url 'questions' %}"><i class="fas fa-question-circle"></i>FAQs</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- JavaScript -->
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      trackVisit();
+      document.addEventListener('click', function(e) {
+        trackActivity('click', {
+          element: e.target.tagName,
+          id: e.target.id,
+          class: e.target.className
+        });
+      });
+      document.addEventListener('scroll', function() {
+        if (!this.scrollThrottle) {
+          trackActivity('scroll', { position: window.scrollY });
+          this.scrollThrottle = setTimeout(() => { this.scrollThrottle = null; }, 800);
+        }
+        const navbar = document.querySelector('.premium-navbar');
+        if (window.scrollY > 50) {
+          navbar.classList.add('scrolled');
+        } else {
+          navbar.classList.remove('scrolled');
+        }
+      });
+      document.addEventListener('submit', function(e) {
+        trackActivity('form_submit', { form_id: e.target.id });
+      });
+      // Swipe to close sidebar on mobile
+      let touchStartX = 0;
+      let touchEndX = 0;
+      document.getElementById('sidebar').addEventListener('touchstart', function(e) {
+        touchStartX = e.changedTouches[0].screenX;
+      });
+      document.getElementById('sidebar').addEventListener('touchend', function(e) {
+        touchEndX = e.changedTouches[0].screenX;
+        if (touchStartX - touchEndX > 50) {
+          toggleSidebar();
+        }
+      });
+      // Initialize WOW.js
+      new WOW({
+        mobile: true,
+        offset: 50,
+        duration: 0.8
+      }).init();
+    });
+    function trackVisit() {
+      fetch('/track-visit/', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'X-CSRFToken': getCookie('csrftoken')
+        },
+        body: JSON.stringify({
+          page_visited: window.location.href,
+          referrer: document.referrer
+        })
+      })
+      .then(response => response.json())
+      .then(data => {
+        localStorage.setItem('visit_id', data.visit_id);
+      })
+      .catch(error => console.error('Tracking error:', error));
+    }
+    function trackActivity(activityType, details) {
+      const visitId = localStorage.getItem('visit_id');
+      if (!visitId) return;
+      fetch('/track-activity/', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'X-CSRFToken': getCookie('csrftoken')
+        },
+        body: JSON.stringify({
+          visit_id: visitId,
+          activity_type: activityType,
+          activity_details: JSON.stringify(details)
+        })
+      })
+      .catch(error => console.error('Activity tracking error:', error));
+    }
+    function getCookie(name) {
+      let cookieValue = null;
+      if (document.cookie && document.cookie !== '') {
+        const cookies = document.cookie.split(';');
+        for (let i = 0; i < cookies.length; i++) {
+          const cookie = cookies[i].trim();
+          if (cookie.substring(0, name.length + 1) === (name + '=')) {
+            cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+            break;
+          }
+        }
+      }
+      return cookieValue;
+    }
+    function toggleSidebar() {
+      const sidebar = document.getElementById('sidebar');
+      const overlay = document.getElementById('sidebarOverlay');
+      const wrapper = document.getElementById('mainWrapper');
+      sidebar.classList.toggle('active');
+      overlay.classList.toggle('active');
+      wrapper.classList.toggle('shifted');
+    }
+    function toggleSubmenu(element) {
+      const li = element.parentElement;
+      li.classList.toggle('open');
+      event.preventDefault();
+    }
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape') {
+        toggleSidebar();
+        document.getElementById('whatsapp-chat').classList.remove('open');
+      }
+    });
+    
+    // Show loading spinner
+    function showLoading(event) {
+      const spinner = document.getElementById('spinner');
+      if (spinner) {
+        spinner.classList.remove('show');
+        spinner.classList.add('show');
+      }
+    }
+    
+    // Hide spinner when page loads
+    window.addEventListener('load', function() {
+      const spinner = document.getElementById('spinner');
+      if (spinner) {
+        setTimeout(() => {
+          spinner.classList.remove('show');
+        }, 500);
+      }
+    });
+  </script>
+  <!-- JavaScript Libraries -->
+  <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="{% static 'lib/wow/wow.min.js' %}"></script>
+  <script src="{% static 'lib/easing/easing.min.js' %}"></script>
+  <script src="{% static 'lib/waypoints/waypoints.min.js' %}"></script>
+  <script src="{% static 'lib/owlcarousel/owl.carousel.min.js' %}"></script>
+  <script src="{% static 'lib/tempusdominus/js/moment.min.js' %}"></script>
+  <script src="{% static 'lib/tempusdominus/js/moment-timezone.min.js' %}"></script>
+  <script src="{% static 'lib/tempusdominus/js/tempusdominus-bootstrap-4.min.js' %}"></script>
+  <script src="{% static 'js/main.js' %}"></script>
+  <!-- Premium WhatsApp Chat Button -->
+  <div class="whatsapp-chat-popup" id="whatsapp-chat">
+    <div class="chat-header">
+      <img src="https://img.icons8.com/color/48/000000/whatsapp--v1.png" alt="WhatsApp Icon" />
+      <h6>Hello 👋 Ready for your safari adventure?<br><small>Click to chat on WhatsApp</small></h6>
+      <span class="close-chat" onclick="document.getElementById('whatsapp-chat').classList.remove('open')">&times;</span>
+    </div>
+    <a href="https://wa.me/255689861041" target="_blank" class="chat-button">
+      <img src="https://img.icons8.com/color/48/000000/whatsapp--v1.png" /> Start Chat
+    </a>
+  </div>
+  <div class="whatsapp-icon" onclick="document.getElementById('whatsapp-chat').classList.toggle('open')">
+    <img src="https://img.icons8.com/color/48/000000/whatsapp--v1.png" alt="WhatsApp Icon" />
+  </div>
+  <!-- Back to Top -->
+  <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top" style="background: var(--primary); border: none;"><i class="bi bi-arrow-up"></i></a>
+</body>
+</html>

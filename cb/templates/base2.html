@@ -1,0 +1,795 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+<title>Yote Safari</title>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Merienda:wght@300..900&display=swap" rel="stylesheet">
+
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<!-- ✅ SEO Basics -->
+<meta name="description" content="Embark on thrilling journeys, discover hidden gems, and create unforgettable memories in every corner of Tanzania and beyond.">
+<meta name="keywords" content="yotesafari, Tanzania adventures, safari, hiking, Kilimanjaro, Serengeti, Zanzibar, travel Africa">
+<meta name="author" content="yotesafari Tanzania Adventures">
+<meta name="robots" content="index, follow">
+
+<!-- ✅ Open Graph Tags (for Facebook, WhatsApp, LinkedIn, etc.) -->
+<meta property="og:title" content="yotesafari Tanzania Adventures" />
+<meta property="og:description" content="Embark on thrilling journeys, discover hidden gems, and create unforgettable memories in every corner of Tanzania and beyond." />
+<meta property="og:image" content="https://yotesafari.com/static/img/logo.jpg" />
+<meta property="og:image:alt" content="yotesafari Adventures Logo" />
+<meta property="og:url" content="https://yotesafari.com/" />
+<meta property="og:type" content="website" />
+
+<!-- ✅ Twitter Card -->
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="yotesafari Tanzania Adventures" />
+<meta name="twitter:description" content="Embark on thrilling journeys, discover hidden gems, and create unforgettable memories in every corner of Tanzania and beyond." />
+<meta name="twitter:image" content="https://yotesafari.com/static/img/logo.jpg" />
+
+<!-- ✅ Favicon -->
+<link href="{% static 'img/favicon.ico' %}" rel="icon">
+
+<!-- Google Web Fonts -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;600&family=Nunito:wght@600;700;800&display=swap" rel="stylesheet">
+
+<!-- Icon Font Stylesheet -->
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
+
+<!-- Libraries Stylesheet -->
+<link href="{% static 'lib/animate/animate.min.css' %}" rel="stylesheet">
+<link href="{% static 'lib/owlcarousel/assets/owl.carousel.min.css' %}" rel="stylesheet">
+<link href="{% static 'lib/tempusdominus/css/tempusdominus-bootstrap-4.min.css' %}" rel="stylesheet" />
+
+<!-- Customized Bootstrap Stylesheet -->
+<link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
+
+<!-- Template Stylesheet -->
+<link href="{% static 'css/style.css' %}" rel="stylesheet">
+    <style>
+.section-head {
+  margin-bottom: 1.5rem;
+  text-align: center;
+}
+
+.about-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-size: 1.75rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: #1f2d4a;
+  position: relative;
+  line-height: 1.1;
+}
+
+.about-label .decor {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+}
+
+.about-label .line {
+  display: block;
+  border-radius: 4px;
+  background: linear-gradient(135deg, #0d6efd 0%, #3f8cff 80%);
+  position: relative;
+  overflow: hidden;
+}
+
+.about-label .line.short {
+  width: 35px;
+  height: 6px;
+  animation: pulse-width 3s ease-in-out infinite alternate;
+}
+
+.about-label .line.long {
+  width: 55px;
+  height: 6px;
+  animation: pulse-width 3s ease-in-out infinite alternate-reverse;
+}
+
+.about-label .text {
+  padding: 0 12px;
+  position: relative;
+  z-index: 1;
+}
+
+/* subtle glow behind the lines */
+.about-label .line::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  filter: blur(6px);
+  opacity: 0.6;
+  background: inherit;
+  mix-blend-mode: screen;
+}
+
+/* animation to vary thickness slightly */
+@keyframes pulse-width {
+  0% { transform: scaleX(1); }
+  50% { transform: scaleX(1.05); }
+  100% { transform: scaleX(1); }
+}
+
+
+
+
+.card-dest {
+  border-radius: 12px;
+  overflow: hidden;
+  position: relative;
+  transition: transform .35s ease;
+}
+.card-dest img {
+  display: block;
+  width: 100%;
+  height: auto;
+  transition: transform .5s ease;
+}
+.card-dest:hover img {
+  transform: scale(1.04);
+}
+
+/* Badges */
+.badge-offer, .badge-scenic {
+  position: absolute;
+  top: 12px;
+  padding: 6px 12px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  border-radius: 6px;
+  color: #fff;
+  display: inline-block;
+}
+.badge-offer {
+  left: 12px;
+  background: #e63946;
+}
+.badge-scenic {
+  right: 12px;
+  background: #1d8cf8;
+}
+
+/* Centered animated button overlay */
+.overlay-center {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  pointer-events: none; /* allow button to get pointer */
+}
+.animated-view-btn {
+  position: relative;
+  pointer-events: auto;
+  background: linear-gradient(135deg, #ffb81c, #ffa600);
+  color: #1f1f1f;
+  padding: 14px 30px;
+  font-weight: 700;
+  border: none;
+  border-radius: 8px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  overflow: hidden;
+  cursor: pointer;
+  transition: transform .25s ease, box-shadow .25s ease;
+  box-shadow: 0 10px 30px -5px rgba(255, 184, 28, 0.6);
+  display: inline-block;
+}
+.animated-view-btn .underline {
+  content: '';
+  position: absolute;
+  bottom: 4px;
+  left: 50%;
+  width: 0;
+  height: 3px;
+  background: rgba(31,31,31,0.9);
+  border-radius: 2px;
+  transform: translateX(-50%);
+  transition: width .3s ease;
+}
+.animated-view-btn:hover .underline {
+  width: 60%;
+}
+.animated-view-btn:hover {
+  transform: translateY(-3px) scale(1.02);
+  box-shadow: 0 18px 40px -5px rgba(255, 184, 28, 0.8);
+}
+
+/* Subtle glowing pulse behind button */
+@keyframes glowPulse {
+  0%, 100% {
+    box-shadow: 0 0 15px 0 rgba(255, 184, 28, 0.4);
+  }
+  50% {
+    box-shadow: 0 0 30px 6px rgba(255, 184, 28, 0.2);
+  }
+}
+.animated-view-btn {
+  animation: glowPulse 3s infinite alternate;
+}
+
+/* Location tag bottom-right */
+.location-tag {
+  position: absolute;
+  bottom: 12px;
+  right: 12px;
+  background: rgba(255,255,255,0.9);
+  padding: 6px 10px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  border-radius: 6px;
+  color: #1d4e89;
+}
+
+         
+.hero-bg {
+    background-image: url("{% static 'img/booking.jpg' %}");
+    background-size: cover;  /* Makes the image cover the entire container */
+    background-position: center center;  /* Centers the image */
+    background-repeat: no-repeat;  /* Ensures the image does not repeat */
+    height: 100vh;  /* Makes the hero section take the full viewport height */
+}
+
+/* Overlay to make text stand out */
+.hero-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.4);
+    z-index: -1; /* Hii inaiweka overlay nyuma ya vitu vingine */
+}
+
+/* Title Styling */
+.hero-bg h1 {
+    font-size: 3.5rem; /* Larger font size for big impact */
+    font-weight: 700;
+    color: #ffffff;
+    text-shadow: 3px 3px 8px rgba(0, 0, 0, 0.6);
+    text-transform: uppercase; /* Capitalize the title */
+    line-height: 1.2;
+    animation: fadeInUp 2s ease-out; /* Add animation */
+}
+
+/* Subtitle Styling */
+.hero-bg p {
+    font-size: 1.5rem; /* Slightly larger subtitle text */
+    font-weight: 300;
+    color: #ffffff;
+    margin-top: 20px;
+    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.6);
+    animation: fadeInUp 3s ease-out; /* Fade-in animation with delay */
+}
+
+/* Button Styling */
+.btn-warning {
+    background-color: #FFB81C; /* Tanzania-inspired bright yellow */
+    color: white;
+    font-size: 1.2rem;
+    font-weight: 600;
+    padding: 15px 30px;
+    border-radius: 50px;
+    box-shadow: 0px 15px 25px rgba(0, 0, 0, 0.3);
+    transition: background-color 0.3s ease, transform 0.3s ease;
+    animation: pulse 1.5s ease-out infinite;
+}
+
+.btn-warning:hover {
+    background-color: #FF9E00; /* Hover effect */
+    transform: scale(1.1); /* Slight scale-up on hover */
+}
+
+/* Pulse animation for buttons */
+@keyframes pulse {
+    0% { transform: scale(1); opacity: 1; }
+    50% { transform: scale(1.1); opacity: 0.9; }
+    100% { transform: scale(1); opacity: 1; }
+}
+
+/* FadeIn animation for elements */
+@keyframes fadeInUp {
+    0% { opacity: 0; transform: translateY(50px); }
+    100% { opacity: 1; transform: translateY(0); }
+}
+
+        /* Floating WhatsApp Button */
+.whatsapp-icon {
+    position: fixed;
+    bottom: 20px;
+    left: 20px;
+    z-index: 999;
+    cursor: pointer;
+    animation: bounce 2s infinite;
+}
+
+.whatsapp-icon img {
+    width: 50px;
+    height: 50px;
+}
+
+/* Chat Popup Box */
+.whatsapp-chat-popup {
+    position: fixed;
+    bottom: 80px;
+    left: 20px;
+    width: 260px;
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+    display: none;
+    z-index: 1000;
+    animation: fadeIn 0.3s ease-in-out;
+}
+
+.whatsapp-chat-popup.open {
+    display: block;
+}
+
+.chat-header {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    background: #f0f0f0;
+    border-radius: 10px 10px 0 0;
+    font-size: 14px;
+}
+
+.chat-header img {
+    width: 30px;
+    height: 30px;
+    margin-right: 10px;
+}
+
+.chat-header .close-chat {
+    margin-left: auto;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 20px;
+}
+
+.chat-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #25d366;
+    color: white;
+    padding: 10px;
+    text-decoration: none;
+    font-weight: bold;
+    border-radius: 0 0 10px 10px;
+    transition: background-color 0.3s ease;
+}
+
+.chat-button img {
+    width: 24px;
+    margin-right: 8px;
+}
+
+.chat-button:hover {
+    background-color: #1ebd5b;
+}
+
+/* Animations */
+@keyframes bounce {
+    0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+    40% { transform: translateY(-10px); }
+    60% { transform: translateY(-5px); }
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: scale(0.9); }
+    to { opacity: 1; transform: scale(1); }
+}
+
+    </style>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- Spinner -->
+    <div id="spinner" class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
+        <div class="spinner-border text-primary" style="width: 3rem; height: 3rem;" role="status">
+            <span class="sr-only">Loading...</span>
+        </div>
+    </div>
+
+     <div class="container-fluid bg-dark px-5 d-none d-lg-block">
+        <div class="row gx-0">
+            <div class="col-lg-8 text-center text-lg-start mb-2 mb-lg-0">
+                <div class="d-inline-flex align-items-center" style="height: 45px;">
+                    <small class="me-3 text-light"><i class="fa fa-map-marker-alt me-2"></i>Kisongo, Arusha, Tanzania</small>
+                    <small class="me-3 text-light">
+                        <a href="https://wa.me/255778422122" class="text-light text-decoration-none">
+                          <i class="fab fa-whatsapp me-2" style="color: #25D366;"></i>
+                          +255656902212
+                        </a>
+                      </small>
+                    <small class="text-light"><i class="fa fa-envelope-open me-2"></i>yotesafari@gmail.com</small>
+                </div>
+            </div>
+            <div class="col-lg-4 text-center text-lg-end">
+                <div class="d-inline-flex align-items-center" style="height: 45px;">
+                    <a class="btn btn-sm btn-outline-light btn-sm-square rounded-circle me-2" href=""><i class="fab fa-twitter fw-normal"></i></a>
+                    <a class="btn btn-sm btn-outline-light btn-sm-square rounded-circle me-2" href=""><i class="fab fa-facebook-f fw-normal"></i></a>
+                    <a class="btn btn-sm btn-outline-light btn-sm-square rounded-circle me-2" href=""><i class="fab fa-linkedin-in fw-normal"></i></a>
+                    <a class="btn btn-sm btn-outline-light btn-sm-square rounded-circle me-2" href=""><i class="fab fa-instagram fw-normal"></i></a>
+                    <a class="btn btn-sm btn-outline-light btn-sm-square rounded-circle" href=""><i class="fab fa-youtube fw-normal"></i></a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Topbar End -->
+    <!-- Navbar (Modified for Mobile) -->
+    <div class="container-fluid position-relative p-0">
+        <nav class="navbar navbar-expand-lg navbar-light px-4 px-lg-5 py-3 py-lg-0 bg-warning">
+            <a href="{% url 'admin:index' %}" class="navbar-brand p-0 d-flex align-items-center">
+                {% for i in compan %}
+                <img src="{{i.image}}" alt="Logo" class="rounded-circle me-2" style="width: 70px; height: 70px;">
+                {% empty %}
+                <img src="{% static 'img/logo.jpg' %}" alt="Logo" class="rounded-circle me-2" style="width: 70px; height: 70px;">
+                {% endfor %}
+            </a>
+
+                            {% for i in compan %}
+                    <h1 style="color: yellow;" class="m-0">{{i.company_name}}</h1>          
+
+
+                       {% empty %}
+            <img src="{% static 'img/kili_name.png' %}" alt="Logo" style="width: 170px; height: 100px;">
+
+
+                        {% endfor %}
+            <!-- Mobile Toggle Button -->
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="fa fa-bars"></span>
+            </button>
+
+            <!-- Navbar Collapse (Modified for Mobile) -->
+            <div class="collapse navbar-collapse" id="navbarCollapse">
+                <div class="navbar-nav ms-auto py-0">
+                    <a href="{% url 'index' %}" class="nav-item nav-link active" onclick="showLoading(event)">Home</a>
+                    <a href="{% url 'about' %}" class="nav-item nav-link" onclick="showLoading(event)">About Us</a>
+                    <a href="{% url 'service' %}" class="nav-item nav-link" onclick="showLoading(event)">Our Services</a>
+
+
+
+                
+                <div class="nav-item dropdown">
+                    <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Safari</a>
+                    <div class="dropdown-menu m-0">
+                        {% for s in safari_list %}
+                            <a href="{% url 'safari_detail' s.id %}" class="dropdown-item"onclick="showLoading(event)">
+                                {{ s.title }}
+                            </a>
+                        {% empty %}
+                            <span class="dropdown-item text-muted">No Safari available</span>
+                        {% endfor %}
+                </div>
+
+                     
+                </div>
+
+                    <div class="nav-item dropdown">
+                    <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Trekking</a>
+                    <div class="dropdown-menu m-0">
+                        {% for tour in tours %}
+                            <a href="{% url 'tour_detail' tour.id %}" class="dropdown-item"onclick="showLoading(event)">
+                                {{ tour.title }}
+                            </a>
+                        {% empty %}
+                            <span class="dropdown-item text-muted">No tours available</span>
+                        {% endfor %}
+                    </div>
+                </div>
+
+
+
+                 <div class="nav-item dropdown">
+                    <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Day Trip</a>
+                    <div class="dropdown-menu m-0">
+                       {% for d in trips_list %}
+                            <a href="{% url 'Trip_detail' d.id %}" class="dropdown-item"onclick="showLoading(event)">
+                                {{ d.title }}
+                            </a>
+                        {% empty %}
+                            <span class="dropdown-item text-muted">No Day Trip available</span>
+                        {% endfor %}
+                   </div>                   
+                </div>
+
+                    <div class="nav-item dropdown">
+                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Others</a>
+                        <div class="dropdown-menu m-0">
+                            <a href="{% url 'destinations_list' %}" class="dropdown-item" onclick="showLoading(event)">Our Destination</a>
+                            <a href="{% url 'testimonial' %}" class="dropdown-item" onclick="showLoading(event)">Testimonials</a>
+                            <a href="{% url 'contact' %}" class="dropdown-item" onclick="showLoading(event)">contact us</a>
+                            <a href="{% url 'questions' %}" class="dropdown-item" onclick="showLoading(event)">FAQ</a>
+
+                        </div>
+                    </div>
+
+
+                 
+                </div>
+            </div>
+        </nav>
+    </div>
+
+    <!-- Content Block -->
+    {% block content %}
+    {% endblock %}
+
+    <!-- Footer -->
+    <div class="container-fluid bg-dark text-light footer pt-5 mt-5 wow fadeIn" data-wow-delay="0.1s">
+        <!-- Your footer content -->
+           <div class="container-fluid bg-dark text-light footer pt-5 mt-5 wow fadeIn" data-wow-delay="0.1s">
+        <div class="container py-5">
+            <div class="row g-5">
+                <div class="col-lg-3 col-md-6">
+                    <h4 class="text-white mb-3">Useful Links</h4>
+                    <a class="btn btn-link" href="{% url 'about' %}"onclick="showLoading(event)">About Us</a>
+                    <a class="btn btn-link" href="{% url 'contact' %}"onclick="showLoading(event)">Contact Us</a>
+
+                    <a class="btn btn-link" href="{% url 'service' %}"onclick="showLoading(event)">Our Services</a>
+                    <a class="btn btn-link" href="{% url 'destinations_list' %}"onclick="showLoading(event)">Our Destinations</a>
+                    <a class="btn btn-link" href="{% url 'team' %}"onclick="showLoading(event)">Our Travel Guides</a>
+                    <a class="btn btn-link" href="">Privacy Policy</a>
+                    <a class="btn btn-link" href="">Terms & Condition</a>
+                    <a class="btn btn-link" href="{% url 'questions' %}"onclick="showLoading(event)">FAQs & Help</a>
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <h4 class="text-white mb-3">Contact</h4>
+                    <p class="mb-2"><i class="fa fa-map-marker-alt me-3"></i>Kisongo, Arusha, Tanzania</p>
+                    <p class="mb-2">
+                        <i class="fab fa-whatsapp me-3" style="color: #25D366;"></i>
+                       +255656902212
+                      </p>
+                      
+                    <p class="mb-2"><i class="fa fa-envelope me-3"></i>yotesafari@gmail.com</p>
+                    <div class="d-flex pt-2">
+                        <a class="btn btn-outline-light btn-social" href=""><i class="fab fa-twitter"></i></a>
+                        <a class="btn btn-outline-light btn-social" href=""><i class="fab fa-facebook-f"></i></a>
+                        <a class="btn btn-outline-light btn-social" href=""><i class="fab fa-youtube"></i></a>
+                        <a class="btn btn-outline-light btn-social" href=""><i class="fab fa-linkedin-in"></i></a>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <h4 class="text-white mb-3">Gallery</h4>
+                    <div class="row g-2 pt-2">
+                        {% for i in gallery %}
+                        <div class="col-4">
+                            <img class="img-fluid bg-light p-1" src="{{i.image}}" alt="{{i.Title}}">
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <h4 class="text-white mb-3">Newsletter</h4>
+                    <p>Stay updated with our latest news and updates. Subscribe to our newsletter by entering your email below.</p>
+                    <div class="position-relative mx-auto" style="max-width: 400px;">
+                        <input class="form-control border-primary w-100 py-3 ps-4 pe-5" type="email" placeholder="Your email address">
+                        <button type="button" class="btn btn-primary py-2 position-absolute top-0 end-0 mt-2 me-2">Subscribe</button>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+        <div class="container">
+            <div class="copyright">
+                <div class="row">
+                    <div class="col-md-6 text-center text-md-start mb-3 mb-md-0" style="text-decoration: none">
+                        &copy; <a style="text-decoration: none;" class="border-bottom" href="https://yotesafari.com">Yote Safari</a>, All Right Reserved.
+
+                        2025 <a class="border-bottom" href=""></a>
+                    </div>
+                    <div class="col-md-6 text-center text-md-end">
+                        <div class="footer-menu">
+                            <a href="{% url 'dashboard' %}">Statistics</a>
+                            <a href="">Cookies</a>
+                            <a href="">Help</a>
+                            <a href="">FQAs</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+
+
+
+
+
+
+    <!-- JavaScript tracker -->
+   <script>
+document.addEventListener('DOMContentLoaded', function() {
+    trackVisit();
+
+    document.addEventListener('click', function(e) {
+        trackActivity('click', {
+            element: e.target.tagName,
+            id: e.target.id,
+            class: e.target.className
+        });
+    });
+
+    document.addEventListener('scroll', function() {
+        if (!this.scrollThrottle) {
+            trackActivity('scroll', { position: window.scrollY });
+            this.scrollThrottle = setTimeout(() => { this.scrollThrottle = null; }, 1000);
+        }
+    });
+
+    document.addEventListener('submit', function(e) {
+        trackActivity('form_submit', { form_id: e.target.id });
+    });
+});
+
+function trackVisit() {
+    fetch('/track-visit/', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-CSRFToken': getCookie('csrftoken')
+        },
+        body: JSON.stringify({
+            page_visited: window.location.href,
+            referrer: document.referrer
+        })
+    })
+    .then(response => response.json())
+    .then(data => {
+        localStorage.setItem('visit_id', data.visit_id);
+    })
+    .catch(error => console.error('Tracking error:', error));
+}
+
+function trackActivity(activityType, details) {
+    const visitId = localStorage.getItem('visit_id');
+    if (!visitId) return;
+
+    fetch('/track-activity/', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-CSRFToken': getCookie('csrftoken')
+        },
+        body: JSON.stringify({
+            visit_id: visitId,
+            activity_type: activityType,
+            activity_details: JSON.stringify(details)
+        })
+    })
+    .catch(error => console.error('Activity tracking error:', error));
+}
+
+function getCookie(name) {
+    let cookieValue = null;
+    if (document.cookie && document.cookie !== '') {
+        const cookies = document.cookie.split(';');
+        for (let i = 0; i < cookies.length; i++) {
+            const cookie = cookies[i].trim();
+            if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                break;
+            }
+        }
+    }
+    return cookieValue;
+}
+</script>
+
+    <!-- Back to Top -->
+    <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top"><i class="bi bi-arrow-up"></i></a>
+
+    <!-- JavaScript Libraries -->
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="{% static 'lib/wow/wow.min.js' %}"></script>
+    <script src="{% static 'lib/easing/easing.min.js' %}"></script>
+    <script src="{% static 'lib/waypoints/waypoints.min.js' %}"></script>
+    <script src="{% static 'lib/owlcarousel/owl.carousel.min.js' %}"></script>
+    <script src="{% static 'lib/tempusdominus/js/moment.min.js' %}"></script>
+    <script src="{% static 'lib/tempusdominus/js/moment-timezone.min.js' %}"></script>
+    <script src="{% static 'lib/tempusdominus/js/tempusdominus-bootstrap-4.min.js' %}"></script>
+
+    <!-- Template Javascript -->
+    <script src="{% static 'js/main.js' %}"></script>
+
+    <!-- WhatsApp Chat Button -->
+    <div class="whatsapp-chat-popup" id="whatsapp-chat">
+    <div class="chat-header">
+        <img src="https://img.icons8.com/color/48/000000/whatsapp--v1.png" alt="WhatsApp Icon" />
+        <span>Hello 👋 How may we help you?<br><small>click word WhatsApp</small></span>
+        <span class="close-chat" onclick="document.getElementById('whatsapp-chat').classList.remove('open')">&times;</span>
+    </div>
+    <a href="https://wa.me/255778422122" target="_blank" class="chat-button">
+        <img src="https://img.icons8.com/color/48/000000/whatsapp--v1.png" /> WhatsApp
+    </a>
+</div>
+
+<!-- Floating Button -->
+<div class="whatsapp-icon" onclick="document.getElementById('whatsapp-chat').classList.toggle('open')">
+    <img src="https://img.icons8.com/color/48/000000/whatsapp--v1.png" />
+</div>
+    <!-- <style>
+        .whatsapp-chat-popup {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 300px;
+            background: #fff;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            z-index: 1000;
+            display: none;
+        }
+        .whatsapp-chat-popup.open {
+            display: block;
+        }
+        .chat-header {
+            padding: 10px;
+            background: #25D366;
+            color: #fff;
+            border-top-left-radius: 10px;
+            border-top-right-radius: 10px;
+            display: flex;
+            align-items: center;
+        }
+        .chat-header img {
+            margin-right: 10px;
+        }
+        .chat-header span {
+            font-size: 14px;
+        }
+        .close-chat {
+            margin-left: auto;
+            cursor: pointer;
+            font-size: 20px;
+        }
+        .chat-button {
+            display: block;
+            padding: 10px;
+            text-align: center;
+            background: #25D366;
+            color: #fff;
+            text-decoration: none;
+            border-bottom-left-radius: 10px;
+            border-bottom-right-radius: 10px;
+        }
+        .chat-button:hover {
+            background: #128C7E;
+        }
+    </style>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            setTimeout(function() {
+                document.getElementById('whatsapp-chat').classList.add('open');
+            }, 5000);
+        });
+    </script> -->
+
+    <!-- <script defer src="https://static.getbutton.io/widget/bundle.js?id=5V13t"></script> -->
+
+
+    
+</body>
+</html>

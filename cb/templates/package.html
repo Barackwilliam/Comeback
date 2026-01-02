@@ -1,0 +1,158 @@
+      
+{% extends 'base.html' %}
+{% load static%}
+
+{% block content %}
+
+<style>
+    .hero-image-bg {
+        background-image: url("{% static 'img/bg-4.jpg' %}");
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        position: relative;
+        animation: zoomEffect 5s infinite ease-in-out;
+    }
+
+    /* Overlay ya mng’ao mdogo */
+    .hero-image-bg::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: rgba(0, 0, 0, 0.4); /* Black overlay with 40% opacity */
+        z-index: 1;
+    }
+
+    /* Ensure text is above overlay */
+    .hero-image-bg .container,
+    .hero-image-bg .row,
+    .hero-image-bg .col-lg-10 {
+        position: relative;
+        z-index: 2;
+    }
+
+    /* Keyframes for zooming effect */
+    @keyframes zoomEffect {
+        0% {
+            transform: scale(1);
+        }
+        50% {
+            transform: scale(1.05);
+        }
+        100% {
+            transform: scale(1);
+        }
+    }
+</style>
+
+            <div class="container-fluid hero-image-bg py-5 mb-5 hero-header">
+            <div class="container py-5">
+                <div class="row justify-content-center py-5">
+                    <div class="col-lg-10 pt-lg-5 mt-lg-5 text-center">
+                        <h1 class="display-3 text-white animated slideInDown">Packages</h1>
+                        <nav aria-label="breadcrumb">
+                            <ol class="breadcrumb justify-content-center">
+                                <li class="breadcrumb-item"><a href="#">Home</a></li>
+                                <li class="breadcrumb-item"><a href="#">Pages</a></li>
+                                <li class="breadcrumb-item text-white active" aria-current="page">Packages</li>
+                            </ol>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    <!-- Navbar & Hero End -->
+
+
+    <!-- Package Start -->
+    <div class="container-xxl py-5">
+        <div class="container">
+            <div class="text-center wow fadeInUp" data-wow-delay="0.1s">
+                <h6 class="section-title bg-white text-center text-primary px-3">Packages</h6>
+                <h1 class="mb-5">Awesome Packages</h1>
+            </div>
+
+
+
+            <div class="row g-4 justify-content-center">
+                {% for pac in package %}
+
+                <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
+                    <div class="package-item">
+                        <div class="overflow-hidden">
+                            <img class="img-fluid" src="{{ pac.image }}" alt="">
+                        </div>
+                        <div class="d-flex border-bottom">
+                            <small class="flex-fill text-center border-end py-2"><i class="fa fa-map-marker-alt text-primary me-2"></i>{{ pac.location }}</small>
+                            <small class="flex-fill text-center border-end py-2"><i class="fa fa-calendar-alt text-primary me-2"></i>{{ pac.number_of_day }} days</small>
+                            <small class="flex-fill text-center py-2"><i class="fa fa-user text-primary me-2"></i>{{ pac.number_of_people }} Person</small>
+                        </div>
+                        <div class="text-center p-4">
+                            <h3 class="mb-0">$. {{ pac.price }}</h3>
+                            <div class="mb-3">
+                                <small class="fa fa-star text-primary"></small>
+                                <small class="fa fa-star text-primary"></small>
+                                <small class="fa fa-star text-primary"></small>
+                                <small class="fa fa-star text-primary"></small>
+                                <small class="fa fa-star text-primary"></small>
+                            </div>
+                            <p>{{ pac.description }}</p>
+                            <div class="d-flex justify-content-center mb-2">
+                                <a href="{% url 'package_detail' pac.id %}" class="btn btn-warning rounded-pill px-4 py-2 shadow-lg animated bounceIn">View</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                     {% endfor %}
+
+
+
+            </div>
+        </div>
+    </div>
+    <!-- Package End -->
+
+
+    <!-- Booking Start -->
+    {% include 'booking_form.html' %}
+
+    <!-- Booking Start -->
+
+
+    <!-- Process Start -->
+    <div class="container-xxl py-5">
+        <div class="container">
+            <div class="text-center pb-4 wow fadeInUp" data-wow-delay="0.1s">
+                <h6 class="section-title bg-white text-center text-primary px-3">Process</h6>
+                <h1 class="mb-5">With Easy Steps</h1>
+            </div>
+            <div class="row gy-5 gx-4 justify-content-center">
+                {% for stp in step %}
+                <div class="col-lg-4 col-sm-6 text-center pt-4 wow fadeInUp" data-wow-delay="0.1s">
+                    <div class="position-relative border border-primary pt-5 pb-4 px-4">
+                        <!-- <div class="d-inline-flex align-items-center justify-content-center bg-primary rounded-circle position-absolute top-0 start-50 translate-middle shadow" style="width: 100px; height: 100px;"> -->
+                            <img class="bg-white rounded-circle shadow p-1 mx-auto mb-3" src="{{stp.image}}" style="width: 80px; height: 80px;">
+
+                            <!-- <i class="fa fa-globe fa-3x text-white"></i> -->
+                        <!-- </div> -->
+                        <h5 class="mt-4">{{stp.Title}}</h5>
+                        <hr class="w-25 mx-auto bg-primary mb-1">
+                        <hr class="w-50 mx-auto bg-primary mt-0">
+                        <p class="mb-0">{{stp.description}}</p>
+                    </div>
+                </div>
+
+                {% endfor %}
+               
+            </div>
+        </div>
+    </div>
+    <!-- Process Start -->
+        
+    
+    {% endblock %}

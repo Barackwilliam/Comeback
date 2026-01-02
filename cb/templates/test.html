@@ -1,0 +1,68 @@
+
+{% extends 'base.html' %}
+{% load static %}
+
+
+
+<div class="col-md-6">
+    <div class="form-floating">
+        <select name="destination" class="form-select bg-transparent" id="select1">
+            {% for dest in destinations %}
+                <option value="{{ dest.location }}">{{ dest.location }}</option>
+            {% endfor %}
+        </select>
+        <label for="select1">Destination</label>
+    </div>
+</div>
+
+
+{% block content %}
+<section class="py-5 bg-light">
+    <div class="container">
+        <div class="text-center mb-5">
+            <!-- <h2 class="fw-bold text-primary">About Us</h2>
+            <p class="text-muted">Get to know more about who we are and what drives us.</p> -->
+        </div>
+
+        {% if abouts %}
+            {% for i in abouts %}
+            <div class="row align-items-center mb-5 bg-white shadow rounded-4 p-4">
+                <div class="col-lg-6 mb-3 mb-lg-0">
+                    <img src="{{ i.image.url }}" class="img-fluid rounded-4 shadow-sm w-100" style="object-fit: cover; max-height: 400px;" alt="About Image">
+                </div>
+                <div class="col-lg-6">
+                    <h3 class="text-dark fw-bold">{{ i.title }}</h3>
+                    <p class="text-muted mb-4">{{ i.content }}</p>
+
+                    <h5 class="text-primary">Our Vision</h5>
+                    <p>{{ i.vision }}</p>
+
+                    <h5 class="text-primary">Our Mission</h5>
+                    <p>{{ i.mission }}</p>
+
+                    <p class="text-end text-muted fst-italic">
+                        <small>Last updated: {{ i.last_updated|date:"F d, Y" }}</small>
+                    </p>
+                </div>
+            </div>
+            {% endfor %}
+        {% else %}
+            <div class="alert alert-info text-center">
+                <h4>Information about our organization will be available soon.</h4>
+            </div>
+        {% endif %}
+    </div>
+</section>
+{% endblock %}
+
+
+
+
+
+
+
+
+<h5 class="card-title">Contact Organizer</h5>
+<p><strong>WhatsApp:</strong> <a href="https://wa.me/{{ tour.contact_whatsapp }}">{{ tour.contact_whatsapp }}</a></p>
+<p><strong>Email:</strong> <a href="mailto:{{ tour.contact_email }}">{{ tour.contact_email }}</a></p>
+<p><strong>Website:</strong> <a href="{{ tour.website }}" target="_blank">{{ tour.website }}</a></p>

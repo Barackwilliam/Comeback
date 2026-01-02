@@ -1,0 +1,1417 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+<style>
+  /* ULTRA-PREMIUM SAFARI DESIGN - Comeback African Safaris */
+  :root {
+    --gold-premium: #D4AF37;
+    --gold-light: #F4D03F;
+    --gold-gradient: linear-gradient(135deg, #D4AF37 0%, #F4D03F 50%, #FFD700 100%);
+    --safari-dark: #0A0F0D;
+    --safari-deep: linear-gradient(135deg, #0A0F0D 0%, #1A261F 50%, #2D4035 100%);
+    --safari-sunset: linear-gradient(135deg, #E25822 0%, #F39C12 50%, #F4D03F 100%);
+    --safari-night: linear-gradient(135deg, #080A0B 0%, #14181C 50%, #222830 100%);
+    --gold-glow: rgba(212, 175, 55, 0.6);
+    --shadow-premium: 0 30px 100px rgba(0, 0, 0, 0.5);
+    --border-premium: 2px solid rgba(212, 175, 55, 0.4);
+    --text-cream: #F5F5DC;
+    --text-dark: #1A1A1A;
+    --transition-luxe: cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  }
+
+  body {
+    font-family: 'Poppins', -apple-system, BlinkMacSystemFont, sans-serif;
+    background: var(--safari-dark);
+    color: var(--text-cream);
+    overflow-x: hidden;
+    scroll-behavior: smooth;
+  }
+
+  /* PREMIUM HERO SECTION */
+  .hero-premium {
+    position: relative;
+    height: 100vh;
+    min-height: 800px;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .hero-video-bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: brightness(0.4);
+    z-index: 0;
+  }
+
+  .hero-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, 
+      rgba(10, 15, 13, 0.9) 0%,
+      rgba(26, 38, 31, 0.8) 50%,
+      rgba(45, 64, 53, 0.7) 100%);
+    z-index: 1;
+  }
+
+  .hero-content {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+    max-width: 1200px;
+    padding: 2rem;
+    animation: heroAppear 1.5s var(--transition-luxe);
+  }
+
+  @keyframes heroAppear {
+    from {
+      opacity: 0;
+      transform: translateY(60px) scale(0.9);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+    }
+  }
+
+  .hero-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.75rem;
+    background: rgba(212, 175, 55, 0.2);
+    backdrop-filter: blur(20px);
+    border: 2px solid var(--gold-premium);
+    border-radius: 50px;
+    padding: 0.75rem 1.5rem;
+    margin-bottom: 2rem;
+    animation: badgeGlow 3s infinite alternate;
+  }
+
+  @keyframes badgeGlow {
+    0% {
+      box-shadow: 0 0 20px rgba(212, 175, 55, 0.3);
+    }
+    100% {
+      box-shadow: 0 0 40px rgba(212, 175, 55, 0.6);
+    }
+  }
+
+  .hero-badge i {
+    color: var(--gold-light);
+    font-size: 1.2rem;
+  }
+
+  .hero-badge span {
+    font-size: 0.9rem;
+    font-weight: 600;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--gold-light);
+  }
+
+  .hero-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(3.5rem, 8vw, 6rem);
+    font-weight: 900;
+    line-height: 1.1;
+    background: var(--gold-gradient);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 1.5rem;
+    text-shadow: 0 10px 30px rgba(212, 175, 55, 0.3);
+  }
+
+  .hero-subtitle {
+    font-size: clamp(1.2rem, 3vw, 2rem);
+    font-weight: 300;
+    line-height: 1.6;
+    max-width: 800px;
+    margin: 0 auto 3rem;
+    color: rgba(245, 245, 220, 0.95);
+    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+  }
+
+  .hero-search {
+    max-width: 700px;
+    margin: 0 auto 4rem;
+    position: relative;
+  }
+
+  .search-container {
+    display: flex;
+    gap: 1rem;
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(20px);
+    border-radius: 20px;
+    padding: 0.75rem;
+    box-shadow: var(--shadow-premium);
+    border: var(--border-premium);
+  }
+
+  .search-input {
+    flex: 1;
+    border: none;
+    background: transparent;
+    padding: 1.25rem 2rem;
+    font-size: 1.1rem;
+    color: var(--text-dark);
+    outline: none;
+  }
+
+  .search-input::placeholder {
+    color: rgba(26, 26, 26, 0.6);
+  }
+
+  .search-btn {
+    background: var(--gold-gradient);
+    border: none;
+    border-radius: 15px;
+    padding: 1.25rem 3rem;
+    color: var(--text-dark);
+    font-weight: 700;
+    font-size: 1.1rem;
+    cursor: pointer;
+    transition: all 0.4s var(--transition-luxe);
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    white-space: nowrap;
+  }
+
+  .search-btn:hover {
+    transform: translateY(-3px) scale(1.05);
+    box-shadow: 0 20px 40px rgba(212, 175, 55, 0.4);
+  }
+
+  .hero-stats {
+    display: flex;
+    justify-content: center;
+    gap: 4rem;
+    flex-wrap: wrap;
+  }
+
+  .stat-item {
+    text-align: center;
+  }
+
+  .stat-number {
+    font-size: 3rem;
+    font-weight: 800;
+    background: var(--gold-gradient);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    line-height: 1;
+    margin-bottom: 0.5rem;
+  }
+
+  .stat-label {
+    font-size: 0.9rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: rgba(245, 245, 220, 0.8);
+  }
+
+  /* PREMIUM SECTIONS */
+  .section-premium {
+    padding: 8rem 2rem;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .section-title-container {
+    text-align: center;
+    margin-bottom: 4rem;
+  }
+
+  .section-badge {
+    display: inline-block;
+    background: var(--gold-gradient);
+    color: var(--text-dark);
+    padding: 0.75rem 2rem;
+    border-radius: 50px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-bottom: 1.5rem;
+    box-shadow: 0 10px 30px rgba(212, 175, 55, 0.3);
+  }
+
+  .section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2.5rem, 5vw, 4rem);
+    font-weight: 800;
+    line-height: 1.2;
+    color: var(--text-cream);
+    margin-bottom: 1.5rem;
+  }
+
+  .section-subtitle {
+    font-size: 1.2rem;
+    color: rgba(245, 245, 220, 0.9);
+    max-width: 700px;
+    margin: 0 auto;
+    line-height: 1.7;
+  }
+
+  /* ABOUT SECTION */
+  .about-premium {
+    background: var(--safari-deep);
+  }
+
+  .about-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: center;
+  }
+
+  .about-image-container {
+    position: relative;
+    border-radius: 30px;
+    overflow: hidden;
+    box-shadow: var(--shadow-premium);
+  }
+
+  .about-image {
+    width: 100%;
+    height: 500px;
+    object-fit: cover;
+    transition: transform 0.8s var(--transition-luxe);
+  }
+
+  .about-image-container:hover .about-image {
+    transform: scale(1.1);
+  }
+
+  .about-text {
+    color: rgba(245, 245, 220, 0.95);
+    font-size: 1.1rem;
+    line-height: 1.8;
+  }
+
+  .about-stats {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2rem;
+    margin-top: 3rem;
+  }
+
+  .about-stat {
+    text-align: center;
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(10px);
+    border-radius: 20px;
+    padding: 2rem;
+    border: 1px solid rgba(212, 175, 55, 0.2);
+    transition: all 0.4s var(--transition-luxe);
+  }
+
+  .about-stat:hover {
+    transform: translateY(-5px);
+    border-color: var(--gold-premium);
+    box-shadow: 0 15px 30px rgba(212, 175, 55, 0.2);
+  }
+
+  .about-stat-number {
+    font-size: 2.5rem;
+    font-weight: 800;
+    background: var(--gold-gradient);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 0.5rem;
+  }
+
+  .about-stat-label {
+    font-size: 0.9rem;
+    color: rgba(245, 245, 220, 0.8);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+
+  /* SERVICES SECTION */
+  .services-premium {
+    background: var(--safari-night);
+  }
+
+  .services-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .service-card-premium {
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(212, 175, 55, 0.2);
+    border-radius: 25px;
+    padding: 2.5rem;
+    transition: all 0.6s var(--transition-luxe);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .service-card-premium:hover {
+    transform: translateY(-15px) scale(1.02);
+    background: rgba(255, 255, 255, 0.1);
+    border-color: var(--gold-premium);
+    box-shadow: 0 25px 50px rgba(212, 175, 55, 0.3);
+  }
+
+  .service-icon {
+    font-size: 3rem;
+    color: var(--gold-premium);
+    margin-bottom: 1.5rem;
+    transition: transform 0.4s var(--transition-luxe);
+  }
+
+  .service-card-premium:hover .service-icon {
+    transform: scale(1.2) rotate(10deg);
+  }
+
+  .service-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--text-cream);
+    margin-bottom: 1rem;
+  }
+
+  .service-description {
+    color: rgba(245, 245, 220, 0.9);
+    line-height: 1.7;
+    margin-bottom: 1.5rem;
+  }
+
+  /* WHY CHOOSE US */
+  .why-premium {
+    background: var(--safari-deep);
+  }
+
+  .why-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .why-card {
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(212, 175, 55, 0.2);
+    border-radius: 25px;
+    padding: 3rem;
+    text-align: center;
+    transition: all 0.6s var(--transition-luxe);
+  }
+
+  .why-card:hover {
+    transform: translateY(-10px) rotateX(5deg);
+    border-color: var(--gold-premium);
+    box-shadow: 0 20px 40px rgba(212, 175, 55, 0.3);
+  }
+
+  .why-icon {
+    font-size: 3rem;
+    color: var(--gold-premium);
+    margin-bottom: 1.5rem;
+    transition: transform 0.4s var(--transition-luxe);
+  }
+
+  .why-card:hover .why-icon {
+    transform: scale(1.2);
+  }
+
+  .why-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--text-cream);
+    margin-bottom: 1rem;
+  }
+
+  .why-text {
+    color: rgba(245, 245, 220, 0.9);
+    line-height: 1.7;
+  }
+
+  /* DESTINATIONS SECTION */
+  .destinations-premium {
+    background: var(--safari-night);
+  }
+
+  .destinations-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .destination-card-premium {
+    background: white;
+    border-radius: 25px;
+    overflow: hidden;
+    transition: all 0.6s var(--transition-luxe);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+    position: relative;
+  }
+
+  .destination-card-premium:hover {
+    transform: translateY(-15px) scale(1.03);
+    box-shadow: 0 25px 50px rgba(212, 175, 55, 0.3);
+  }
+
+  .destination-image {
+    height: 250px;
+    overflow: hidden;
+    position: relative;
+  }
+
+  .destination-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.8s var(--transition-luxe);
+  }
+
+  .destination-card-premium:hover .destination-image img {
+    transform: scale(1.15);
+  }
+
+  .destination-content {
+    padding: 2rem;
+  }
+
+  .destination-name {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--text-dark);
+    margin-bottom: 0.5rem;
+  }
+
+  .destination-location {
+    color: #666;
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .destination-price {
+    font-size: 1.5rem;
+    font-weight: 800;
+    color: var(--gold-premium);
+    margin-bottom: 1.5rem;
+  }
+
+  /* PACKAGES SECTION */
+  .packages-premium {
+    background: var(--safari-deep);
+  }
+
+  .packages-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .package-card-premium {
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(212, 175, 55, 0.2);
+    border-radius: 25px;
+    overflow: hidden;
+    transition: all 0.6s var(--transition-luxe);
+  }
+
+  .package-card-premium:hover {
+    transform: translateY(-15px);
+    border-color: var(--gold-premium);
+    box-shadow: 0 25px 50px rgba(212, 175, 55, 0.3);
+  }
+
+  .package-image {
+    height: 300px;
+    overflow: hidden;
+    position: relative;
+  }
+
+  .package-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.8s var(--transition-luxe);
+  }
+
+  .package-card-premium:hover .package-image img {
+    transform: scale(1.1);
+  }
+
+  .package-content {
+    padding: 2.5rem;
+  }
+
+  .package-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--text-cream);
+    margin-bottom: 0.5rem;
+  }
+
+  .package-meta {
+    color: rgba(245, 245, 220, 0.8);
+    margin-bottom: 1.5rem;
+  }
+
+  .package-price {
+    font-size: 2rem;
+    font-weight: 800;
+    color: var(--gold-premium);
+    margin-bottom: 1.5rem;
+  }
+
+  /* BUTTONS */
+  .btn-premium {
+    background: var(--gold-gradient);
+    color: var(--text-dark);
+    border: none;
+    border-radius: 15px;
+    padding: 1.2rem 2.5rem;
+    font-weight: 700;
+    font-size: 1.1rem;
+    transition: all 0.4s var(--transition-luxe);
+    display: inline-flex;
+    align-items: center;
+    gap: 0.75rem;
+    cursor: pointer;
+    text-decoration: none;
+  }
+
+  .btn-premium:hover {
+    transform: translateY(-3px) scale(1.05);
+    box-shadow: 0 20px 40px rgba(212, 175, 55, 0.4);
+    color: var(--text-dark);
+  }
+
+  .btn-outline-premium {
+    background: transparent;
+    color: var(--gold-premium);
+    border: 2px solid var(--gold-premium);
+    padding: 1rem 2rem;
+    border-radius: 15px;
+    font-weight: 600;
+    transition: all 0.4s var(--transition-luxe);
+  }
+
+  .btn-outline-premium:hover {
+    background: var(--gold-premium);
+    color: var(--text-dark);
+    transform: translateY(-3px);
+  }
+
+  /* PREMIUM MODAL */
+  .modal-premium .modal-content {
+    border: none;
+    border-radius: 30px;
+    overflow: hidden;
+    background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
+    box-shadow: var(--shadow-premium);
+    animation: modalAppear 0.6s var(--transition-luxe);
+  }
+
+  @keyframes modalAppear {
+    from {
+      opacity: 0;
+      transform: scale(0.9) translateY(30px);
+    }
+    to {
+      opacity: 1;
+      transform: scale(1) translateY(0);
+    }
+  }
+
+  .modal-premium .modal-header {
+    background: var(--safari-deep);
+    padding: 2rem;
+    border-bottom: 1px solid rgba(212, 175, 55, 0.3);
+  }
+
+  .modal-premium .modal-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--gold-premium);
+  }
+
+  .modal-premium .modal-body {
+    padding: 3rem;
+  }
+
+  /* RESPONSIVE DESIGN */
+  @media (max-width: 1024px) {
+    .about-content {
+      grid-template-columns: 1fr;
+      gap: 3rem;
+    }
+    
+    .hero-stats {
+      gap: 2rem;
+    }
+    
+    .stat-number {
+      font-size: 2.5rem;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .hero-title {
+      font-size: clamp(2.5rem, 6vw, 4rem);
+    }
+    
+    .hero-subtitle {
+      font-size: clamp(1rem, 2.5vw, 1.4rem);
+    }
+    
+    .search-container {
+      flex-direction: column;
+      gap: 0.5rem;
+      padding: 1rem;
+    }
+    
+    .search-input,
+    .search-btn {
+      width: 100%;
+    }
+    
+    .services-grid,
+    .destinations-grid,
+    .packages-grid,
+    .why-grid {
+      grid-template-columns: 1fr;
+    }
+    
+    .section-premium {
+      padding: 4rem 1rem;
+    }
+    
+    .section-title {
+      font-size: clamp(2rem, 4vw, 2.8rem);
+    }
+  }
+
+  @media (max-width: 480px) {
+    .hero-badge {
+      padding: 0.5rem 1rem;
+      font-size: 0.8rem;
+    }
+    
+    .search-btn {
+      padding: 1.25rem 2rem;
+    }
+    
+    .stat-number {
+      font-size: 2rem;
+    }
+    
+    .btn-premium {
+      padding: 1rem 2rem;
+      font-size: 1rem;
+    }
+    
+    .about-stat {
+      padding: 1.5rem;
+    }
+  }
+
+  /* ANIMATIONS */
+  .animate-on-scroll {
+    opacity: 0;
+    transform: translateY(60px);
+    transition: all 0.8s var(--transition-luxe);
+  }
+
+  .animate-on-scroll.animated {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* SCROLLBAR STYLING */
+  ::-webkit-scrollbar {
+    width: 12px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: var(--safari-dark);
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: var(--gold-gradient);
+    border-radius: 6px;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(135deg, #F4D03F 0%, #FFD700 100%);
+  }
+
+  /* SELECTION STYLING */
+  ::selection {
+    background: var(--gold-premium);
+    color: var(--text-dark);
+  }
+</style>
+
+<!-- Loading Overlay -->
+<div class="loading-overlay" id="loadingOverlay">
+  <div class="loading-spinner"></div>
+</div>
+
+<!-- PREMIUM HERO SECTION -->
+<section class="hero-premium">
+  <video autoplay muted loop playsinline class="hero-video-bg">
+    <source src="{% static 'img/premium-safari-hero.mp4' %}" type="video/mp4">
+  </video>
+  
+  <div class="hero-overlay"></div>
+  
+  <div class="hero-content">
+    <div class="hero-badge">
+      <i class="fas fa-crown"></i>
+      <span>Ultimate Safari Experience</span>
+    </div>
+    
+    <h1 class="hero-title">Comeback African Safaris</h1>
+    
+    <p class="hero-subtitle">
+      Embark on extraordinary adventures through Africa's most breathtaking landscapes. 
+      From the summit of Kilimanjaro to the Serengeti plains, experience luxury, 
+      adventure, and authentic cultural encounters like never before.
+    </p>
+    
+    <div class="hero-search">
+      <div class="search-container">
+        <input type="text" 
+               class="search-input" 
+               placeholder="Search destinations, safaris, or experiences..."
+               aria-label="Search adventures">
+        <button class="search-btn" data-bs-toggle="modal" data-bs-target="#tourPopup">
+          <i class="fas fa-search"></i>
+          Discover Now
+        </button>
+      </div>
+    </div>
+    
+    <div class="hero-stats">
+      <div class="stat-item">
+        <div class="stat-number">1000+</div>
+        <div class="stat-label">Happy Travelers</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-number">75+</div>
+        <div class="stat-label">Destinations</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-number">99%</div>
+        <div class="stat-label">Satisfaction</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-number">20+</div>
+        <div class="stat-label">Years Excellence</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PREMIUM MODAL -->
+<div class="modal fade modal-premium" id="tourPopup" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title fw-bold">Welcome to Comeback African Safaris 🌍</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body text-center px-4 py-5">
+        <h4 class="fw-bold mb-3">Craft Your Dream Safari</h4>
+        <p class="text-muted mb-4">Ready to embark on an unforgettable journey? Explore our curated experiences and start planning your adventure today.</p>
+        <a href="{% url 'form' %}"><button class="btn-premium"><i class="fas fa-arrow-down me-2"></i> Start Planning</button></a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ABOUT SECTION -->
+<section class="section-premium about-premium animate-on-scroll">
+  <div class="container">
+    <div class="section-title-container">
+      <div class="section-badge">Our Legacy</div>
+      <h2 class="section-title">Crafting Unforgettable Safari Experiences</h2>
+      <p class="section-subtitle">
+        With over 20 years of expertise, we deliver premium adventures that connect 
+        you with Africa's natural wonders and cultural treasures.
+      </p>
+    </div>
+    
+    <div class="about-content">
+      <div class="about-text">
+        {% if abouts %}
+          {% for i in abouts %}
+            <p>{{ i.content|truncatechars:450 }}</p>
+          {% endfor %}
+        {% else %}
+          <p>Comeback African Safaris was born from a passion for sharing Africa's breathtaking beauty with the world. Founded by local experts with deep knowledge of the land, we've grown to become one of East Africa's most trusted safari operators.</p>
+          <p>Our commitment goes beyond tourism—we're dedicated to sustainable travel that benefits local communities while preserving Africa's natural heritage for generations to come.</p>
+        {% endif %}
+        
+        <div class="about-stats">
+          <div class="about-stat">
+            <div class="about-stat-number">100%</div>
+            <div class="about-stat-label">Safety Record</div>
+          </div>
+          <div class="about-stat">
+            <div class="about-stat-number">24/7</div>
+            <div class="about-stat-label">Support</div>
+          </div>
+          <div class="about-stat">
+            <div class="about-stat-number">Eco</div>
+            <div class="about-stat-label">Certified</div>
+          </div>
+          <div class="about-stat">
+            <div class="about-stat-number">Local</div>
+            <div class="about-stat-label">Expert Guides</div>
+          </div>
+        </div>
+        
+        <a href="{% url 'about' %}" class="btn-premium mt-4">
+          <i class="fas fa-book-open"></i>
+          Discover Our Story
+        </a>
+      </div>
+      
+      <div class="about-image-container">
+        {% if abouts and abouts.first.image %}
+          <img src="{{ abouts.first.image }}" alt="Comeback African Safaris" class="about-image">
+        {% else %}
+          <img src="{% static 'img/premium-about.jpg' %}" alt="Comeback African Safaris" class="about-image">
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES SECTION -->
+<section class="section-premium services-premium animate-on-scroll">
+  <div class="container">
+    <div class="section-title-container">
+      <div class="section-badge">Our Expertise</div>
+      <h2 class="section-title">Premium Safari Services</h2>
+      <p class="section-subtitle">
+        From luxury accommodations to expert-guided adventures, we handle every detail 
+        for your perfect African experience.
+      </p>
+    </div>
+    
+    <div class="services-grid">
+      {% for service in services|slice:":4" %}
+      <div class="service-card-premium">
+        <div class="service-icon">
+          <i class="fas fa-mountain"></i>
+        </div>
+        <h3 class="service-title">{{ service.title }}</h3>
+        <p class="service-description">{{ service.description|truncatechars:120 }}</p>
+        <a href="{% url 'service' %}" class="btn-outline-premium">
+          Explore Service
+        </a>
+      </div>
+      {% empty %}
+      <div class="service-card-premium">
+        <div class="service-icon">
+          <i class="fas fa-mountain"></i>
+        </div>
+        <h3 class="service-title">Kilimanjaro Expeditions</h3>
+        <p class="service-description">Summit Africa's highest peak with our expert guides. All routes, premium equipment, and safety-focused approach.</p>
+        <a href="{% url 'service' %}" class="btn-outline-premium">
+          Explore Routes
+        </a>
+      </div>
+      <div class="service-card-premium">
+        <div class="service-icon">
+          <i class="fas fa-lion"></i>
+        </div>
+        <h3 class="service-title">Wildlife Safaris</h3>
+        <p class="service-description">Witness the Big Five in their natural habitat. Custom itineraries, luxury lodges, and photographic safaris.</p>
+        <a href="{% url 'service' %}" class="btn-outline-premium">
+          View Packages
+        </a>
+      </div>
+      <div class="service-card-premium">
+        <div class="service-icon">
+          <i class="fas fa-umbrella-beach"></i>
+        </div>
+        <h3 class="service-title">Beach Getaways</h3>
+        <p class="service-description">Relax on Zanzibar's pristine beaches. Island tours, water sports, and luxury resort stays.</p>
+        <a href="{% url 'service' %}" class="btn-outline-premium">
+          Discover Beaches
+        </a>
+      </div>
+      <div class="service-card-premium">
+        <div class="service-icon">
+          <i class="fas fa-heart"></i>
+        </div>
+        <h3 class="service-title">Honeymoon Packages</h3>
+        <p class="service-description">Romantic escapes combining safari adventure with luxury relaxation. Private experiences and special touches.</p>
+        <a href="{% url 'service' %}" class="btn-outline-premium">
+          Plan Romance
+        </a>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<!-- WHY CHOOSE US SECTION -->
+<section class="section-premium why-premium animate-on-scroll">
+  <div class="container">
+    <div class="section-title-container">
+      <div class="section-badge">Why Choose Us</div>
+      <h2 class="section-title">The Comeback African Safaris Difference</h2>
+      <p class="section-subtitle">
+        Experience the unique blend of luxury, adventure, and authenticity that sets us apart.
+      </p>
+    </div>
+    
+    <div class="why-grid">
+      <div class="why-card">
+        <div class="why-icon">
+          <i class="fas fa-map-marked-alt"></i>
+        </div>
+        <h3 class="why-title">Authentic Local Expertise</h3>
+        <p class="why-text">Our guides, born and raised near Africa's greatest landmarks, share intimate knowledge, stories, and secrets of the land.</p>
+      </div>
+      
+      <div class="why-card">
+        <div class="why-icon">
+          <i class="fas fa-shield-alt"></i>
+        </div>
+        <h3 class="why-title">Unmatched Safety Standards</h3>
+        <p class="why-text">From daily health checks to premium gear and 24/7 support, we prioritize your safety with world-class standards.</p>
+      </div>
+      
+      <div class="why-card">
+        <div class="why-icon">
+          <i class="fas fa-heart"></i>
+        </div>
+        <h3 class="why-title">Heartfelt Experiences</h3>
+        <p class="why-text">From singing with local communities to celebrating at summits, every moment is crafted to create lasting memories.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- DESTINATIONS SECTION -->
+<section class="section-premium destinations-premium animate-on-scroll">
+  <div class="container">
+    <div class="section-title-container">
+      <div class="section-badge">Featured</div>
+      <h2 class="section-title">Premium Destinations</h2>
+      <p class="section-subtitle">
+        Explore Africa's most iconic landscapes and hidden gems with our curated 
+        premium experiences.
+      </p>
+    </div>
+    
+    <div class="destinations-grid">
+      {% for dest in destinations|slice:":4" %}
+      <div class="destination-card-premium">
+        <div class="destination-image">
+          <img src="{{ dest.image }}" alt="{{ dest.name }}">
+        </div>
+        <div class="destination-content">
+          <h3 class="destination-name">{{ dest.name }}</h3>
+          <div class="destination-location">
+            <i class="fas fa-map-marker-alt"></i>
+            {{ dest.location }}
+          </div>
+          {% if dest.Offer_in_percent %}
+          <div class="destination-price">{{ dest.Offer_in_percent }}% OFF</div>
+          {% endif %}
+          <a href="{% url 'destination_detail' dest.pk %}" class="btn-premium">
+            <i class="fas fa-eye"></i>
+            View Details
+          </a>
+        </div>
+      </div>
+      {% empty %}
+      <div class="destination-card-premium">
+        <div class="destination-image">
+          <img src="{% static 'img/serengeti.jpg' %}" alt="Serengeti National Park">
+        </div>
+        <div class="destination-content">
+          <h3 class="destination-name">Serengeti National Park</h3>
+          <div class="destination-location">
+            <i class="fas fa-map-marker-alt"></i>
+            Tanzania
+          </div>
+          <div class="destination-price">From $2,500</div>
+          <a href="#" class="btn-premium">
+            <i class="fas fa-eye"></i>
+            View Details
+          </a>
+        </div>
+      </div>
+      <div class="destination-card-premium">
+        <div class="destination-image">
+          <img src="{% static 'img/kilimanjaro.jpg' %}" alt="Mount Kilimanjaro">
+        </div>
+        <div class="destination-content">
+          <h3 class="destination-name">Mount Kilimanjaro</h3>
+          <div class="destination-location">
+            <i class="fas fa-map-marker-alt"></i>
+            Tanzania
+          </div>
+          <div class="destination-price">From $3,000</div>
+          <a href="#" class="btn-premium">
+            <i class="fas fa-eye"></i>
+            View Details
+          </a>
+        </div>
+      </div>
+      <div class="destination-card-premium">
+        <div class="destination-image">
+          <img src="{% static 'img/ngorongoro.jpg' %}" alt="Ngorongoro Crater">
+        </div>
+        <div class="destination-content">
+          <h3 class="destination-name">Ngorongoro Crater</h3>
+          <div class="destination-location">
+            <i class="fas fa-map-marker-alt"></i>
+            Tanzania
+          </div>
+          <div class="destination-price">From $1,800</div>
+          <a href="#" class="btn-premium">
+            <i class="fas fa-eye"></i>
+            View Details
+          </a>
+        </div>
+      </div>
+      <div class="destination-card-premium">
+        <div class="destination-image">
+          <img src="{% static 'img/zanzibar.jpg' %}" alt="Zanzibar Island">
+        </div>
+        <div class="destination-content">
+          <h3 class="destination-name">Zanzibar Island</h3>
+          <div class="destination-location">
+            <i class="fas fa-map-marker-alt"></i>
+            Tanzania
+          </div>
+          <div class="destination-price">From $1,200</div>
+          <a href="#" class="btn-premium">
+            <i class="fas fa-eye"></i>
+            View Details
+          </a>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+    
+    <div class="text-center mt-5">
+      <a href="{% url 'destinations_list' %}" class="btn-premium">
+        <i class="fas fa-globe-africa"></i>
+        View All Destinations
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- PACKAGES SECTION -->
+<section class="section-premium packages-premium animate-on-scroll">
+  <div class="container">
+    <div class="section-title-container">
+      <div class="section-badge">Our Packages</div>
+      <h2 class="section-title">Premium Safari & Trekking Journeys</h2>
+      <p class="section-subtitle">
+        Select from our expertly curated tours for an unforgettable African adventure.
+      </p>
+    </div>
+    
+    <div class="packages-grid">
+      {% for pac in safari_list|slice:":3" %}
+      <div class="package-card-premium">
+        <div class="package-image">
+          <img src="{{ pac.featured_image }}" alt="{{ pac.location }}">
+        </div>
+        <div class="package-content">
+          <h3 class="package-title">{{ pac.location }}</h3>
+          <div class="package-meta">{{ pac.days }} Days • {{ pac.safari_type }}</div>
+          <div class="package-price">From ${{ pac.price }}</div>
+          <a href="{% url 'safari_detail' pac.id %}" class="btn-premium">
+            <i class="fas fa-arrow-right"></i>
+            View Package
+          </a>
+        </div>
+      </div>
+      {% empty %}
+      <div class="package-card-premium">
+        <div class="package-image">
+          <img src="{% static 'img/safari-package-1.jpg' %}" alt="Serengeti Migration Safari">
+        </div>
+        <div class="package-content">
+          <h3 class="package-title">Serengeti Migration Safari</h3>
+          <div class="package-meta">7 Days • Luxury Safari</div>
+          <div class="package-price">From $4,500</div>
+          <a href="#" class="btn-premium">
+            <i class="fas fa-arrow-right"></i>
+            View Package
+          </a>
+        </div>
+      </div>
+      <div class="package-card-premium">
+        <div class="package-image">
+          <img src="{% static 'img/safari-package-2.jpg' %}" alt="Kilimanjaro Summit Expedition">
+        </div>
+        <div class="package-content">
+          <h3 class="package-title">Kilimanjaro Summit Expedition</h3>
+          <div class="package-meta">8 Days • Mountain Climbing</div>
+          <div class="package-price">From $3,800</div>
+          <a href="#" class="btn-premium">
+            <i class="fas fa-arrow-right"></i>
+            View Package
+          </a>
+        </div>
+      </div>
+      <div class="package-card-premium">
+        <div class="package-image">
+          <img src="{% static 'img/safari-package-3.jpg' %}" alt="Zanzibar Beach Retreat">
+        </div>
+        <div class="package-content">
+          <h3 class="package-title">Zanzibar Beach Retreat</h3>
+          <div class="package-meta">5 Days • Luxury Beach</div>
+          <div class="package-price">From $2,200</div>
+          <a href="#" class="btn-premium">
+            <i class="fas fa-arrow-right"></i>
+            View Package
+          </a>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+    
+    <div class="text-center mt-5">
+      <a href="" class="btn-premium">
+        <i class="fas fa-suitcase"></i>
+        View All Packages
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- CTA SECTION -->
+<section class="section-premium animate-on-scroll" style="background: var(--gold-gradient);">
+  <div class="container">
+    <div class="text-center">
+      <h2 class="section-title" style="color: var(--text-dark);">Ready for Your African Adventure?</h2>
+      <p class="section-subtitle" style="color: rgba(26, 26, 26, 0.9); max-width: 600px; margin: 0 auto 3rem;">
+        Contact our safari experts today to start planning your dream journey. 
+        Let's create memories that will last a lifetime.
+      </p>
+      <div class="d-flex flex-wrap justify-content-center gap-3">
+        <a href="{% url 'form' %}" class="btn-premium" style="background: var(--safari-dark); color: var(--text-cream);">
+          <i class="fas fa-calendar-check"></i>
+          Start Planning
+        </a>
+        <a href="tel:+255123456789" class="btn-premium" style="background: transparent; border: 2px solid var(--safari-dark); color: var(--safari-dark);">
+          <i class="fas fa-phone"></i>
+          Call Us Now
+        </a>
+        <a href="{% url 'contact' %}" class="btn-premium" style="background: transparent; border: 2px solid var(--safari-dark); color: var(--safari-dark);">
+          <i class="fas fa-envelope"></i>
+          Send Message
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  // Premium JavaScript Enhancements
+  document.addEventListener('DOMContentLoaded', function() {
+    // Hide loading overlay
+    setTimeout(() => {
+      document.getElementById('loadingOverlay')?.classList.add('hidden');
+    }, 1000);
+    
+    // Animate on scroll
+    const animateElements = document.querySelectorAll('.animate-on-scroll');
+    
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('animated');
+        }
+      });
+    }, {
+      threshold: 0.1,
+      rootMargin: '0px 0px -100px 0px'
+    });
+    
+    animateElements.forEach(element => {
+      observer.observe(element);
+    });
+    
+    // Premium search functionality
+    const searchForm = document.querySelector('.search-container');
+    if (searchForm) {
+      const searchInput = searchForm.querySelector('.search-input');
+      const searchBtn = searchForm.querySelector('.search-btn');
+      
+      searchBtn.addEventListener('click', function(e) {
+        e.preventDefault();
+        const searchTerm = searchInput.value.trim();
+        if (searchTerm) {
+          // Show loading state
+          const originalText = searchBtn.innerHTML;
+          searchBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Searching...';
+          searchBtn.disabled = true;
+          
+          // Simulate search
+          setTimeout(() => {
+            searchBtn.innerHTML = originalText;
+            searchBtn.disabled = false;
+            // Redirect to search results or filter
+            window.location.href = `{% url 'destinations_list' %}?search=${encodeURIComponent(searchTerm)}`;
+          }, 1000);
+        }
+      });
+    }
+    
+    // Smooth scrolling
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function(e) {
+        e.preventDefault();
+        const targetId = this.getAttribute('href');
+        if (targetId === '#') return;
+        
+        const targetElement = document.querySelector(targetId);
+        if (targetElement) {
+          window.scrollTo({
+            top: targetElement.offsetTop - 100,
+            behavior: 'smooth'
+          });
+        }
+      });
+    });
+    
+    // Card hover effects
+    const cards = document.querySelectorAll('.service-card-premium, .destination-card-premium, .package-card-premium, .why-card');
+    cards.forEach(card => {
+      card.addEventListener('mouseenter', () => {
+        card.style.transform = 'translateY(-10px) scale(1.02)';
+      });
+      
+      card.addEventListener('mouseleave', () => {
+        card.style.transform = 'translateY(0) scale(1)';
+      });
+    });
+    
+    // Create and style back to top button
+    const backToTop = document.createElement('button');
+    backToTop.innerHTML = '<i class="fas fa-chevron-up"></i>';
+    backToTop.className = 'back-to-top';
+    backToTop.style.cssText = `
+      position: fixed;
+      bottom: 30px;
+      right: 30px;
+      width: 60px;
+      height: 60px;
+      background: var(--gold-gradient);
+      color: var(--text-dark);
+      border: none;
+      border-radius: 50%;
+      cursor: pointer;
+      opacity: 0;
+      transform: translateY(20px);
+      transition: all 0.4s var(--transition-luxe);
+      z-index: 1000;
+      box-shadow: 0 5px 20px rgba(0,0,0,0.3);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+    `;
+    
+    document.body.appendChild(backToTop);
+    
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 500) {
+        backToTop.style.opacity = '1';
+        backToTop.style.transform = 'translateY(0)';
+      } else {
+        backToTop.style.opacity = '0';
+        backToTop.style.transform = 'translateY(20px)';
+      }
+    });
+    
+    backToTop.addEventListener('click', () => {
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      });
+    });
+    
+    // Parallax effect for hero
+    window.addEventListener('scroll', () => {
+      const scrolled = window.pageYOffset;
+      const hero = document.querySelector('.hero-premium');
+      if (hero) {
+        const rate = scrolled * -0.5;
+        hero.style.transform = `translateY(${rate}px)`;
+      }
+    });
+    
+    // Add loading state to all links
+    function showLoading(event) {
+      const link = event.currentTarget;
+      if (link.href && !link.href.startsWith('#')) {
+        event.preventDefault();
+        const overlay = document.getElementById('loadingOverlay');
+        if (overlay) {
+          overlay.style.opacity = '1';
+          overlay.style.visibility = 'visible';
+        }
+        
+        setTimeout(() => {
+          window.location.href = link.href;
+        }, 300);
+      }
+    }
+    
+    // Attach loading to all internal links
+    document.querySelectorAll('a[href^="/"], a[href*="{% url"]').forEach(link => {
+      link.addEventListener('click', showLoading);
+    });
+  });
+</script>
+
+{% include 'booking_form.html' %}
+
+{% endblock %}

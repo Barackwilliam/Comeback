@@ -1,0 +1,160 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}{{ tour.title }}{% endblock %}
+
+{% block content %}
+<section class="container py-5">
+  <div class="row">
+    <div class="col-md-8">
+      <h1 class="mb-3">{{ tour.title }}</h1>
+      {% if tour.featured_image %}
+        <img src="{{ tour.featured_image }}" class="img-fluid mb-4 rounded" alt="{{ tour.title }}">
+      {% endif %}
+      <p><strong>Location:</strong> {{ tour.location }}</p>
+      <p><strong>Days:</strong> {{ tour.days }}</p>
+      <p><strong>Type:</strong> {{ tour.tour_type }}</p>
+      {% if tour.route %}<p><strong>Route:</strong> {{ tour.route }}</p>{% endif %}
+      {% if tour.price %}<p><strong>Price:</strong> ${{ tour.price }}</p>{% endif %}
+      <h5 class="mt-4">Overview</h5>
+      <p>{{ tour.overview }}</p>
+
+      <h5 class="mt-5">Tour Itinerary</h5>
+      <div class="accordion" id="itineraryAccordion">
+        {% for day in tour.itinerary.all %}
+        <div class="accordion-item">
+          <h2 class="accordion-header" id="heading{{ day.day_number }}">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse{{ day.day_number }}" aria-expanded="false" aria-controls="collapse{{ day.day_number }}">
+              Day {{ day.day_number }}: {{ day.title }}
+            </button>
+          </h2>
+          <div id="collapse{{ day.day_number }}" class="accordion-collapse collapse" aria-labelledby="heading{{ day.day_number }}" data-bs-parent="#itineraryAccordion">
+            <div class="accordion-body">
+              {% if day.elevation_start and day.elevation_end %}<p><strong>Elevation:</strong> {{ day.elevation_start }} to {{ day.elevation_end }}</p>{% endif %}
+              {% if day.distance_km %}<p><strong>Distance:</strong> {{ day.distance_km }} km</p>{% endif %}
+              {% if day.hiking_time %}<p><strong>Hiking Time:</strong> {{ day.hiking_time }}</p>{% endif %}
+              {% if day.habitat %}<p><strong>Habitat:</strong> {{ day.habitat }}</p>{% endif %}
+              <p>{{ day.description }}</p>
+            </div>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+
+   
+
+  <div class="row g-4">
+ <div class="col-md-6">
+  <div class="p-4 rounded-4 bg-dark border border-warning shadow-lg h-100 text-light">
+    <div class="text-center mb-4">
+      <i class="fas fa-check-circle text-warning fs-1"></i>
+      <h4 class="fw-bold mt-3 text-uppercase text-light">What's Included in Your Package</h4>
+      <p class="text-secondary">Everything you need for a safe and memorable Kilimanjaro experience.</p>
+    </div>
+
+    <ul class="list-unstyled">
+      <li class="mb-3 d-flex align-items-start">
+        <i class="fas fa-route text-warning me-3 fs-5"></i>
+        <span><strong>Guided Kilimanjaro Trek:</strong> Full climb from start to summit and back, tailored to your selected route.</span>
+      </li>
+
+      <li class="mb-3 d-flex align-items-start">
+        <i class="fas fa-user-shield text-warning me-3 fs-5"></i>
+        <span><strong>Certified Guide:</strong> English-speaking guide with Wilderness First Responder (WFR) & CPR training.</span>
+      </li>
+
+      <li class="mb-3 d-flex align-items-start">
+        <i class="fas fa-users-cog text-warning me-3 fs-5"></i>
+        <span><strong>Skilled Support Crew:</strong> Proper ratio of experienced porters and a professional mountain cook.</span>
+      </li>
+
+      <li class="mb-3 d-flex align-items-start">
+        <i class="fas fa-hotel text-warning me-3 fs-5"></i>
+        <span><strong>Hotel Accommodation:</strong> Two nights in a comfortable hotel (Bed & Breakfast) before and after the trek.</span>
+      </li>
+
+      <li class="mb-3 d-flex align-items-start">
+        <i class="fas fa-ticket-alt text-warning me-3 fs-5"></i>
+        <span><strong>All Park Fees:</strong> Includes entry, camping/hut fees, rescue, crew permits, and VAT.</span>
+      </li>
+
+      <li class="mb-3 d-flex align-items-start">
+        <i class="fas fa-utensils text-warning me-3 fs-5"></i>
+        <span><strong>Full-Board Meals:</strong> Nutritious breakfast, lunch, dinner, and drinking water during the entire trek.</span>
+      </li>
+
+      <li class="mb-3 d-flex align-items-start">
+        <i class="fas fa-shuttle-van text-warning me-3 fs-5"></i>
+        <span><strong>Airport Transfers:</strong> Transport to/from Kilimanjaro International Airport (JRO).</span>
+      </li>
+
+      <li class="mb-3 d-flex align-items-start">
+        <i class="fas fa-campground text-warning me-3 fs-5"></i>
+        <span><strong>Camping Gear:</strong> High-quality tents, sleeping mats, dining equipment & more (excluding personal gear).</span>
+      </li>
+    </ul>
+  </div>
+</div>
+
+
+
+
+<div class="col-md-6">
+  <div class="p-4 rounded-4 bg-dark border border-danger shadow-lg h-100 text-light">
+    <div class="text-center mb-4">
+      <i class="fas fa-times-circle text-danger fs-1"></i>
+      <h4 class="fw-bold mt-3 text-uppercase text-light">What's Not Included</h4>
+      <p class="text-secondary">Please note the following items are not covered in our package price.</p>
+    </div>
+    <ul class="list-unstyled">
+      <li class="mb-3 d-flex align-items-start">
+        <i class="fas fa-plane-departure text-danger me-3 fs-5"></i>
+        <span><strong>Flights:</strong> International and domestic airfares are not included.</span>
+      </li>
+      <li class="mb-3 d-flex align-items-start">
+        <i class="fas fa-passport text-danger me-3 fs-5"></i>
+        <span><strong>Visa Fees:</strong> Clients are responsible for Tanzania entry visas.</span>
+      </li>
+      <li class="mb-3 d-flex align-items-start">
+        <i class="fas fa-shield-alt text-danger me-3 fs-5"></i>
+        <span><strong>Insurance:</strong> Travel and medical insurance is highly recommended but not provided.</span>
+      </li>
+      <li class="mb-3 d-flex align-items-start">
+        <i class="fas fa-hands-helping text-danger me-3 fs-5"></i>
+        <span><strong>Tips:</strong> Gratuities for guides, porters, and cooks are not included.</span>
+      </li>
+      <li class="mb-3 d-flex align-items-start">
+        <i class="fas fa-hiking text-danger me-3 fs-5"></i>
+        <span><strong>Personal Gear:</strong> Bring your own trekking boots, sleeping bag, clothes, etc.</span>
+      </li>
+      <li class="mb-3 d-flex align-items-start">
+        <i class="fas fa-coffee text-danger me-3 fs-5"></i>
+        <span><strong>Extra Beverages:</strong> Soft drinks, alcohol, and snacks outside meals are excluded.</span>
+      </li>
+      <li class="mb-3 d-flex align-items-start">
+        <i class="fas fa-hotel text-danger me-3 fs-5"></i>
+        <span><strong>Extra Hotel Nights:</strong> If descending early or needing extra rest days, extra hotel costs apply.</span>
+      </li>
+      <li class="mb-3 d-flex align-items-start">
+        <i class="fas fa-binoculars text-danger me-3 fs-5"></i>
+        <span><strong>Optional Excursions:</strong> Tours or experiences not listed in the main itinerary are at your own cost.</span>
+      </li>
+    </ul>
+  </div>
+</div>
+
+
+
+</div>
+ <!-- Booking Start -->
+ {% include 'booking_form.html' %}
+
+ <!-- Booking Start -->
+
+          <!-- </div>
+      </div>
+    </div> -->
+  </div>
+</section>
+{% endblock %}

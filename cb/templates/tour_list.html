@@ -1,0 +1,49 @@
+<!-- tour_list.html -->
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Tour Listings{% endblock %}
+
+{% block content %}
+<section class="container py-5">
+  <h1 class="mb-4 text-center">Available Tours</h1>
+
+  <form method="get" class="row g-3 mb-5">
+    <div class="col-md-5">
+      <input type="text" name="location" class="form-control" placeholder="Search by Location" value="{{ request.GET.location }}">
+    </div>
+    <div class="col-md-5">
+      <select name="type" class="form-select">
+        <option value="">-- Select Your Tour --</option>
+        {% for type in tour_types %}
+          <option value="{{ type }}" {% if request.GET.type == type %}selected{% endif %}>{{ type }}</option>
+        {% endfor %}
+      </select>
+    </div>
+    <div class="col-md-2">
+      <button type="submit" class="btn btn-primary w-100">Search</button>
+    </div>
+  </form>
+
+  <div class="row">
+    {% for tour in tours %}
+    <div class="col-md-4 mb-4">
+      <div class="card h-100 shadow-sm">
+        {% if tour.featured_image %}
+          <img src="{{ tour.featured_image }}" class="card-img-top" alt="{{ tour.title }}">
+        {% endif %}
+        <div class="card-body d-flex flex-column">
+          <h5 class="card-title">{{ tour.title }}</h5>
+          <p class="card-text"><strong>Location:</strong> {{ tour.location }}</p>
+          <p class="card-text"><strong>Days:</strong> {{ tour.days }}</p>
+          <p class="card-text"><strong>Type:</strong> {{ tour.tour_type }}</p>
+          <a href="{% url 'tour_detail' tour.pk %}" class="btn btn-outline-primary mt-auto">View Details</a>
+        </div>
+      </div>
+    </div>
+    {% empty %}
+      <p>No tours available for the selected criteria.</p>
+    {% endfor %}
+  </div>
+</section>
+{% endblock %}

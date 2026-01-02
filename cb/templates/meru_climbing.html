@@ -1,0 +1,187 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<style>
+:root {
+    --secondary: #9333ea; /* Purple */
+    --accent: #facc15; /* Yellow */
+    --dark: #0f172a; /* Deep navy */
+    --light: #f9fafb;
+}
+
+/* Hero Background with Gradient Overlay + Animated Zoom */
+.hero-image-bg {
+    background-image: url("https://res.cloudinary.com/tourhq/image/upload/fl_progressive,f_auto,h_507,w_900,g_auto,c_fill,q_auto/mfkoiqnoowk1r7wer1zv");
+    background-size: cover;
+    background-position: center;
+    position: relative;
+    animation: zoomEffect 15s infinite alternate ease-in-out;
+    overflow: hidden;
+}
+.hero-image-bg::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+   
+    z-index: 1;
+}
+.hero-image-bg .container {
+    position: relative;
+    z-index: 2;
+    color: var(--light);
+    text-shadow: 0 3px 8px rgba(0,0,0,0.8);
+    animation: fadeInDown 1.5s ease;
+}
+@keyframes zoomEffect {
+    0% { transform: scale(1); }
+    100% { transform: scale(1.15); }
+}
+
+/* Section Title */
+.section-title {
+    font-weight: 800;
+    color: var(--primary);
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    display: inline-block;
+    padding: 6px 14px;
+    border-radius: 30px;
+    background: linear-gradient(90deg, var(--primary), var(--secondary));
+    color: white;
+    animation: fadeInUp 1.2s ease;
+}
+
+/* Destination Cards Advanced Look */
+.destination-card {
+    border: none;
+    border-radius: 22px;
+    overflow: hidden;
+    background: rgba(255,255,255,0.08);
+    backdrop-filter: blur(12px);
+    border: 1px solid rgba(255,255,255,0.2);
+    transition: all 0.6s ease;
+    cursor: pointer;
+    position: relative;
+}
+.destination-card:hover {
+    transform: translateY(-15px) scale(1.05) rotateX(4deg) rotateY(-3deg);
+    box-shadow: 0 25px 60px rgba(0,0,0,0.4);
+}
+.destination-card img {
+    object-fit: cover;
+    height: 240px;
+    width: 100%;
+    transition: transform 0.7s ease;
+}
+.destination-card:hover img {
+    transform: scale(1.15) rotate(-1deg);
+}
+.destination-card h5 {
+    color: var(--secondary);
+    font-weight: 700;
+}
+.destination-card .card-text {
+    font-size: 0.95rem;
+    color: #334155;
+}
+
+/* Buttons with Glow & Gradient */
+.btn-advanced {
+    background: linear-gradient(135deg, var(--primary), var(--secondary));
+    color: white;
+    border: none;
+    font-weight: 600;
+    padding: 0.6rem 1.5rem;
+    border-radius: 50px;
+    transition: all 0.4s ease;
+}
+.btn-advanced:hover {
+    transform: scale(1.08);
+    box-shadow: 0 0 20px rgba(147, 51, 234, 0.6), 0 0 30px rgba(6, 182, 212, 0.5);
+}
+
+/* Animations */
+@keyframes fadeInDown {
+    from { opacity: 0; transform: translateY(-50px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+@keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(50px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+</style>
+
+<!-- Hero -->
+<div class="container-fluid hero-image-bg py-5 mb-5 hero-header">
+    <div class="container py-5 text-center">
+        <h1 style="color:rgb(75, 5, 5)" class="display-3 fw-bold mb-3 animate__animated animate__fadeInDown">Meru Climbing</h1>
+        <nav aria-label="breadcrumb" class="animate__animated animate__fadeInUp">
+            <ol class="breadcrumb justify-content-center">
+                <li class="breadcrumb-item"><a href="#" class="text-warning">Home</a></li>
+                <li class="breadcrumb-item text-light active" aria-current="page">Meru Climbing</li>
+            </ol>
+        </nav>
+    </div>
+</div>
+
+<!-- Destination Cards -->
+<div class="container-xxl py-5">
+    <div class="container">
+        <div class="text-center mb-5">
+            <h6 class="section-title shadow-sm">Explore</h6>
+            <h1 class="mb-4 animate__animated animate__fadeInUp fw-bold" style="color: var(--dark)">Climbing Mount Meru Tanzania</h1>
+        </div>
+        <div class="row g-4 justify-content-center">
+
+            <!-- Card 1 -->
+            <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
+                <div class="card destination-card h-100">
+                    <div class="overflow-hidden">
+                        <img src="https://wildmapstravel.com/themephotoes/features/1717442551_7774121b57a7fb55f611.webp" alt="">
+                    </div>
+                    <div class="card-body d-flex flex-column p-4">
+                        <h5 class="card-title">Momela route 3 days</h5>
+                        <p class="mb-2 small text-muted">Momela Route</p>
+                        <p class="card-text flex-grow-1">
+                            Meru is a great preparation hike for climbing Kilimanjaro, or a spectacular trek for those not compelled to do Kilimanjaro.
+                        </p>
+                        <div class="mb-3">
+                            <small class="d-block"><strong>Best time:</strong> Anytime</small>
+                            <small class="d-block"><strong>Nearest city:</strong> N/A</small>
+                        </div>
+                        <div class="mt-auto text-center">
+                            <a href="{% url 'Momela_route_3' %}" class="btn btn-advanced" onclick="showLoading(event)">View Details</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 2 -->
+            <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.2s">
+                <div class="card destination-card h-100">
+                    <div class="overflow-hidden">
+                        <img src="https://imenyaadventure.com/wp-content/uploads/2024/05/momela.jpg" alt="">
+                    </div>
+                    <div class="card-body d-flex flex-column p-4">
+                        <h5 class="card-title">Momela route 4 days</h5>
+                        <p class="mb-2 small text-muted">Momela Route</p>
+                        <p class="card-text flex-grow-1">
+                            The peak can be ascended in 3 or 4 days on the Momela Route, which is the only way up to the summit. No technical equipment is needed, but preparation for altitude gain is essential.
+                        </p>
+                        <div class="mb-3">
+                            <small class="d-block"><strong>Best time:</strong> Anytime</small>
+                            <small class="d-block"><strong>Nearest city:</strong> N/A</small>
+                        </div>
+                        <div class="mt-auto text-center">
+                            <a href="{% url 'Momela_route_4' %}" class="btn btn-advanced" onclick="showLoading(event)">View Details</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+{% endblock %}

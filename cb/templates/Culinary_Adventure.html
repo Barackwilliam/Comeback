@@ -1,0 +1,89 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+<div class="container py-5">
+  <!-- Title & Intro -->
+  <div class="text-center mb-5">
+    <h2 class="fw-bold text-primary display-5">🍲 Food Journey in Arusha</h2>
+    <p style="color: black;" class="fs-5" style="max-width: 750px; margin:auto;">
+      Food is culture – and in Arusha, you'll enjoy both the taste and the stories behind every dish.  
+      Experience markets, cooking, traditional meals, and local beverages.
+    </p>
+  </div>
+
+  <!-- Content with Steps -->
+  <div class="row align-items-center g-5">
+    <!-- Steps -->
+    <div class="col-lg-6">
+      <div class="bg-light rounded-4 shadow-lg p-4">
+        <h5 class="text-primary mb-4">📌 Itinerary & Highlights</h5>
+
+        <div class="food-step d-flex mb-3">
+          <span class="step-number bg-warning text-dark fw-bold rounded-circle d-flex align-items-center justify-content-center me-3">1</span>
+          <div style="color: black;" class="step-content">
+            <strong>Market Visit:</strong> Explore local markets to discover fresh spices, grains, and vegetables.
+          </div>
+        </div>
+
+        <div class="food-step d-flex mb-3">
+          <span class="step-number bg-warning text-dark fw-bold rounded-circle d-flex align-items-center justify-content-center me-3">2</span>
+          <div style="color: black;" class="step-content">
+            <strong>Cooking Experience:</strong> Join a cooking class to prepare Tanzanian dishes like Ugali, Nyama Choma, Pilau, Makande, and Mchicha with Coconut.
+          </div>
+        </div>
+
+        <div class="food-step d-flex mb-3">
+          <span class="step-number bg-warning text-dark fw-bold rounded-circle d-flex align-items-center justify-content-center me-3">3</span>
+          <div style="color: black;" class="step-content">
+            <strong>Traditional Meal:</strong> Share an authentic Tanzanian lunch at a local restaurant or with a host family.
+          </div>
+        </div>
+
+        <div class="food-step d-flex">
+          <span class="step-number bg-warning text-dark fw-bold rounded-circle d-flex align-items-center justify-content-center me-3">4</span>
+          <div style="color: black;" class="step-content">
+            <strong>Local Drinks:</strong> Taste traditional beverages like Mbege (banana beer) and enjoy warm conversations with locals.
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Image with Overlay -->
+    <div class="col-lg-6 text-center">
+      <div class="position-relative d-inline-block w-100">
+        <img src="{% static 'img/food-journey.jpg' %}" 
+             alt="Food Journey in Arusha"
+             class="img-fluid rounded-4 shadow-lg"
+             style="max-height:480px; object-fit:cover; width:100%;">
+        
+        <!-- Overlay Button -->
+        <div class="overlay-icons position-absolute top-50 start-50 translate-middle">
+          <a href="https://wa.me/255658571653" class="btn btn-success fw-semibold shadow-lg px-4 py-2 rounded-pill"onclick="showLoading(event)">
+            🍴 Explore Recipes
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Extra CSS for Steps and Overlay -->
+<style>
+.food-step .step-number {
+  width: 40px;
+  height: 40px;
+  font-size: 18px;
+}
+
+.overlay-icons {
+  opacity: 0;
+  transition: opacity 0.4s ease;
+}
+.position-relative:hover .overlay-icons {
+  opacity: 1;
+}
+</style>
+
+{% endblock %}

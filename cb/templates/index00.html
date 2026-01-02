@@ -1,0 +1,1368 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+<style>
+  /* Enhanced Modern Luxe Safari Design - Vibrant African Elegance */
+  :root {
+    --safari-amber: #F4A261;
+    --safari-gold: #F9C74F;
+    --safari-red: #E76F51;
+    --deep-veld: linear-gradient(135deg, #0A1A2F 0%, #1E3A5F 50%, #2A4D7A 100%);
+    --sunset-blaze: linear-gradient(135deg, #E76F51 0%, #F4A261 50%, #F9C74F 100%);
+    --night-savanna: linear-gradient(135deg, #08090A 0%, #15171A 50%, #25272B 100%);
+    --golden-glow: rgba(244, 162, 97, 0.8);
+    --shadow-luxe: 0 20px 60px rgba(0, 0, 0, 0.4);
+    --border-gleam: 1px solid rgba(244, 162, 97, 0.4);
+    --text-luminous: #F9FAFB;
+    --transition-premium: cubic-bezier(0.4, 0, 0.2, 1);
+    --text-dark: #1A202C;
+  }
+
+  * { 
+    box-sizing: border-box; 
+    margin: 0; 
+    padding: 0; 
+  }
+  body { 
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; 
+    line-height: 1.7; 
+    color: var(--text-luminous); 
+    overflow-x: hidden;
+    background: var(--deep-veld);
+    scroll-behavior: smooth;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* Premium Hero Section */
+  .hero-premium { 
+    position: relative; 
+    height: 100vh; 
+    min-height: 700px;
+    overflow: hidden; 
+    display: flex; 
+    align-items: center; 
+    justify-content: center;
+    background: var(--deep-veld);
+  }
+
+  .hero-video-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+  }
+
+  .hero-video-container video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: brightness(0.7);
+  }
+
+  .hero-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, 
+      rgba(10, 26, 47, 0.9) 0%,
+      rgba(30, 58, 95, 0.7) 50%,
+      rgba(42, 77, 122, 0.6) 100%);
+    z-index: 1;
+  }
+
+  .hero-content {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+    padding: 0 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+    animation: heroEntrance 1.2s var(--transition-premium);
+  }
+
+  @keyframes heroEntrance {
+    from { 
+      opacity: 0; 
+      transform: translateY(60px) scale(0.95); 
+    }
+    to { 
+      opacity: 1; 
+      transform: translateY(0) scale(1); 
+    }
+  }
+
+  .hero-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.75rem;
+    background: rgba(244, 162, 97, 0.2);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(244, 162, 97, 0.3);
+    border-radius: 50px;
+    padding: 0.75rem 1.5rem;
+    margin-bottom: 2rem;
+    animation: pulseGlow 2s infinite;
+  }
+
+  @keyframes pulseGlow {
+    0%, 100% { 
+      box-shadow: 0 0 20px rgba(244, 162, 97, 0.3); 
+    }
+    50% { 
+      box-shadow: 0 0 30px rgba(244, 162, 97, 0.5); 
+    }
+  }
+
+  .hero-badge i {
+    color: var(--safari-gold);
+    font-size: 1.2rem;
+  }
+
+  .hero-badge span {
+    font-size: 0.9rem;
+    font-weight: 600;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--safari-gold);
+  }
+
+  .hero-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(3.5rem, 8vw, 5.5rem);
+    font-weight: 900;
+    line-height: 1.1;
+    background: var(--sunset-blaze);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin-bottom: 1.5rem;
+    letter-spacing: -0.02em;
+    text-shadow: 0 10px 30px rgba(231, 111, 81, 0.3);
+  }
+
+  .hero-subtitle {
+    font-size: clamp(1.2rem, 3vw, 1.8rem);
+    font-weight: 300;
+    line-height: 1.6;
+    max-width: 800px;
+    margin: 0 auto 3rem;
+    color: rgba(249, 250, 251, 0.95);
+    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+  }
+
+  /* Premium Search Form */
+  .search-premium {
+    max-width: 800px;
+    margin: 0 auto;
+    position: relative;
+    animation: slideUp 1s var(--transition-premium) 0.3s both;
+  }
+
+  @keyframes slideUp {
+    from { 
+      opacity: 0; 
+      transform: translateY(40px); 
+    }
+    to { 
+      opacity: 1; 
+      transform: translateY(0); 
+    }
+  }
+
+  .search-form {
+    display: flex;
+    gap: 1rem;
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(20px);
+    border-radius: 20px;
+    padding: 0.5rem;
+    box-shadow: 0 25px 50px rgba(0, 0, 0, 0.3);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+  }
+
+  .search-input {
+    flex: 1;
+    border: none;
+    background: transparent;
+    padding: 1.5rem 2rem;
+    font-size: 1.1rem;
+    color: var(--text-dark);
+    outline: none;
+  }
+
+  .search-input::placeholder {
+    color: rgba(26, 32, 44, 0.6);
+  }
+
+  .search-btn {
+    background: var(--sunset-blaze);
+    border: none;
+    border-radius: 15px;
+    padding: 1.5rem 3rem;
+    color: var(--text-dark);
+    font-weight: 700;
+    font-size: 1.1rem;
+    cursor: pointer;
+    transition: all 0.4s var(--transition-premium);
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    white-space: nowrap;
+  }
+
+  .search-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 15px 30px rgba(231, 111, 81, 0.4);
+  }
+
+  .search-btn:active {
+    transform: translateY(0);
+  }
+
+  /* Premium Stats */
+  .hero-stats {
+    display: flex;
+    justify-content: center;
+    gap: 3rem;
+    margin-top: 4rem;
+    flex-wrap: wrap;
+  }
+
+  .stat-item {
+    text-align: center;
+    animation: fadeIn 1s var(--transition-premium) 0.6s both;
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+
+  .stat-number {
+    font-size: 2.5rem;
+    font-weight: 800;
+    background: var(--sunset-blaze);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    line-height: 1;
+    margin-bottom: 0.5rem;
+  }
+
+  .stat-label {
+    font-size: 0.9rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: rgba(249, 250, 251, 0.8);
+  }
+
+  /* Premium Modal */
+  .modal-premium .modal-content {
+    border: none;
+    border-radius: 24px;
+    overflow: hidden;
+    background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
+    box-shadow: 0 30px 60px rgba(0, 0, 0, 0.3);
+    animation: modalAppear 0.6s var(--transition-premium);
+  }
+
+  @keyframes modalAppear {
+    from { 
+      opacity: 0; 
+      transform: scale(0.9) translateY(30px); 
+    }
+    to { 
+      opacity: 1; 
+      transform: scale(1) translateY(0); 
+    }
+  }
+
+  .modal-premium .modal-header {
+    background: var(--deep-veld);
+    padding: 2rem;
+    border-bottom: 1px solid rgba(244, 162, 97, 0.3);
+  }
+
+  .modal-premium .modal-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--safari-gold);
+  }
+
+  .modal-premium .modal-body {
+    padding: 3rem;
+  }
+
+  /* Premium Button Styles */
+  .btn-premium {
+    background: var(--sunset-blaze);
+    color: var(--text-dark);
+    border: none;
+    border-radius: 12px;
+    padding: 1.2rem 2.5rem;
+    font-weight: 700;
+    font-size: 1.1rem;
+    transition: all 0.4s var(--transition-premium);
+    display: inline-flex;
+    align-items: center;
+    gap: 0.75rem;
+    cursor: pointer;
+    text-decoration: none;
+  }
+
+  .btn-premium:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 20px 40px rgba(231, 111, 81, 0.4);
+    color: var(--text-dark);
+  }
+
+  .btn-premium:active {
+    transform: translateY(-1px);
+  }
+
+  .btn-outline-premium {
+    background: transparent;
+    color: var(--safari-amber);
+    border: 2px solid var(--safari-amber);
+    padding: 1rem 2rem;
+    border-radius: 12px;
+    font-weight: 600;
+    transition: all 0.4s var(--transition-premium);
+  }
+
+  .btn-outline-premium:hover {
+    background: var(--safari-amber);
+    color: var(--text-dark);
+    transform: translateY(-2px);
+  }
+
+  /* Premium Section Headers */
+  .section-header {
+    text-align: center;
+    margin-bottom: 4rem;
+  }
+
+  .section-label {
+    display: inline-block;
+    font-size: 0.9rem;
+    font-weight: 700;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--safari-amber);
+    margin-bottom: 1rem;
+    position: relative;
+  }
+
+  .section-label::after {
+    content: '';
+    position: absolute;
+    bottom: -8px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 60px;
+    height: 3px;
+    background: var(--sunset-blaze);
+    border-radius: 2px;
+  }
+
+  .section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2.5rem, 5vw, 3.5rem);
+    font-weight: 800;
+    line-height: 1.2;
+    color: var(--text-luminous);
+    margin-bottom: 1.5rem;
+  }
+
+  .section-subtitle {
+    font-size: 1.2rem;
+    color: rgba(249, 250, 251, 0.9);
+    max-width: 700px;
+    margin: 0 auto;
+  }
+
+  /* Premium About Section */
+  .about-premium {
+    padding: 8rem 2rem;
+    background: linear-gradient(135deg, #0F172A 0%, #1E293B 100%);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .about-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: center;
+  }
+
+  .about-text {
+    color: rgba(249, 250, 251, 0.95);
+    font-size: 1.1rem;
+    line-height: 1.8;
+  }
+
+  .about-stats {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2rem;
+    margin-top: 3rem;
+  }
+
+  .about-stat {
+    text-align: center;
+  }
+
+  .about-stat-number {
+    font-size: 2rem;
+    font-weight: 800;
+    color: var(--safari-amber);
+    margin-bottom: 0.5rem;
+  }
+
+  .about-stat-label {
+    font-size: 0.9rem;
+    color: rgba(249, 250, 251, 0.8);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+
+  /* Premium Services */
+  .services-premium {
+    padding: 8rem 2rem;
+    background: var(--night-savanna);
+  }
+
+  .services-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .service-card-premium {
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(244, 162, 97, 0.2);
+    border-radius: 20px;
+    padding: 2.5rem;
+    transition: all 0.4s var(--transition-premium);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .service-card-premium:hover {
+    transform: translateY(-10px);
+    background: rgba(255, 255, 255, 0.1);
+    border-color: var(--safari-amber);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+  }
+
+  .service-icon {
+    font-size: 3rem;
+    color: var(--safari-amber);
+    margin-bottom: 1.5rem;
+  }
+
+  .service-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--text-luminous);
+    margin-bottom: 1rem;
+  }
+
+  .service-description {
+    color: rgba(249, 250, 251, 0.9);
+    line-height: 1.7;
+    margin-bottom: 1.5rem;
+  }
+
+  /* Premium Destinations */
+  .destinations-premium {
+    padding: 8rem 2rem;
+    background: linear-gradient(135deg, #1A202C 0%, #2D3748 100%);
+  }
+
+  .destinations-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .destination-card-premium {
+    background: white;
+    border-radius: 20px;
+    overflow: hidden;
+    transition: all 0.4s var(--transition-premium);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+  }
+
+  .destination-card-premium:hover {
+    transform: translateY(-10px) scale(1.02);
+    box-shadow: 0 25px 50px rgba(0, 0, 0, 0.2);
+  }
+
+  .destination-image {
+    height: 250px;
+    overflow: hidden;
+  }
+
+  .destination-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.6s var(--transition-premium);
+  }
+
+  .destination-card-premium:hover .destination-image img {
+    transform: scale(1.1);
+  }
+
+  .destination-content {
+    padding: 2rem;
+  }
+
+  .destination-name {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--text-dark);
+    margin-bottom: 0.5rem;
+  }
+
+  .destination-location {
+    color: #718096;
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .destination-price {
+    font-size: 1.5rem;
+    font-weight: 800;
+    color: var(--safari-amber);
+    margin-bottom: 1rem;
+  }
+
+  /* Premium Testimonials */
+  .testimonials-premium {
+    padding: 8rem 2rem;
+    background: var(--deep-veld);
+  }
+
+  .testimonials-slider {
+    max-width: 800px;
+    margin: 0 auto;
+  }
+
+  .testimonial-card {
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(244, 162, 97, 0.2);
+    border-radius: 20px;
+    padding: 3rem;
+    text-align: center;
+  }
+
+  .testimonial-text {
+    font-size: 1.2rem;
+    font-style: italic;
+    line-height: 1.8;
+    color: rgba(249, 250, 251, 0.95);
+    margin-bottom: 2rem;
+  }
+
+  .testimonial-author {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+  }
+
+  .author-image {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    overflow: hidden;
+    border: 3px solid var(--safari-amber);
+  }
+
+  .author-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .author-info h4 {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--text-luminous);
+    margin-bottom: 0.25rem;
+  }
+
+  .author-info p {
+    color: rgba(249, 250, 251, 0.8);
+    font-size: 0.9rem;
+  }
+
+  /* Premium CTA Section */
+  .cta-premium {
+    padding: 8rem 2rem;
+    background: linear-gradient(135deg, #E76F51 0%, #F4A261 100%);
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .cta-content {
+    max-width: 800px;
+    margin: 0 auto;
+    position: relative;
+    z-index: 2;
+  }
+
+  .cta-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2.5rem, 5vw, 3.5rem);
+    font-weight: 800;
+    color: white;
+    margin-bottom: 1.5rem;
+  }
+
+  .cta-subtitle {
+    font-size: 1.2rem;
+    color: rgba(255, 255, 255, 0.95);
+    margin-bottom: 3rem;
+    line-height: 1.7;
+  }
+
+  /* Premium Footer */
+  .footer-premium {
+    background: var(--night-savanna);
+    padding: 4rem 2rem;
+    border-top: 1px solid rgba(244, 162, 97, 0.2);
+  }
+
+  .footer-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 3rem;
+  }
+
+  .footer-logo {
+    font-family: 'Playfair Display', serif;
+    font-size: 2rem;
+    font-weight: 800;
+    color: var(--safari-amber);
+    margin-bottom: 1rem;
+  }
+
+  .footer-description {
+    color: rgba(249, 250, 251, 0.9);
+    line-height: 1.7;
+    margin-bottom: 1.5rem;
+  }
+
+  .footer-heading {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--text-luminous);
+    margin-bottom: 1.5rem;
+  }
+
+  .footer-links {
+    list-style: none;
+  }
+
+  .footer-links li {
+    margin-bottom: 0.75rem;
+  }
+
+  .footer-links a {
+    color: rgba(249, 250, 251, 0.9);
+    text-decoration: none;
+    transition: color 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .footer-links a:hover {
+    color: var(--safari-amber);
+  }
+
+  .footer-bottom {
+    text-align: center;
+    padding-top: 3rem;
+    margin-top: 3rem;
+    border-top: 1px solid rgba(244, 162, 97, 0.2);
+    color: rgba(249, 250, 251, 0.8);
+    font-size: 0.9rem;
+  }
+
+  /* Premium Responsive Design */
+  @media (max-width: 1024px) {
+    .about-content {
+      grid-template-columns: 1fr;
+      gap: 3rem;
+    }
+    
+    .hero-stats {
+      gap: 2rem;
+    }
+    
+    .stat-number {
+      font-size: 2rem;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .hero-title {
+      font-size: clamp(2.5rem, 6vw, 4rem);
+    }
+    
+    .hero-subtitle {
+      font-size: clamp(1rem, 2.5vw, 1.4rem);
+    }
+    
+    .search-form {
+      flex-direction: column;
+      gap: 0.5rem;
+      padding: 1rem;
+    }
+    
+    .search-input,
+    .search-btn {
+      width: 100%;
+    }
+    
+    .services-grid,
+    .destinations-grid {
+      grid-template-columns: 1fr;
+    }
+    
+    .hero-stats {
+      justify-content: space-around;
+    }
+    
+    .section-title {
+      font-size: clamp(2rem, 4vw, 2.8rem);
+    }
+  }
+
+  @media (max-width: 480px) {
+    .hero-badge {
+      padding: 0.5rem 1rem;
+      font-size: 0.8rem;
+    }
+    
+    .search-btn {
+      padding: 1.25rem 2rem;
+    }
+    
+    .stat-number {
+      font-size: 1.75rem;
+    }
+    
+    .btn-premium {
+      padding: 1rem 2rem;
+      font-size: 1rem;
+    }
+    
+    .about-premium,
+    .services-premium,
+    .destinations-premium,
+    .testimonials-premium,
+    .cta-premium {
+      padding: 4rem 1rem;
+    }
+  }
+
+  /* Premium Animations */
+  .animate-on-scroll {
+    opacity: 0;
+    transform: translateY(40px);
+    transition: all 0.8s var(--transition-premium);
+  }
+
+  .animate-on-scroll.animated {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* Premium Loading States */
+  .loading-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: var(--deep-veld);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+    opacity: 1;
+    visibility: visible;
+    transition: all 0.6s var(--transition-premium);
+  }
+
+  .loading-overlay.hidden {
+    opacity: 0;
+    visibility: hidden;
+  }
+
+  .loading-spinner {
+    width: 60px;
+    height: 60px;
+    border: 4px solid rgba(244, 162, 97, 0.3);
+    border-top-color: var(--safari-amber);
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+  }
+
+  @keyframes spin {
+    to { transform: rotate(360deg); }
+  }
+
+  /* Premium Focus States */
+  :focus {
+    outline: 2px solid var(--safari-amber);
+    outline-offset: 2px;
+  }
+
+  :focus:not(:focus-visible) {
+    outline: none;
+  }
+
+  /* Premium Selection */
+  ::selection {
+    background: var(--safari-amber);
+    color: var(--text-dark);
+  }
+
+  /* Premium Scrollbar */
+  ::-webkit-scrollbar {
+    width: 10px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: var(--night-savanna);
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: var(--safari-amber);
+    border-radius: 5px;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: var(--safari-gold);
+  }
+</style>
+
+<!-- Loading Overlay -->
+<div class="loading-overlay" id="loadingOverlay">
+  <div class="loading-spinner"></div>
+</div>
+
+
+<!-- Premium About Section -->
+<section class="about-premium animate-on-scroll" id="aboutSection">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-label">Our Story</div>
+      <h2 class="section-title">Crafting Unforgettable Safari Experiences</h2>
+      <p class="section-subtitle">
+        With over 15 years of expertise, we deliver premium adventures that connect 
+        you with Tanzania's natural wonders.
+      </p>
+    </div>
+    
+    <div class="about-content">
+      <div class="about-text">
+        <p>
+          Kilindo Tours & Safaris was born from a passion for sharing Tanzania's 
+          breathtaking beauty with the world. Founded by local experts with deep 
+          knowledge of the land, we've grown to become one of East Africa's most 
+          trusted safari operators.
+        </p>
+        <p>
+          Our commitment goes beyond tourism—we're dedicated to sustainable travel 
+          that benefits local communities while preserving Tanzania's natural heritage 
+          for generations to come.
+        </p>
+        
+        <div class="about-stats">
+          <div class="about-stat">
+            <div class="about-stat-number">100%</div>
+            <div class="about-stat-label">Safety Record</div>
+          </div>
+          <div class="about-stat">
+            <div class="about-stat-number">24/7</div>
+            <div class="about-stat-label">Support</div>
+          </div>
+          <div class="about-stat">
+            <div class="about-stat-number">Eco</div>
+            <div class="about-stat-label">Certified</div>
+          </div>
+          <div class="about-stat">
+            <div class="about-stat-number">Local</div>
+            <div class="about-stat-label">Expert Guides</div>
+          </div>
+        </div>
+        
+        <a href="{% url 'about' %}" class="btn-premium mt-4">
+          <i class="fas fa-book-open"></i>
+          Read Our Full Story
+        </a>
+      </div>
+      
+      <div class="about-image">
+        <img src="{% static 'img/premium-about.jpg' %}" 
+             alt="Kilindo Team" 
+             class="img-fluid rounded-3"
+             loading="lazy">
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Premium Services Section -->
+<section class="services-premium animate-on-scroll" id="servicesSection">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-label">Our Expertise</div>
+      <h2 class="section-title">Premium Safari Services</h2>
+      <p class="section-subtitle">
+        From luxury accommodations to expert-guided adventures, we handle every detail 
+        for your perfect safari.
+      </p>
+    </div>
+    
+    <div class="services-grid">
+      <div class="service-card-premium">
+        <div class="service-icon">
+          <i class="fas fa-mountain"></i>
+        </div>
+        <h3 class="service-title">Kilimanjaro Expeditions</h3>
+        <p class="service-description">
+          Summit Africa's highest peak with our expert guides. All routes, 
+          premium equipment, and safety-focused approach.
+        </p>
+        <a href="{% url 'service' %}" class="btn-outline-premium">
+          Explore Routes
+        </a>
+      </div>
+      
+      <div class="service-card-premium">
+        <div class="service-icon">
+          <i class="fas fa-lion"></i>
+        </div>
+        <h3 class="service-title">Wildlife Safaris</h3>
+        <p class="service-description">
+          Witness the Big Five in their natural habitat. Custom itineraries, 
+          luxury lodges, and photographic safaris.
+        </p>
+        <a href="{% url 'service' %}" class="btn-outline-premium">
+          View Packages
+        </a>
+      </div>
+      
+      <div class="service-card-premium">
+        <div class="service-icon">
+          <i class="fas fa-umbrella-beach"></i>
+        </div>
+        <h3 class="service-title">Beach Getaways</h3>
+        <p class="service-description">
+          Relax on Zanzibar's pristine beaches. Island tours, water sports, 
+          and luxury resort stays.
+        </p>
+        <a href="{% url 'service' %}" class="btn-outline-premium">
+          Discover Beaches
+        </a>
+      </div>
+      
+      <div class="service-card-premium">
+        <div class="service-icon">
+          <i class="fas fa-heart"></i>
+        </div>
+        <h3 class="service-title">Honeymoon Packages</h3>
+        <p class="service-description">
+          Romantic escapes combining safari adventure with luxury relaxation. 
+          Private experiences and special touches.
+        </p>
+        <a href="{% url 'service' %}" class="btn-outline-premium">
+          Plan Romance
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Premium Destinations Section -->
+<section class="destinations-premium animate-on-scroll" id="destinationsSection">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-label">Featured</div>
+      <h2 class="section-title">Premium Destinations</h2>
+      <p class="section-subtitle">
+        Explore Tanzania's most iconic landscapes and hidden gems with our curated 
+        premium experiences.
+      </p>
+    </div>
+    
+    <div class="destinations-grid">
+      {% for dest in destinations|slice:":4" %}
+      <div class="destination-card-premium">
+        <div class="destination-image">
+          <img src="{{ dest.image }}" alt="{{ dest.name }}" loading="lazy">
+        </div>
+        <div class="destination-content">
+          <h3 class="destination-name">{{ dest.name }}</h3>
+          <div class="destination-location">
+            <i class="fas fa-map-marker-alt"></i>
+            {{ dest.location }}
+          </div>
+          {% if dest.price %}
+          <div class="destination-price">From ${{ dest.price }}</div>
+          {% endif %}
+          <a href="{% url 'destination_detail' dest.pk %}" class="btn-premium">
+            <i class="fas fa-eye"></i>
+            View Details
+          </a>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+    
+    <div class="text-center mt-5">
+      <a href="{% url 'destinations_list' %}" class="btn-premium">
+        <i class="fas fa-globe-africa"></i>
+        View All Destinations
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- Premium Testimonials Section -->
+<section class="testimonials-premium animate-on-scroll" id="testimonialsSection">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-label">Testimonials</div>
+      <h2 class="section-title">Traveler Stories</h2>
+      <p class="section-subtitle">
+        Hear from adventurers who've experienced Tanzania with Kilindo Tours.
+      </p>
+    </div>
+    
+    <div class="testimonials-slider">
+      <div class="testimonial-card">
+        <div class="testimonial-text">
+          "The most incredible experience of our lives! Kilindo's team made us feel 
+          safe and cared for every step of the way. Summiting Kilimanjaro was a dream 
+          come true!"
+        </div>
+        <div class="testimonial-author">
+          <div class="author-image">
+            <img src="{% static 'img/testimonial-1.jpg' %}" alt="Sarah Johnson">
+          </div>
+          <div class="author-info">
+            <h4>Sarah & Mark Johnson</h4>
+            <p>Kilimanjaro Summit, 2023</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Premium CTA Section -->
+<section class="cta-premium animate-on-scroll" id="ctaSection">
+  <div class="cta-content">
+    <h2 class="cta-title">Ready for Your Adventure?</h2>
+    <p class="cta-subtitle">
+      Contact our safari experts today to start planning your dream Tanzanian adventure. 
+      Let's create memories that will last a lifetime.
+    </p>
+    <div class="cta-buttons">
+      <a href="{% url 'form' %}" class="btn-premium me-3">
+        <i class="fas fa-calendar-check"></i>
+        Start Planning
+      </a>
+      <a href="tel:+255123456789" class="btn-outline-premium" style="border-color: white; color: white;">
+        <i class="fas fa-phone"></i>
+        Call Us Now
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- Premium Footer -->
+<footer class="footer-premium">
+  <div class="footer-content">
+    <div class="footer-column">
+      <div class="footer-logo">Kilindo Tours</div>
+      <p class="footer-description">
+        Premium safari experiences in Tanzania since 2008. 
+        Committed to sustainable tourism and unforgettable adventures.
+      </p>
+      <div class="social-links">
+        <a href="#" class="social-link"><i class="fab fa-facebook"></i></a>
+        <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
+        <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
+        <a href="#" class="social-link"><i class="fab fa-tripadvisor"></i></a>
+      </div>
+    </div>
+    
+    <div class="footer-column">
+      <h3 class="footer-heading">Quick Links</h3>
+      <ul class="footer-links">
+        <li><a href="{% url 'index' %}"><i class="fas fa-home"></i> Home</a></li>
+        <li><a href="{% url 'about' %}"><i class="fas fa-info-circle"></i> About Us</a></li>
+        <li><a href="{% url 'service' %}"><i class="fas fa-concierge-bell"></i> Services</a></li>
+        <li><a href="{% url 'destinations_list' %}"><i class="fas fa-map-marked-alt"></i> Destinations</a></li>
+        <li><a href="{% url 'contact' %}"><i class="fas fa-envelope"></i> Contact</a></li>
+      </ul>
+    </div>
+    
+    <div class="footer-column">
+      <h3 class="footer-heading">Popular Safaris</h3>
+      <ul class="footer-links">
+        <li><a href="#"><i class="fas fa-mountain"></i> Kilimanjaro Climbing</a></li>
+        <li><a href="#"><i class="fas fa-lion"></i> Serengeti Migration</a></li>
+        <li><a href="#"><i class="fas fa-heart"></i> Honeymoon Safaris</a></li>
+        <li><a href="#"><i class="fas fa-umbrella-beach"></i> Zanzibar Beach</a></li>
+        <li><a href="#"><i class="fas fa-hiking"></i> Cultural Tours</a></li>
+      </ul>
+    </div>
+    
+    <div class="footer-column">
+      <h3 class="footer-heading">Contact Info</h3>
+      <ul class="footer-links">
+        <li>
+          <a href="https://maps.google.com">
+            <i class="fas fa-map-marker-alt"></i>
+            Arusha, Tanzania
+          </a>
+        </li>
+        <li>
+          <a href="tel:+255123456789">
+            <i class="fas fa-phone"></i>
+            +255 123 456 789
+          </a>
+        </li>
+        <li>
+          <a href="mailto:info@kilindotours.com">
+            <i class="fas fa-envelope"></i>
+            info@kilindotours.com
+          </a>
+        </li>
+        <li>
+          <a href="#">
+            <i class="fas fa-clock"></i>
+            24/7 Support Available
+          </a>
+        </li>
+      </ul>
+    </div>
+  </div>
+  
+  <div class="footer-bottom">
+    <p>&copy; 2024 Kilindo Tours & Safaris. All rights reserved. | Premium Safari Experiences</p>
+  </div>
+</footer>
+
+<script>
+  // Premium JavaScript Enhancements
+  
+  document.addEventListener('DOMContentLoaded', function() {
+    // Hide loading overlay
+    setTimeout(() => {
+      document.getElementById('loadingOverlay').classList.add('hidden');
+    }, 1500);
+    
+    // Animate on scroll
+    const animateElements = document.querySelectorAll('.animate-on-scroll');
+    
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('animated');
+        }
+      });
+    }, {
+      threshold: 0.1,
+      rootMargin: '0px 0px -100px 0px'
+    });
+    
+    animateElements.forEach(element => {
+      observer.observe(element);
+    });
+    
+    // Premium form handling
+    const searchForm = document.getElementById('searchForm');
+    if (searchForm) {
+      searchForm.addEventListener('submit', function(e) {
+        e.preventDefault();
+        const searchTerm = this.querySelector('input').value;
+        if (searchTerm.trim()) {
+          // Show loading state
+          const btn = this.querySelector('.search-btn');
+          const originalText = btn.innerHTML;
+          btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Searching...';
+          btn.disabled = true;
+          
+          // Simulate search
+          setTimeout(() => {
+            btn.innerHTML = originalText;
+            btn.disabled = false;
+            // Implement actual search functionality here
+            console.log('Searching for:', searchTerm);
+          }, 1000);
+        }
+      });
+    }
+    
+    // Smooth scrolling for anchor links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function(e) {
+        e.preventDefault();
+        const targetId = this.getAttribute('href');
+        if (targetId === '#') return;
+        
+        const targetElement = document.querySelector(targetId);
+        if (targetElement) {
+          window.scrollTo({
+            top: targetElement.offsetTop - 100,
+            behavior: 'smooth'
+          });
+        }
+      });
+    });
+    
+    // Premium hover effects for cards
+    const cards = document.querySelectorAll('.service-card-premium, .destination-card-premium');
+    cards.forEach(card => {
+      card.addEventListener('mouseenter', () => {
+        card.style.transform = 'translateY(-10px) scale(1.02)';
+      });
+      
+      card.addEventListener('mouseleave', () => {
+        card.style.transform = 'translateY(0) scale(1)';
+      });
+    });
+    
+    // Premium image lazy loading
+    const images = document.querySelectorAll('img[loading="lazy"]');
+    images.forEach(img => {
+      img.addEventListener('load', function() {
+        this.classList.add('loaded');
+      });
+    });
+    
+    // Premium back to top button
+    const backToTop = document.createElement('button');
+    backToTop.innerHTML = '<i class="fas fa-chevron-up"></i>';
+    backToTop.className = 'back-to-top';
+    backToTop.style.cssText = `
+      position: fixed;
+      bottom: 30px;
+      right: 30px;
+      width: 50px;
+      height: 50px;
+      background: var(--sunset-blaze);
+      color: var(--text-dark);
+      border: none;
+      border-radius: 50%;
+      cursor: pointer;
+      opacity: 0;
+      transform: translateY(20px);
+      transition: all 0.4s var(--transition-premium);
+      z-index: 1000;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.2rem;
+    `;
+    
+    document.body.appendChild(backToTop);
+    
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 500) {
+        backToTop.style.opacity = '1';
+        backToTop.style.transform = 'translateY(0)';
+      } else {
+        backToTop.style.opacity = '0';
+        backToTop.style.transform = 'translateY(20px)';
+      }
+    });
+    
+    backToTop.addEventListener('click', () => {
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      });
+    });
+    
+    // Premium parallax effect for hero
+    window.addEventListener('scroll', () => {
+      const scrolled = window.pageYOffset;
+      const hero = document.querySelector('.hero-premium');
+      if (hero) {
+        hero.style.transform = `translateY(${scrolled * 0.5}px)`;
+      }
+    });
+    
+    // Premium keyboard navigation
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        // Close any open modals
+        const modals = document.querySelectorAll('.modal.show');
+        modals.forEach(modal => {
+          bootstrap.Modal.getInstance(modal)?.hide();
+        });
+      }
+    });
+  });
+  
+  // Premium loading state for all links
+  function showLoading(event) {
+    const link = event.currentTarget;
+    if (link.href && !link.href.startsWith('#')) {
+      const overlay = document.getElementById('loadingOverlay');
+      overlay.classList.remove('hidden');
+      
+      // Allow time for the loading animation to show
+      setTimeout(() => {
+        window.location.href = link.href;
+      }, 300);
+    }
+  }
+  
+  // Add loading to all internal links
+  document.addEventListener('DOMContentLoaded', function() {
+    document.querySelectorAll('a[href^="/"], a[href^="{% url"]').forEach(link => {
+      link.addEventListener('click', showLoading);
+    });
+  });
+</script>
+
+{% endblock %}

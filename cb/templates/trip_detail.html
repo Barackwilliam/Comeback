@@ -1,0 +1,337 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load package_icons %}
+
+{% block title %}{{ trip.title }}{% endblock %}
+
+{% block content %}
+<style>
+  :root {
+    --primary: #FF4500; /* Fiery orange */
+    --secondary: #228B22; /* Forest green */
+    --accent: #FFD700; /* Golden shine */
+    --dark: #1C2526; /* Deep charcoal */
+    --light: #F8F1E9; /* Warm cream */
+    --shadow-luxe: 0 8px 20px rgba(0, 0, 0, 0.2);
+    --transition-ease: cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  }
+
+  /* Hero Section */
+  .trip-hero {
+    position: relative;
+    min-height: 60vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #ffffff;
+    text-align: center;
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    animation: heroSlideshow 20s infinite ease-in-out;
+    font-family: 'Poppins', sans-serif;
+  }
+
+  @keyframes heroSlideshow {
+    0%, 25% { background-image: url('{% static "img/1.jpg" %}'); }
+    25%, 50% { background-image: url('{% static "img/2.jpg" %}'); }
+    50%, 75% { background-image: url('{% static "img/3.jpg" %}'); }
+    75%, 100% { background-image: url('{% static "img/4.jpg" %}'); }
+  }
+
+  .trip-hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(34, 139, 34, 0.3));
+    z-index: 1;
+  }
+
+  .trip-hero .content {
+    position: relative;
+    z-index: 2;
+    max-width: clamp(600px, 80vw, 900px);
+    padding: clamp(20px, 5vw, 30px);
+  }
+
+  .trip-hero h1 {
+    font-family: 'Merienda', cursive;
+    font-size: clamp(2.5rem, 6vw, 4rem);
+    font-weight: 900;
+    text-shadow: 0 3px 10px rgba(0, 0, 0, 0.6);
+    color: var(--accent);
+    margin-bottom: 1rem;
+  }
+
+  /* Trip Details Section */
+  .trip-details {
+    background: linear-gradient(to right, var(--light), #ffffff);
+    padding: clamp(40px, 8vw, 60px) 20px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .trip-details::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: url('{% static "img/safari-pattern.png" %}') repeat;
+    opacity: 0.03;
+    z-index: 0;
+  }
+
+  .trip-details .container {
+    position: relative;
+    z-index: 1;
+  }
+
+  .trip-details .card {
+    background: #ffffff;
+    border-radius: 20px;
+    box-shadow: var(--shadow-luxe);
+    padding: clamp(20px, 4vw, 30px);
+    transition: transform 0.3s var(--transition-ease), box-shadow 0.3s var(--transition-ease);
+  }
+
+  .trip-details .card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 30px rgba(255, 69, 0, 0.3);
+  }
+
+  .trip-details h1 {
+    font-family: 'Merienda', cursive;
+    font-size: clamp(2rem, 5vw, 3rem);
+    color: var(--dark);
+    margin-bottom: 1.5rem;
+  }
+
+  .trip-details img {
+    width: 100%;
+    height: clamp(250px, 40vw, 400px);
+    object-fit: cover;
+    border-radius: 15px;
+    border: 3px solid var(--accent);
+    transition: transform 0.5s var(--transition-ease);
+  }
+
+  .trip-details img:hover {
+    transform: scale(1.05);
+  }
+
+  .trip-details p {
+    font-family: 'Poppins', sans-serif;
+    color: var(--dark);
+    font-size: clamp(0.95rem, 2.5vw, 1.1rem);
+    line-height: 1.8;
+    margin-bottom: 1rem;
+  }
+
+  .trip-details p strong {
+    color: var(--secondary);
+    margin-right: 0.5rem;
+  }
+
+  .trip-details p strong::before {
+    content: '\f3c5'; /* Default Font Awesome location pin */
+    font-family: 'Font Awesome 6 Free';
+    font-weight: 900;
+    color: var(--accent);
+    margin-right: 0.5rem;
+  }
+
+  .trip-details h5 {
+    font-family: 'Merienda', cursive;
+    font-size: clamp(1.5rem, 4vw, 1.8rem);
+    color: var(--secondary);
+    margin: clamp(1.5rem, 4vw, 2rem) 0 1rem;
+  }
+
+  /* Accordion (Itinerary) */
+  .accordion-item {
+    background: #ffffff;
+    border: 1px solid var(--accent);
+    border-radius: 10px;
+    margin-bottom: 1rem;
+    overflow: hidden;
+    transition: transform 0.3s var(--transition-ease);
+  }
+
+  .accordion-item:hover {
+    transform: translateY(-3px);
+  }
+
+  .accordion-button {
+    font-family: 'Merienda', cursive;
+    font-size: clamp(1rem, 2.5vw, 1.2rem);
+    background: linear-gradient(to right, var(--light), #ffffff);
+    color: var(--dark);
+    padding: clamp(15px, 3vw, 20px);
+  }
+
+  .accordion-button:not(.collapsed) {
+    background: var(--secondary);
+    color: #ffffff;
+  }
+
+  .accordion-button::after {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='%23FF4500'%3E%3Cpath d='M8 0a8 8 0 018 8 8 8 0 01-8 8 8 8 0 01-8-8 8 8 0 018-8zm0 2.5a5.5 5.5 0 00-5.5 5.5 5.5 5.5 0 005.5 5.5 5.5 5.5 0 005.5-5.5 5.5 5.5 0 00-5.5-5.5zm0 2a.75.75 0 01.75.75v2.5h2.5a.75.75 0 010 1.5h-2.5v2.5a.75.75 0 01-1.5 0v-2.5h-2.5a.75.75 0 010-1.5h2.5v-2.5A.75.75 0 018 4.5z'/%3E%3C/svg%3E");
+  }
+
+  .accordion-button:not(.collapsed)::after {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='%23FFFFFF'%3E%3Cpath d='M8 0a8 8 0 018 8 8 8 0 01-8 8 8 8 0 01-8-8 8 8 0 018-8zm0 2.5a5.5 5.5 0 00-5.5 5.5 5.5 5.5 0 005.5 5.5 5.5 5.5 0 005.5-5.5 5.5 5.5 0 00-5.5-5.5zm0 2a.75.75 0 01.75.75v5.5a.75.75 0 01-1.5 0v-5.5A.75.75 0 018 4.5z'/%3E%3C/svg%3E");
+  }
+
+  .accordion-button::before {
+    content: '\f6c0';
+    font-family: 'Font Awesome 6 Free';
+    font-weight: 900;
+    color: var(--accent);
+    margin-right: 0.5rem;
+  }
+
+  .accordion-body {
+    font-family: 'Poppins', sans-serif;
+    color: var(--dark);
+    font-size: clamp(0.9rem, 2.5vw, 1rem);
+    line-height: 1.8;
+    padding: clamp(15px, 3vw, 20px);
+  }
+
+  .accordion-body p {
+    margin-bottom: 0.5rem;
+  }
+
+  .accordion-body p strong {
+    color: var(--secondary);
+  }
+
+  /* Booking Form Button */
+  .booking-btn {
+    background: linear-gradient(135deg, var(--primary), var(--accent));
+    color: #ffffff;
+    padding: clamp(10px, 2.5vw, 12px) clamp(20px, 4vw, 30px);
+    font-size: clamp(0.9rem, 2.5vw, 1rem);
+    border-radius: 50px;
+    text-decoration: none;
+    font-weight: 700;
+    transition: all 0.3s var(--transition-ease);
+    box-shadow: var(--shadow-luxe);
+    display: inline-block;
+    margin-top: 1.5rem;
+  }
+
+  .booking-btn:hover {
+    background: linear-gradient(135deg, var(--accent), var(--primary));
+    transform: scale(1.05);
+    box-shadow: 0 8px 20px rgba(255, 69, 0, 0.6);
+  }
+
+  /* Responsive Adjustments */
+  @media (max-width: 576px) {
+    .trip-hero {
+      min-height: 50vh;
+    }
+    .trip-hero h1 {
+      font-size: clamp(2rem, 5vw, 2.5rem);
+    }
+    .trip-details {
+      padding: clamp(30px, 6vw, 40px) 15px;
+    }
+    .trip-details img {
+      height: 200px;
+    }
+    .trip-details h1 {
+      font-size: clamp(1.5rem, 4vw, 2rem);
+    }
+    .trip-details h5 {
+      font-size: clamp(1.2rem, 3.5vw, 1.5rem);
+    }
+    .trip-details p {
+      font-size: clamp(0.85rem, 2vw, 0.95rem);
+    }
+    .accordion-button {
+      font-size: clamp(0.9rem, 2vw, 1rem);
+    }
+    .accordion-body {
+      font-size: clamp(0.85rem, 2vw, 0.95rem);
+    }
+  }
+
+  @media (max-width: 768px) {
+    .trip-details .col-md-8 {
+      margin-bottom: 2rem;
+    }
+  }
+
+  @media (min-width: 769px) and (max-width: 991px) {
+    .trip-hero h1 {
+      font-size: clamp(2.2rem, 5vw, 3rem);
+    }
+    .trip-details img {
+      height: 300px;
+    }
+  }
+</style>
+
+<section class="trip-hero wow fadeIn" data-wow-delay="0.2s">
+  <div class="content">
+    <h1 class="animated slideInDown">{{ trip.title }}</h1>
+  </div>
+</section>
+
+<section class="trip-details wow fadeInUp" data-wow-delay="0.3s">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="card">
+          <h1>{{ trip.title }}</h1>
+          {% if trip.featured_image %}
+            <img src="{{ trip.featured_image|default:'{% static "img/default-trip.jpg" %}' }}" class="img-fluid mb-4" alt="{{ trip.title }}">
+          {% endif %}
+          <p><strong>Location:</strong> {{ trip.location }}</p>
+          <p><strong>Days:</strong> {{ trip.days }}</p>
+          <p><strong>Type:</strong> {{ trip.trip_type }}</p>
+          {% if trip.route %}<p><strong>Route:</strong> {{ trip.route }}</p>{% endif %}
+          {% if trip.price %}<p><strong>Price:</strong> ${{ trip.price }}</p>{% endif %}
+          <h5 class="mt-4">Overview</h5>
+          <p>{{ trip.overview }}</p>
+
+          <h5 class="mt-5">Day Trip Itinerary</h5>
+          <div class="accordion" id="itineraryAccordion">
+            {% for day in trip.itinerary.all %}
+            <div class="accordion-item wow fadeInUp" data-wow-delay="{{ forloop.counter|floatformat:1|add:'0.1' }}s">
+              <h2 class="accordion-header" id="heading{{ day.day_number }}">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse{{ day.day_number }}" aria-expanded="false" aria-controls="collapse{{ day.day_number }}">
+                  Day {{ day.day_number }}: {{ day.title }}
+                </button>
+              </h2>
+              <div id="collapse{{ day.day_number }}" class="accordion-collapse collapse" aria-labelledby="heading{{ day.day_number }}" data-bs-parent="#itineraryAccordion">
+                <div class="accordion-body">
+                  {% if day.elevation_start and day.elevation_end %}<p><strong>Elevation:</strong> {{ day.elevation_start }} to {{ day.elevation_end }}</p>{% endif %}
+                  {% if day.distance_km %}<p><strong>Distance:</strong> {{ day.distance_km }} km</p>{% endif %}
+                  {% if day.hiking_time %}<p><strong>Hiking Time:</strong> {{ day.hiking_time }}</p>{% endif %}
+                  {% if day.habitat %}<p><strong>Habitat:</strong> {{ day.habitat }}</p>{% endif %}
+                  <p>{{ day.description }}</p>
+                </div>
+              </div>
+            </div>
+            {% endfor %}
+          </div>
+        </div>
+      </div>
+      
+    </div>
+  </div>
+
+        {% include "includes_excludes_section.html" with includes=includes excludes=excludes %}
+       
+</section>
+
+<!-- Booking Form -->
+<section class="wow fadeInUp" data-wow-delay="0.4s">
+  {% include 'booking_form.html' %}
+</section>
+{% endblock %}

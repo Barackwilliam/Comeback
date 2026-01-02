@@ -1,0 +1,80 @@
+
+
+    <!-- Booking Start -->
+    <div class="container-xxl py-5 wow fadeInUp" data-wow-delay="0.1s">
+        <div class="container">
+            <div class="booking p-5">
+                <div class="row g-5 align-items-center">
+                    <div class="col-md-6 text-white">
+                        <h6 class="text-white text-uppercase">Booking</h6>
+                        <h1 class="text-white mb-4">Online Booking</h1>
+                       
+                            <p class="mb-4">Plan your adventure with us today! Whether it's a beach escape, cultural tour, or mountain trek, we're here to make it unforgettable.</p>
+                            <p class="mb-4">Fill in the form to book your preferred destination. We’ll get in touch with you shortly to confirm your booking and discuss any special requests you may have.</p>
+                            <a class="btn btn-outline-light py-3 px-5 mt-2" href="{% url 'contact'%}">Contact Us</a>
+                    </div>
+                    <div class="col-md-6">
+                        <h1 class="text-white mb-4">Book A Tour</h1>
+                        {% if messages %}
+                                {% for message in messages %}
+                             <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+                                    <h2 style="color: red;">{{ message }}</h2>
+                                     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                 </div>
+                                {% endfor %}
+                                        {% endif %}
+
+                                        <form method="POST" action="">
+                                            {% csrf_token %}
+                            <div class="row g-3">
+                                <div class="col-md-6">
+                                    <div class="form-floating">
+                                        <input type="text" name="name" class="form-control bg-transparent" id="name" placeholder="Your Name" required>
+                                        <label for="name">Your Name</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-floating">
+                                        <input type="email" name="email" class="form-control bg-transparent" id="email" placeholder="Your Email"required>
+                                        <label for="email">Your Email</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-floating">
+                                        <input type="datetime-local" name="datetime" class="form-control bg-transparent" id="datetime" required>
+                                        <label for="datetime">Date & Time</label>
+                                    </div>
+                                </div>
+
+
+                                <div class="col-md-6">
+                                    <div class="mb-3">
+                                        <label for="select1" class="form-label text-white">Destination</label>
+                                        <select name="destination" class="form-select bg-transparent" id="select1" required>
+                                            <option value="" disabled selected>Select a destination</option>
+                                            {% for dest in destinations %}
+                                            <option value="{{ dest.location }}">{{ dest.location }}</option>
+                                            {% endfor %}
+                                        </select>
+                                    </div>
+                                    
+                                </div>
+                                <div class="col-12">
+                                    <div class="form-floating">
+                                        <textarea name="message" class="form-control bg-transparent" placeholder="Special Request" id="message" style="height: 100px" required></textarea>
+                                        <label for="message">Special Request</label>
+                                    </div>
+                                </div>
+                                <div class="col-12">
+                                    <button class="btn btn-outline-light w-100 py-3" type="submit">Book Now</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Booking Start -->
+     
+   

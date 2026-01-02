@@ -1,0 +1,192 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+  <!-- Bootstrap 5 -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"/>
+
+  <style>
+    :root{
+      --green:#0c8a3e;
+      --olive:#ffa600;
+      --olive-dark:#645824;
+      --muted:#6c757d;
+      --card-radius:14px;
+    }
+
+    body{line-height:1.7;color:#111;background:#fff}
+    .hero{
+      position:relative;
+      min-height:240px;
+      display:flex;
+      align-items:center;
+      background:url("https://images.unsplash.com/photo-1518684079-3c830dcef090?q=80&w=1800&auto=format&fit=crop") center/cover no-repeat;
+      border-bottom:1px solid #eaeaea;
+    }
+    .hero::after{
+      content:"";
+      position:absolute;inset:0;
+      background:linear-gradient(to bottom, rgba(0,0,0,.45), rgba(0,0,0,.25), rgba(0,0,0,.15));
+    }
+    .hero-content{
+      position:relative;z-index:1;
+      width:100%;
+      padding:50px 0;
+      color:#fff;text-align:center;
+    }
+    .hero h2{font-weight:700;letter-spacing:.3px;margin-bottom:.35rem}
+    .breadcrumb{
+      --bs-breadcrumb-divider: "–";
+      justify-content:center;
+      margin-bottom:0;
+    }
+    .breadcrumb .breadcrumb-item,
+    .breadcrumb a{color:#f1f1f1;text-decoration:none}
+    .breadcrumb .active{opacity:.85}
+
+    .section-title{
+      color:var(--green);
+      font-weight:700;
+      text-align:center;
+      margin:32px 0 12px;
+    }
+    .copy p{
+      margin:0 auto 10px;
+      max-width:950px;
+      text-align:justify;
+      color:#222;
+    }
+
+    /* Cards */
+    .tour-card{
+      border:1px solid #e7e7e7;
+      border-radius:var(--card-radius);
+      overflow:hidden;
+      background:#fff;
+      box-shadow:0 4px 10px rgba(0,0,0,.05);
+      transition:transform .2s ease, box-shadow .2s ease;
+    }
+    .tour-card:hover{
+      transform:translateY(-2px);
+      box-shadow:0 8px 18px rgba(0,0,0,.09);
+    }
+    .tour-card .thumb{
+      height:160px;
+      object-fit:cover;
+      width:100%;
+      display:block;
+    }
+    .tour-card .title{
+      font-weight:700;
+      font-size:1.05rem;
+      margin:12px 0 0;
+    }
+    .tour-card .price-bar{
+      display:flex;align-items:center;gap:.75rem;
+      justify-content:space-between;
+      background:#efe9d0;
+      border-top:1px solid #e0d7b5;
+      padding:14px 16px;
+    }
+    .price{
+      line-height:1.1;
+      white-space:nowrap;
+    }
+    .price .amount{
+      font-weight:800;
+      font-size:1.15rem;
+    }
+    .price .per{
+      display:block;
+      font-size:.8rem;
+      color:var(--muted);
+      margin-top:.15rem;
+    }
+    .btn-olive{
+      background:var(--olive);
+      color:#fff;
+      font-weight:700;
+      border:none;
+      border-radius:8px;
+      padding:8px 14px;
+      text-transform:uppercase;
+      font-size:.8rem;
+      letter-spacing:.5px;
+    }
+    .btn-olive:hover{background:var(--olive-dark);color:#fff}
+
+    @media (min-width:768px){
+      .tour-card .thumb{height:180px}
+    }
+    @media (min-width:992px){
+      .tour-card .thumb{height:190px}
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Hero -->
+  <header class="hero">
+    <div class="container hero-content">
+      <h2 class="mb-1">Explore Zanzibar</h2>
+      <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a href="#">Home</a></li>
+          <li class="breadcrumb-item active" aria-current="page">Explore Zanzibar</li>
+        </ol>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Intro -->
+  <main class="container my-4">
+    <!-- <h3 class="section-title">Explore Zanzibar – The Jewel of the Indian Ocean</h3> -->
+     <h1 style="text-align: center; font-family: 'Times New Roman', Times, serif; color: #b21f1f;">
+        <b>Explore Zanzibar – The Jewel of the Indian Ocean</b>
+    </h1>
+    <div class="copy">
+      <p>
+        Explore Zanzibar, an exotic island paradise off the coast of Tanzania, where stunning beaches, rich history, and vibrant culture come together
+        to create an unforgettable escape. Stroll through the narrow streets of Stone Town, a UNESCO World Heritage site, and discover ancient
+        architecture, bustling markets, and the island’s unique blend of African, Arab, and European influences. Relax on powdery white-sand beaches,
+        soak up the warm Indian Ocean sun, and dive into crystal-clear waters teeming with marine life. From snorkeling and spice tours to romantic
+        sunsets and dhow cruises, Zanzibar offers a perfect balance of adventure and serenity.
+      </p>
+      <p>
+        Whether you’re seeking luxury retreats, cultural adventures, or laid-back island life, Zanzibar has it all. With its year-round tropical climate,
+        friendly locals, and rich history, Zanzibar is a dream destination for honeymooners, families, and adventure lovers alike. Whether you’re looking
+        to explore or simply relax, Zanzibar promises an unforgettable escape.
+      </p>
+    </div>
+
+    <!-- Cards Grid -->
+    <div class="row g-3 g-md-4 mt-2">
+               {% for tour in tour_list %}
+      <!-- Card 1 -->
+      <div class="col-12 col-md-6 col-lg-4">
+        <article class="tour-card h-100">
+          <img class="thumb" src="{{ tour.image }}" alt="1-Day Zanzibar Tour">
+          <div class="px-3 pb-2">
+            <h5 class="title">{{ tour.Tour_title }}</h5>
+          </div>
+          <div class="price-bar">
+            <div class="price">
+              <span class="amount">$ {{ tour.Tour_price }}</span>
+              <span class="per">per person</span>
+            </div>
+            <a href="{% url 'Zanzibar_Tour' tour.pk %}" class="btn btn-olive"onclick="showLoading(event)">View Tour</a>
+
+          </div>
+        </article>
+      </div>
+
+      {% endfor %}
+
+    </div>
+  </main>
+
+  <!-- Bootstrap JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+{% endblock %}

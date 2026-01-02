@@ -1,0 +1,431 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<style>
+  :root {
+    --primary: #FF4500; /* Fiery orange */
+    --secondary: #228B22; /* Forest green */
+    --accent: #FFD700; /* Golden shine */
+    --dark: #1C2526; /* Deep charcoal */
+    --light: #F8F1E9; /* Warm cream */
+    --shadow-luxe: 0 8px 20px rgba(0, 0, 0, 0.2);
+    --transition-ease: cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  }
+
+  /* Hero Section */
+  .about-hero {
+    position: relative;
+    min-height: 80vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #ffffff;
+    text-align: center;
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    overflow: hidden;
+    font-family: 'Poppins', sans-serif;
+    animation: heroSlideshow 20s infinite ease-in-out;
+  }
+
+  @keyframes heroSlideshow {
+    0%, 25% { background-image: url('{% static "img/serengeti.jpg" %}'); }
+    25%, 50% { background-image: url('{% static "img/kilimanjaro.jpg" %}'); }
+    50%, 75% { background-image: url('{% static "img/zanzibar.jpg" %}'); }
+    75%, 100% { background-image: url('{% static "img/ngorongoro.jpg" %}'); }
+  }
+
+  .about-hero::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(34, 139, 34, 0.3));
+    z-index: 1;
+  }
+
+  .about-hero .content {
+    position: relative;
+    z-index: 2;
+    max-width: clamp(600px, 80vw, 900px);
+    padding: clamp(20px, 5vw, 30px);
+    animation: fadeInUp 1.5s ease-out;
+  }
+
+  .about-hero h1 {
+    font-family: 'Merienda', cursive;
+    font-size: clamp(2rem, 6vw, 3.5rem);
+    font-weight: 900;
+    margin-bottom: 1.5rem;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: var(--accent);
+    text-shadow: 0 3px 10px rgba(0, 0, 0, 0.6);
+  }
+
+  .about-hero p {
+    font-size: clamp(1rem, 2.5vw, 1.2rem);
+    line-height: 1.8;
+    color: var(--light);
+    text-shadow: 0 1px 5px rgba(0, 0, 0, 0.5);
+    max-width: 90%;
+    margin: 0 auto 1.5rem;
+  }
+
+  .about-btn {
+    margin-top: 1.5rem;
+    background: linear-gradient(135deg, var(--primary), var(--accent));
+    color: #ffffff;
+    padding: clamp(10px, 2.5vw, 14px) clamp(20px, 4vw, 30px);
+    font-size: clamp(0.9rem, 2.5vw, 1rem);
+    border-radius: 50px;
+    text-decoration: none;
+    font-weight: 700;
+    transition: all 0.3s var(--transition-ease);
+    box-shadow: var(--shadow-luxe);
+    display: inline-flex;
+    align-items: center;
+  }
+
+  .about-btn i {
+    margin-right: 0.5rem;
+    font-size: clamp(0.9rem, 2.5vw, 1.2rem);
+  }
+
+  .about-btn:hover {
+    background: linear-gradient(135deg, var(--accent), var(--primary));
+    transform: scale(1.05);
+    box-shadow: 0 8px 20px rgba(255, 69, 0, 0.6);
+  }
+
+  /* Vision and Mission Section */
+  .vision-mission {
+    background: linear-gradient(to right, var(--light), #ffffff);
+    padding: clamp(40px, 8vw, 60px) 20px;
+    font-family: 'Poppins', sans-serif;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .vision-mission::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: url('{% static "img/safari-pattern.png" %}') repeat;
+    opacity: 0.05;
+    z-index: 0;
+  }
+
+  .vision-mission .container {
+    position: relative;
+    z-index: 1;
+  }
+
+  .vision-mission h3 {
+    font-family: 'Merienda', cursive;
+    font-weight: 700;
+    color: var(--secondary);
+    margin-bottom: 1rem;
+    font-size: clamp(1.5rem, 4vw, 2rem);
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+  }
+
+  .vision-mission h3::before {
+    content: '\f6c0';
+    font-family: 'Font Awesome 6 Free';
+    font-weight: 900;
+    color: var(--accent);
+    font-size: clamp(1rem, 3vw, 1.5rem);
+    margin-right: 0.5rem;
+  }
+
+  .vision-mission p {
+    color: var(--dark);
+    line-height: 1.8;
+    font-size: clamp(0.9rem, 2.5vw, 1rem);
+    margin-bottom: 1rem;
+  }
+
+  .vision-mission .card {
+    background: #ffffff;
+    border-radius: 15px;
+    padding: clamp(20px, 4vw, 25px);
+    box-shadow: var(--shadow-luxe);
+    transition: transform 0.3s var(--transition-ease), box-shadow 0.3s var(--transition-ease);
+  }
+
+  .vision-mission .card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 25px rgba(255, 69, 0, 0.3);
+  }
+
+  .vision-mission .text-muted {
+    font-size: clamp(0.8rem, 2vw, 0.9rem);
+    color: var(--dark);
+  }
+
+  /* Team Section */
+  .team-section {
+    padding: clamp(40px, 8vw, 60px) 20px;
+    background: linear-gradient(to bottom right, var(--light), #ffffff);
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .team-section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: url('{% static "img/safari-pattern.png" %}') repeat;
+    opacity: 0.05;
+    z-index: 0;
+  }
+
+  .team-section h6 {
+    color: var(--primary);
+    text-transform: uppercase;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    font-size: clamp(0.9rem, 2.5vw, 1rem);
+    margin-bottom: 0.5rem;
+  }
+
+  .team-section h1 {
+    font-family: 'Merienda', cursive;
+    font-size: clamp(1.8rem, 5vw, 2.5rem);
+    font-weight: 800;
+    margin-bottom: clamp(20px, 5vw, 40px);
+    color: var(--dark);
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+  }
+
+  .team-item {
+    background: #ffffff;
+    border-radius: 15px;
+    overflow: hidden;
+    transition: transform 0.3s var(--transition-ease), box-shadow 0.3s var(--transition-ease);
+    box-shadow: var(--shadow-luxe);
+    position: relative;
+  }
+
+  .team-item:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 12px 30px rgba(255, 69, 0, 0.3);
+  }
+
+  .team-item img {
+    width: 100%;
+    height: clamp(200px, 30vw, 250px);
+    object-fit: cover;
+    transition: transform 0.5s var(--transition-ease);
+  }
+
+  .team-item:hover img {
+    transform: scale(1.1);
+  }
+
+  .team-item .badge {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: var(--secondary);
+    color: #ffffff;
+    font-size: clamp(0.75rem, 2vw, 0.85rem);
+    padding: clamp(5px, 1.5vw, 7px) clamp(10px, 2.5vw, 12px);
+    border-radius: 25px;
+  }
+
+  .team-item .social-links {
+    margin-top: -20px;
+    display: flex;
+    justify-content: center;
+    gap: 0.5rem;
+  }
+
+  .team-item .btn {
+    background: var(--secondary);
+    color: #ffffff;
+    border-radius: 50%;
+    width: clamp(36px, 8vw, 40px);
+    height: clamp(36px, 8vw, 40px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s var(--transition-ease);
+    border: 1px solid var(--accent);
+  }
+
+  .team-item .btn:hover {
+    background: var(--primary);
+    transform: scale(1.1);
+    box-shadow: 0 0 10px rgba(255, 69, 0, 0.5);
+  }
+
+  .team-item .btn i {
+    font-size: clamp(0.9rem, 2.5vw, 1rem);
+  }
+
+  .team-item h5 {
+    font-size: clamp(1rem, 3vw, 1.2rem);
+    font-weight: 700;
+    color: var(--dark);
+    margin-bottom: 0.5rem;
+  }
+
+  .team-item small {
+    font-size: clamp(0.8rem, 2vw, 0.9rem);
+    color: var(--secondary);
+  }
+
+  /* Responsive Adjustments */
+  @media (max-width: 576px) {
+    .about-hero {
+      min-height: 60vh;
+    }
+    .about-hero h1 {
+      font-size: clamp(1.5rem, 5vw, 2rem);
+    }
+    .about-hero p {
+      font-size: clamp(0.85rem, 2.5vw, 1rem);
+    }
+    .about-btn {
+      padding: clamp(8px, 2vw, 10px) clamp(15px, 3vw, 20px);
+      font-size: clamp(0.8rem, 2vw, 0.9rem);
+    }
+    .vision-mission {
+      padding: clamp(30px, 6vw, 40px) 15px;
+    }
+    .vision-mission h3 {
+      font-size: clamp(1.2rem, 3.5vw, 1.5rem);
+    }
+    .vision-mission p {
+      font-size: clamp(0.85rem, 2vw, 0.95rem);
+    }
+    .team-section {
+      padding: clamp(30px, 6vw, 40px) 15px;
+    }
+    .team-section h1 {
+      font-size: clamp(1.5rem, 4vw, 2rem);
+    }
+    .team-item img {
+      height: 180px;
+    }
+    .team-item .btn {
+      width: clamp(32px, 7vw, 36px);
+      height: clamp(32px, 7vw, 36px);
+    }
+  }
+
+  @media (max-width: 768px) {
+    .vision-mission .row {
+      flex-direction: column;
+      gap: 2rem;
+    }
+    .vision-mission .col-lg-6 {
+      text-align: center;
+    }
+    .team-item {
+      margin-bottom: 1.5rem;
+    }
+  }
+
+  @media (min-width: 769px) and (max-width: 991px) {
+    .about-hero h1 {
+      font-size: clamp(2rem, 5vw, 2.8rem);
+    }
+    .about-hero p {
+      font-size: clamp(1rem, 2.5vw, 1.1rem);
+    }
+    .team-item img {
+      height: 220px;
+    }
+  }
+</style>
+
+{% if abouts %}
+  {% for i in abouts %}
+  <section class="about-hero wow fadeIn" data-wow-delay="0.2s" {% if i.image %}style="background-image: url('{{ i.image }}');"{% else %}style="background-image: url('{% static "img/serengeti.jpg" %}');"{% endif %}>
+    <div class="content">
+      <h1>{{ i.title }}</h1>
+      <p>{{ i.content }}</p>
+    </div>
+  </section>
+
+  <section class="vision-mission wow fadeInUp" data-wow-delay="0.3s">
+    <div class="container">
+      <div class="row g-5">
+        <div class="col-lg-6">
+          <div class="card">
+            <h3>Our Vision</h3>
+            <p>{{ i.vision }}</p>
+          </div>
+        </div>
+        <div class="col-lg-6">
+          <div class="card">
+            <h3>Our Mission</h3>
+            <p>{{ i.mission }}</p>
+          </div>
+        </div>
+      </div>
+      <p class="text-muted fst-italic mt-4"><small>Last updated: {{ i.last_updated|date:"F d, Y" }}</small></p>
+    </div>
+  </section>
+  {% endfor %}
+{% else %}
+  <div class="alert alert-info text-center py-5 wow fadeIn" data-wow-delay="0.2s">
+    <h4>Information about our organization will be available soon.</h4>
+  </div>
+{% endif %}
+
+
+
+
+<section class="team-section wow fadeInUp" data-wow-delay="0.4s">
+  <div class="container">
+    <h6>Travel Guides</h6>
+    <h1>Meet Our Expert Team</h1>
+    <div class="row g-4">
+      {% for i in teams %}
+      <div class="col-lg-3 col-md-6">
+        <div class="team-item">
+          <img src="{{ i.image }}" alt="{{ i.Full_name }}">
+          <span class="badge">{{ i.designation }}</span>
+          <div class="social-links">
+            {% if i.facebook_link %}
+              <a class="btn mx-1" href="{{ i.facebook_link }}" target="_blank"><i class="fab fa-facebook-f"></i></a>
+            {% endif %}
+            {% if i.twitter_link %}
+              <a class="btn mx-1" href="{{ i.twitter_link }}" target="_blank"><i class="fab fa-twitter"></i></a>
+            {% endif %}
+            {% if i.instagram_link %}
+              <a class="btn mx-1" href="{{ i.instagram_link }}" target="_blank"><i class="fab fa-instagram"></i></a>
+            {% endif %}
+          </div>
+          <div class="p-4">
+            <h5 class="mb-0">{{ i.Full_name }}</h5>
+            <small>{{ i.designation }}</small>
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<script>
+  // Initialize WOW.js for animations
+  document.addEventListener('DOMContentLoaded', function() {
+    new WOW().init();
+  });
+</script>
+{% endblock %}

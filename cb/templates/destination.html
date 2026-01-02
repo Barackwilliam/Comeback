@@ -1,0 +1,222 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}All Destinations{% endblock %}
+
+{% block extra_head %}
+<!-- Optional: Include a small script for progressive enhancement -->
+<script>
+  // simple client-side filter stub (enhance as needed)
+  function filterDestinations() {
+    const q = document.getElementById('search-input').value.toLowerCase();
+    document.querySelectorAll('[data-destination-name]').forEach(card => {
+      const name = card.dataset.destinationName.toLowerCase();
+      const location = card.dataset-destinationLocation?.toLowerCase() || '';
+      card.style.display = (name.includes(q) || location.includes(q)) ? '' : 'none';
+    });
+  }
+</script>
+{% endblock %}
+
+{% block content %}
+  <!-- Hero / Intro -->
+  <section class="mb-8">
+    <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-start gap-6">
+      <div class="flex-1">
+        <h1 class="text-4xl font-extrabold text-gray-900 leading-tight">Discover Destinations Worth Traveling For</h1>
+        <p class="mt-2 text-gray-600">Explore curated travel spots, unique ecosystems, and unforgettable experiences across Tanzania and beyond. Each destination is handpicked for authenticity and adventure.</p>
+      </div>
+      <div class="w-full md:w-auto">
+        <div class="flex flex-col sm:flex-row gap-3">
+          <div class="relative flex-1">
+            <input
+              id="search-input"
+              oninput="filterDestinations()"
+              type="text"
+              placeholder="Search by name or location"
+              class="w-full border border-gray-300 rounded-xl px-4 py-3 shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 transition"
+            />
+            <span class="absolute right-3 top-3 text-gray-400">
+              🔍
+            </span>
+          </div>
+          <button class="bg-indigo-600 hover:bg-indigo-700 text-white font-semibold rounded-xl px-6 py-3 shadow-md flex items-center gap-2">
+            Filter <span class="ml-1 text-sm">▾</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Grid of destinations -->
+  <div class="grid gap-8 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
+    {% for destination in destinations %}
+      <div
+        data-destination-name="{{ destination.name }}"
+        data-destination-location="{{ destination.location }}"
+        class="group bg-white rounded-2xl shadow-lg overflow-hidden relative flex flex-col hover:shadow-2xl transition"
+      >
+        <a href="{% url 'destination_detail' destination.pk %}" class="block flex-1">
+          <div class="relative aspect-w-16 aspect-h-9 overflow-hidden">
+            <img
+              src="{{ destination.get_image_url }}"
+              alt="{{ destination.name }}"
+              class="object-cover w-full h-full transition-transform duration-500 group-hover:scale-105"
+              loading="lazy"
+            />
+            {% if destination.Offer_in_percent %}
+              <div class="absolute top-4 left-4 bg-red-600 text-white px-3 py-1 rounded-full text-xs font-semibold shadow">
+                -{{ destination.Offer_in_percent }}%
+              </div>
+            {% endif %}
+            {% if destination.is_unesco_site %}
+              <div class="absolute top-4 right-4 bg-yellow-400 text-gray-900 px-3 py-1 rounded font-semibold text-xs shadow">
+                UNESCO
+              </div>
+            {% endif %}
+            <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/60 to-transparent px-4 py-3 flex justify-between items-center">
+              <div class="text-white text-sm">
+                <div class="font-semibold">{{ destination.name }}</div>
+                <div class="text-xs">{{ destination.location }}</div>
+              </div>
+              <div class="flex items-center gap-1 text-xs bg-white/20 backdrop-blur rounded-full px-2 py-1">
+                <!-- placeholder rating -->
+                <svg class="w-4 h-4 text-yellow-300" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.286 3.95a1 1 0 00.95.69h4.148c.969 0 1.371 1.24.588 1.81l-3.36 2.44a1 1 0 00-.364 1.118l1.286 3.95c.3.921-.755 1.688-1.54 1.118l-3.36-2.44a1 1 0 00-1.176 0l-3.36 2.44c-.784.57-1.84-.197-1.54-1.118l1.286-3.95a1 1 0 00-.364-1.118L2.025 9.377c-.783-.57-.38-1.81.588-1.81h4.148a1 1 0 00.95-.69l1.286-3.95z"/></svg>
+                <span class="text-white">4.8</span>
+              </div>
+            </div>
+          </div>
+          <div class="p-5 space-y-2">
+            <p class="text-sm text-indigo-600 font-semibold uppercase tracking-wide">{{ destination.best_time_to_visit|default:"Anytime" }}</p>
+            <h2 class="text-xl font-bold text-gray-900 line-clamp-2">{{ destination.name }}</h2>
+            <p style="color: black;" class="text-gray-600 text-sm clamp-3">{{ destination.description }}</p>
+          </div>
+        </a>
+        <div class="px-5 pb-5 flex justify-between items-center">
+          <div class="text-xs text-gray-500">
+            <span class="inline-flex items-center gap-1">
+              <svg class="w-4 h-4 inline-block" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M12 8c1.657 0 3-1.343 3-3S13.657 2 12 2 9 3.343 9 5s1.343 3 3 3zM5.636 14.318a9 9 0 0112.728 0M6 19h12" />
+              </svg>
+              <span>From {{ destination.nearest_city|default:"Unknown" }}</span>
+            </span>
+          </div>
+          <a href="{% url 'destination_detail' destination.pk %}" class="inline-flex items-center gap-1 text-indigo-600 font-medium hover:underline"onclick="showLoading(event)">
+            View details
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" />
+            </svg>
+          </a>
+        </div>
+      </div>
+    {% empty %}
+      <div class="col-span-full bg-white p-12 rounded-3xl shadow-lg flex flex-col items-center">
+        <svg class="w-16 h-16 text-indigo-500 mb-4" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M3 7v10a4 4 0 004 4h10a4 4 0 004-4V7M3 7l9-4 9 4M3 7v10a4 4 0 004 4h10a4 4 0 004-4V7M16 21v-8a2 2 0 00-2-2H10a2 2 0 00-2 2v8" />
+        </svg>
+        <h3 class="text-2xl font-bold text-gray-800">Hakuna destination</h3>
+        <p class="text-gray-500 mt-2">Tunaendelea kuongeza mahali mpya. Rudia baadaye au ujaribu ku-search nyingine.</p>
+      </div>
+    {% endfor %}
+  </div>
+
+  <!-- Pagination placeholder -->
+  <div class="mt-12 flex justify-center">
+    <nav aria-label="Pagination" class="inline-flex gap-2">
+      <button class="px-4 py-2 bg-white border border-gray-300 rounded-lg hover:bg-gray-50">Previous</button>
+      <button class="px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700">1</button>
+      <button class="px-4 py-2 bg-white border border-gray-300 rounded-lg hover:bg-gray-50">2</button>
+      <button class="px-4 py-2 bg-white border border-gray-300 rounded-lg hover:bg-gray-50">Next</button>
+    </nav>
+  </div>
+
+  <!-- ======= TRIPADVISOR PREMIUM SECTION ======= -->
+<section style="
+  background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+  padding: 60px 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 60vh;
+">
+  <div style="
+    background: #fff;
+    border-radius: 20px;
+    box-shadow: 0 15px 40px rgba(0,0,0,0.1);
+    padding: 40px;
+    max-width: 650px;
+    text-align: center;
+    transition: transform 0.4s ease, box-shadow 0.4s ease;
+  " onmouseover="this.style.transform='scale(1.03)'; this.style.boxShadow='0 20px 50px rgba(0,0,0,0.15)';"
+     onmouseout="this.style.transform='scale(1)'; this.style.boxShadow='0 15px 40px rgba(0,0,0,0.1)';">
+
+    <!-- Title -->
+    <h2 style="
+      font-family: 'Poppins', sans-serif;
+      font-weight: 700;
+      font-size: 26px;
+      background: linear-gradient(90deg, #005c97, #363795);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin-bottom: 15px;
+    ">
+      Experience Tanzania. Trusted Worldwide.
+    </h2>
+
+    <!-- Subtitle -->
+    <p style="color: #555; font-size: 16px; margin-bottom: 25px;">
+      Rated by travelers from across the globe — discover why <strong>Kilindo Tours</strong> is your top adventure partner.
+    </p>
+
+    <!-- Tripadvisor Widget -->
+    <div id="TA_selfserveprop375" class="TA_selfserveprop" style="margin-bottom: 10px;">
+      <ul id="5F6nzQCg3" class="TA_links TvJMs8VfEnx" style="list-style: none; margin: 0; padding: 0;">
+        <li id="EbRlifH1" class="pY70OxY">
+          <a target="_blank"
+             href="https://www.tripadvisor.com/Attraction_Review-g293748-d33985157-Reviews-Kilindo_Tours-Dar_es_Salaam_Dar_Es_Salaam_Region.html"
+             style="display: inline-block; text-decoration: none;">
+            <img src="https://www.tripadvisor.com/img/cdsi/img2/branding/v2/Tripadvisor_lockup_horizontal_secondary_registered-11900-2.svg"
+                 alt="TripAdvisor"
+                 style="width: 240px; transition: transform 0.4s ease; filter: drop-shadow(0 3px 6px rgba(0,0,0,0.2));"
+                 onmouseover="this.style.transform='scale(1.08)';"
+                 onmouseout="this.style.transform='scale(1)';">
+          </a>
+        </li>
+      </ul>
+    </div>
+
+    <script async src="https://www.jscache.com/wejs?wtype=selfserveprop&amp;uniq=375&amp;locationId=33985157&amp;lang=en_US&amp;rating=true&amp;nreviews=5&amp;writereviewlink=true&amp;popIdx=true&amp;iswide=false&amp;border=true&amp;display_version=2" data-loadtrk onload="this.loadtrk=true">
+    </script>
+
+    <!-- Stars / Footer Text -->
+    <div style="margin-top: 20px;">
+      <span style="font-size: 22px; color: #FFD700;">★★★★★</span>
+      <p style="margin-top: 10px; color: #666; font-size: 15px;">
+        <em>“Authentic, unforgettable and beautifully organized.”</em><br>
+        — Verified Tripadvisor Review
+      </p>
+    </div>
+
+    <!-- Glowing Border Animation -->
+    <div style="
+      position: absolute;
+      inset: 0;
+      border-radius: 20px;
+      padding: 2px;
+      background: linear-gradient(60deg, #00c6ff, #0072ff, #00c6ff);
+      background-size: 300% 300%;
+      animation: glowMove 4s linear infinite;
+      z-index: -1;
+    "></div>
+  </div>
+
+  <style>
+    @keyframes glowMove {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+  </style>
+</section>
+
+{% endblock %}

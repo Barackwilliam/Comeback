@@ -1,0 +1,12 @@
+  =>  Template Name    : Tourist - Travel Agency HTML Template
+
+  =>  Template Link    : https://htmlcodex.com/travel-agency-html-template
+
+  =>  Template License : https://htmlcodex.com/license (or read the LICENSE.txt file)
+
+  =>  Template Author  : HTML Codex
+
+  =>  Author Website   : https://htmlcodex.com
+
+  =>  About HTML Codex : HTML Codex is one of the top creators and publishers of Free HTML templates, HTML landing pages, HTML email templates and HTML snippets in the world. Read more at ( https://htmlcodex.com/about-us )
+    background: url("https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgU_wEVg9XsGl2U-RXS7VnfZ5yFRDh2glwKcI9MxMgrX7a79L7CtIbKiUqSrPPY5bsXO2w-YfvufA86E3N0zNQ8A7L0dOk9Km0C7fwhFe4A9ozVYR_OnsHQVqn5CkR9LiYY1XuynvsqpCP0v7pgD24mK2Wiyu6lcjwFC97Fso9FbZFo_DKjD6laVbpXrqFY/s1600/Pembury-Tours-Reasons-to-visit-Tarangire-National-Park-The-Safari-Experience-Walking-Safari.png=rb-1.2.1&auto=format&fit=crop&w=1600&q=80") center/cover no-repeat;

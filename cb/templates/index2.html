@@ -1,0 +1,1004 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+<style>
+.btn-outline-white {
+  border: 2px solid #fff;
+  color: #fff;
+  background: transparent;
+  border-radius: 0; /* haina kona za mviringo */
+}
+
+.btn-outline-white:hover {
+  background: transparent; /* hubaki transparent */
+  color: #fff;
+}
+
+</style>
+
+
+<div class="container-fluid p-0 position-relative vh-100 overflow-hidden">
+ {% for item in home_text %}
+<div id="welcomeCarousel{{ forloop.counter }}" 
+     class="carousel slide position-absolute w-100 h-100" 
+     data-bs-ride="carousel" 
+     data-bs-interval="6000">
+
+  <div class="carousel-inner w-100 h-100">
+    {% if item.image_1 %}
+    <div class="carousel-item active w-100 h-100">
+      <img src="{{ item.image_1 }}"
+           alt="Background KILIHAPPY 1" 
+           class="w-100 h-100" 
+           style="object-fit: cover;">
+    </div>
+    {% endif %}
+
+    {% if item.image_2 %}
+    <div class="carousel-item w-100 h-100">
+      <img src="{{ item.image_2 }}"
+           alt="Background KILIHAPPY 2" 
+           class="w-100 h-100" 
+           style="object-fit: cover;">
+    </div>
+    {% endif %}
+
+    {% if item.image_3 %}
+    <div class="carousel-item w-100 h-100">
+      <img src="{{ item.image_3 }}"
+           alt="Background KILIHAPPY 3" 
+           class="w-100 h-100" 
+           style="object-fit: cover;">
+    </div>
+    {% endif %}
+
+    {% if item.image_4 %}
+    <div class="carousel-item w-100 h-100">
+      <img src="{{ item.image_4 }}"
+           alt="Background KILIHAPPY 4" 
+           class="w-100 h-100" 
+           style="object-fit: cover;">
+    </div>
+    {% endif %}
+
+    {% if item.image_5 %}
+    <div class="carousel-item w-100 h-100">
+      <img src="{{ item.image_5 }}"
+           alt="Background KILIHAPPY 5" 
+           class="w-100 h-100" 
+           style="object-fit: cover;">
+    </div>
+    {% endif %}
+
+
+    {% if item.image_6 %}
+    <div class="carousel-item w-100 h-100">
+      <img src="{{ item.image_6 }}"
+           alt="Background KILIHAPPY 6" 
+           class="w-100 h-100" 
+           style="object-fit: cover;">
+    </div>
+    {% endif %}
+  </div>
+</div>
+{% empty %}
+<video autoplay muted loop playsinline class="position-absolute w-100 h-100" style="object-fit: cover;">
+    <source src="{% static 'img/bg-video.mp4' %}" type="video/mp4">
+    Your browser does not support HTML5 video.
+</video>
+{% endfor %}
+
+    <!-- Overlay -->
+    <div class="position-absolute top-0 start-0 w-100 h-100" style="background: rgba(20, 20, 31, 0.7); z-index: 1;"></div>
+
+    <!-- Foreground content -->
+    <div class="container h-100 position-relative d-flex align-items-center justify-content-center" style="z-index: 2;">
+        <div class="row w-100 justify-content-center text-center px-3">
+            <div class="col-lg-10">
+               {% for i in home_text %}
+                <h1 class="display-4 text-white mb-3 animated slideInDown">{{i.title}}</h1>
+                <p class="fs-5 text-white mb-4 animated slideInDown">{{i.subtitle}}</p>
+                {% empty %}
+                <h1 class="display-4 text-white mb-3 animated slideInDown">Welcome to Kilihappy</h1>
+                <p class="fs-5 text-white mb-4 animated slideInDown">Let Us Guide You to the Prime Wonders of Tanzania</p>
+                {% endfor %}
+                <div class="position-relative mx-auto animated slideInDown" style="max-width: 600px;">
+              <input class="form-control border-0 rounded-pill py-3 ps-4 pe-5" type="text" placeholder="Start booking..">
+              <a href="mailto:info@kilihappytanzaniaadventures.com" class="btn btn-primary rounded-pill py-2 px-4 position-absolute top-50 end-0 translate-middle-y me-2">
+                start
+              </a>
+            </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+    <!-- Navbar & Hero End -->
+
+
+    <!-- About Start -->
+    {% if abouts %}
+    {% for i in abouts %}
+    <div class="container-xxl py-5">
+        <div class="container">
+            <div class="row g-5">
+                <div class="col-lg-6 wow fadeInUp" data-wow-delay="0.1s" style="min-height: 400px;">
+                    <div class="position-relative h-100">
+                        <img class="img-fluid position-absolute w-100 h-100" src="{{i.image}}" alt="" style="object-fit: cover;">
+                    </div>
+                </div>
+                <div class="col-lg-6 wow fadeInUp" data-wow-delay="0.3s">
+                <div class="section-head">
+  <h2 style="color: rgb(187, 21, 21);" class="about-label">
+    <span class="decor">
+      <span class="line short"></span>
+      <span class="line long"></span>
+    </span>
+
+    ABOUT US
+
+    <span class="decor">
+      <span class="line short"></span>
+      <span class="line long"></span>
+    </span>
+  </h2>
+</div>
+
+
+                    <!-- <h6 class="section-title bg-white text-start text-danger pe-3">About Us</h6> -->
+                    <h1 class="mb-4">{{ i.title }} <span class="text-primary"></span></h1>
+                    <p style="color: black;" class="mb-4">{{ i.content }}</p>
+                   
+                    <a style="background-color: blue;" class="btn  py-3 px-5 text-white mt-2" href="{% url 'about'%}">Read More</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+    {% else %}
+        <div class="alert alert-info text-center">
+            <h4>Information about our organization will be available soon.</h4>
+        </div>
+    {% endif %}
+    <!-- About End -->
+
+
+   <!-- Service Start -->
+<div class="container-xxl py-5 bg-light">
+    <div class="container">
+        <div class="text-center mb-5">
+            <h6 style="color: rgb(187, 21, 21);" class="section-title bg-white text-center  px-3">Services</h6>
+            <h1 class="mb-4 fw-bold text-dark">Our Services</h1>
+        </div>
+        <div class="row g-4">
+
+            {% for service in services %}
+            <div class="col-lg-3 col-md-6 col-sm-12">
+                <div class="card h-100 border-0 shadow-sm rounded-4 service-card text-center">
+                    <img src="{{ service.image }}" class="card-img-top rounded-top" alt="{{ service.title }}"
+                         style="height: 210px; object-fit: cover;">
+                    <div class="card-body">
+                        <h5 class="card-title fw-semibold text-dark">{{ service.title }}</h5>
+                        <p style="color: black;" class="card-text">{{ service.description }}</p>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+
+
+             <div class="text-center mt-4">
+          <a style="background-color: blue; color: #f8f9fa;" href="{% url 'service' %}" class="btn  rounded-pill px-4 py-2 shadow-sm">
+            View More Services
+          </a>
+        </div>
+
+        </div>
+    </div>
+</div>
+
+<style>
+    .service-card {
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .service-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+    }
+</style>
+
+    <!-- Service End -->
+<div class="container py-5">
+  <div class="text-center mb-5">
+    <h2 class="text-uppercase fw-bold text-dark">Why Travel with <span class="text-dark">Kilihappy Tanzania Adventure</span></h2>
+    <p class="text-danger fst-italic">More than just a journey — it’s a life-changing experience.</p>
+  </div>
+
+  <div class="row g-4">
+    <!-- Box 1 -->
+    <div class="col-md-4">
+      <div class="p-4 rounded-4 text-center bg-dark border border-warning shadow-lg h-100">
+        <i class="fas fa-map-marked-alt text-warning fs-1 mb-3"></i>
+        <h5 class="text-light fw-semibold">Authentic Local Expertise</h5>
+        <p class="text-secondary">
+          All our guides were born and raised near Mt. Kilimanjaro. They know every trail, every tale, and every secret of the mountain. You're not just climbing — you're learning the mountain's soul.
+        </p>
+      </div>
+    </div>
+
+    <!-- Box 2 -->
+    <div class="col-md-4">
+      <div class="p-4 rounded-4 text-center bg-dark border border-warning shadow-lg h-100">
+        <i class="fas fa-shield-alt text-warning fs-1 mb-3"></i>
+        <h5 class="text-light fw-semibold">Unmatched Safety Standards</h5>
+        <p class="text-secondary">
+          Your safety is our mission. From daily health checks to high-altitude gear and oxygen support, we follow international standards to keep you secure throughout your climb.
+        </p>
+      </div>
+    </div>
+
+    <!-- Box 3 -->
+    <div class="col-md-4">
+      <div class="p-4 rounded-4 text-center bg-dark border border-warning shadow-lg h-100">
+        <i class="fas fa-heart text-warning fs-1 mb-3"></i>
+        <h5 class="text-light fw-semibold">Heartfelt, Lasting Memories</h5>
+        <p class="text-secondary">
+          Experience the mountain with deep connection — singing with porters, celebrating at Uhuru Peak, and sharing fireside stories. Every moment becomes a memory.
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="container py-5 bg-dark text-light rounded-4 shadow-lg">
+  <div class="row align-items-center g-5">
+    <div class="col-lg-6">
+      <h2 class="fw-bold text-warning display-5 mb-4">🧭 Best Time to Climb Mount Kilimanjaro</h2>
+      <p class="fs-5 text-light-emphasis">
+        Mount Kilimanjaro, the highest peak in Africa, offers different climbing experiences throughout the year.
+        Choosing the right time to climb increases your chances of reaching the summit and enjoying breathtaking views.
+      </p>
+
+      <div class="bg-light rounded-3 p-4 text-dark mt-4">
+        <h5 class="fw-bold text-success mb-3">🌞 Recommended Seasons:</h5>
+        <ul class="list-unstyled">
+          <li class="mb-2">✔️ <strong>January to early March</strong> – Warm conditions, moderate traffic, clear views.</li>
+          <li class="mb-2">✔️ <strong>June to October</strong> – Dry season, excellent visibility, most popular period.</li>
+        </ul>
+      </div>
+
+      <div class="bg-warning-subtle rounded-3 p-3 mt-4">
+        <h6 class="text-danger fw-semibold">🚫 Avoid These Months:</h6>
+        <p class="mb-0">April to May and November – These are the rainy seasons, trails become muddy and slippery, visibility is low, and summit success rates drop significantly.</p>
+      </div>
+    </div>
+
+
+
+
+
+
+
+    
+
+    <div class="col-lg-6 text-center">
+      <img src="{% static 'img/Kilimanjaro.jpg' %}" alt="Kilimanjaro Season"
+        class="img-fluid rounded-4 border border-warning shadow-lg" style="max-height: 450px; object-fit: cover;">
+    </div>
+  </div>
+</div>
+
+
+
+<div class="container py-5" style="background-color: #f8f9fa;">
+  <h2 class="text-center fw-bold mb-3" style="color: #222;">🧳 Important Things to Pack for Climbing Mount Kilimanjaro</h2>
+  <p class="text-center text-muted mb-5" style="max-width: 700px; margin: auto;">
+    Preparing for your Kilimanjaro climb is more than just stuffing a bag—it’s about choosing the right gear that will keep you warm, dry, and energized from rainforest to the roof of Africa. Here's a complete guide to packing smart and safely.
+  </p>
+
+  <div class="row g-5">
+    <!-- Clothing -->
+    <div class="col-md-4">
+      <div class="card h-100 border-0 shadow-lg rounded-4">
+        <div class="card-body p-4">
+          <h5 class="card-title fw-semibold text-center text-success mb-3">🧥 Technical Clothing</h5>
+          <ul class="text-muted small">
+            <li><strong>Thermal underwear:</strong> Base layer to keep you warm.</li>
+            <li><strong>Insulated mid-layers:</strong> Fleece/down jackets for warmth.</li>
+            <li><strong>Waterproof outer layers:</strong> Jacket and trousers for wind/rain protection.</li>
+            <li><strong>Wool socks & gloves:</strong> Multiple pairs to stay dry and warm.</li>
+            <li><strong>Neck gaiter / Buff:</strong> For dust, wind and cold protection.</li>
+            <li><strong>Sun hat & beanie:</strong> Daytime sun and night-time cold.</li>
+            <li><strong>High-quality hiking boots:</strong> Waterproof and broken-in.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- Health & Hygiene -->
+    <div class="col-md-4">
+      <div class="card h-100 border-0 shadow-lg rounded-4">
+        <div class="card-body p-4">
+          <h5 class="card-title fw-semibold text-center text-primary mb-3">💊 Health & Hygiene</h5>
+          <ul class="text-muted small">
+            <li><strong>Altitude meds:</strong> E.g. Diamox (consult doctor).</li>
+            <li><strong>First aid kit:</strong> Plasters, painkillers, antiseptic.</li>
+            <li><strong>Sunscreen SPF 30+:</strong> UV protection at high altitudes.</li>
+            <li><strong>Biodegradable wipes:</strong> For body cleaning in camps.</li>
+            <li><strong>Hand sanitizer:</strong> Cleanliness when water is limited.</li>
+            <li><strong>Lip balm with SPF:</strong> Prevent chapping and sunburn.</li>
+            <li><strong>Toilet paper:</strong> Always carry your own!</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- Essentials -->
+    <div class="col-md-4">
+      <div class="card h-100 border-0 shadow-lg rounded-4">
+        <div class="card-body p-4">
+          <h5 class="card-title fw-semibold text-center text-warning mb-3">🎒 Essentials & Accessories</h5>
+          <ul class="text-muted small">
+            <li><strong>Backpack (30-40L):</strong> For day essentials.</li>
+            <li><strong>Headlamp:</strong> Required for summit night.</li>
+            <li><strong>Water bottles (3L total):</strong> Stay hydrated daily.</li>
+            <li><strong>Energy snacks:</strong> Bars, nuts, chocolate.</li>
+            <li><strong>Camera or GoPro:</strong> Capture your experience!</li>
+            <li><strong>Power bank:</strong> Keep electronics charged.</li>
+            <li><strong>Trekking poles:</strong> Support on steep descents.</li>
+            <li><strong>Dry bags:</strong> Keep gear dry inside your pack.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+<div class="container py-5 bg-dark text-light rounded-4 shadow-lg">
+  <div class="row align-items-center g-5">
+    <div class="col-lg-6">
+      <h2 class="fw-bold text-warning display-5 mb-4">🦁 Best Time for Tanzania Safari</h2>
+      <p class="fs-5 text-light-emphasis">
+        Tanzania is home to world-famous safari destinations such as Serengeti, Ngorongoro Crater, and Tarangire.
+        Choosing the right season ensures you’ll witness incredible wildlife moments, from the Great Migration to big cat sightings.
+      </p>
+
+      <div class="bg-light rounded-3 p-4 text-dark mt-4">
+        <h5 class="fw-bold text-success mb-3">🌞 Recommended Seasons:</h5>
+        <ul class="list-unstyled">
+          <li class="mb-2">✔️ <strong>June to October</strong> – Dry season, best for game viewing, animals gather around water sources.</li>
+          <li class="mb-2">✔️ <strong>December to March</strong> – Calving season in Serengeti, plenty of predator action, lush landscapes.</li>
+        </ul>
+      </div>
+
+      <div class="bg-warning-subtle rounded-3 p-3 mt-4">
+        <h6 class="text-danger fw-semibold">🚫 Avoid These Months:</h6>
+        <p class="mb-0">April and May – Heavy rains make roads muddy, some lodges close, and wildlife viewing becomes difficult.</p>
+      </div>
+    </div>
+
+    <div class="col-lg-6 text-center">
+      <img src="{% static 'img/safari.webp' %}" alt="Tanzania Safari Season"
+        class="img-fluid rounded-4 border border-warning shadow-lg" style="max-height: 450px; object-fit: cover;">
+    </div>
+  </div>
+</div>
+
+
+<div class="container py-5" style="background-color: #f8f9fa;">
+  <h2 class="text-center fw-bold mb-3" style="color: #222;">🧳 What to Pack for a Tanzania Safari</h2>
+  <p class="text-center text-muted mb-5" style="max-width: 700px; margin: auto;">
+    A safari is not only about the destination but also about being well-prepared. The right clothing, health essentials, and accessories will make your adventure safe, comfortable, and unforgettable.
+  </p>
+
+  <div class="row g-5">
+    <!-- Clothing -->
+    <div class="col-md-4">
+      <div class="card h-100 border-0 shadow-lg rounded-4">
+        <div class="card-body p-4">
+          <h5 class="card-title fw-semibold text-center text-success mb-3">🧥 Safari Clothing</h5>
+          <ul class="text-muted small">
+            <li><strong>Lightweight neutral-colored clothes:</strong> Blend with nature, avoid bright colors.</li>
+            <li><strong>Warm jacket:</strong> Early morning & evening drives can be cold.</li>
+            <li><strong>Hat & sunglasses:</strong> Sun protection is essential.</li>
+            <li><strong>Comfortable walking shoes:</strong> For bush walks & camp use.</li>
+            <li><strong>Rain jacket:</strong> Handy during unpredictable showers.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- Health & Hygiene -->
+    <div class="col-md-4">
+      <div class="card h-100 border-0 shadow-lg rounded-4">
+        <div class="card-body p-4">
+          <h5 class="card-title fw-semibold text-center text-primary mb-3">💊 Health & Hygiene</h5>
+          <ul class="text-muted small">
+            <li><strong>Malaria prophylaxis:</strong> Consult your doctor before travel.</li>
+            <li><strong>First aid kit:</strong> Basic meds & plasters.</li>
+            <li><strong>Sunscreen SPF 30+:</strong> Intense African sun.</li>
+            <li><strong>Insect repellent:</strong> Especially for evenings.</li>
+            <li><strong>Hand sanitizer & wipes:</strong> For quick hygiene.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- Essentials -->
+    <div class="col-md-4">
+      <div class="card h-100 border-0 shadow-lg rounded-4">
+        <div class="card-body p-4">
+          <h5 class="card-title fw-semibold text-center text-warning mb-3">🎒 Safari Essentials</h5>
+          <ul class="text-muted small">
+            <li><strong>Binoculars:</strong> Get closer views of wildlife.</li>
+            <li><strong>Camera with zoom lens:</strong> Capture unforgettable moments.</li>
+            <li><strong>Power bank:</strong> Keep devices charged.</li>
+            <li><strong>Reusable water bottle:</strong> Stay hydrated.</li>
+            <li><strong>Travel documents:</strong> Passport, insurance, permits.</li>
+            <li><strong>Field guide book:</strong> Learn about wildlife & birds.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+    <!-- Destination Start -->
+    <div class="container-xxl py-5 destination">
+        <div class="container">
+            <div class="text-center wow fadeInUp" data-wow-delay="0.1s">
+                <h6 style="color: rgb(187, 21, 21);" class="section-title bg-white text-center px-3">Destination</h6>
+                <h1 class="mb-5">Popular Destination</h1>
+            </div>
+            <div class="row g-3">
+                <div class="col-lg-7 col-md-6">
+                    <div class="row g-3">
+                                    {% for dest in destinations %}
+                  <div class="col-lg-12 col-md-12 wow zoomIn position-relative mb-4" data-wow-delay="0.1s">
+                    <div class="position-relative overflow-hidden card-dest">
+                      <a href="{% url 'destination_detail' dest.pk %}" class="d-block">
+                        <img class="img-fluid w-100" src="{{ dest.image }}" alt="{{ dest.name }}">
+                      </a>
+
+                      {% if dest.Offer_in_percent %}
+                        <div class="badge-offer">
+                          <span>{{ dest.Offer_in_percent }}% OFF</span>
+                        </div>
+                      {% endif %}
+
+                      {% if dest.highest_peak %}
+                        <div class="badge-scenic">
+                          <span>Scenic View</span>
+                        </div>
+                      {% endif %}
+
+                      <div class="overlay-center">
+                        <a href="{% url 'destination_detail' dest.pk %}" class="btn">
+                          <h3 style="background-color: blue; color: #f8f9fa; padding: 20px 45px;" >View</h3>
+                          <span class="underline"></span>
+                        </a>
+                      </div>
+
+                      <div class="location-tag">
+                        {{ dest.location }}
+                      </div>
+                    </div>
+                  </div>
+                {% endfor %}
+
+        <!-- After the for loop -->
+        <div class="text-center mt-4">
+          <a style="background-color: blue; color: #f8f9fa;" href="{% url 'destinations_list' %}" class="btn  rounded-pill px-4 py-2 shadow-sm">
+            View More Destinations
+          </a>
+        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Destination Start -->
+
+
+
+
+
+
+
+<!-- Package Start -->
+<div style="background-color:rgba(255, 153, 0, 0.24);" class="container-xxl py-5 text-light">
+    <div class="container">
+        <div class="text-center mb-5 wow fadeInUp" data-wow-delay="0.1s">
+            <h6 class="section-title text-center text-warning bg-dark px-3 rounded-pill">Our Packages</h6>
+            <h1 class="display-5 fw-bold text-danger">Unforgettable Safari & Trekking Adventures</h1>
+            <p class=" fw-bold text-dark">Choose from our expertly crafted tours — whether it's conquering Mount Kilimanjaro or exploring Tanzania's wild plains.</p>
+        </div>
+
+
+
+    <div class="row g-4 justify-content-center">
+    {% for pac in safari_list %}
+    <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
+        <div class="card bg-transparent text-white border-0 shadow-lg overflow-hidden" style="border-radius: 20px;">
+            <div class="card-img position-relative" style="height: 350px; background: url('{{ pac.featured_image }}') center center/cover no-repeat;">
+                <div class="position-absolute top-0 start-0 w-100 h-100" style="background:  rgba(7, 7, 7, 0.342);"></div>
+                <div class="position-absolute bottom-0 start-0 p-4">
+                    <h4 class="fw-bold text-warning mb-1">{{ pac.location }}</h4>
+                    <small class="text-light">{{ pac.days }} Days {{ pac.safari_type }}</small>
+                </div>
+            </div>
+
+            <div class="card-body bg-dark bg-opacity-75 p-4">
+                <p class="mb-2 text-white-50">Starting From</p>
+                <h3 class="text-warning fw-bold mb-2">${{ pac.price }}</h3>
+                <small class="text-muted">Per person</small>
+                <div class="mt-3 text-center">
+                    <a href="{% url 'safari_detail' pac.id %}" class="btn btn-warning text-dark fw-semibold rounded-pill px-4 py-2 shadow">
+                        View Details
+                    </a>
+
+
+                   <!-- <a href="{% url 'safari_detail' pac.id %}" class="btn-outline-white px-4 py-2 fw-semibold shadow">
+                  View
+                </a> -->
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+</div>
+</div>
+<!-- Package End -->
+
+
+<!-- Tanzania Safari Activities Section -->
+<div class="container-xxl py-5" style="background: linear-gradient(135deg, #1a2a6c 0%, #b21f1f 50%, #fdbb2d 100%);">
+    <div class="container">
+        <div class="text-center mb-5 wow fadeInUp" data-wow-delay="0.1s">
+            <h6 class="section-title text-center text-warning bg-dark px-4 py-2 rounded-pill d-inline-block mb-3">
+                <i class="fas fa-compass me-2"></i>IMMERSIVE EXPERIENCES
+            </h6>
+            <h1 class="display-4 fw-bold text-white mb-3">ACTIVITIES DURING TANZANIA SAFARI & TREKKING</h1>
+            <p class="lead text-light">Discover authentic cultural encounters and unforgettable adventures in the heart of Tanzania</p>
+        </div>
+
+        <!-- Activities Grid -->
+        <div class="row g-4">
+            <!-- Arusha City Tour -->
+            <div class="col-lg-6 mb-4">
+                <div class="card activity-card h-100 border-0 shadow-lg overflow-hidden">
+                    <div class="card-header bg-warning text-dark  py-3">
+                        <h4 style="color: rgb(7, 7, 7);" class="mb-0"><i class="fas fa-city me-2"></i>🏙️ Arusha City Tour</h4>
+                    </div>
+                    <div class="card-body bg-light">
+                        <div class="activity-content">
+                            <h6 class="text-primary mb-3">Itinerary & Highlights:</h6>
+                            <p class="text-dark mb-3">Arusha, often called the "Safari Capital of Tanzania", is the gateway to some of the world's most famous national parks. A city tour allows you to experience the local lifestyle, history, and culture.</p>
+                            
+                            <div class="timeline">
+                                <div class="timeline-item">
+                                    <span class="timeline-badge bg-warning">⏰</span>
+                                    <div style="color: #000;" class="timeline-content">
+                                        <strong>Morning:</strong> Start at the Clock Tower – the landmark believed to be the halfway point between Cairo and Cape Town.
+                                    </div>
+                                </div>
+                                <div class="timeline-item">
+                                    <span class="timeline-badge bg-info">⏰</span>
+                                    <div style="color: #000;" class="timeline-content">
+                                        <strong>Mid-morning:</strong> Visit Arusha Central Market to explore fresh produce, spices, and daily life of Tanzanians.
+                                    </div>
+                                </div>
+                                <div class="timeline-item">
+                                    <span class="timeline-badge bg-success">⏰</span>
+                                    <div style="color: #000;" class="timeline-content">
+                                        <strong>Afternoon:</strong> Explore the Cultural Heritage Centre to discover art, carvings, Tanzanite gemstones, and souvenirs.
+                                    </div>
+                                </div>
+                                <div class="timeline-item">
+                                    <span class="timeline-badge bg-primary">⏰</span>
+                                    <div style="color: #000;" class="timeline-content">
+                                        <strong>Evening:</strong> Take a guided city walk, capture photos, and learn the historical stories of Arusha town.
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Bird Watching -->
+            <div class="col-lg-6 mb-4">
+                <div class="card activity-card h-100 border-0 shadow-lg overflow-hidden">
+                    <div class="card-header bg-warning text-dark  py-3">
+                        <h4 style="color: rgb(2, 2, 2);" class="mb-0"><i class="fas fa-dove me-2"></i>🦜 Bird Watching</h4>
+                    </div>
+                    <div class="card-body bg-light">
+                        <div class="activity-content">
+                            <h6 class="text-primary mb-3">Itinerary & Highlights:</h6>
+                            <p class="text-dark mb-3">Tanzania is home to over 1,100 bird species, making it a paradise for bird lovers. Arusha and its surroundings offer great birding opportunities.</p>
+                            
+                            <div class="highlights-list">
+                                <div style="color: rgb(2, 2, 2);" class="highlight-item">
+                                    <span class="highlight-icon">🌅</span>
+                                    <span><strong>Early Morning:</strong> Begin your day with binoculars and a professional birding guide.</span>
+                                </div>
+                                <div style="color: rgb(2, 2, 2);" class="highlight-item">
+                                    <span class="highlight-icon">📍</span>
+                                    <span><strong>Best Locations:</strong> Lake Duluti, Arusha National Park, or nearby reserves.</span>
+                                </div>
+                                <div style="color: rgb(2, 2, 2);" class="highlight-item">
+                                    <span class="highlight-icon">🦚</span>
+                                    <span><strong>Highlights:</strong> Spot flamingos, turacos, hornbills, eagles, and other colorful species.</span>
+                                </div>
+                                <div style="color: rgb(2, 2, 2);" class="highlight-item">
+                                    <span class="highlight-icon">🧺</span>
+                                    <span><strong>Afternoon:</strong> Enjoy a picnic by the lake or forest while continuing to watch rare and endemic birds.</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Cultural Tours -->
+            <div class="col-lg-6 mb-4">
+                <div class="card activity-card h-100 border-0 shadow-lg overflow-hidden">
+                    <div class="card-header bg-warning text-dark  py-3">
+                        <h4 style="color: rgb(8, 8, 8); class="mb-0"><i class="fas fa-users me-2"></i>🏹 Hadzabe & Maasai Cultural Tours</h4>
+                    </div>
+                    <div class="card-body bg-light">
+                        <div class="activity-content">
+                            <h6 class="text-primary mb-3">Itinerary & Highlights:</h6>
+                            <p class="text-dark mb-3">Cultural encounters with Tanzania's indigenous communities provide a once-in-a-lifetime experience.</p>
+                            
+                            <div style="color: rgb(2, 2, 2);" class="cultural-experience">
+                                <div class="experience-time morning">
+                                    <h6 class="text-warning">🌅 Morning</h6>
+                                    <p>Drive to Lake Eyasi to meet the Hadzabe (hunter-gatherers). Join them in traditional hunting, fire-making, and learning their unique "click" language.</p>
+                                </div>
+                                <div class="experience-time afternoon">
+                                    <h6 class="text-info">☀️ Afternoon</h6>
+                                    <p>Visit the Maasai community, known for their nomadic lifestyle, traditional dances, and iconic red attire. Learn about their culture, cattle herding, and family structures.</p>
+                                </div>
+                                <div class="experience-time evening">
+                                    <h6 class="text-primary">🌇 Evening</h6>
+                                    <p>Experience a Maasai dance as the sun sets over the savannah, creating an unforgettable memory.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Traditional Food -->
+            <div class="col-lg-6 mb-4">
+                <div class="card activity-card h-100 border-0 shadow-lg overflow-hidden">
+                    <div class="card-header bg-warning text-dark py-3">
+                        <h4 class="mb-0"><i class="fas fa-utensils me-2"></i>🍲 Explore & Eat Arusha Local Traditional Food</h4>
+                    </div>
+                    <div class="card-body bg-light">
+                        <div class="activity-content">
+                            <h6 class="text-primary mb-3">Itinerary & Highlights:</h6>
+                            <p class="text-dark mb-3">Food is culture – and in Arusha, you'll enjoy both the taste and the stories behind every dish.</p>
+                            
+                            <div style="color: rgb(2, 2, 2);" class="food-journey">
+                                <div class="food-step">
+                                    <span class="step-number">1</span>
+                                    <div class="step-content">
+                                        <strong>Market Visit:</strong> Explore local markets to discover fresh spices, grains, and vegetables.
+                                    </div>
+                                </div>
+                                <div class="food-step">
+                                    <span class="step-number">2</span>
+                                    <div class="step-content">
+                                        <strong>Cooking Experience:</strong> Join a cooking class to prepare Tanzanian dishes like Ugali, Nyama Choma, Pilau, Makande, and Mchicha with Coconut.
+                                    </div>
+                                </div>
+                                <div class="food-step">
+                                    <span class="step-number">3</span>
+                                    <div class="step-content">
+                                        <strong>Traditional Meal:</strong> Share a authentic Tanzanian lunch at a local restaurant or with a host family.
+                                    </div>
+                                </div>
+                                <div class="food-step">
+                                    <span class="step-number">4</span>
+                                    <div class="step-content">
+                                        <strong>Local Drinks:</strong> Taste traditional beverages like Mbege (banana beer) and enjoy warm conversations with locals.
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Suggested Itinerary -->
+        <div class="row mt-5">
+            <div class="col-12">
+                <div class="card border-0 shadow-lg bg-dark text-white">
+                    <div class="card-header bg-warning text-dark py-3">
+                        <h4 class="mb-0"><i class="fas fa-calendar-alt me-2"></i>👉 Suggested 1-Day Combined Itinerary</h4>
+                    </div>
+                    <div class="card-body">
+                        <div class="row text-center">
+                            <div class="col-md-3 mb-3">
+                                <div class="itinerary-step bg-primary rounded p-3">
+                                    <h5>🌅 Morning</h5>
+                                    <p class="mb-0">Arusha City Tour</p>
+                                </div>
+                            </div>
+                            <div class="col-md-3 mb-3">
+                                <div class="itinerary-step bg-success rounded p-3">
+                                    <h5>🕛 Mid-day</h5>
+                                    <p class="mb-0">Bird Watching at Lake Duluti</p>
+                                </div>
+                            </div>
+                            <div class="col-md-3 mb-3">
+                                <div class="itinerary-step bg-info rounded p-3">
+                                    <h5>☀️ Afternoon</h5>
+                                    <p class="mb-0">Hadzabe & Maasai Cultural Experience</p>
+                                </div>
+                            </div>
+                            <div class="col-md-3 mb-3">
+                                <div class="itinerary-step bg-warning text-dark rounded p-3">
+                                    <h5>🌇 Evening</h5>
+                                    <p class="mb-0">Dinner with Traditional Tanzanian Food</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="text-center mt-4">
+                            <a href="https://wa.me/255658571653" class="btn btn-light btn-lg px-5 py-3 rounded-pill shadow">
+                                <i class="fas fa-calendar-check me-2"></i>Enjoy This Experience
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+.activity-card {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    border-radius: 15px;
+}
+
+.activity-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 35px rgba(0,0,0,0.1) !important;
+}
+
+.timeline {
+    position: relative;
+    padding-left: 30px;
+}
+
+.timeline-item {
+    position: relative;
+    margin-bottom: 15px;
+}
+
+.timeline-badge {
+    position: absolute;
+    left: -30px;
+    top: 2px;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+}
+
+.highlights-list .highlight-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+    padding: 8px;
+    background: rgba(0,123,255,0.1);
+    border-radius: 8px;
+}
+
+.highlight-icon {
+    margin-right: 10px;
+    font-size: 18px;
+    min-width: 30px;
+    text-align: center;
+}
+
+.cultural-experience .experience-time {
+    margin-bottom: 15px;
+    padding: 15px;
+    border-radius: 10px;
+    background: rgba(0,0,0,0.03);
+}
+
+.food-journey .food-step {
+    display: flex;
+    align-items: center;
+    margin-bottom: 12px;
+    padding: 10px;
+    background: rgba(255,193,7,0.1);
+    border-radius: 8px;
+}
+
+.step-number {
+    width: 30px;
+    height: 30px;
+    background: #ffc107;
+    color: #000;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    margin-right: 15px;
+    flex-shrink: 0;
+}
+
+.itinerary-step {
+    transition: transform 0.3s ease;
+}
+
+.itinerary-step:hover {
+    transform: scale(1.05);
+}
+
+@media (max-width: 768px) {
+    .display-4 {
+        font-size: 2rem;
+    }
+    
+    .activity-card {
+        margin-bottom: 20px;
+    }
+}
+</style>
+
+
+
+
+
+
+
+
+    {% include 'booking_form.html' %}
+
+
+    <!-- Process Start -->
+    <div class="container-xxl py-5">
+        <div class="container">
+            <div class="text-center pb-4 wow fadeInUp" data-wow-delay="0.1s">
+                <h6 style="color: red;" class="section-title bg-white text-center  px-3">Process</h6>
+                <h1 class="mb-5">With Easy Steps</h1>
+            </div>
+            <div class="row gy-5 gx-4 justify-content-center">
+
+                {% for stp in step %}
+                <div class="col-lg-4 col-sm-6 text-center pt-4 wow fadeInUp" data-wow-delay="0.1s">
+                    <div class="position-relative border border-primary pt-5 pb-4 px-4">
+                        <!-- <div class="d-inline-flex align-items-center justify-content-center bg-primary rounded-circle position-absolute top-0 start-50 translate-middle shadow" style="width: 100px; height: 100px;"> -->
+                            <img class="bg-white rounded-circle shadow p-1 mx-auto mb-3" src="{{stp.image}}" style="width: 80px; height: 80px;">
+
+                            <!-- <i class="fa fa-globe fa-3x text-white"></i> -->
+                        <!-- </div> -->
+                        <h5 class="mt-4">{{stp.Title}}</h5>
+                        <hr class="w-25 mx-auto bg-primary mb-1">
+                        <hr class="w-50 mx-auto bg-primary mt-0">
+                        <p style="color: black;" class="mb-0">{{stp.description}}</p>
+                    </div>
+                </div>
+
+                {% endfor %}
+
+
+
+            </div>
+        </div>
+    </div>
+    <!-- Process Start -->
+
+<!-- 
+    <div class="container-xxl py-5">
+        <div class="container">
+            <div class="text-center wow fadeInUp" data-wow-delay="0.1s">
+                <h6 class="section-title bg-white text-center text-primary px-3">Travel Guide</h6>
+                <h1 class="mb-5">Meet Our Guide</h1>
+            </div>
+            <div class="row g-4">
+
+                {% for team in teams %}
+                <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
+                    <div class="team-item">
+                        <div class="overflow-hidden">
+                            <img class="img-fluid" src="{{team.image}}" alt="">
+                        </div>
+                        <div class="position-relative d-flex justify-content-center" style="margin-top: -19px;">
+                            <a class="btn btn-square mx-1" href="{{team.facebook_link}}"><i class="fab fa-facebook-f"></i></a>
+                            <a class="btn btn-square mx-1" href="{{team.twitter_link}}"><i class="fab fa-twitter"></i></a>
+                            <a class="btn btn-square mx-1" href="{{team.instagram_link}}"><i class="fab fa-instagram"></i></a>
+                        </div>
+                        <div class="text-center p-4">
+                            <h5 class="mb-0">{{team.Full_name}}</h5>
+                            <small>{{team.designation}}</small>
+                        </div>
+                    </div>
+                </div>
+             {% endfor %}
+
+
+            </div>
+        </div>
+    </div> -->
+    <!-- Team End -->
+
+
+    <!-- Testimonial Start -->
+    <div class="container-xxl py-5 wow fadeInUp" data-wow-delay="0.1s">
+        <div class="container">
+            <div class="text-center">
+                <h6 style="color: red;" class="section-title bg-white text-center  px-3">Testimonial</h6>
+                <h1 class="mb-5">Our Clients Say!!!</h1>
+            </div>
+            <div class="owl-carousel testimonial-carousel position-relative">
+
+                  {% for test in testimonial %}
+                <div class="testimonial-item bg-white text-center border p-4">
+                    <img class="bg-white rounded-circle shadow p-1 mx-auto mb-3" src="{{test.image}}" style="width: 80px; height: 80px;">
+                    <h5 class="mb-0">{{test.Full_name}}</h5>
+                    <p>{{test.country}}</p>
+                    <p class="mb-0">{{test.description}}.</p>
+                </div>
+                    {% endfor %}
+                
+            </div>
+        </div>
+    </div>
+    <!-- Testimonial End -->
+        
+    {% endblock %}
+
+
+
+
+
+
+    
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    document.querySelectorAll('#faqAccordion .accordion-button').forEach(button => {
+      button.addEventListener('click', function (e) {
+        // Get the target collapse element
+        let target = document.querySelector(this.getAttribute('data-bs-target'));
+        
+        // Check if the target is already shown
+        if (target.classList.contains('show')) {
+          e.stopPropagation(); // Prevent default behavior
+          let collapseInstance = bootstrap.Collapse.getInstance(target);
+          if (collapseInstance) {
+            collapseInstance.hide(); // Hide it
+          } else {
+            new bootstrap.Collapse(target, { toggle: false }).hide();
+          }
+        }
+      });
+    });
+  });
+</script>

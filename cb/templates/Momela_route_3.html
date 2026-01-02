@@ -1,0 +1,261 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}{{ tour.title }}{% endblock %}
+
+{% block content %}
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+<style>
+  body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: #f0f4f8;
+    color: #333;
+  }
+
+  /* Hero */
+  .hero {
+    background: url("https://www.shadowsofafrica.com/media/wysiwyg/Itineraries/Kilimanjaro_climbing/Mt_Meru_climbing/shutterstock_1151217608.jpg") center/cover no-repeat;
+    height: 60vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    text-align: center;
+    padding: 0 20px;
+    position: relative;
+  }
+  .hero h1 {
+    font-size: clamp(2rem, 5vw, 3.5rem);
+    font-weight: 800;
+    animation: fadeDown 1s ease-in-out;
+    text-shadow: 0 4px 12px rgba(0,0,0,0.5);
+  }
+  @keyframes fadeDown {
+    from { opacity: 0; transform: translateY(-30px);}
+    to { opacity: 1; transform: translateY(0);}
+  }
+
+  /* Breadcrumb */
+  .breadcrumb {
+    background: transparent;
+    padding: 0.75rem 0;
+    margin: 20px 0;
+  }
+  .breadcrumb a {
+    text-decoration: none;
+    color: #0d6efd;
+    font-weight: 500;
+    transition: color 0.3s;
+  }
+  .breadcrumb a:hover {
+    color: #6f42c1;
+  }
+
+  /* Tour Content */
+  .tour-content {
+    background: #fff;
+    border-radius: 1rem;
+    padding: 2.2rem;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.08);
+    margin-bottom: 2rem;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  .tour-content:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.12);
+  }
+  .tour-content h2 {
+    color: #0d6efd;
+    font-weight: 700;
+    margin-bottom: 1.2rem;
+    border-left: 5px solid #6f42c1;
+    padding-left: 10px;
+  }
+
+  /* Accordion */
+  .accordion-item {
+    border-radius: 14px !important;
+    overflow: hidden;
+    margin-bottom: 18px;
+    border: none;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.08);
+  }
+  .accordion-button {
+    transition: all 0.3s ease;
+    font-size: 1rem;
+    font-weight: 600;
+    background: #f8f9fa;
+  }
+  .accordion-button:not(.collapsed) {
+    background: linear-gradient(135deg, #0d6efd, #6f42c1) !important;
+    color: #fff !important;
+  }
+  .accordion-body {
+    background: #fff;
+    animation: fadeIn 0.5s ease-in-out;
+    font-size: 0.95rem;
+    line-height: 1.6;
+  }
+  @keyframes fadeIn {
+    from {opacity: 0; transform: translateY(12px);}
+    to {opacity: 1; transform: translateY(0);}
+  }
+  .badge-day {
+    font-size: 0.85rem;
+    margin-right: 12px;
+    background: linear-gradient(135deg, #0d6efd, #6f42c1);
+  }
+
+  /* Section Heading */
+  h3.section-title {
+    margin: 3rem 0 1.5rem;
+    font-size: 1.8rem;
+    font-weight: 700;
+    text-align: center;
+    background: linear-gradient(135deg, #0d6efd, #6f42c1);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  /* Responsive */
+  @media (max-width: 768px) {
+    .hero {
+      height: 45vh;
+    }
+    .tour-content {
+      padding: 1.4rem;
+    }
+    .hero h1 {
+      font-size: 2rem;
+    }
+  }
+</style>
+
+<!-- Hero Section -->
+<section class="hero">
+  <h1>Momela Route 3 Days</h1>
+</section>
+
+<!-- Breadcrumb -->
+<div class="container">
+  <nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a href="/">🏠 Home</a></li>
+      <li class="breadcrumb-item active" aria-current="page">Momela route 3 days</li>
+    </ol>
+  </nav>
+</div>
+
+<!-- Tour Details -->
+<div class="container">
+  <div class="tour-content">
+    <h2>Momela Route 3 Days</h2>
+    <p>You will hike past wildlife, the landscape is spectacular, and sunrise on the summit has Kilimanjaro as the backdrop. Meru is a great preparation hike for climbing Kilimanjaro, or a spectacular trek for those not compelled to do Kilimanjaro.</p>
+    <p>Kilimanjaro may be the main attraction in Tanzania, but Mt. Meru is worth your attention as well.</p>
+    <p>Although it is 4,000 feet shorter than Kilimanjaro, solitary Mt. Meru nonetheless cuts an impressive figure and makes for a challenging acclimatisation hike or an attraction in its own right.</p>
+    <p>While all of our climbing itineraries are private, it is policy on Mt. Meru for multiple tour groups to join together on the lower slopes.</p>
+    <p>For those pressed for time, the three day option gives you the chance to summit over a long weekend.</p>
+  </div>
+</div>
+
+<!-- Itinerary Accordion -->
+<h3 style="text-align: center;" class="section display-5">Momela Route 3 Days Itinerary</h3>
+
+<div class="container mb-5">
+  <div class="accordion" id="itineraryAccordion">
+
+    <!-- Day 1 -->
+    <div class="accordion-item">
+      <h2 class="accordion-header" id="heading1">
+        <button 
+          class="accordion-button collapsed" 
+          type="button" 
+          data-bs-toggle="collapse" 
+          data-bs-target="#collapse1" 
+          aria-expanded="false" 
+          aria-controls="collapse1">
+          <span class="badge rounded-pill px-3 py-2 badge-day">Day 1</span>
+          ARUSHA - MOMELLA GATE - MIRIAKAMBA HUTS
+        </button>
+      </h2>
+      <div 
+        id="collapse1" 
+        class="accordion-collapse collapse" 
+        aria-labelledby="heading1" 
+        data-bs-parent="#itineraryAccordion">
+        <div class="accordion-body">
+          <p>You’ll be picked up from your Moshi accommodations and make the drive to Kilimanjaro National Park.
+Here, you’ll liaise with your guides and begin your ascent through the verdant rainforest that clothes the lower reaches of Kilimanjaro.
+
+Hiking for 5-6 hours through this ancient jungle, you’ll get to go on a miniature safari as you spot wildlife such as black and white colobus monkeys along the way.
+
+You’ll spend your night at the modern Mandara Huts, which boast luxuries such as solar lighting and flush toilets. You won’t be seeing those again anytime soon!</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Day 2 -->
+    <div class="accordion-item">
+      <h2 class="accordion-header" id="heading2">
+        <button 
+          class="accordion-button collapsed" 
+          type="button" 
+          data-bs-toggle="collapse" 
+          data-bs-target="#collapse2" 
+          aria-expanded="false" 
+          aria-controls="collapse2">
+          <span class="badge rounded-pill px-3 py-2 badge-day">Day 2</span>
+          MIRIAKAMBA HUTS - SADDLE HUTS
+        </button>
+      </h2>
+      <div 
+        id="collapse2" 
+        class="accordion-collapse collapse" 
+        aria-labelledby="heading2" 
+        data-bs-parent="#itineraryAccordion">
+        <div class="accordion-body">
+          <p>You’ll pass from the lush rainforest and into the more spartan heath zone today, with giant clumps of heather and other moorland scrub dotting the terrain.
+
+Hiking along the ridge of the Mount Meru Crater, you’ll have breathtaking views of both the crater and the Ash Tray. For those with a little extra energy, there’s the option to ascend to the peak of Little Mount Meru for a panoramic view of Arusha and its surrounds.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Day 3 -->
+    <div class="accordion-item">
+      <h2 class="accordion-header" id="heading3">
+        <button 
+          class="accordion-button collapsed" 
+          type="button" 
+          data-bs-toggle="collapse" 
+          data-bs-target="#collapse3" 
+          aria-expanded="false" 
+          aria-controls="collapse3">
+          <span class="badge rounded-pill px-3 py-2 badge-day">Day 3</span>
+          SADDLE HUTS - SUMMIT - ARUSHA
+        </button>
+      </h2>
+      <div 
+        id="collapse3" 
+        class="accordion-collapse collapse" 
+        aria-labelledby="heading3" 
+        data-bs-parent="#itineraryAccordion">
+        <div class="accordion-body">
+          <p>You’ll be up very early today. Around midnight, in fact!
+
+It’s a steep trail that separates you from the summit of Mt. Meru and your trail takes you via Rhino Point and Cobra Point through volcanic terrain before you finally reach Socialist Point.
+
+From here, you’ll experience a stunning sunset via of Arusha and the surrounding landscape before beginning your descent back to the Momella Gate.
+
+A Shadows of Africa driver will meet you at the conclusion of your adventure to take you to your Arusha accommodation.</p>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+{% endblock %}

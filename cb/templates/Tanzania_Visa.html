@@ -1,0 +1,222 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<style>
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  line-height: 1.8;
+  background-color: #f4f6f9;
+  color: #333;
+}
+
+/* HERO */
+.hero {
+  background: url("https://www.travelandtourworld.com/wp-content/uploads/2025/08/freepik__the-style-is-candid-ima-2025-08-14T130408702-850x582.jpg") center/cover no-repeat;
+  min-height: 400px;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 2rem;
+  color: white;
+}
+
+.hero::after {
+  content: "";
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(0,0,0,0.55);
+  z-index: 1;
+}
+
+.hero-content {
+  position: relative;
+  z-index: 2;
+  max-width: 900px;
+}
+
+.hero h1 {
+  font-size: 2.5rem;
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+  color: #fff;
+  text-shadow: 2px 2px 8px rgba(0,0,0,0.7);
+}
+
+.hero .meta {
+  font-size: 1rem;
+  color: #e0e0e0;
+  text-shadow: 1px 1px 4px rgba(0,0,0,0.6);
+}
+
+/* Main Article */
+.article-content h4 {
+  margin-top: 2rem;
+  font-weight: bold;
+  color: #0d6efd;
+}
+
+.article-content p, .article-content li {
+  font-size: 1rem;
+  line-height: 1.7;
+}
+
+.article-content ul {
+  margin-left: 1.5rem;
+}
+
+.img-box {
+  border-radius: 12px;
+  overflow: hidden;
+  margin: 1.5rem 0;
+  box-shadow: 0px 6px 20px rgba(0,0,0,0.1);
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.img-box img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.img-box:hover {
+  transform: translateY(-5px);
+  box-shadow: 0px 10px 25px rgba(0,0,0,0.2);
+}
+
+/* Highlight important text */
+strong {
+  color: #198754;
+}
+
+/* Alert/Note Boxes */
+.note-box {
+  background-color: #fff3cd;
+  color: #856404;
+  padding: 1rem;
+  border-left: 5px solid #ffeeba;
+  border-radius: 8px;
+  margin: 1.5rem 0;
+}
+
+.tip-box {
+  background-color: #d1e7dd;
+  color: #0f5132;
+  padding: 1rem;
+  border-left: 5px solid #198754;
+  border-radius: 8px;
+  margin: 1.5rem 0;
+}
+
+/* Footer */
+footer {
+  background: #0d6efd;
+  color: white;
+  padding: 1.5rem;
+  text-align: center;
+  margin-top: 3rem;
+  border-top-left-radius: 15px;
+  border-top-right-radius: 15px;
+}
+
+a {
+  color: #0d6efd;
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+@media (max-width: 768px) {
+  .hero h1 {
+    font-size: 2rem;
+  }
+}
+</style>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-content">
+    <h1>How to Get a Tanzania Visa Online and on Arrival – A Safari Traveler’s Guide</h1>
+    <p class="meta">Aug 21, 2025</p>
+  </div>
+</section>
+
+<!-- MAIN CONTENT -->
+<div class="container my-5">
+  <div class="row justify-content-center">
+    <div class="col-lg-8 article-content">
+
+      <p>
+        Planning a safari in Tanzania? Before you set off to spot lions in the Serengeti or climb the mighty Kilimanjaro, you’ll need to make sure your travel documents are in order. For most travelers, that means securing a Tanzania tourist visa. The good news is that the process is simple, and you have two main options: applying online in advance or getting a visa on arrival.
+      </p>
+
+      <h4>1. Tanzania Visa Online (E-Visa Application)</h4>
+      <p>The most convenient way to get your visa is by applying online before you travel.</p>
+      
+      <div class="img-box">
+        <img src="https://evisa-tanzania.it.com/images/step-by-step-guide-to-tanzania-evisa-application.png" alt="Tanzania eVisa">
+      </div>
+
+      <ul>
+        <li>Visit the official Tanzania Immigration eVisa Portal: <a href="https://eservices.immigration.go.tz/" target="_blank">https://eservices.immigration.go.tz/visa</a></li>
+        <li>Fill in the online application form with your personal details, passport information, and travel plans.</li>
+        <li>Upload required documents: passport copy, photo, return ticket, sometimes hotel booking or safari itinerary.</li>
+        <li>Pay the visa fee online (commonly USD 50 for most countries, USD 100 for U.S. passport holders).</li>
+        <li>Submit your application and wait for processing (2–10 working days).</li>
+        <li>Download and print your eVisa confirmation letter to show at immigration.</li>
+      </ul>
+
+      <div class="tip-box">
+        ✅ Tip: Applying online saves you from long queues at the airport and gives you peace of mind before traveling.
+      </div>
+
+      <h4>2. Tanzania Visa on Arrival</h4>
+      <p>If you don’t have time to apply online, you can get a visa on arrival at major entry points:</p>
+
+      <ul>
+        <li>Julius Nyerere International Airport (Dar es Salaam)</li>
+        <li>Kilimanjaro International Airport (JRO)</li>
+        <li>Zanzibar International Airport (Abeid Amani Karume International)</li>
+        <li>Land borders with Kenya, Uganda, Rwanda, Malawi, etc.</li>
+      </ul>
+
+      <ul>
+        <li>Fill in a short application form at the visa desk.</li>
+        <li>Present your valid passport, return ticket, and sometimes accommodation details.</li>
+        <li>Pay the visa fee in cash (USD recommended).</li>
+        <li>Receive your visa sticker and proceed through immigration.</li>
+      </ul>
+
+      <div class="note-box">
+        ⚠️ Note: Queues can be long during peak tourist season, and credit card payments are not always reliable. Carry some U.S. dollars in cash for a smoother process.
+      </div>
+
+      <h4>3. Who Needs a Visa for Tanzania?</h4>
+      <p>Most international visitors require a visa, except citizens of a few exempt countries (mainly in East Africa and some Commonwealth nations). Always check the official list before you travel.</p>
+
+      <h4>4. Which Option Should You Choose?</h4>
+      <p>
+        <strong>Apply Online (eVisa):</strong> Best if you want to avoid waiting at the airport and want everything sorted before departure.<br>
+        <strong>Visa on Arrival:</strong> Convenient if your trip is last-minute, but expect possible delays.
+      </p>
+
+      <h4>Final Tips for Safari Travelers</h4>
+      <ul>
+        <li>Keep at least two blank pages in your passport for stamps.</li>
+        <li>Your passport should be valid for at least 6 months from your date of entry.</li>
+        <li>Carry both printed and digital copies of your visa approval or receipts.</li>
+        <li>If traveling to Zanzibar, the same Tanzanian visa covers entry—no need for a separate one.</li>
+      </ul>
+
+      <p>
+        ✨ With your visa in hand, you’re ready to embark on the adventure of a lifetime! Whether you’re chasing the Great Migration in the Serengeti or standing on the Roof of Africa, Tanzania welcomes you with open arms.
+      </p>
+
+    </div>
+  </div>
+</div>
+{% endblock %}

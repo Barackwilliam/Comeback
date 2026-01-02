@@ -1,0 +1,99 @@
+{# destination_card.html - expects variable `destination` #}
+<div
+  data-destination-name="{{ destination.name }}"
+  data-destination-location="{{ destination.location }}"
+  class="group relative bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-transform duration-300 ease-out flex flex-col"
+  aria-label="Destination: {{ destination.name }}"
+>
+  <a href="{% url 'destination_detail' destination.pk %}" class="flex-1 flex flex-col"  aria-label="View details for {{ destination.name }}"onclick="showLoading(event)">
+    <!-- Image with blur-up placeholder -->
+    <div class="relative w-full aspect-[16/9] bg-gray-100 overflow-hidden">
+      <img
+        src="{{ destination.image }}"
+        alt="{{ destination.name }} image"
+        class="object-cover w-full h-full transition-transform duration-500 group-hover:scale-105"
+        loading="lazy"
+        decoding="async"
+        aria-hidden="false"
+      />
+      <div class="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent pointer-events-none"></div>
+
+      <!-- Offer badge -->
+      {% if destination.Offer_in_percent %}
+        <div class="absolute top-4 left-4 bg-red-600 text-white px-3 py-1 rounded-full text-xs font-semibold flex items-center gap-1 shadow">
+          <svg class="w-4 h-4" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+            <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.286 3.95a1 1 0 00.95.69h4.148c.969 0 1.371 1.24.588 1.81l-3.36 2.44a1 1 0 00-.364 1.118l1.286 3.95c.3.921-.755 1.688-1.54 1.118l-3.36-2.44a1 1 0 00-1.176 0l-3.36 2.44c-.784.57-1.84-.197-1.54-1.118l1.286-3.95a1 1 0 00-.364-1.118L2.025 9.377c-.783-.57-.38-1.81.588-1.81h4.148a1 1 0 00.95-.69l1.286-3.95z"/>
+          </svg>
+          <span>-{{ destination.Offer_in_percent }}%</span>
+        </div>
+      {% endif %}
+
+      {% if destination.is_unesco_site %}
+        <div class="absolute top-4 right-4 bg-yellow-400 text-gray-900 px-2 py-1 rounded text-xs font-semibold flex items-center gap-1 shadow">
+          <svg class="w-4 h-4" fill="currentColor" aria-hidden="true" viewBox="0 0 24 24">
+            <path d="M12 2L2 7v7c0 5 4 9 9 9s9-4 9-9V7l-10-5zm0 2.18l7 3.5v5.32c0 3.87-3.13 7-7 7s-7-3.13-7-7V7.68l7-3.5zM11 11h2v6h-2v-6zm0-4h2v2h-2V7z"/>
+          </svg>
+          UNESCO
+        </div>
+      {% endif %}
+
+      <!-- Rating stub -->
+      <div class="absolute bottom-3 left-3 bg-white/90 backdrop-blur rounded-full px-3 py-1 flex items-center gap-1 text-xs font-medium shadow">
+        <svg class="w-4 h-4 text-yellow-400" fill="currentColor" aria-hidden="true" viewBox="0 0 20 20">
+          <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.286 3.95a1 1 0 00.95.69h4.148c.969 0 1.371 1.24.588 1.81l-3.36 2.44a1 1 0 00-.364 1.118l1.286 3.95c.3.921-.755 1.688-1.54 1.118l-3.36-2.44a1 1 0 00-1.176 0l-3.36 2.44c-.784.57-1.84-.197-1.54-1.118l1.286-3.95a1 1 0 00-.364-1.118L2.025 9.377c-.783-.57-.38-1.81.588-1.81h4.148a1 1 0 00.95-.69l1.286-3.95z"/>
+        </svg>
+        <span>4.8</span>
+        <span class="text-gray-400">•</span>
+        <span>{{ destination.nearest_city|default:"Unknown" }}</span>
+      </div>
+    </div>
+
+    <!-- Content -->
+    <div class="p-5 flex-1 flex flex-col">
+      <div class="flex justify-between items-start mb-2">
+        <div>
+          <h3 class="text-xl font-semibold text-gray-900 line-clamp-2">{{ destination.name }}</h3>
+          <p class="text-sm text-indigo-600 font-medium uppercase tracking-wide mt-1">{{ destination.location }}</p>
+        </div>
+        {% if destination.is_unesco_site %}
+          <div aria-label="UNESCO World Heritage" class="hidden sm:flex items-center gap-1 text-yellow-500">
+            <svg class="w-5 h-5" fill="currentColor" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 2L2 7v7c0 5 4 9 9 9s9-4 9-9V7l-10-5zm0 2.18l7 3.5v5.32c0 3.87-3.13 7-7 7s-7-3.13-7-7V7.68l7-3.5zM11 11h2v6h-2v-6zm0-4h2v2h-2V7z"/></svg>
+          </div>
+        {% endif %}
+      </div>
+      <p class="text-gray-600 text-sm flex-1 mb-4 clamp-3">{{ destination.description }}</p>
+      <div class="mt-auto flex items-center justify-between">
+        <div class="text-xs text-gray-500">
+          <span class="inline-flex items-center gap-1">
+            <svg class="w-4 h-4 inline-block" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M17 20h5v-2a4 4 0 00-4-4h-1M9 20H4v-2a4 4 0 014-4h1m6-6a4 4 0 11-8 0 4 4 0 018 0z"/>
+            </svg>
+            Best time: <strong class="ml-1">{{ destination.best_time_to_visit|default:"Anytime" }}</strong>
+          </span>
+        </div>
+        <a href="{% url 'destination_detail' destination.pk %}" class="inline-flex items-center gap-2 text-indigo-600 font-semibold hover:underline"onclick="showLoading(event)">
+          View more
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/>
+          </svg>
+        </a>
+      </div>
+    </div>
+  </a>
+
+  {# Structured data snippet for SEO (optional inline) #}
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "TouristDestination",
+    "name": "{{ destination.name|escapejs }}",
+    "description": "{{ destination.description|truncatechars:160|escapejs }}",
+    "image": "{{ destination.get_image_url }}",
+    "geo": {
+      "@type": "GeoCoordinates",
+      "address": "{{ destination.location|escapejs }}"
+    },
+    "touristType": "Adventurer"
+  }
+  </script>
+</div>

@@ -1,0 +1,82 @@
+
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+<div class="container py-5">
+  <!-- Title & Intro -->
+  <div class="text-center mb-5">
+    <h2 class="fw-bold text-primary display-5">🐦 Birdwatching in Tanzania</h2>
+    <p style="color: black;" class="fs-5" style="max-width: 700px; margin:auto;">
+      Tanzania is home to over <strong>1,100 bird species</strong>, making it a paradise for bird lovers. 
+      From the tranquil shores of Lake Duluti to the rich forests of Arusha National Park, 
+      every moment is a chance to witness unique and colorful species.
+    </p>
+  </div>
+
+
+   <!-- Image with Overlay -->
+    <div class="col-lg-6 text-center">
+      <div class="position-relative d-inline-block w-100">
+        <img src="{% static 'img/birdwatching.jpg' %}" 
+             alt="Birdwatching in Tanzania"
+             class="img-fluid rounded-4 shadow-lg"
+             style="max-height:450px; object-fit:cover; width:100%;">
+        
+        <!-- Overlay Button -->
+        <div class="overlay-icons position-absolute top-50 start-50 translate-middle">
+          <a href="https://wa.me/255658571653" class="btn btn-warning fw-semibold shadow-lg px-4 py-2 rounded-pill"onclick="showLoading(event)">
+            📸 Explore
+          </a>
+        </div>
+      </div>
+    </div>
+
+  <!-- Content with Image -->
+  <div class="row align-items-center g-5">
+    <!-- Text Content -->
+    <div class="col-lg-6">
+      <div class="p-4 bg-light rounded-4 shadow-lg">
+        <h5 class="text-primary mb-4">📌 Itinerary & Highlights</h5>
+
+        <div class="d-flex align-items-start mb-3">
+          <span class="fs-4 me-3">🌅</span>
+          <p style="color: black;" class="mb-0"><strong>Early Morning:</strong> Begin your day with binoculars and a professional birding guide.</p>
+        </div>
+
+        <div class="d-flex align-items-start mb-3">
+          <span class="fs-4 me-3">📍</span>
+          <p style="color: black;" class="mb-0"><strong>Best Locations:</strong> Lake Duluti, Arusha National Park, or nearby reserves.</p>
+        </div>
+
+        <div class="d-flex align-items-start mb-3">
+          <span class="fs-4 me-3">🦚</span>
+          <p style="color: black;" class="mb-0"><strong>Highlights:</strong> Spot flamingos, turacos, hornbills, eagles, and other colorful species.</p>
+        </div>
+
+        <div class="d-flex align-items-start mb-3">
+          <span class="fs-4 me-3">🧺</span>
+          <p style="color: black;" class="mb-0"><strong>Afternoon:</strong> Enjoy a picnic by the lake or forest while continuing to watch rare and endemic birds.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Extra CSS for hover effect -->
+<style>
+.overlay-icons {
+  opacity: 0;
+  transition: opacity 0.4s ease;
+}
+.position-relative:hover .overlay-icons {
+  opacity: 1;
+}
+</style>
+
+
+
+
+
+  {% endblock %}

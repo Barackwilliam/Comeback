@@ -1,0 +1,244 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<style>
+/* Fantastic Safari-Themed Styles */
+.safari-hero {
+    background: linear-gradient(120deg, #f6d365 0%, #fda085 100%), url("{% static 'img/bg-4.jpg' %}") center/cover no-repeat;
+    position: relative;
+    overflow: hidden;
+    animation: zoomEffect 10s infinite ease-in-out;
+    padding: 150px 0;
+}
+
+.safari-hero::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 1;
+}
+
+.safari-hero .container {
+    position: relative;
+    z-index: 2;
+}
+
+@keyframes zoomEffect {
+    0% { background-size: 100%; }
+    50% { background-size: 110%; }
+    100% { background-size: 100%; }
+}
+
+.section-title {
+    font-family: 'Playfair Display', serif;
+    letter-spacing: 4px;
+    color: #fda085;
+}
+
+.display-3 {
+    font-family: 'Playfair Display', serif;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.breadcrumb {
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 50px;
+    padding: 10px 20px;
+}
+
+.breadcrumb-item a {
+    color: #fff;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.breadcrumb-item a:hover {
+    color: #f6d365;
+}
+
+.destination-card {
+    background: rgba(255, 255, 255, 0.9);
+    border: none;
+    border-radius: 20px;
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    height: 100%;
+}
+
+.destination-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2) !important;
+}
+
+.destination-card img {
+    object-fit: cover;
+    height: 250px;
+    width: 100%;
+    transition: transform 0.5s ease;
+}
+
+.destination-card:hover img {
+    transform: scale(1.1);
+}
+
+.card-body {
+    font-family: 'Lora', serif;
+    padding: 20px;
+}
+
+.card-title {
+    font-family: 'Playfair Display', serif;
+    color: #333;
+}
+
+.text-muted {
+    color: #666 !important;
+}
+
+.btn-safari-gold {
+    background: linear-gradient(135deg, #f6d365 0%, #fda085 100%);
+    color: #1a1a1f;
+    border: none;
+    border-radius: 50px;
+    padding: 10px 25px;
+    font-weight: 500;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.btn-safari-gold:hover {
+    transform: scale(1.05);
+    box-shadow: 0 8px 20px rgba(253, 160, 133, 0.4);
+}
+
+.pagination .page-link {
+    background: rgba(246, 211, 101, 0.2);
+    border: 1px solid #f6d365;
+    color: #fda085;
+    border-radius: 50px;
+    margin: 0 5px;
+    transition: all 0.3s ease;
+}
+
+.pagination .page-link:hover {
+    background: #f6d365;
+    color: #1a1a1f;
+}
+
+.pagination .active .page-link {
+    background: linear-gradient(135deg, #f6d365 0%, #fda085 100%);
+    color: #1a1a1f;
+    border: none;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+    .safari-hero {
+        padding: 100px 0;
+    }
+    .display-3 {
+        font-size: 2.5rem;
+    }
+    .destination-card img {
+        height: 200px;
+    }
+}
+
+@media (max-width: 576px) {
+    .display-3 {
+        font-size: 2rem;
+    }
+    .btn-safari-gold {
+        padding: 8px 20px;
+        font-size: 0.9rem;
+    }
+}
+</style>
+
+<!-- Hero Section -->
+<section class="safari-hero mb-5">
+    <div class="container text-center">
+        <h1 class="display-3 text-white wow fadeInDown" data-wow-delay="0.2s">Destinations</h1>
+        <nav aria-label="breadcrumb" class="wow fadeInUp" data-wow-delay="0.4s">
+            <ol class="breadcrumb justify-content-center">
+                <li class="breadcrumb-item"><a href="#">Home</a></li>
+                <li class="breadcrumb-item text-white active" aria-current="page">Destinations</li>
+            </ol>
+        </nav>
+    </div>
+</section>
+
+<!-- Destination Cards Section -->
+<section class="container-xxl py-5">
+    <div class="container">
+        <div class="text-center mb-5 wow fadeIn" data-wow-delay="0.2s">
+            <h6 class="section-title bg-transparent text-center text-primary px-3">Explore</h6>
+            <h1 class="mb-4" style="font-family: 'Playfair Display', serif;">Travel Destinations</h1>
+            <p class="lead text-muted">Discover the wonders of Tanzania's iconic landmarks and hidden gems.</p>
+        </div>
+        <div class="row g-4 justify-content-center">
+            {% for dest in destinations %}
+            <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.{{ forloop.counter|add:1 }}s">
+                <div class="card destination-card shadow-sm h-100">
+                    <div class="overflow-hidden">
+                        <img src="{{ dest.image }}" alt="{{ dest.name }}" class="card-img-top">
+                    </div>
+                    <div class="card-body d-flex flex-column">
+                        <h5 class="card-title">{{ dest.name }}</h5>
+                        <p class="mb-2 small text-muted">{{ dest.location }}{% if dest.is_unesco_site %} · UNESCO Site{% endif %}</p>
+                        <p class="card-text flex-grow-1">
+                            {{ dest.description|truncatechars:120 }}
+                        </p>
+                        <div class="mb-2">
+                            <small class="d-block"><strong>Best time to visit:</strong> {{ dest.best_time_to_visit|default:"Anytime" }}</small>
+                            <small class="d-block"><strong>Nearest city:</strong> {{ dest.nearest_city|default:"N/A" }}</small>
+                        </div>
+                        <div class="mt-auto text-center">
+                            <a href="{% url 'destination_detail' dest.pk %}" class="btn btn-safari-gold rounded-pill px-4 py-2 shadow-lg" onclick="showLoading(event)">View Details</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% empty %}
+            <div class="col-12 text-center wow fadeIn" data-wow-delay="0.2s">
+                <p class="text-muted">Hakuna maeneo yaliyopangwa kuoneshwa kwa sasa.</p>
+            </div>
+            {% endfor %}
+        </div>
+
+        <!-- Pagination -->
+        <nav aria-label="Destination pagination" class="mt-5 wow fadeInUp" data-wow-delay="0.2s">
+          <ul class="pagination justify-content-center">
+            {% if page_obj.has_previous %}
+            <li class="page-item">
+              <a class="page-link" href="?page={{ page_obj.previous_page_number }}&location={{ filters.location }}&best_time={{ filters.best_time }}">Previous</a>
+            </li>
+            {% else %}
+            <li class="page-item disabled"><span class="page-link">Previous</span></li>
+            {% endif %}
+
+            {% for num in page_obj.paginator.page_range %}
+              {% if page_obj.number == num %}
+                <li class="page-item active"><span class="page-link">{{ num }}</span></li>
+              {% elif num >= page_obj.number|add:-2 and num <= page_obj.number|add:2 %}
+                <li class="page-item"><a class="page-link" href="?page={{ num }}&location={{ filters.location }}&best_time={{ filters.best_time }}">{{ num }}</a></li>
+              {% endif %}
+            {% endfor %}
+
+            {% if page_obj.has_next %}
+            <li class="page-item">
+              <a class="page-link" href="?page={{ page_obj.next_page_number }}&location={{ filters.location }}&best_time={{ filters.best_time }}">Next</a>
+            </li>
+            {% else %}
+            <li class="page-item disabled"><span class="page-link">Next</span></li>
+            {% endif %}
+          </ul>
+        </nav>
+    </div>
+</section>
+
+<!-- Dependencies for Fonts and Animations (Add to base.html if not present) -->
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Lora:wght@400;600&display=swap" rel="stylesheet">
+
+{% endblock %}

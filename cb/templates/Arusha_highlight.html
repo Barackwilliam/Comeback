@@ -1,0 +1,76 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+<div class="container py-5">
+
+  <!-- Title & Intro -->
+  <div class="text-center mb-5">
+    <h2 class="fw-bold text-primary display-5">🏙️ Arusha City Tour</h2>
+    <p style="color: black;" class="fs-5" style="max-width: 700px; margin:auto;">
+      Explore Arusha, the "Safari Capital of Tanzania", and learn local history, lifestyle, and culture.
+      This city tour covers iconic landmarks, local markets, cultural centres, and evening guided walks.
+    </p>
+  </div>
+
+  <!-- Image with Overlay -->
+  <div class="col-lg-6 text-center mb-4 mx-auto">
+    <div class="position-relative d-inline-block w-100">
+      <img src="{% static 'img/arusha-city.jpg' %}" 
+           alt="Arusha City Tour"
+           class="img-fluid rounded-4 shadow-lg"
+           style="max-height:450px; object-fit:cover; width:100%;">
+      
+      <!-- Overlay Button -->
+      <div class="overlay-icons position-absolute top-50 start-50 translate-middle">
+        <a href="https://wa.me/255658571653" class="btn btn-primary fw-semibold shadow-lg px-4 py-2 rounded-pill"onclick="showLoading(event)">
+          📸 Explore Tour
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Content with Icons -->
+  <div class="row align-items-center g-5 justify-content-center">
+    <div class="col-lg-6">
+      <div class="p-4 bg-light rounded-4 shadow-lg">
+        <h5 class="text-primary mb-4">📌 Itinerary & Highlights</h5>
+
+        <div class="d-flex align-items-start mb-3">
+          <span class="fs-4 me-3">🌅</span>
+          <p style="color: black;" class="mb-0"><strong>Morning:</strong> Clock Tower visit – a landmark halfway between Cairo and Cape Town.</p>
+        </div>
+
+        <div class="d-flex align-items-start mb-3">
+          <span class="fs-4 me-3">☀️</span>
+          <p style="color: black;" class="mb-0"><strong>Mid-morning:</strong> Arusha Central Market – explore fresh produce, spices, and local life.</p>
+        </div>
+
+        <div class="d-flex align-items-start mb-3">
+          <span class="fs-4 me-3">🕑</span>
+          <p style="color: black;" class="mb-0"><strong>Afternoon:</strong> Cultural Heritage Centre – discover art, carvings, Tanzanite gemstones, and souvenirs.</p>
+        </div>
+
+        <div class="d-flex align-items-start mb-3">
+          <span class="fs-4 me-3">🌇</span>
+          <p style="color: black;" class="mb-0"><strong>Evening:</strong> Guided city walk – capture photos and learn historical stories of Arusha town.</p>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Extra CSS for hover effect -->
+<style>
+.overlay-icons {
+  opacity: 0;
+  transition: opacity 0.4s ease;
+}
+.position-relative:hover .overlay-icons {
+  opacity: 1;
+}
+</style>
+
+{% endblock %}

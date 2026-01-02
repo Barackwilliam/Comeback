@@ -1,0 +1,229 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="sw">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="description" content="Taarifa kuhusu maboresho ya tovuti ya Kilihappy Tanzania Adventures.">
+  <title>Kilihappy Tanzania Adventures - Tovuti Inaboreshwa</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;600&display=swap" rel="stylesheet"/>
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: url("https://www.worldanimalprotection.org/cdn-cgi/image/width=1536,format=auto/globalassets/images/elephants/1033551-elephant.jpg") no-repeat center center fixed;
+      background-size: cover;
+      color: white;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      animation: fadeIn 2s ease-in;
+      padding: 1rem;
+    }
+
+    .overlay {
+      background-color: rgba(0, 0, 0, 0.7);
+      padding: 3rem;
+      border-radius: 20px;
+      width: 100%;
+      max-width: 600px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+      backdrop-filter: blur(5px);
+      text-align: center;
+      transition: all 0.3s ease;
+    }
+
+    .logo {
+      width: 100px;
+      height: 100px;
+      margin-bottom: 1rem;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 3px solid #f5a623;
+      animation: rotateLogo 8s linear infinite;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+    }
+
+    h1 {
+      font-size: 2.4rem;
+      margin-bottom: 1rem;
+      color: #f5a623;
+    }
+
+    p {
+      font-size: 1.1rem;
+      margin: 0.5rem 0;
+    }
+
+    .contact {
+      margin-top: 1.5rem;
+    }
+
+    a {
+      color: #e0ffcc;
+      text-decoration: underline;
+    }
+
+    .language-toggle {
+      margin-top: 2rem;
+    }
+
+    button {
+      padding: 0.6rem 1.2rem;
+      font-size: 1rem;
+      border: none;
+      border-radius: 8px;
+      background: linear-gradient(135deg, #f5a623, #d19100);
+      color: white;
+      cursor: pointer;
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+
+    button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+    }
+
+    .countdown {
+      font-size: 1.5rem;
+      font-weight: bold;
+      margin-top: 1.5rem;
+      color: #ffffcc;
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: scale(0.98); }
+      to { opacity: 1; transform: scale(1); }
+    }
+
+    @keyframes rotateLogo {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    @media screen and (max-width: 768px) {
+      .overlay {
+        padding: 2rem 1.2rem;
+      }
+
+      h1 {
+        font-size: 1.8rem;
+      }
+
+      p {
+        font-size: 1rem;
+      }
+
+      .logo {
+        width: 80px;
+        height: 80px;
+      }
+
+      .countdown {
+        font-size: 1.2rem;
+      }
+
+      button {
+        font-size: 0.9rem;
+        padding: 0.5rem 1rem;
+      }
+    }
+
+    @media screen and (max-width: 480px) {
+      h1 {
+        font-size: 1.5rem;
+      }
+
+      .countdown {
+        font-size: 1rem;
+      }
+
+      .overlay {
+        padding: 1.5rem 1rem;
+        border-radius: 12px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="overlay">
+    <img src="{% static 'img/logo.jpg' %}" alt="Kilihappy Tanzania Adventures" class="logo" />
+
+    <!-- Kiswahili -->
+    <div id="sw-content">
+      <h1>Tovuti Inaboreshwa</h1>
+      <p>Kuanzia tarehe <strong>16 hadi 19 Julai 2025</strong>, tunaendelea kuboresha mfumo wetu ili kuongeza ufanisi wa huduma zetu.</p>
+      <p><strong>Tafadhali rudi tena tarehe 19 Julai 2025.</strong></p>
+      <div class="countdown" id="sw-countdown">Inapakia muda...</div>
+      <div class="contact">
+        <p>Kwa mawasiliano: <a href="mailto:Kilihappytanzaniaadvanture@gmail.com">Kilihappytanzaniaadvanture@gmail.com</a></p>
+        <p>Au tupigie: +255658571653</p>
+      </div>
+      <p style="margin-top: 1.5rem;">Asante kwa uvumilivu wako!</p>
+    </div>
+
+    <!-- English -->
+    <div id="en-content" class="hidden">
+      <h1>Website Under Maintenance</h1>
+      <p>From <strong>July 16th to 19th, 2025</strong>, we are upgrading our system to improve service efficiency.</p>
+      <p><strong>Please check back on July 19th, 2025.</strong></p>
+      <div class="countdown" id="en-countdown">Loading countdown...</div>
+      <div class="contact">
+        <p>Contact us: <a href="mailto:Kilihappytanzaniaadvanture@gmail.com">Kilihappytanzaniaadvanture@gmail.com</a></p>
+        <p>Or call us: +255658571653</p>
+      </div>
+      <p style="margin-top: 1.5rem;">Thank you for your patience!</p>
+    </div>
+
+    <div class="language-toggle">
+      <button onclick="toggleLanguage()" aria-label="Switch Language">Badili Lugha / Switch Language</button>
+    </div>
+  </div>
+
+  <script>
+    function toggleLanguage() {
+      const sw = document.getElementById('sw-content');
+      const en = document.getElementById('en-content');
+      sw.classList.toggle('hidden');
+      en.classList.toggle('hidden');
+    }
+
+    const targetDate = new Date("July 19, 2025 00:00:00").getTime();
+
+    function updateCountdown() {
+      const now = new Date().getTime();
+      const distance = targetDate - now;
+
+      const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+      const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+      const swCountdown = document.getElementById("sw-countdown");
+      const enCountdown = document.getElementById("en-countdown");
+
+      if (distance < 0) {
+        swCountdown.innerHTML = "Tupo hewani sasa!";
+        enCountdown.innerHTML = "We are back online!";
+      } else {
+        swCountdown.innerHTML = `Zimebaki: Siku = ${days} Saa = ${hours} Dakika = ${minutes} Sekunde = ${seconds}`;
+        enCountdown.innerHTML = `Time left: ${days}d ${hours}h ${minutes}m ${seconds}s`;
+      }
+    }
+
+    updateCountdown();
+    setInterval(updateCountdown, 1000);
+  </script>
+</body>
+</html>

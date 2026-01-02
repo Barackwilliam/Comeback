@@ -1,0 +1,215 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<style>
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  line-height: 1.8;
+  background-color: #f4f6f9; /* soft light background */
+  color: #333;
+}
+
+/* HERO */
+.hero {
+  background: url("https://www.climbing-kilimanjaro.com/wp-content/uploads/2020/11/KLM_Airlines_Kilimanjaro-2.jpg") center/cover no-repeat;
+  min-height: 400px;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 2rem;
+  color: white;
+}
+
+.hero::after {
+  content: "";
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(0, 0, 0, 0.55);
+  z-index: 1;
+}
+
+.hero-content {
+  position: relative;
+  z-index: 2;
+  max-width: 900px;
+}
+
+.hero h1 {
+  font-size: 2.5rem;
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+  color: #fff;
+  text-shadow: 2px 2px 8px rgba(0,0,0,0.7);
+}
+
+.hero .meta {
+  font-size: 1rem;
+  color: #e0e0e0;
+  text-shadow: 1px 1px 4px rgba(0,0,0,0.6);
+}
+
+/* Main Article */
+.article-content h4 {
+  margin-top: 2rem;
+  font-weight: bold;
+  color: #0d6efd; /* blue headings for contrast */
+}
+
+.article-content p, .article-content li {
+  font-size: 1rem;
+  line-height: 1.7;
+}
+
+.article-content ul {
+  margin-left: 1.5rem;
+}
+
+.img-box {
+  border-radius: 12px;
+  overflow: hidden;
+  margin: 1.5rem 0;
+  box-shadow: 0px 6px 20px rgba(0,0,0,0.1);
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.img-box img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.img-box:hover {
+  transform: translateY(-5px);
+  box-shadow: 0px 10px 25px rgba(0,0,0,0.2);
+}
+
+/* Highlight important text */
+strong {
+  color: #198754; /* green highlights */
+}
+
+/* Footer */
+footer {
+  background: #0d6efd; /* blue footer */
+  color: white;
+  padding: 1.5rem;
+  text-align: center;
+  margin-top: 3rem;
+  border-top-left-radius: 15px;
+  border-top-right-radius: 15px;
+}
+
+/* Links styling */
+a {
+  color: #0d6efd;
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .hero h1 {
+    font-size: 2rem;
+  }
+}
+</style>
+
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-content">
+    <h1 style="color: #f8f9fa;">How to fly to Tanzania Routes from all over the world</h1>
+    <p class="meta">Sept 12, 2025</p>
+  </div>
+</section>
+
+
+
+<!-- MAIN CONTENT -->
+<div class="container my-5">
+  <div class="row justify-content-center">
+    <div class="col-lg-8 article-content">
+
+      <p>
+        Flying to Tanzania is easier than ever, with convenient routes available from the U.S., Europe, 
+        and Asia to its main airports: <strong>Kilimanjaro International Airport (JRO)</strong>, 
+        <strong>Abeid Amani Karume International Airport (ZNZ)</strong> in Zanzibar, and 
+        <strong>Julius Nyerere International Airport (DAR)</strong> in Dar es Salaam. 
+        Here’s an overview of popular and efficient routes from each region:
+      </p>
+
+      <!-- US Routes -->
+      <h4>1. From the United States</h4>
+      <div class="img-box">
+        <img src="https://unitedrepublicoftanzania.com/wp-content/uploads/2023/10/From-Serengeti-to-Skyscrapers-The-Best-Tips-for-Booking-Budget-Friendly-Flights-from-Tanzania-to-the-USA.jpg" alt="Flights from USA to Tanzania">
+      </div>
+      <p>
+        There are no direct flights from the U.S. to Tanzania, but with a stopover, the journey is straightforward.
+      </p>
+      <ul>
+        <li><strong>New York (JFK/EWR):</strong> Qatar Airways via Doha, Turkish Airlines via Istanbul, Emirates via Dubai.</li>
+        <li><strong>Washington D.C. (IAD):</strong> Ethiopian Airlines via Addis Ababa, Qatar Airways via Doha.</li>
+        <li><strong>Los Angeles (LAX):</strong> Emirates via Dubai, Turkish Airlines via Istanbul.</li>
+      </ul>
+
+      <!-- Europe Routes -->
+      <h4>2. From Europe</h4>
+      <div class="img-box">
+        <img src="https://apta.biz/wp-content/uploads/2025/01/airtanzaniaboeing737.png" alt="Flights from Europe to Tanzania">
+      </div>
+      <ul>
+        <li><strong>London (LHR/LGW):</strong> Qatar Airways via Doha, KLM direct, Turkish Airlines via Istanbul.</li>
+        <li><strong>Amsterdam (AMS):</strong> KLM direct flights.</li>
+        <li><strong>Frankfurt (FRA):</strong> Ethiopian Airlines via Addis Ababa, Emirates via Dubai.</li>
+        <li><strong>Paris (CDG):</strong> Air France/KLM via Amsterdam, Qatar Airways via Doha.</li>
+      </ul>
+
+      <!-- Asia Routes -->
+      <h4>3. From Asia</h4>
+      <div class="img-box">
+        <img src="https://www.ngorongorocratertanzania.org/wp-content/uploads/2022/01/20194161322913_Big.jpg" alt="Flights from Asia to Tanzania">
+      </div>
+      <ul>
+        <li><strong>Dubai (DXB):</strong> Emirates direct flights to DAR/JRO.</li>
+        <li><strong>Doha (DOH):</strong> Qatar Airways flights with wide Asian connections.</li>
+        <li><strong>Istanbul (IST):</strong> Turkish Airlines direct flights.</li>
+        <li><strong>New Delhi (DEL):</strong> Ethiopian Airlines via Addis Ababa, Qatar Airways via Doha.</li>
+        <li><strong>Bangkok (BKK):</strong> Emirates via Dubai, Qatar Airways via Doha.</li>
+      </ul>
+
+      <!-- Domestic -->
+      <h4>4. Domestic Connections within Tanzania</h4>
+      <div class="img-box">
+        <img src="https://www.ngorongorocratertanzania.org/wp-content/uploads/2022/01/Flights-to-Lake-Manyara-National-Parksa-750x450-1.jpg" alt="Domestic flights Tanzania">
+      </div>
+      <ul>
+        <li><strong>DAR → Zanzibar:</strong> Daily flights with Precision Air, Coastal Aviation, ZanAir.</li>
+        <li><strong>DAR → Kilimanjaro:</strong> Daily flights via Precision Air and Air Tanzania.</li>
+        <li><strong>Zanzibar → Kilimanjaro:</strong> Coastal Aviation connections available.</li>
+      </ul>
+
+      <!-- Tips -->
+      <h4>Tips for Booking</h4>
+      <div class="img-box">
+      </div>
+      <ul>
+        <li><strong>Book Early for Best Rates:</strong> Secure better rates by booking in advance.</li>
+        <li><strong>Check Airline Alliances:</strong> KLM (SkyTeam), Qatar Airways (oneworld), and Turkish Airlines (Star Alliance).</li>
+        <li><strong>Consider Multi-City Trips:</strong> Fly into Kilimanjaro and out of Zanzibar or Dar es Salaam to optimize travel.</li>
+      </ul>
+
+      <p>
+        With these flight options, reaching Tanzania from any major global hub is a seamless journey, 
+        bringing you closer to unforgettable adventures with <strong>Zimto Farm Tours</strong>!
+      </p>
+
+    </div>
+  </div>
+</div>
+{% endblock %}

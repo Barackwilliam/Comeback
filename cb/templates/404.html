@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Member Login</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background-color: #0a5b63;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .login-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .login-box {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 40px 30px;
+            border-radius: 10px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+            text-align: center;
+            width: 320px;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .icon {
+            font-size: 40px;
+            color: #00bcd4;
+            margin-bottom: 10px;
+        }
+
+        .login-box h2 {
+            color: #fff;
+            margin-bottom: 20px;
+            font-weight: 500;
+        }
+
+        input {
+            width: 100%;
+            padding: 12px;
+            margin: 8px 0;
+            border: none;
+            outline: none;
+            border-radius: 5px;
+            background-color: #e0e0e0;
+            font-size: 15px;
+        }
+
+        button {
+            width: 100%;
+            padding: 12px;
+            margin-top: 15px;
+            background-color: #00bcd4;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 15px;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #0097a7;
+        }
+
+        .forgot {
+            margin-top: 15px;
+            font-size: 13px;
+            color: #ccc;
+        }
+
+        .forgot a {
+            color: #00bcd4;
+            text-decoration: none;
+        }
+
+        .forgot a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="login-container">
+        <div class="login-box">
+            <div class="icon">&#128100;</div>
+            <h2>Member Login</h2>
+            <form>
+                <input type="email" placeholder="Email" required>
+                <input type="password" placeholder="Password" required>
+                <button type="submit">LOGIN</button>
+            </form>
+            <p class="forgot">Forgot Password? <a href="#">Click to reset</a></p>
+        </div>
+    </div>
+</body>
+</html>
