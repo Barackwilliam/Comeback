@@ -7,52 +7,14 @@
 :root {
     --safari-gold: #D4AF37;
     --safari-gold-light: #FFD700;
-    --safari-green: #0B6623;
-    --safari-green-dark: #08491A;
+    --safari-green: #228B22;
+    --safari-green-dark: #1A6D1A;
     --safari-brown: #8B4513;
     --safari-brown-dark: #5D2906;
     --safari-sand: #F4E4BC;
     --safari-sand-light: #FFF9E6;
     --safari-sky: #87CEEB;
     --safari-sunset: #FF6B35;
-}
-
-/* Background images for different sections */
-.bg-section-1 {
-    background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('{% static "img/safari-bg-1.jpg" %}');
-    background-size: cover;
-    background-position: center;
-    background-attachment: fixed;
-}
-
-.bg-section-2 {
-    background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('{% static "img/safari-bg-2.jpg" %}');
-    background-size: cover;
-    background-position: center;
-    background-attachment: fixed;
-}
-
-.bg-section-3 {
-    background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('{% static "img/safari-bg-3.jpg" %}');
-    background-size: cover;
-    background-position: center;
-    background-attachment: fixed;
-}
-
-.bg-section-4 {
-    background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('{% static "img/safari-bg-4.jpg" %}');
-    background-size: cover;
-    background-position: center;
-    background-attachment: fixed;
-}
-
-.bg-pattern-1 {
-    background-color: #f9f5f0;
-    background-image: 
-        url('{% static "img/pattern-1.png" %}'),
-        radial-gradient(circle at 10% 20%, rgba(212, 175, 55, 0.05) 0%, transparent 20%);
-    background-size: 300px, cover;
-    background-blend-mode: overlay;
 }
 
 /* Premium Hero Section */
@@ -71,7 +33,7 @@
     background: linear-gradient(135deg, 
         rgba(139, 69, 19, 0.85) 0%,
         rgba(212, 175, 55, 0.7) 25%,
-        rgba(11, 102, 35, 0.8) 75%,
+        rgba(34, 139, 34, 0.8) 75%,
         rgba(20, 20, 31, 0.9) 100%);
     z-index: 1;
 }
@@ -142,7 +104,7 @@
 
 /* Premium Badges */
 .premium-badge {
-    background: linear-gradient(135deg, var(--safari-gold), var(--safari-green));
+    background: linear-gradient(135deg, var(--safari-gold), var(--safari-brown));
     color: white;
     padding: 8px 20px;
     border-radius: 25px;
@@ -172,7 +134,7 @@
 
 /* Premium Buttons */
 .btn-premium {
-    background: linear-gradient(135deg, var(--safari-gold), var(--safari-green));
+    background: linear-gradient(135deg, var(--safari-gold), var(--safari-brown));
     color: white;
     border: none;
     padding: 15px 40px;
@@ -253,18 +215,14 @@
     left: 0;
     right: 0;
     bottom: 0;
-    background: url('{% static "img/pattern-gold.png" %}');
-    background-size: 200px 200px;
-    background-repeat: repeat;
-    opacity: 0.05;
+    background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" fill="none" stroke="%23D4AF37" stroke-width="0.5" stroke-opacity="0.1"><path d="M0,0 L100,100 M100,0 L0,100"/></svg>');
+    background-size: 50px 50px;
 }
 
 /* Safari Animal Patterns */
 .animal-pattern {
-    background: url('{% static "img/animal-pattern.png" %}');
-    background-size: 200px 200px;
-    background-repeat: repeat;
-    opacity: 0.1;
+    background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" fill="none"><path d="M20,20 Q40,10 60,20 T100,20" stroke="%238B4513" stroke-width="2" stroke-opacity="0.1"/><path d="M20,40 Q40,30 60,40 T100,40" stroke="%238B4513" stroke-width="2" stroke-opacity="0.1"/></svg>');
+    background-size: 100px 100px;
 }
 
 /* Animated Background Elements */
@@ -402,10 +360,9 @@
 .bg-safari-pattern {
     background-color: #f9f5f0;
     background-image: 
-        url('{% static "img/safari-pattern-bg.jpg" %}'),
-        radial-gradient(circle at 10% 20%, rgba(212, 175, 55, 0.05) 0%, transparent 20%);
-    background-size: cover, auto;
-    background-blend-mode: overlay;
+        radial-gradient(circle at 10% 20%, rgba(212, 175, 55, 0.05) 0%, transparent 20%),
+        radial-gradient(circle at 90% 80%, rgba(34, 139, 34, 0.05) 0%, transparent 20%),
+        radial-gradient(circle at 50% 50%, rgba(139, 69, 19, 0.05) 0%, transparent 20%);
 }
 
 /* Premium Animations */
@@ -439,7 +396,7 @@
 </style>
 
 <!-- Premium Hero Section -->
-<div class="premium-hero bg-section-1">
+<div class="premium-hero">
     {% for item in home_text %}
     <div id="welcomeCarousel{{ forloop.counter }}" 
          class="carousel slide position-absolute w-100 h-100" 
@@ -804,12 +761,12 @@
 </div>
 
 <!-- Why Choose Us - Luxury Version -->
-<div class="container py-5 bg-section-2 text-white">
+<div class="container py-5 luxury-section">
     <div class="container">
         <div class="text-center mb-5">
             <span class="premium-badge d-inline-block mb-3">WHY CHOOSE US</span>
-            <h2 class="display-4 text-white mb-4">The Ultimate Safari Experience</h2>
-            <p class="lead">Premium features that set us apart</p>
+            <h2 class="display-4 premium-heading mb-4">The Ultimate Safari Experience</h2>
+            <p class="lead text-muted">Premium features that set us apart</p>
         </div>
 
         <div class="row g-4">
@@ -865,7 +822,7 @@
 </div>
 
 <!-- Luxury Safari Calendar -->
-<div class="container py-5 premium-card border-premium bg-pattern-1">
+<div class="container py-5 premium-card border-premium">
     <div class="row align-items-center g-5">
         <div class="col-lg-6">
             <h2 class="premium-heading display-5 mb-4">📅 Premium Safari Seasons</h2>
@@ -1006,7 +963,7 @@
 </div>
 
 <!-- Luxury Destination Showcase -->
-<div class="container-xxl py-5 bg-section-3">
+<div class="container-xxl py-5" style="background: linear-gradient(135deg, var(--safari-brown), #2c1810);">
     <div class="container">
         <div class="text-center mb-5 wow fadeInUp" data-wow-delay="0.1s">
             <span class="premium-badge d-inline-block mb-3">LUXURY DESTINATIONS</span>
@@ -1104,7 +1061,7 @@
 </div>
 
 <!-- Exclusive Safari Packages -->
-<div class="container-xxl py-5 bg-section-4 text-light position-relative overflow-hidden">
+<div style="background: linear-gradient(135deg, #1a2a6c 0%, #b21f1f 50%, #fdbb2d 100%);" class="container-xxl py-5 text-light position-relative overflow-hidden">
     <!-- Floating Elements -->
     <div class="floating-element" style="width: 150px; height: 150px; top: 10%; left: 10%; opacity: 0.05;"></div>
     <div class="floating-element" style="width: 100px; height: 100px; bottom: 20%; right: 15%; opacity: 0.05; animation-delay: -3s;"></div>
@@ -1339,7 +1296,7 @@
                 <div class="premium-card h-100 overflow-hidden">
                     <div class="row g-0 h-100">
                         <div class="col-md-4">
-                            <div class="h-100" style="background: linear-gradient(135deg, var(--safari-gold), var(--safari-green)); display: flex; align-items: center; justify-content: center;">
+                            <div class="h-100" style="background: linear-gradient(135deg, #1a2a6c, #b21f1f); display: flex; align-items: center; justify-content: center;">
                                 <i class="fas fa-camera fa-4x text-white"></i>
                             </div>
                         </div>
@@ -1361,7 +1318,7 @@
                 <div class="premium-card h-100 overflow-hidden">
                     <div class="row g-0 h-100">
                         <div class="col-md-4">
-                            <div class="h-100" style="background: linear-gradient(135deg, var(--safari-green), var(--safari-gold)); display: flex; align-items: center; justify-content: center;">
+                            <div class="h-100" style="background: linear-gradient(135deg, #fdbb2d, #b21f1f); display: flex; align-items: center; justify-content: center;">
                                 <i class="fas fa-spa fa-4x text-white"></i>
                             </div>
                         </div>
@@ -1608,7 +1565,7 @@
 <div class="container-fluid p-0">
     <div class="position-relative overflow-hidden" style="height: 500px;">
         <img src="{% static 'img/luxury-cta.jpg' %}" class="w-100 h-100" style="object-fit: cover; filter: brightness(0.7);" alt="Luxury Safari Call to Action">
-        <div class="position-absolute top-0 start-0 w-100 h-100" style="background: linear-gradient(135deg, rgba(212, 175, 55, 0.8), rgba(11, 102, 35, 0.9));"></div>
+        <div class="position-absolute top-0 start-0 w-100 h-100" style="background: linear-gradient(135deg, rgba(212, 175, 55, 0.8), rgba(139, 69, 19, 0.9));"></div>
         <div class="position-absolute top-50 start-50 translate-middle text-center text-white" style="width: 90%; max-width: 800px;">
             <h2 class="display-3 fw-bold mb-4">Ready for Your Luxury Safari?</h2>
             <p class="fs-4 mb-5">Experience Africa like never before with Comeback African Safaris - where every journey is crafted to perfection.</p>
@@ -1643,10 +1600,10 @@ document.addEventListener('DOMContentLoaded', function () {
     // Shimmer effect for premium badges
     document.querySelectorAll('.premium-badge').forEach(badge => {
         badge.addEventListener('mouseenter', function() {
-            this.style.background = 'linear-gradient(135deg, #FFD700, #0B6623)';
+            this.style.background = 'linear-gradient(135deg, #FFD700, #8B4513)';
         });
         badge.addEventListener('mouseleave', function() {
-            this.style.background = 'linear-gradient(135deg, var(--safari-gold), var(--safari-green))';
+            this.style.background = 'linear-gradient(135deg, var(--safari-gold), var(--safari-brown))';
         });
     });
     
