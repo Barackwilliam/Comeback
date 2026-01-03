@@ -5,183 +5,852 @@
 
   <!-- Bootstrap 5 -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700;800&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
   <style>
-    :root{
-      --green:#0c8a3e;
-      --olive:#ffa600;
-      --olive-dark:#645824;
-      --muted:#6c757d;
-      --card-radius:14px;
+    :root {
+      --safari-green: #1a472a;
+      --safari-gold: #d4af37;
+      --earth-brown: #8b5a2b;
+      --sunset-orange: #e67e22;
+      --sky-blue: #3498db;
+      --light-beige: #f5f1e6;
+      --card-radius: 20px;
+      --shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+      --transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
     }
 
-    body{line-height:1.7;color:#111;background:#fff}
-    .hero{
-      position:relative;
-      min-height:240px;
-      display:flex;
-      align-items:center;
-      background:url("https://plus.unsplash.com/premium_photo-1664302716901-63777e888686?fm=jpg&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Nnx8c2VyZW5nZXRpJTIwbmF0aW9uYWwlMjBwYXJrJTJDJTIwdGFuemFuaWF8ZW58MHx8MHx8fDA%3D&ixlib=rb-4.1.0&q=60&w=3000") center/cover no-repeat;
-      border-bottom:1px solid #eaeaea;
-    }
-    .hero::after{
-      content:"";
-      position:absolute;inset:0;
-      background:linear-gradient(to bottom, rgba(0,0,0,.45), rgba(0,0,0,.25), rgba(0,0,0,.15));
-    }
-    .hero-content{
-      position:relative;z-index:1;
-      width:100%;
-      padding:50px 0;
-      color:#fff;text-align:center;
-    }
-    .hero h2{font-weight:700;letter-spacing:.3px;margin-bottom:.35rem}
-    .breadcrumb{
-      --bs-breadcrumb-divider: "–";
-      justify-content:center;
-      margin-bottom:0;
-    }
-    .breadcrumb .breadcrumb-item,
-    .breadcrumb a{color:#f1f1f1;text-decoration:none}
-    .breadcrumb .active{opacity:.85}
-
-    .section-title{
-      color:var(--green);
-      font-weight:700;
-      text-align:center;
-      margin:32px 0 12px;
-    }
-    .copy p{
-      margin:0 auto 10px;
-      max-width:950px;
-      text-align:justify;
-      color:#222;
+    body {
+      font-family: 'Montserrat', sans-serif;
+      line-height: 1.8;
+      color: #333;
+      background: linear-gradient(180deg, #ffffff 0%, #f9f7f0 100%);
+      overflow-x: hidden;
     }
 
-    /* Cards */
-    .tour-card{
-      border:1px solid #e7e7e7;
-      border-radius:var(--card-radius);
-      overflow:hidden;
-      background:#fff;
-      box-shadow:0 4px 10px rgba(0,0,0,.05);
-      transition:transform .2s ease, box-shadow .2s ease;
+    h1, h2, h3, h4, h5 {
+      font-family: 'Playfair Display', serif;
+      font-weight: 700;
+      color: var(--safari-green);
     }
-    .tour-card:hover{
-      transform:translateY(-2px);
-      box-shadow:0 8px 18px rgba(0,0,0,.09);
-    }
-    .tour-card .thumb{
-      height:160px;
-      object-fit:cover;
-      width:100%;
-      display:block;
-    }
-    .tour-card .title{
-      font-weight:700;
-      font-size:1.05rem;
-      margin:12px 0 0;
-    }
-    .tour-card .price-bar{
-      display:flex;align-items:center;gap:.75rem;
-      justify-content:space-between;
-      background:#efe9d0;
-      border-top:1px solid #e0d7b5;
-      padding:14px 16px;
-    }
-    .price{
-      line-height:1.1;
-      white-space:nowrap;
-    }
-    .price .amount{
-      font-weight:800;
-      font-size:1.15rem;
-    }
-    .price .per{
-      display:block;
-      font-size:.8rem;
-      color:var(--muted);
-      margin-top:.15rem;
-    }
-    .btn-olive{
-      background:var(--olive);
-      color:#fff;
-      font-weight:700;
-      border:none;
-      border-radius:8px;
-      padding:8px 14px;
-      text-transform:uppercase;
-      font-size:.8rem;
-      letter-spacing:.5px;
-    }
-    .btn-olive:hover{background:var(--olive-dark);color:#fff}
 
-    @media (min-width:768px){
-      .tour-card .thumb{height:180px}
+    /* Premium Hero Section */
+    .premium-hero {
+      position: relative;
+      height: 85vh;
+      min-height: 700px;
+      display: flex;
+      align-items: flex-end;
+      background: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.7)), 
+                  url("https://images.unsplash.com/photo-1551632811-561732d1e306?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80") center/cover no-repeat fixed;
+      overflow: hidden;
+      border-radius: 0 0 40px 40px;
+      margin-bottom: 60px;
+      box-shadow: 0 30px 60px rgba(0,0,0,0.3);
     }
-    @media (min-width:992px){
-      .tour-card .thumb{height:190px}
+
+    .hero-overlay {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      padding: 80px 0 60px;
+      background: linear-gradient(to top, rgba(26, 71, 42, 0.95), transparent);
+      color: white;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+
+    .hero-title {
+      font-size: 4.5rem;
+      font-weight: 900;
+      color: white;
+      text-shadow: 3px 3px 15px rgba(0,0,0,0.5);
+      line-height: 1.1;
+      margin-bottom: 1rem;
+      letter-spacing: 1px;
+    }
+
+    .hero-subtitle {
+      font-size: 1.8rem;
+      color: var(--safari-gold);
+      margin-bottom: 2rem;
+      font-weight: 500;
+      letter-spacing: 2px;
+    }
+
+    .hero-badge {
+      display: inline-block;
+      background: linear-gradient(135deg, var(--safari-gold), #ffd700);
+      color: var(--safari-green);
+      font-weight: 800;
+      padding: 12px 30px;
+      border-radius: 50px;
+      font-size: 1rem;
+      letter-spacing: 1.5px;
+      box-shadow: 0 10px 25px rgba(212, 175, 55, 0.4);
+      margin-bottom: 30px;
+      animation: badgePulse 3s infinite alternate;
+    }
+
+    @keyframes badgePulse {
+      0% { transform: scale(1); box-shadow: 0 10px 25px rgba(212, 175, 55, 0.4); }
+      100% { transform: scale(1.05); box-shadow: 0 15px 35px rgba(212, 175, 55, 0.6); }
+    }
+
+    .breadcrumb-premium {
+      background: rgba(255, 255, 255, 0.15);
+      backdrop-filter: blur(10px);
+      border-radius: 50px;
+      padding: 12px 25px;
+      display: inline-flex;
+      margin-top: 20px;
+    }
+
+    .breadcrumb-premium a {
+      color: var(--safari-gold);
+      text-decoration: none;
+      font-weight: 600;
+      transition: var(--transition);
+    }
+
+    .breadcrumb-premium a:hover {
+      color: white;
+      transform: translateX(5px);
+    }
+
+    .breadcrumb-premium .active {
+      color: rgba(255, 255, 255, 0.8);
+    }
+
+    /* Premium Content Section */
+    .premium-content {
+      padding: 80px 0;
+      background: white;
+      border-radius: 40px 40px 0 0;
+      position: relative;
+      top: -40px;
+      margin-bottom: -40px;
+      box-shadow: 0 -20px 40px rgba(0,0,0,0.05);
+    }
+
+    .section-title-premium {
+      text-align: center;
+      margin-bottom: 60px;
+      position: relative;
+    }
+
+    .section-title-premium h2 {
+      font-size: 3.2rem;
+      margin-bottom: 20px;
+      position: relative;
+      display: inline-block;
+    }
+
+    .section-title-premium h2:after {
+      content: '';
+      position: absolute;
+      width: 120px;
+      height: 4px;
+      background: linear-gradient(to right, var(--safari-gold), var(--sunset-orange));
+      bottom: -15px;
+      left: 50%;
+      transform: translateX(-50%);
+      border-radius: 2px;
+    }
+
+    .premium-intro {
+      font-size: 1.25rem;
+      color: #444;
+      line-height: 1.9;
+      margin-bottom: 50px;
+      text-align: justify;
+      max-width: 1000px;
+      margin-left: auto;
+      margin-right: auto;
+      padding: 0 20px;
+    }
+
+    /* Migration Timeline */
+    .migration-timeline {
+      position: relative;
+      padding: 60px 0;
+      margin: 60px 0;
+      background: linear-gradient(135deg, var(--light-beige), #fff);
+      border-radius: 30px;
+      overflow: hidden;
+    }
+
+    .timeline-item {
+      display: flex;
+      align-items: center;
+      margin-bottom: 40px;
+      position: relative;
+      padding: 25px;
+      background: white;
+      border-radius: 20px;
+      box-shadow: var(--shadow);
+      transition: var(--transition);
+      border-left: 5px solid var(--safari-gold);
+    }
+
+    .timeline-item:hover {
+      transform: translateX(15px);
+      box-shadow: 0 20px 45px rgba(0,0,0,0.15);
+    }
+
+    .timeline-icon {
+      width: 80px;
+      height: 80px;
+      background: linear-gradient(135deg, var(--safari-green), var(--earth-brown));
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 2rem;
+      margin-right: 25px;
+      flex-shrink: 0;
+    }
+
+    .timeline-content h4 {
+      color: var(--safari-green);
+      margin-bottom: 10px;
+      font-size: 1.4rem;
+    }
+
+    .timeline-content p {
+      color: #666;
+      margin-bottom: 0;
+    }
+
+    /* Premium Tour Cards */
+    .premium-tour-section {
+      padding: 80px 0;
+      background: linear-gradient(180deg, #ffffff 0%, #f8f9fa 100%);
+    }
+
+    .premium-tour-card {
+      background: white;
+      border-radius: var(--card-radius);
+      overflow: hidden;
+      box-shadow: var(--shadow);
+      transition: var(--transition);
+      height: 100%;
+      border: 1px solid rgba(212, 175, 55, 0.1);
+      position: relative;
+    }
+
+    .premium-tour-card:hover {
+      transform: translateY(-20px);
+      box-shadow: 0 30px 60px rgba(0, 0, 0, 0.15);
+      border-color: rgba(212, 175, 55, 0.3);
+    }
+
+    .tour-card-header {
+      position: relative;
+      height: 240px;
+      overflow: hidden;
+    }
+
+    .tour-card-header img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.8s ease;
+    }
+
+    .premium-tour-card:hover .tour-card-header img {
+      transform: scale(1.15);
+    }
+
+    .tour-badge {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      background: linear-gradient(135deg, var(--safari-gold), #ffd700);
+      color: var(--safari-green);
+      font-weight: 800;
+      padding: 8px 20px;
+      border-radius: 30px;
+      font-size: 0.85rem;
+      letter-spacing: 1px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+    }
+
+    .tour-card-body {
+      padding: 25px;
+    }
+
+    .tour-card-title {
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: var(--safari-green);
+      margin-bottom: 15px;
+      line-height: 1.3;
+    }
+
+    .tour-card-desc {
+      color: #666;
+      font-size: 0.95rem;
+      margin-bottom: 20px;
+      line-height: 1.6;
+    }
+
+    .tour-card-footer {
+      padding: 20px 25px;
+      background: linear-gradient(135deg, #f8f9fa, #ffffff);
+      border-top: 1px solid #eee;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .tour-price {
+      line-height: 1.1;
+    }
+
+    .tour-price .amount {
+      font-size: 1.8rem;
+      font-weight: 800;
+      color: var(--safari-green);
+    }
+
+    .tour-price .per {
+      font-size: 0.9rem;
+      color: #777;
+      display: block;
+      margin-top: 5px;
+    }
+
+    .btn-premium-view {
+      background: linear-gradient(135deg, var(--safari-green), #2c5e41);
+      color: white;
+      font-weight: 700;
+      border: none;
+      border-radius: 50px;
+      padding: 12px 25px;
+      font-size: 0.95rem;
+      letter-spacing: 0.5px;
+      transition: var(--transition);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .btn-premium-view:hover {
+      background: linear-gradient(135deg, var(--safari-gold), #ffd700);
+      color: var(--safari-green);
+      transform: translateY(-3px);
+      box-shadow: 0 10px 25px rgba(212, 175, 55, 0.3);
+    }
+
+    /* Wildlife Spotlight */
+    .wildlife-spotlight {
+      padding: 80px 0;
+      background: linear-gradient(135deg, var(--safari-green), #1a3a29);
+      color: white;
+      border-radius: 40px;
+      margin: 80px 0;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .wildlife-spotlight:before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: url('https://images.unsplash.com/photo-1550358864-518f202c02ba?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80') center/cover;
+      opacity: 0.1;
+    }
+
+    .wildlife-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 30px;
+      margin-top: 50px;
+    }
+
+    .wildlife-card {
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(10px);
+      border-radius: 20px;
+      padding: 30px;
+      text-align: center;
+      transition: var(--transition);
+      border: 1px solid rgba(212, 175, 55, 0.2);
+    }
+
+    .wildlife-card:hover {
+      transform: translateY(-15px);
+      background: rgba(255, 255, 255, 0.15);
+      border-color: var(--safari-gold);
+    }
+
+    .wildlife-icon {
+      width: 80px;
+      height: 80px;
+      background: var(--safari-gold);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 20px;
+      color: var(--safari-green);
+      font-size: 2rem;
+    }
+
+    /* CTA Section */
+    .premium-cta {
+      padding: 100px 0;
+      background: linear-gradient(135deg, #1a472a, #2c5e41);
+      color: white;
+      text-align: center;
+      border-radius: 40px;
+      margin: 80px 0;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .premium-cta:before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: url('https://images.unsplash.com/photo-1546182990-dffeafbe841d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80') center/cover;
+      opacity: 0.1;
+    }
+
+    .cta-content {
+      position: relative;
+      z-index: 1;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .cta-title {
+      font-size: 3.5rem;
+      margin-bottom: 20px;
+      color: white;
+    }
+
+    .cta-subtitle {
+      font-size: 1.4rem;
+      margin-bottom: 40px;
+      opacity: 0.9;
+    }
+
+    .btn-premium-cta {
+      background: linear-gradient(135deg, var(--safari-gold), #ffd700);
+      color: var(--safari-green);
+      font-weight: 800;
+      border: none;
+      border-radius: 50px;
+      padding: 18px 50px;
+      font-size: 1.2rem;
+      letter-spacing: 1px;
+      transition: var(--transition);
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .btn-premium-cta:hover {
+      transform: translateY(-5px) scale(1.05);
+      box-shadow: 0 20px 40px rgba(212, 175, 55, 0.4);
+    }
+
+    /* Responsive Design */
+    @media (max-width: 1200px) {
+      .hero-title {
+        font-size: 3.8rem;
+      }
+      
+      .section-title-premium h2 {
+        font-size: 2.8rem;
+      }
+    }
+
+    @media (max-width: 992px) {
+      .premium-hero {
+        height: 75vh;
+        min-height: 600px;
+      }
+      
+      .hero-title {
+        font-size: 3.2rem;
+      }
+      
+      .hero-subtitle {
+        font-size: 1.5rem;
+      }
+      
+      .timeline-item {
+        flex-direction: column;
+        text-align: center;
+      }
+      
+      .timeline-icon {
+        margin-right: 0;
+        margin-bottom: 20px;
+      }
+      
+      .cta-title {
+        font-size: 2.8rem;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .premium-hero {
+        height: 65vh;
+        min-height: 500px;
+        border-radius: 0 0 30px 30px;
+      }
+      
+      .hero-title {
+        font-size: 2.5rem;
+      }
+      
+      .hero-subtitle {
+        font-size: 1.2rem;
+      }
+      
+      .section-title-premium h2 {
+        font-size: 2.2rem;
+      }
+      
+      .premium-intro {
+        font-size: 1.1rem;
+        padding: 0 15px;
+      }
+      
+      .tour-card-header {
+        height: 200px;
+      }
+      
+      .cta-title {
+        font-size: 2.2rem;
+      }
+      
+      .cta-subtitle {
+        font-size: 1.1rem;
+      }
+    }
+
+    @media (max-width: 576px) {
+      .hero-title {
+        font-size: 2rem;
+      }
+      
+      .premium-hero {
+        height: 60vh;
+        min-height: 450px;
+      }
+      
+      .hero-badge {
+        padding: 10px 20px;
+        font-size: 0.9rem;
+      }
+      
+      .section-title-premium h2 {
+        font-size: 1.8rem;
+      }
+      
+      .tour-card-footer {
+        flex-direction: column;
+        gap: 20px;
+        text-align: center;
+      }
+      
+      .cta-title {
+        font-size: 1.8rem;
+      }
+      
+      .btn-premium-cta {
+        padding: 15px 30px;
+        font-size: 1rem;
+      }
     }
   </style>
-</head>
-<body>
 
-  <!-- Hero -->
-  <header class="hero">
-    <div class="container hero-content">
-      <h2 class="mb-1">Great Serengeti Wildebeest Migration</h2>
-      <nav aria-label="breadcrumb">
-        <ol class="breadcrumb">
-          <li class="breadcrumb-item"><a href="#">Home</a></li>
-          <li class="breadcrumb-item active" aria-current="page">Great Serengeti Wildebeest Migration</li>
-        </ol>
-      </nav>
+  <!-- Premium Hero Section -->
+  <header class="premium-hero">
+    <div class="hero-overlay">
+      <div class="hero-content">
+        <span class="hero-badge">
+          <i class="fas fa-crown me-2"></i>WORLD'S GREATEST WILDLIFE SPECTACLE
+        </span>
+        <h1 class="hero-title">Great Serengeti Wildebeest Migration</h1>
+        <p class="hero-subtitle">Nature's Most Epic Journey Across the African Plains</p>
+        
+        <nav aria-label="breadcrumb" class="breadcrumb-premium">
+          <ol class="breadcrumb mb-0">
+            <li class="breadcrumb-item"><a href="/">Home</a></li>
+            <li class="breadcrumb-item"><a href="#">Safari Experiences</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Great Serengeti Wildebeest Migration</li>
+          </ol>
+        </nav>
+      </div>
     </div>
   </header>
 
-  <!-- Intro -->
-  <main class="container my-4">
-    <!-- <h3 class="section-title">Explore Zanzibar – The Jewel of the Indian Ocean</h3> -->
-     <h1 style="text-align: center; font-family: 'Times New Roman', Times, serif; color: #b21f1f;">
-        <b>Great Serengeti Wildebeest Migration- Nature's Greatest Spectacle</b>
-    </h1>
-    <div class="copy">
-      <p>
-      The Great Serengeti Wildebeest Migration is one of the most remarkable wildlife spectacles on the planet, showcasing the raw power and beauty of nature. Each year, over 1.5 million wildebeest, along with hundreds of thousands of zebras and gazelles, embark on an epic journey across the vast Serengeti plains in Tanzania, into Kenya’s Masai Mara. This massive migration covers over 1,800 miles in search of fresh grass and water, following seasonal rainfall patterns.
-      </p>
-      <p>
-      The Great Serengeti Wildebeest Migration is a continuous cycle with key moments throughout the year. The calving season from December to March in the southern Serengeti attracts numerous predators, offering dramatic encounters. From April to June, the herds head westward, navigating dangerous river crossings like the Grumeti River, where crocodiles lie in wait. The most famous event, the Mara River crossing, occurs from July to October, as thousands of animals plunge into crocodile-infested waters to reach Kenya’s Masai Mara. This migration is a breathtaking demonstration of survival and perseverance, and witnessing the Great Serengeti Wildebeest Migration is an unforgettable experience for any nature lover.
-      </p>
-    </div>
-
-    <!-- Cards Grid -->      
-
-    <div class="row g-3 g-md-4 mt-2">
-               {% for tour in tour_list %}
-      <!-- Card 1 -->
-      <div class="col-12 col-md-6 col-lg-4">
-        <article class="tour-card h-100">
-          <img class="thumb" src="{{ tour.image }}" alt="1-Day Zanzibar Tour">
-          <div class="px-3 pb-2">
-            <h5 class="title">{{ tour.Tour_title }}</h5>
-          </div>
-          <div class="price-bar">
-            <div class="price">
-              <span class="amount">$ {{ tour.Tour_price }}</span>
-              <span class="per">per person</span>
-            </div>
-            <a href="{% url 'serengeti_Tour' tour.pk %}" class="btn btn-olive">View Tour</a>
-
-          </div>
-        </article>
+  <!-- Premium Content -->
+  <main class="premium-content">
+    <div class="container">
+      <!-- Intro Section -->
+      <section class="section-title-premium">
+        <h2>Nature's Greatest Spectacle</h2>
+      </section>
+      
+      <div class="premium-intro">
+        <p>
+          The Great Serengeti Wildebeest Migration is the planet's most extraordinary wildlife phenomenon—a breathtaking, 
+          year-round circular journey of over 1.5 million wildebeest, accompanied by 400,000 zebras and 300,000 gazelles, 
+          across the vast Serengeti-Mara ecosystem. This epic migration covers 1,800 miles in a continuous search for fresh 
+          grasslands and water, driven by ancient survival instincts and seasonal rainfall patterns.
+        </p>
+        <p>
+          Witnessing this monumental movement is more than just a safari—it's observing one of Earth's last great wilderness 
+          spectacles. From the dramatic river crossings where crocodiles lie in wait to the calving season that paints the 
+          plains with newborn life, every moment tells a story of survival, instinct, and the raw power of nature.
+        </p>
       </div>
 
-      {% endfor %}
+      <!-- Migration Timeline -->
+      <section class="migration-timeline">
+        <div class="container">
+          <h2 class="text-center mb-5" style="color: var(--safari-green); font-size: 2.5rem;">
+            <i class="fas fa-calendar-alt me-2"></i>The Annual Migration Cycle
+          </h2>
+          
+          <div class="row">
+            <div class="col-lg-6">
+              <div class="timeline-item">
+                <div class="timeline-icon">
+                  <i class="fas fa-baby"></i>
+                </div>
+                <div class="timeline-content">
+                  <h4>December - March: Calving Season</h4>
+                  <p>Southern Serengeti plains come alive with over 500,000 wildebeest calves born within 2-3 weeks, attracting predators for dramatic encounters.</p>
+                </div>
+              </div>
+              
+              <div class="timeline-item">
+                <div class="timeline-icon">
+                  <i class="fas fa-water"></i>
+                </div>
+                <div class="timeline-content">
+                  <h4>April - June: Grumeti River Crossing</h4>
+                  <p>Herds move westward toward the Grumeti River, facing crocodile-infested waters in one of the migration's first major challenges.</p>
+                </div>
+              </div>
+            </div>
+            
+            <div class="col-lg-6">
+              <div class="timeline-item">
+                <div class="timeline-icon">
+                  <i class="fas fa-swimming-pool"></i>
+                </div>
+                <div class="timeline-content">
+                  <h4>July - October: Mara River Crossing</h4>
+                  <p>The migration's most famous spectacle as thousands plunge into crocodile-filled waters to reach Kenya's Masai Mara grasslands.</p>
+                </div>
+              </div>
+              
+              <div class="timeline-item">
+                <div class="timeline-icon">
+                  <i class="fas fa-cloud-sun-rain"></i>
+                </div>
+                <div class="timeline-content">
+                  <h4>November: Return Journey</h4>
+                  <p>Following the short rains, herds begin their journey back to the southern Serengeti, completing nature's greatest circular migration.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
 
+      <!-- Premium Tour Cards -->
+      <section class="premium-tour-section">
+        <div class="container">
+          <div class="section-title-premium">
+            <h2>Premium Migration Safari Experiences</h2>
+            <p class="text-muted mt-3">Witness the spectacle with our expertly curated safari packages</p>
+          </div>
+          
+          <div class="row g-4 g-lg-5">
+            {% for tour in tour_list %}
+            <div class="col-12 col-md-6 col-lg-4">
+              <div class="premium-tour-card">
+                <div class="tour-card-header">
+                  <img src="{{ tour.image }}" alt="{{ tour.Tour_title }}">
+                  <span class="tour-badge">PREMIUM SAFARI</span>
+                </div>
+                
+                <div class="tour-card-body">
+                  <h3 class="tour-card-title">{{ tour.Tour_title }}</h3>
+                  <p class="tour-card-desc">
+                    Experience the Great Migration with luxury accommodations, expert guides, and front-row seats to nature's greatest spectacle.
+                  </p>
+                </div>
+                
+                <div class="tour-card-footer">
+                  <div class="tour-price">
+                    <span class="amount">${{ tour.Tour_price }}</span>
+                    <span class="per">per person</span>
+                  </div>
+                  <a href="{% url 'serengeti_Tour' tour.pk %}" class="btn-premium-view">
+                    <i class="fas fa-binoculars"></i> View Tour
+                  </a>
+                </div>
+              </div>
+            </div>
+            {% endfor %}
+          </div>
+        </div>
+      </section>
+
+      <!-- Wildlife Spotlight -->
+      <section class="wildlife-spotlight">
+        <div class="container">
+          <div class="section-title-premium">
+            <h2 style="color: white;">Migration Wildlife</h2>
+            <p class="mt-3" style="color: rgba(255,255,255,0.9);">The incredible cast of the migration drama</p>
+          </div>
+          
+          <div class="wildlife-grid">
+            <div class="wildlife-card">
+              <div class="wildlife-icon">
+                <i class="fas fa-hippo"></i>
+              </div>
+              <h4>1.5 Million Wildebeest</h4>
+              <p>The main actors in this epic journey, covering 1,800 miles annually</p>
+            </div>
+            
+            <div class="wildlife-card">
+              <div class="wildlife-icon">
+                <i class="fas fa-horse"></i>
+              </div>
+              <h4>400,000 Zebras</h4>
+              <p>Companions that help wildebeest navigate and detect predators</p>
+            </div>
+            
+            <div class="wildlife-card">
+              <div class="wildlife-icon">
+                <i class="fas fa-deer"></i>
+              </div>
+              <h4>300,000 Gazelles</h4>
+              <p>The final members of the migration, following the fresh grasses</p>
+            </div>
+            
+            <div class="wildlife-card">
+              <div class="wildlife-icon">
+                <i class="fas fa-alligator"></i>
+              </div>
+              <h4>Nile Crocodiles</h4>
+              <p>Ancient predators waiting at river crossings for their annual feast</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Premium CTA -->
+      <section class="premium-cta">
+        <div class="cta-content">
+          <h2 class="cta-title">Witness Nature's Greatest Show</h2>
+          <p class="cta-subtitle">
+            Join us for a front-row seat to the world's most spectacular wildlife event. 
+            Our premium migration safaris offer unparalleled access and expert guidance.
+          </p>
+          <button class="btn-premium-cta" onclick="document.querySelector('#booking').scrollIntoView({behavior: 'smooth'})">
+            <i class="fas fa-calendar-check"></i> 
+          </button>
+        </div>
+      </section>
     </div>
   </main>
 
-  <!-- Bootstrap JS -->
+  <!-- JavaScript for Interactive Elements -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-</body>
+  <script>
+    // Parallax effect for hero
+    document.addEventListener('scroll', function() {
+      const hero = document.querySelector('.premium-hero');
+      const scrolled = window.pageYOffset;
+      if (hero) {
+        hero.style.transform = `translateY(${scrolled * 0.05}px)`;
+      }
+    });
+
+    // Animate timeline items on scroll
+    const observerOptions = {
+      threshold: 0.2,
+      rootMargin: '0px 0px -50px 0px'
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.style.opacity = '1';
+          entry.target.style.transform = 'translateX(0)';
+        }
+      });
+    }, observerOptions);
+
+    // Apply animation to timeline items
+    document.querySelectorAll('.timeline-item').forEach((item, index) => {
+      item.style.opacity = '0';
+      item.style.transform = index % 2 === 0 ? 'translateX(-50px)' : 'translateX(50px)';
+      item.style.transition = 'opacity 0.8s ease, transform 0.8s ease';
+      observer.observe(item);
+    });
+
+    // Counter animation for wildlife numbers
+    document.addEventListener('DOMContentLoaded', function() {
+      const counters = document.querySelectorAll('.wildlife-card h4');
+      counters.forEach(counter => {
+        const originalText = counter.textContent;
+        const numberMatch = originalText.match(/([\d.]+)/);
+        if (numberMatch) {
+          const target = parseFloat(numberMatch[0].replace(/,/g, ''));
+          counter.textContent = originalText.replace(numberMatch[0], '0');
+          
+          let current = 0;
+          const increment = target / 100;
+          const timer = setInterval(() => {
+            current += increment;
+            if (current >= target) {
+              current = target;
+              clearInterval(timer);
+            }
+            counter.textContent = originalText.replace(numberMatch[0], Math.floor(current).toLocaleString());
+          }, 20);
+        }
+      });
+    });
+
+    // Interactive card hover enhancement
+    document.querySelectorAll('.premium-tour-card').forEach(card => {
+      card.addEventListener('mouseenter', function() {
+        this.style.zIndex = '10';
+      });
+      
+      card.addEventListener('mouseleave', function() {
+        this.style.zIndex = '1';
+      });
+    });
+  </script>
 {% endblock %}

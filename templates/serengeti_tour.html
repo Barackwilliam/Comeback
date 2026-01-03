@@ -1,177 +1,920 @@
 {% extends 'base.html' %}
 {% load static %}
 
-{% block title %}{{ tour.title }}{% endblock %}
+{% block title %}{{ tour.title }} | Premium Safari Experience{% endblock %}
 
 {% block content %}
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700;800&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
 <style>
-  body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background: #f5f7fa;
-    color: #333;
+  :root {
+    --safari-green: #1a472a;
+    --safari-gold: #d4af37;
+    --earth-brown: #8b5a2b;
+    --sunset-orange: #e67e22;
+    --sky-blue: #3498db;
+    --light-beige: #f5f1e6;
+    --shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+    --transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
   }
 
-  /* Hero */
-  .hero {
-    background: linear-gradient(rgba(0,0,0,0.55), rgba(0,0,0,0.55)), url("{{tour.image}}") center/cover no-repeat;
-    height: 55vh;
+  body {
+    font-family: 'Montserrat', sans-serif;
+    background: linear-gradient(180deg, #ffffff 0%, #f9f7f0 100%);
+    color: #333;
+    line-height: 1.8;
+  }
+
+  h1, h2, h3, h4, h5 {
+    font-family: 'Playfair Display', serif;
+    font-weight: 700;
+    color: var(--safari-green);
+  }
+
+  /* Premium Hero Section */
+  .premium-hero {
+    position: relative;
+    height: 85vh;
+    min-height: 700px;
+    display: flex;
+    align-items: flex-end;
+    background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.7)), 
+                url("{{ tour.image }}") center/cover no-repeat fixed;
+    overflow: hidden;
+    border-radius: 0 0 40px 40px;
+    margin-bottom: 60px;
+    box-shadow: 0 30px 60px rgba(0,0,0,0.3);
+  }
+
+  .hero-overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    padding: 80px 0 60px;
+    background: linear-gradient(to top, rgba(26, 71, 42, 0.95), transparent);
+    color: white;
+  }
+
+  .hero-content {
+    position: relative;
+    z-index: 2;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+  }
+
+  .hero-title {
+    font-size: 4rem;
+    font-weight: 900;
+    color: white;
+    text-shadow: 3px 3px 15px rgba(0,0,0,0.5);
+    line-height: 1.1;
+    margin-bottom: 1rem;
+    letter-spacing: 1px;
+    animation: fadeDown 1.2s ease-out;
+  }
+
+  @keyframes fadeDown {
+    from { opacity: 0; transform: translateY(-30px);}
+    to { opacity: 1; transform: translateY(0);}
+  }
+
+  .hero-badges {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    margin-bottom: 30px;
+  }
+
+  .hero-badge {
+    background: linear-gradient(135deg, var(--safari-gold), #ffd700);
+    color: var(--safari-green);
+    font-weight: 700;
+    padding: 10px 25px;
+    border-radius: 50px;
+    font-size: 0.9rem;
+    letter-spacing: 1px;
+    box-shadow: 0 8px 25px rgba(212, 175, 55, 0.3);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .breadcrumb-premium {
+    background: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(10px);
+    border-radius: 50px;
+    padding: 12px 25px;
+    display: inline-flex;
+    margin-top: 20px;
+  }
+
+  .breadcrumb-premium a {
+    color: var(--safari-gold);
+    text-decoration: none;
+    font-weight: 600;
+    transition: var(--transition);
+  }
+
+  .breadcrumb-premium a:hover {
+    color: white;
+    transform: translateX(5px);
+  }
+
+  .breadcrumb-premium .active {
+    color: rgba(255, 255, 255, 0.8);
+  }
+
+  /* Tour Overview */
+  .tour-overview {
+    padding: 80px 0;
+    background: white;
+    border-radius: 40px 40px 0 0;
+    position: relative;
+    top: -40px;
+    margin-bottom: -40px;
+    box-shadow: 0 -20px 40px rgba(0,0,0,0.05);
+  }
+
+  .section-title-premium {
+    margin-bottom: 50px;
+    position: relative;
+  }
+
+  .section-title-premium h2 {
+    font-size: 2.8rem;
+    margin-bottom: 15px;
+    position: relative;
+    display: inline-block;
+  }
+
+  .section-title-premium h2:after {
+    content: '';
+    position: absolute;
+    width: 120px;
+    height: 4px;
+    background: linear-gradient(to right, var(--safari-gold), var(--sunset-orange));
+    bottom: -15px;
+    left: 0;
+    border-radius: 2px;
+  }
+
+  .tour-description {
+    font-size: 1.2rem;
+    color: #444;
+    line-height: 1.9;
+    margin-bottom: 40px;
+    text-align: justify;
+  }
+
+  /* Tour Highlights */
+  .tour-highlights {
+    padding: 60px 0;
+    background: linear-gradient(135deg, var(--light-beige), #fff);
+    border-radius: 30px;
+    margin: 60px 0;
+  }
+
+  .highlight-card {
+    background: white;
+    border-radius: 20px;
+    padding: 30px;
+    height: 100%;
+    box-shadow: var(--shadow);
+    transition: var(--transition);
+    border-left: 5px solid var(--safari-gold);
+    text-align: center;
+  }
+
+  .highlight-card:hover {
+    transform: translateY(-15px);
+    box-shadow: 0 25px 50px rgba(0,0,0,0.15);
+  }
+
+  .highlight-icon {
+    width: 80px;
+    height: 80px;
+    background: linear-gradient(135deg, var(--safari-green), var(--earth-brown));
+    border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
     color: white;
+    font-size: 2rem;
+    margin: 0 auto 25px;
+  }
+
+  /* Premium Itinerary */
+  .premium-itinerary {
+    padding: 80px 0;
+  }
+
+  .itinerary-header {
     text-align: center;
-    padding: 0 20px;
-  }
-  .hero h1 {
-    font-size: clamp(2rem, 5vw, 3rem);
-    font-weight: bold;
-    animation: fadeDown 1s ease-in-out;
-  }
-  @keyframes fadeDown {
-    from { opacity: 0; transform: translateY(-20px);}
-    to { opacity: 1; transform: translateY(0);}
+    margin-bottom: 60px;
   }
 
-  /* Breadcrumb */
-  .breadcrumb {
-    background: transparent;
-    padding: 0.5rem 0;
-    margin: 15px 0;
-  }
-  .breadcrumb a {
-    text-decoration: none;
-    color: #0d6efd;
-    transition: color 0.3s;
-  }
-  .breadcrumb a:hover {
-    color: #084298;
-  }
-
-  /* Tour Content */
-  .tour-content {
-    background: #fff;
-    border-radius: 1rem;
-    padding: 2rem;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.05);
-    margin-bottom: 2rem;
-    transition: transform 0.3s ease;
-  }
-  .tour-content:hover {
-    transform: translateY(-4px);
-  }
-  .tour-content h2 {
-    color: #0d6efd;
-    font-weight: bold;
-    margin-bottom: 1rem;
-  }
-
-  /* Accordion */
-  .accordion-item {
-    border-radius: 12px !important;
-    overflow: hidden;
+  .itinerary-header h2 {
+    font-size: 3rem;
     margin-bottom: 15px;
-    border: none;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.05);
-  }
-  .accordion-button {
-    transition: all 0.3s ease;
-    font-size: 1rem;
-    font-weight: 500;
-    background: #f8f9fa;
-  }
-  .accordion-button:not(.collapsed) {
-    background: #0d6efd !important;
-    color: #fff !important;
-  }
-  .accordion-body {
-    background: #fff;
-    animation: fadeIn 0.5s ease-in-out;
-  }
-  @keyframes fadeIn {
-    from {opacity: 0; transform: translateY(10px);}
-    to {opacity: 1; transform: translateY(0);}
-  }
-  .badge-day {
-    font-size: 0.9rem;
-    margin-right: 10px;
+    color: var(--safari-green);
   }
 
-  /* Responsive */
+  .itinerary-subtitle {
+    font-size: 1.3rem;
+    color: #666;
+    max-width: 600px;
+    margin: 0 auto;
+  }
+
+  /* Timeline Itinerary */
+  .timeline {
+    position: relative;
+    max-width: 1000px;
+    margin: 0 auto;
+  }
+
+  .timeline::after {
+    content: '';
+    position: absolute;
+    width: 6px;
+    background: linear-gradient(to bottom, var(--safari-gold), var(--sunset-orange));
+    top: 0;
+    bottom: 0;
+    left: 50%;
+    margin-left: -3px;
+    border-radius: 3px;
+  }
+
+  .timeline-item {
+    padding: 10px 40px;
+    position: relative;
+    width: 50%;
+    box-sizing: border-box;
+    margin-bottom: 60px;
+    opacity: 0;
+    transform: translateY(30px);
+    transition: all 0.8s ease;
+  }
+
+  .timeline-item.active {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .timeline-item:nth-child(odd) {
+    left: 0;
+  }
+
+  .timeline-item:nth-child(even) {
+    left: 50%;
+  }
+
+  .timeline-item::after {
+    content: '';
+    position: absolute;
+    width: 25px;
+    height: 25px;
+    right: -13px;
+    background: linear-gradient(135deg, var(--safari-gold), #ffd700);
+    border: 4px solid white;
+    top: 20px;
+    border-radius: 50%;
+    z-index: 1;
+    box-shadow: 0 0 0 4px var(--safari-gold);
+  }
+
+  .timeline-item:nth-child(even)::after {
+    left: -12px;
+  }
+
+  .timeline-content {
+    padding: 30px;
+    background: white;
+    border-radius: 20px;
+    box-shadow: var(--shadow);
+    position: relative;
+    border: 1px solid rgba(212, 175, 55, 0.1);
+  }
+
+  .timeline-day {
+    position: absolute;
+    top: -20px;
+    left: 30px;
+    background: linear-gradient(135deg, var(--safari-green), var(--earth-brown));
+    color: white;
+    font-weight: 800;
+    padding: 10px 25px;
+    border-radius: 50px;
+    font-size: 1.1rem;
+    letter-spacing: 1px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+  }
+
+  .timeline-title {
+    font-size: 1.4rem;
+    color: var(--safari-green);
+    margin-bottom: 15px;
+    margin-top: 15px;
+  }
+
+  .timeline-description {
+    color: #666;
+    line-height: 1.7;
+  }
+
+  /* Inclusion Section */
+  .inclusion-section {
+    padding: 80px 0;
+    background: linear-gradient(135deg, var(--safari-green), #1a3a29);
+    color: white;
+    border-radius: 40px;
+    margin: 80px 0;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .inclusion-section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: url('{% static "img/safari-pattern.png" %}') repeat;
+    opacity: 0.05;
+  }
+
+  .inclusion-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 30px;
+    margin-top: 50px;
+  }
+
+  .inclusion-card {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    border-radius: 20px;
+    padding: 30px;
+    text-align: center;
+    transition: var(--transition);
+    border: 1px solid rgba(212, 175, 55, 0.2);
+  }
+
+  .inclusion-card:hover {
+    transform: translateY(-10px);
+    background: rgba(255, 255, 255, 0.15);
+    border-color: var(--safari-gold);
+  }
+
+  .inclusion-icon {
+    font-size: 2.5rem;
+    color: var(--safari-gold);
+    margin-bottom: 20px;
+  }
+
+  /* Booking CTA */
+  .premium-booking-cta {
+    padding: 100px 0;
+    background: linear-gradient(135deg, #1a472a, #2c5e41);
+    color: white;
+    text-align: center;
+    border-radius: 40px;
+    margin: 80px 0;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .premium-booking-cta::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: url('https://images.unsplash.com/photo-1546182990-dffeafbe841d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80') center/cover;
+    opacity: 0.1;
+  }
+
+  .cta-content {
+    position: relative;
+    z-index: 1;
+    max-width: 800px;
+    margin: 0 auto;
+  }
+
+  .cta-title {
+    font-size: 3.2rem;
+    margin-bottom: 20px;
+    color: white;
+  }
+
+  .cta-subtitle {
+    font-size: 1.4rem;
+    margin-bottom: 40px;
+    opacity: 0.9;
+  }
+
+  .btn-premium-book {
+    background: linear-gradient(135deg, var(--safari-gold), #ffd700);
+    color: var(--safari-green);
+    font-weight: 800;
+    border: none;
+    border-radius: 50px;
+    padding: 18px 50px;
+    font-size: 1.2rem;
+    letter-spacing: 1px;
+    transition: var(--transition);
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    box-shadow: 0 15px 35px rgba(212, 175, 55, 0.4);
+  }
+
+  .btn-premium-book:hover {
+    transform: translateY(-5px) scale(1.05);
+    box-shadow: 0 25px 50px rgba(212, 175, 55, 0.6);
+  }
+
+  /* Responsive Design */
+  @media (max-width: 1200px) {
+    .hero-title {
+      font-size: 3.5rem;
+    }
+    
+    .section-title-premium h2 {
+      font-size: 2.5rem;
+    }
+  }
+
+  @media (max-width: 992px) {
+    .premium-hero {
+      height: 75vh;
+      min-height: 600px;
+    }
+    
+    .hero-title {
+      font-size: 3rem;
+    }
+    
+    .timeline::after {
+      left: 31px;
+    }
+    
+    .timeline-item {
+      width: 100%;
+      padding-left: 70px;
+      padding-right: 25px;
+    }
+    
+    .timeline-item:nth-child(even) {
+      left: 0;
+    }
+    
+    .timeline-item::after {
+      left: 18px;
+    }
+    
+    .timeline-item:nth-child(even)::after {
+      left: 18px;
+    }
+    
+    .cta-title {
+      font-size: 2.8rem;
+    }
+  }
+
   @media (max-width: 768px) {
-    .hero {
-      height: 40vh;
+    .premium-hero {
+      height: 65vh;
+      min-height: 500px;
+      border-radius: 0 0 30px 30px;
     }
-    .tour-content {
-      padding: 1.2rem;
+    
+    .hero-title {
+      font-size: 2.5rem;
     }
-    .hero h1 {
+    
+    .hero-badges {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+    
+    .section-title-premium h2 {
+      font-size: 2.2rem;
+    }
+    
+    .tour-description {
+      font-size: 1.1rem;
+    }
+    
+    .cta-title {
+      font-size: 2.2rem;
+    }
+    
+    .cta-subtitle {
+      font-size: 1.1rem;
+    }
+  }
+
+  @media (max-width: 576px) {
+    .hero-title {
+      font-size: 2rem;
+    }
+    
+    .premium-hero {
+      height: 60vh;
+      min-height: 450px;
+    }
+    
+    .hero-badge {
+      padding: 8px 20px;
+      font-size: 0.85rem;
+    }
+    
+    .section-title-premium h2 {
       font-size: 1.8rem;
+    }
+    
+    .timeline-content {
+      padding: 20px;
+    }
+    
+    .timeline-day {
+      padding: 8px 20px;
+      font-size: 1rem;
+    }
+    
+    .cta-title {
+      font-size: 1.8rem;
+    }
+    
+    .btn-premium-book {
+      padding: 15px 30px;
+      font-size: 1rem;
     }
   }
 </style>
 
-<!-- Hero Section -->
-<section class="hero">
-  <h1>{{tour.Tour_title}}</h1>
+<!-- Premium Hero Section -->
+<section class="premium-hero">
+  <div class="hero-overlay">
+    <div class="hero-content">
+      <div class="hero-badges">
+        <span class="hero-badge">
+          <i class="fas fa-star"></i> PREMIUM SAFARI EXPERIENCE
+        </span>
+        <span class="hero-badge">
+          <i class="fas fa-calendar-alt"></i> {{ tour.duration }} Days
+        </span>
+        <span class="hero-badge">
+          <i class="fas fa-users"></i> Small Group (Max 6)
+        </span>
+      </div>
+      
+      <h1 class="hero-title">{{ tour.Tour_title }}</h1>
+      
+      <nav aria-label="breadcrumb" class="breadcrumb-premium">
+        <ol class="breadcrumb mb-0">
+          <li class="breadcrumb-item"><a href="/">Home</a></li>
+          <li class="breadcrumb-item"><a href="{% url 'serengeti_migration' %}">Safari Tours</a></li>
+          <li class="breadcrumb-item active" aria-current="page">{{ tour.Tour_title }}</li>
+        </ol>
+      </nav>
+    </div>
+  </div>
 </section>
 
-<!-- Breadcrumb -->
-<div class="container">
-  <nav aria-label="breadcrumb">
-    <ol class="breadcrumb">
-      <li class="breadcrumb-item"><a href="/">🏠 Home</a></li>
-      <li class="breadcrumb-item active" aria-current="page">{{tour.Tour_title}}</li>
-    </ol>
-  </nav>
-</div>
-
-<!-- Tour Details -->
-<div class="container">
-  <div class="tour-content">
-    <h2>{{tour.Tour_title}}</h2>
-    <p>{{tour.Tour_Descriptions}}</p>
-  </div>
-</div>
-
-<!-- Itinerary Accordion -->
-      <h3 class="mt-5 text-center"><b>Serengeti Tour Itinerary </b></h3>
-
-<div class="container mb-5">
-  <div class="accordion" id="itineraryAccordion">
-    {% for item in itineraries %}
-      <div class="accordion-item">
-        <h2 class="accordion-header" id="heading{{ item.day_number }}">
-          <button 
-            class="accordion-button collapsed" 
-            type="button" 
-            data-bs-toggle="collapse" 
-            data-bs-target="#collapse{{ item.day_number }}" 
-            aria-expanded="false" 
-            aria-controls="collapse{{ item.day_number }}">
-            <span class="badge bg-primary rounded-pill px-3 py-2 badge-day">
-              <!-- Day {{ item.day_number }} -->
-            </span> 
-            {{ item.title }}
-          </button>
-        </h2>
-        <div 
-          id="collapse{{ item.day_number }}" 
-          class="accordion-collapse collapse" 
-          aria-labelledby="heading{{ item.day_number }}" 
-          data-bs-parent="#itineraryAccordion">
-          <div class="accordion-body">
-            <p>{{ item.description }}</p>
+<!-- Tour Overview -->
+<main class="tour-overview">
+  <div class="container">
+    <section class="section-title-premium">
+      <h2>Tour Overview</h2>
+    </section>
+    
+    <div class="tour-description">
+      {{ tour.Tour_Descriptions }}
+    </div>
+    
+    <!-- Tour Highlights -->
+    <section class="tour-highlights">
+      <div class="container">
+        <div class="section-title-premium">
+          <h2>Tour Highlights</h2>
+        </div>
+        
+        <div class="row g-4">
+          <div class="col-md-3 col-sm-6">
+            <div class="highlight-card">
+              <div class="highlight-icon">
+                <i class="fas fa-binoculars"></i>
+              </div>
+              <h4>Game Drives</h4>
+              <p>Daily guided safaris in 4x4 vehicles with pop-up roofs</p>
+            </div>
+          </div>
+          
+          <div class="col-md-3 col-sm-6">
+            <div class="highlight-card">
+              <div class="highlight-icon">
+                <i class="fas fa-camera"></i>
+              </div>
+              <h4>Photography</h4>
+              <p>Golden hour photography sessions with expert guidance</p>
+            </div>
+          </div>
+          
+          <div class="col-md-3 col-sm-6">
+            <div class="highlight-card">
+              <div class="highlight-icon">
+                <i class="fas fa-utensils"></i>
+              </div>
+              <h4>Gourmet Dining</h4>
+              <p>Bush breakfasts, picnic lunches, and fine dining under the stars</p>
+            </div>
+          </div>
+          
+          <div class="col-md-3 col-sm-6">
+            <div class="highlight-card">
+              <div class="highlight-icon">
+                <i class="fas fa-user-tie"></i>
+              </div>
+              <h4>Expert Guides</h4>
+              <p>Professional guides with 10+ years of safari experience</p>
+            </div>
           </div>
         </div>
       </div>
-    {% empty %}
-      <p class="text-muted text-center">No itinerary available for this tour yet.</p>
-    {% endfor %}
+    </section>
+    
+    <!-- Premium Itinerary -->
+    <section class="premium-itinerary">
+      <div class="container">
+        <div class="itinerary-header">
+          <h2>Tour Itinerary</h2>
+          <p class="itinerary-subtitle">Your day-by-day journey through Africa's greatest wilderness</p>
+        </div>
+        
+        {% if itineraries %}
+        <div class="timeline">
+          {% for item in itineraries %}
+          <div class="timeline-item" id="day-{{ item.day_number }}">
+            <div class="timeline-content">
+              <span class="timeline-day">DAY {{ item.day_number }}</span>
+              <h3 class="timeline-title">{{ item.title }}</h3>
+              <div class="timeline-description">
+                {{ item.description|linebreaks }}
+              </div>
+            </div>
+          </div>
+          {% endfor %}
+        </div>
+        {% else %}
+        <div class="text-center py-5">
+          <i class="fas fa-map-signs fa-3x text-muted mb-3"></i>
+          <h3 class="text-muted">Itinerary Coming Soon</h3>
+          <p>Detailed day-by-day itinerary is being prepared by our safari experts.</p>
+        </div>
+        {% endif %}
+      </div>
+    </section>
+    
+    <!-- Inclusions & Exclusions -->
+    <section class="inclusion-section">
+      <div class="container">
+        <div class="section-title-premium">
+          <h2 style="color: white;">Tour Inclusions</h2>
+          <p style="color: rgba(255,255,255,0.9);">Everything you need for a perfect safari experience</p>
+        </div>
+        
+        <div class="inclusion-grid">
+          <div class="inclusion-card">
+            <div class="inclusion-icon">
+              <i class="fas fa-car"></i>
+            </div>
+            <h4>4x4 Safari Vehicle</h4>
+            <p>Private vehicle with pop-up roof & charging ports</p>
+          </div>
+          
+          <div class="inclusion-card">
+            <div class="inclusion-icon">
+              <i class="fas fa-bed"></i>
+            </div>
+            <h4>Accommodation</h4>
+            <p>Luxury lodges & tented camps (double occupancy)</p>
+          </div>
+          
+          <div class="inclusion-card">
+            <div class="inclusion-icon">
+              <i class="fas fa-utensils"></i>
+            </div>
+            <h4>All Meals</h4>
+            <p>Full board: Breakfast, lunch, dinner & snacks</p>
+          </div>
+          
+          <div class="inclusion-card">
+            <div class="inclusion-icon">
+              <i class="fas fa-ticket-alt"></i>
+            </div>
+            <h4>Park Fees</h4>
+            <p>All national park & conservation area fees included</p>
+          </div>
+          
+          <div class="inclusion-card">
+            <div class="inclusion-icon">
+              <i class="fas fa-user-tie"></i>
+            </div>
+            <h4>Professional Guide</h4>
+            <p>English-speaking safari guide & driver</p>
+          </div>
+          
+          <div class="inclusion-card">
+            <div class="inclusion-icon">
+              <i class="fas fa-shield-alt"></i>
+            </div>
+            <h4>Travel Insurance</h4>
+            <p>Comprehensive emergency evacuation coverage</p>
+          </div>
+        </div>
+      </div>
+    </section>
+    
+    <!-- Premium Booking CTA -->
+    <section class="premium-booking-cta">
+      <div class="cta-content">
+        <h2 class="cta-title">Ready for Your Safari Adventure?</h2>
+        <p class="cta-subtitle">
+          Limited spots available for this premium safari experience. 
+          Book now to secure your place on this unforgettable journey.
+        </p>
+        <button class="btn-premium-book" onclick="document.getElementById('bookingModal').classList.add('show')">
+          <i class="fas fa-calendar-check"></i> BOOK THIS TOUR NOW
+        </button>
+      </div>
+    </section>
+  </div>
+</main>
+
+<!-- Booking Modal -->
+<div class="modal fade" id="bookingModal" tabindex="-1" aria-labelledby="bookingModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg modal-dialog-centered">
+    <div class="modal-content border-0">
+      <div class="modal-header bg-success text-white">
+        <h5 class="modal-title" id="bookingModalLabel">
+          <i class="fas fa-safari me-2"></i>Book {{ tour.Tour_title }}
+        </h5>
+        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body p-5">
+        <div class="text-center mb-4">
+          <h4 class="text-success">Complete Your Booking</h4>
+          <p>Fill out the form below and our safari experts will contact you within 24 hours.</p>
+        </div>
+        <form id="tourBookingForm">
+          <div class="row g-3">
+            <div class="col-md-6">
+              <div class="form-floating">
+                <input type="text" class="form-control" id="fullName" placeholder="Full Name" required>
+                <label for="fullName">Full Name</label>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-floating">
+                <input type="email" class="form-control" id="email" placeholder="Email Address" required>
+                <label for="email">Email Address</label>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-floating">
+                <input type="tel" class="form-control" id="phone" placeholder="Phone Number" required>
+                <label for="phone">Phone Number</label>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-floating">
+                <input type="date" class="form-control" id="preferredDate" required>
+                <label for="preferredDate">Preferred Start Date</label>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-floating">
+                <input type="number" class="form-control" id="participants" placeholder="Number of Participants" min="1" max="12" required>
+                <label for="participants">Number of Participants</label>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-floating">
+                <select class="form-select" id="accommodationType" required>
+                  <option value="" selected disabled>Select accommodation</option>
+                  <option value="standard">Standard Lodge</option>
+                  <option value="luxury">Luxury Tented Camp</option>
+                  <option value="premium">Premium Safari Lodge</option>
+                </select>
+                <label for="accommodationType">Accommodation Type</label>
+              </div>
+            </div>
+            <div class="col-12">
+              <div class="form-floating">
+                <textarea class="form-control" id="specialRequests" placeholder="Special Requests" style="height: 120px"></textarea>
+                <label for="specialRequests">Special Requests / Questions</label>
+              </div>
+            </div>
+            <div class="col-12 mt-4">
+              <button type="submit" class="btn btn-success w-100 py-3">
+                <i class="fas fa-paper-plane me-2"></i> SUBMIT BOOKING REQUEST
+              </button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
   </div>
 </div>
 
-<!-- Bootstrap JS -->
+<!-- JavaScript -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+  // Animate timeline items on scroll
+  document.addEventListener('DOMContentLoaded', function() {
+    const timelineItems = document.querySelectorAll('.timeline-item');
+    
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('active');
+        }
+      });
+    }, {
+      threshold: 0.2,
+      rootMargin: '0px 0px -50px 0px'
+    });
+    
+    timelineItems.forEach(item => {
+      observer.observe(item);
+    });
+    
+    // Smooth scroll to timeline items
+    const urlHash = window.location.hash;
+    if (urlHash) {
+      const targetElement = document.querySelector(urlHash);
+      if (targetElement) {
+        setTimeout(() => {
+          targetElement.scrollIntoView({ behavior: 'smooth' });
+        }, 500);
+      }
+    }
+    
+    // Booking form submission
+    const bookingForm = document.getElementById('tourBookingForm');
+    if (bookingForm) {
+      bookingForm.addEventListener('submit', function(e) {
+        e.preventDefault();
+        const modal = bootstrap.Modal.getInstance(document.getElementById('bookingModal'));
+        if (modal) modal.hide();
+        
+        // Show success message
+        const successAlert = document.createElement('div');
+        successAlert.className = 'alert alert-success alert-dismissible fade show position-fixed top-0 start-50 translate-middle-x mt-3';
+        successAlert.style.zIndex = '9999';
+        successAlert.innerHTML = `
+          <i class="fas fa-check-circle me-2"></i>
+          <strong>Booking request sent!</strong> Our safari experts will contact you within 24 hours.
+          <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        `;
+        document.body.appendChild(successAlert);
+        
+        // Auto-dismiss after 5 seconds
+        setTimeout(() => {
+          if (successAlert.parentNode) {
+            successAlert.remove();
+          }
+        }, 5000);
+        
+        // Reset form
+        bookingForm.reset();
+      });
+    }
+    
+    // Parallax effect on hero
+    window.addEventListener('scroll', function() {
+      const hero = document.querySelector('.premium-hero');
+      const scrolled = window.pageYOffset;
+      if (hero) {
+        hero.style.transform = `translateY(${scrolled * 0.05}px)`;
+      }
+    });
+    
+    // Initialize Bootstrap modal
+    const bookingModal = new bootstrap.Modal(document.getElementById('bookingModal'));
+    
+    // Make book button trigger modal
+    document.querySelector('.btn-premium-book').addEventListener('click', function() {
+      bookingModal.show();
+    });
+  });
+</script>
 {% endblock %}

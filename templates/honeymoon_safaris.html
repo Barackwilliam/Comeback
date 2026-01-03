@@ -2,188 +2,1056 @@
 {% load static %}
 
 {% block content %}
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700;800&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
-  <!-- Bootstrap 5 -->
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"/>
+<style>
+:root {
+    --romantic-pink: #e84393;
+    --luxury-gold: #d4af37;
+    --safari-green: #1a472a;
+    --sunset-orange: #e67e22;
+    --ocean-blue: #0984e3;
+    --soft-beige: #f9e5e5;
+    --champagne: #f7e7ce;
+    --shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+    --transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
 
-  <style>
-    :root{
-      --green:#0c8a3e;
-      --olive:#ffa600;
-      --olive-dark:#645824;
-      --muted:#6c757d;
-      --card-radius:14px;
-    }
+body {
+    font-family: 'Montserrat', sans-serif;
+    background: linear-gradient(180deg, #ffffff 0%, #fff5f5 100%);
+    color: #333;
+    line-height: 1.8;
+    overflow-x: hidden;
+}
 
-    body{line-height:1.7;color:#111;background:#fff}
-    .hero{
-      position:relative;
-      min-height:240px;
-      display:flex;
-      align-items:center;
-      background:url("https://36w5gsdu79.ucarecd.net/cc86fc89-affa-4012-8750-bb0fea449f4b/") center/cover no-repeat;
-      border-bottom:1px solid #eaeaea;
-    }
-    .hero::after{
-      content:"";
-      position:absolute;inset:0;
-      background:linear-gradient(to bottom, rgba(0,0,0,.45), rgba(0,0,0,.25), rgba(0,0,0,.15));
-    }
-    .hero-content{
-      position:relative;z-index:1;
-      width:100%;
-      padding:50px 0;
-      color:#fff;text-align:center;
-    }
-    .hero h2{font-weight:700;letter-spacing:.3px;margin-bottom:.35rem}
-    .breadcrumb{
-      --bs-breadcrumb-divider: "–";
-      justify-content:center;
-      margin-bottom:0;
-    }
-    .breadcrumb .breadcrumb-item,
-    .breadcrumb a{color:#f1f1f1;text-decoration:none}
-    .breadcrumb .active{opacity:.85}
+h1, h2, h3, h4, h5 {
+    font-family: 'Playfair Display', serif;
+    font-weight: 700;
+    color: var(--safari-green);
+}
 
-    .section-title{
-      color:var(--green);
-      font-weight:700;
-      text-align:center;
-      margin:32px 0 12px;
-    }
-    .copy p{
-      margin:0 auto 10px;
-      max-width:950px;
-      text-align:justify;
-      color:#222;
-    }
+/* Premium Romantic Hero Section */
+.honeymoon-hero {
+    position: relative;
+    height: 85vh;
+    min-height: 700px;
+    display: flex;
+    align-items: flex-end;
+    background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.6)), 
+                url("https://36w5gsdu79.ucarecd.net/cc86fc89-affa-4012-8750-bb0fea449f4b/") center/cover no-repeat fixed;
+    overflow: hidden;
+    border-radius: 0 0 50px 50px;
+    margin-bottom: 60px;
+    box-shadow: 0 40px 80px rgba(0,0,0,0.3);
+}
 
-    /* Cards */
-    .tour-card{
-      border:1px solid #e7e7e7;
-      border-radius:var(--card-radius);
-      overflow:hidden;
-      background:#fff;
-      box-shadow:0 4px 10px rgba(0,0,0,.05);
-      transition:transform .2s ease, box-shadow .2s ease;
-    }
-    .tour-card:hover{
-      transform:translateY(-2px);
-      box-shadow:0 8px 18px rgba(0,0,0,.09);
-    }
-    .tour-card .thumb{
-      height:160px;
-      object-fit:cover;
-      width:100%;
-      display:block;
-    }
-    .tour-card .title{
-      font-weight:700;
-      font-size:1.05rem;
-      margin:12px 0 0;
-    }
-    .tour-card .price-bar{
-      display:flex;align-items:center;gap:.75rem;
-      justify-content:space-between;
-      background:#efe9d0;
-      border-top:1px solid #e0d7b5;
-      padding:14px 16px;
-    }
-    .price{
-      line-height:1.1;
-      white-space:nowrap;
-    }
-    .price .amount{
-      font-weight:800;
-      font-size:1.15rem;
-    }
-    .price .per{
-      display:block;
-      font-size:.8rem;
-      color:var(--muted);
-      margin-top:.15rem;
-    }
-    .btn-olive{
-      background:var(--olive);
-      color:#fff;
-      font-weight:700;
-      border:none;
-      border-radius:8px;
-      padding:8px 14px;
-      text-transform:uppercase;
-      font-size:.8rem;
-      letter-spacing:.5px;
-    }
-    .btn-olive:hover{background:var(--olive-dark);color:#fff}
+.honeymoon-hero:before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(45deg, rgba(232, 67, 147, 0.3), rgba(212, 175, 55, 0.3));
+    z-index: 1;
+    animation: romanticGlow 10s infinite alternate;
+}
 
-    @media (min-width:768px){
-      .tour-card .thumb{height:180px}
+@keyframes romanticGlow {
+    0% { background: linear-gradient(45deg, rgba(232, 67, 147, 0.3), rgba(212, 175, 55, 0.3)); }
+    100% { background: linear-gradient(45deg, rgba(26, 71, 42, 0.3), rgba(232, 67, 147, 0.3)); }
+}
+
+.hero-overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    padding: 100px 0 60px;
+    background: linear-gradient(to top, rgba(26, 71, 42, 0.9), transparent);
+    color: white;
+    z-index: 2;
+}
+
+.hero-content {
+    position: relative;
+    z-index: 3;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+.hero-title {
+    font-size: 4.5rem;
+    font-weight: 900;
+    color: white;
+    text-shadow: 3px 3px 20px rgba(0,0,0,0.6);
+    line-height: 1.1;
+    margin-bottom: 1rem;
+    letter-spacing: 1.5px;
+    animation: romanceRise 1.5s ease-out;
+}
+
+@keyframes romanceRise {
+    from { opacity: 0; transform: translateY(50px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.hero-subtitle {
+    font-size: 1.8rem;
+    color: var(--luxury-gold);
+    margin-bottom: 2rem;
+    font-weight: 500;
+    letter-spacing: 2px;
+    text-shadow: 1px 1px 5px rgba(0,0,0,0.3);
+}
+
+.hero-badges {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    margin-bottom: 30px;
+}
+
+.hero-badge {
+    background: linear-gradient(135deg, var(--romantic-pink), #fd79a8);
+    color: white;
+    font-weight: 700;
+    padding: 12px 30px;
+    border-radius: 50px;
+    font-size: 0.9rem;
+    letter-spacing: 1.2px;
+    box-shadow: 0 10px 25px rgba(232, 67, 147, 0.4);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    backdrop-filter: blur(5px);
+    transition: var(--transition);
+}
+
+.hero-badge:nth-child(2) {
+    background: linear-gradient(135deg, var(--luxury-gold), #f4d03f);
+}
+
+.hero-badge:nth-child(3) {
+    background: linear-gradient(135deg, var(--ocean-blue), #74b9ff);
+}
+
+.hero-badge:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 35px rgba(232, 67, 147, 0.6);
+}
+
+.breadcrumb-premium {
+    background: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(10px);
+    border-radius: 50px;
+    padding: 15px 30px;
+    display: inline-flex;
+    margin-top: 20px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.breadcrumb-premium a {
+    color: var(--luxury-gold);
+    text-decoration: none;
+    font-weight: 600;
+    transition: var(--transition);
+}
+
+.breadcrumb-premium a:hover {
+    color: white;
+    transform: translateX(5px);
+}
+
+.breadcrumb-premium .active {
+    color: rgba(255, 255, 255, 0.8);
+}
+
+/* Why Honeymoon Safari Section */
+.why-honeymoon {
+    padding: 80px 0;
+    background: linear-gradient(135deg, #ffffff, var(--soft-beige));
+    border-radius: 40px;
+    margin: 60px 0;
+    box-shadow: var(--shadow);
+    position: relative;
+    overflow: hidden;
+}
+
+.why-honeymoon:before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: url('https://images.unsplash.com/photo-1518568814500-bf0f8d125f46?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80') repeat;
+    opacity: 0.05;
+    animation: rosePattern 30s linear infinite;
+}
+
+@keyframes rosePattern {
+    0% { transform: translate(0, 0) rotate(0deg); }
+    100% { transform: translate(-50%, -50%) rotate(360deg); }
+}
+
+.section-title-premium {
+    margin-bottom: 50px;
+    position: relative;
+    text-align: center;
+}
+
+.section-title-premium h2 {
+    font-size: 3rem;
+    margin-bottom: 15px;
+    position: relative;
+    display: inline-block;
+}
+
+.section-title-premium h2:after {
+    content: '';
+    position: absolute;
+    width: 150px;
+    height: 4px;
+    background: linear-gradient(to right, var(--romantic-pink), var(--luxury-gold));
+    bottom: -15px;
+    left: 50%;
+    transform: translateX(-50%);
+    border-radius: 2px;
+}
+
+.benefits-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+    margin-top: 50px;
+    position: relative;
+    z-index: 1;
+}
+
+.benefit-card {
+    background: white;
+    border-radius: 25px;
+    padding: 40px 30px;
+    box-shadow: var(--shadow);
+    transition: var(--transition);
+    border: 2px solid transparent;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+}
+
+.benefit-card:hover {
+    transform: translateY(-20px);
+    box-shadow: 0 30px 60px rgba(0,0,0,0.15);
+    border-color: var(--romantic-pink);
+}
+
+.benefit-card:before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 5px;
+    background: linear-gradient(to right, var(--romantic-pink), var(--luxury-gold));
+}
+
+.benefit-icon {
+    width: 80px;
+    height: 80px;
+    background: linear-gradient(135deg, var(--romantic-pink), #fd79a8);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 2rem;
+    margin: 0 auto 25px;
+}
+
+.benefit-title {
+    font-size: 1.5rem;
+    color: var(--safari-green);
+    margin-bottom: 15px;
+    font-weight: 700;
+}
+
+/* Tour Description */
+.tour-description-section {
+    padding: 80px 0;
+}
+
+.tour-description {
+    font-size: 1.25rem;
+    color: #374151;
+    line-height: 1.9;
+    margin-bottom: 40px;
+    text-align: justify;
+    background: white;
+    padding: 40px;
+    border-radius: 30px;
+    box-shadow: var(--shadow);
+    border-left: 5px solid var(--romantic-pink);
+}
+
+/* Premium Honeymoon Cards */
+.honeymoon-tour-section {
+    padding: 80px 0;
+    background: linear-gradient(180deg, #ffffff 0%, #f8f9fa 100%);
+}
+
+.premium-honeymoon-card {
+    background: white;
+    border-radius: 25px;
+    overflow: hidden;
+    box-shadow: var(--shadow);
+    transition: var(--transition);
+    height: 100%;
+    position: relative;
+    border: 2px solid transparent;
+}
+
+.premium-honeymoon-card:hover {
+    transform: translateY(-20px);
+    box-shadow: 0 30px 60px rgba(0, 0, 0, 0.15);
+    border-color: var(--romantic-pink);
+}
+
+.honeymoon-card-header {
+    position: relative;
+    height: 300px;
+    overflow: hidden;
+}
+
+.honeymoon-card-header img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 1s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.premium-honeymoon-card:hover .honeymoon-card-header img {
+    transform: scale(1.2);
+}
+
+.honeymoon-badge {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    background: linear-gradient(135deg, var(--romantic-pink), #fd79a8);
+    color: white;
+    font-weight: 800;
+    padding: 8px 20px;
+    border-radius: 50px;
+    font-size: 0.85rem;
+    letter-spacing: 1px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+    z-index: 2;
+}
+
+.honeymoon-card-body {
+    padding: 30px;
+    position: relative;
+}
+
+.honeymoon-card-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.6rem;
+    color: var(--safari-green);
+    margin-bottom: 15px;
+    font-weight: 700;
+    line-height: 1.3;
+}
+
+.honeymoon-card-desc {
+    color: #666;
+    line-height: 1.7;
+    margin-bottom: 20px;
+    font-size: 0.95rem;
+}
+
+.honeymoon-features {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    margin-bottom: 25px;
+}
+
+.honeymoon-feature {
+    background: rgba(232, 67, 147, 0.1);
+    color: var(--romantic-pink);
+    padding: 6px 15px;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    border: 1px solid rgba(232, 67, 147, 0.2);
+}
+
+.honeymoon-card-footer {
+    padding: 20px 30px;
+    background: linear-gradient(135deg, #f8f9fa, #ffffff);
+    border-top: 2px dashed #e5e7eb;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.honeymoon-price {
+    line-height: 1.1;
+}
+
+.honeymoon-price .amount {
+    font-size: 1.8rem;
+    font-weight: 800;
+    color: var(--safari-green);
+}
+
+.honeymoon-price .per {
+    font-size: 0.9rem;
+    color: #777;
+    display: block;
+    margin-top: 5px;
+}
+
+.btn-honeymoon-view {
+    background: linear-gradient(135deg, var(--romantic-pink), #fd79a8);
+    color: white;
+    font-weight: 700;
+    border: none;
+    border-radius: 50px;
+    padding: 12px 25px;
+    font-size: 0.95rem;
+    letter-spacing: 0.5px;
+    transition: var(--transition);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.btn-honeymoon-view:hover {
+    background: linear-gradient(135deg, var(--luxury-gold), #f4d03f);
+    color: var(--safari-green);
+    transform: translateY(-3px);
+    box-shadow: 0 10px 25px rgba(212, 175, 55, 0.3);
+}
+
+/* Romantic Experiences Section */
+.romantic-experiences {
+    padding: 80px 0;
+    background: linear-gradient(135deg, var(--romantic-pink), #c44569);
+    color: white;
+    border-radius: 40px;
+    margin: 80px 0;
+    position: relative;
+    overflow: hidden;
+}
+
+.romantic-experiences:before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: url('https://images.unsplash.com/photo-1518568814500-bf0f8d125f46?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80') center/cover;
+    opacity: 0.1;
+}
+
+.experience-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 30px;
+    margin-top: 50px;
+    position: relative;
+    z-index: 1;
+}
+
+.experience-card {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    border-radius: 25px;
+    padding: 40px 30px;
+    text-align: center;
+    transition: var(--transition);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.experience-card:hover {
+    transform: translateY(-15px);
+    background: rgba(255, 255, 255, 0.15);
+    border-color: var(--luxury-gold);
+}
+
+.experience-icon {
+    width: 80px;
+    height: 80px;
+    background: var(--luxury-gold);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 25px;
+    color: white;
+    font-size: 2.5rem;
+}
+
+.experience-title {
+    font-size: 1.4rem;
+    margin-bottom: 15px;
+    color: white;
+}
+
+/* Booking CTA */
+.honeymoon-cta {
+    padding: 100px 0;
+    background: linear-gradient(135deg, var(--ocean-blue), #0984e3);
+    color: white;
+    text-align: center;
+    border-radius: 40px;
+    margin: 80px 0;
+    position: relative;
+    overflow: hidden;
+}
+
+.honeymoon-cta:before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: url('https://images.unsplash.com/photo-1519046904884-53103b34b206?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80') center/cover;
+    opacity: 0.1;
+}
+
+.cta-content {
+    position: relative;
+    z-index: 1;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.cta-title {
+    font-size: 3.5rem;
+    margin-bottom: 20px;
+    color: white;
+    text-shadow: 2px 2px 10px rgba(0,0,0,0.3);
+}
+
+.cta-subtitle {
+    font-size: 1.4rem;
+    margin-bottom: 40px;
+    opacity: 0.9;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.btn-honeymoon-cta {
+    background: linear-gradient(135deg, var(--luxury-gold), #f4d03f);
+    color: var(--romantic-pink);
+    font-weight: 800;
+    border: none;
+    border-radius: 50px;
+    padding: 20px 60px;
+    font-size: 1.3rem;
+    letter-spacing: 1.5px;
+    transition: var(--transition);
+    display: inline-flex;
+    align-items: center;
+    gap: 15px;
+    box-shadow: 0 20px 40px rgba(212, 175, 55, 0.4);
+    position: relative;
+    overflow: hidden;
+}
+
+.btn-honeymoon-cta:hover {
+    transform: translateY(-5px) scale(1.05);
+    box-shadow: 0 30px 60px rgba(212, 175, 55, 0.6);
+    color: var(--romantic-pink);
+}
+
+.btn-honeymoon-cta:before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+    transition: 0.6s;
+}
+
+.btn-honeymoon-cta:hover:before {
+    left: 100%;
+}
+
+/* Responsive Design */
+@media (max-width: 1200px) {
+    .hero-title {
+        font-size: 4rem;
     }
-    @media (min-width:992px){
-      .tour-card .thumb{height:190px}
+    
+    .section-title-premium h2 {
+        font-size: 2.8rem;
     }
-  </style>
-</head>
-<body>
+}
 
-  <!-- Hero -->
-  <header class="hero">
-    <div class="container hero-content">
-      <h2 class="mb-1">Tanzania Honeymoon Safaris</h2>
-      <nav aria-label="breadcrumb">
-        <ol class="breadcrumb">
-          <li class="breadcrumb-item"><a href="#">Home</a></li>
-          <li class="breadcrumb-item active" aria-current="page">Honeymoon Safaris</li>
-        </ol>
-      </nav>
-    </div>
-  </header>
+@media (max-width: 992px) {
+    .honeymoon-hero {
+        height: 75vh;
+        min-height: 600px;
+    }
+    
+    .hero-title {
+        font-size: 3.5rem;
+    }
+    
+    .honeymoon-card-header {
+        height: 250px;
+    }
+    
+    .cta-title {
+        font-size: 3rem;
+    }
+}
 
-  <!-- Intro -->
-  <main class="container my-4">
-    <!-- <h3 class="section-title">Explore Zanzibar – The Jewel of the Indian Ocean</h3> -->
-     <h1 style="text-align: center; font-family: 'Times New Roman', Times, serif; color: #b21f1f;">
-        <b>Tanzania Honeymoon Safaris
-</b>
-    </h1>
-    <div class="copy">
-      <p>
-Tanzania honeymoon safaris are an extraordinary way to combine romance, adventure, and luxury. From the iconic Serengeti National Park, where couples can witness the awe-inspiring Great Migration, to the lush and wildlife-rich Ngorongoro Crater, Tanzania offers diverse experiences for newlyweds. For those seeking tranquility and exclusivity, destinations like the Selous Game Reserve and Tarangire National Park provide intimate settings surrounded by natural beauty.      </p>
-      <p>
-Luxury lodges and camps are a hallmark of Tanzania honeymoon safaris, offering private suites, plunge pools, and romantic touches like candlelit dinners under the stars. Couples can enhance their experience with activities such as hot air balloon rides, which include champagne breakfasts, or relaxing spa treatments. Accommodations such as Singita Lodges and the Ngorongoro Crater Lodge ensure that newlyweds enjoy the utmost privacy and comfort during their stay.      </p>
-      
-      <p>
-No Tanzania honeymoon safari is complete without a visit to Zanzibar, where pristine beaches and turquoise waters await. This idyllic island provides the perfect escape after a safari, allowing couples to relax and reflect on their adventures. Exclusive resorts like Baraza Resort and Mnemba Island deliver unmatched luxury, making Zanzibar a key highlight of many Tanzania honeymoon safaris. Together, these experiences create a once-in-a-lifetime journey filled with romance, adventure, and unforgettable memories      </p>
-    </div>
+@media (max-width: 768px) {
+    .honeymoon-hero {
+        height: 65vh;
+        min-height: 500px;
+        border-radius: 0 0 30px 30px;
+    }
+    
+    .hero-title {
+        font-size: 2.8rem;
+    }
+    
+    .hero-subtitle {
+        font-size: 1.5rem;
+    }
+    
+    .hero-badges {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    
+    .section-title-premium h2 {
+        font-size: 2.4rem;
+    }
+    
+    .tour-description {
+        font-size: 1.1rem;
+        padding: 30px 20px;
+    }
+    
+    .honeymoon-card-header {
+        height: 220px;
+    }
+    
+    .honeymoon-card-footer {
+        flex-direction: column;
+        gap: 20px;
+        text-align: center;
+    }
+    
+    .cta-title {
+        font-size: 2.5rem;
+    }
+    
+    .cta-subtitle {
+        font-size: 1.2rem;
+    }
+}
 
-    <!-- Cards Grid -->      
+@media (max-width: 576px) {
+    .hero-title {
+        font-size: 2.2rem;
+    }
+    
+    .honeymoon-hero {
+        height: 60vh;
+        min-height: 450px;
+    }
+    
+    .hero-badge {
+        padding: 10px 20px;
+        font-size: 0.85rem;
+    }
+    
+    .section-title-premium h2 {
+        font-size: 2rem;
+    }
+    
+    .benefit-card {
+        padding: 30px 20px;
+    }
+    
+    .cta-title {
+        font-size: 2rem;
+    }
+    
+    .btn-honeymoon-cta {
+        padding: 18px 40px;
+        font-size: 1.1rem;
+    }
+}
 
-    <div class="row g-3 g-md-4 mt-2">
-               {% for tour in tour_list %}
-      <!-- Card 1 -->
-      <div class="col-12 col-md-6 col-lg-4">
-        <article class="tour-card h-100">
-          <img class="thumb" src="{{ tour.image }}" alt="1-Day Zanzibar Tour">
-          <div class="px-3 pb-2">
-            <h5 class="title">{{ tour.Tour_title }}</h5>
-          </div>
-          <div class="price-bar">
-            <div class="price">
-              <span class="amount">$ {{ tour.Tour_price }}</span>
-              <span class="per">per person</span>
+/* Loading Animation */
+@keyframes shimmer {
+    0% { background-position: -200% center; }
+    100% { background-position: 200% center; }
+}
+
+.loading-shimmer {
+    background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+    background-size: 200% 100%;
+    animation: shimmer 1.5s infinite;
+}
+
+/* Heart Pulse Animation */
+@keyframes heartPulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.1); }
+    100% { transform: scale(1); }
+}
+
+.heart-pulse {
+    animation: heartPulse 2s infinite;
+    display: inline-block;
+}
+</style>
+
+<!-- Premium Hero Section -->
+<section class="honeymoon-hero">
+    <div class="hero-overlay">
+        <div class="hero-content">
+            <div class="hero-badges">
+                <span class="hero-badge">
+                    <i class="fas fa-heart heart-pulse"></i> ROMANTIC GETAWAY
+                </span>
+                <span class="hero-badge">
+                    <i class="fas fa-crown"></i> LUXURY EXPERIENCE
+                </span>
+                <span class="hero-badge">
+                    <i class="fas fa-umbrella-beach"></i> BEACH & SAFARI
+                </span>
+                <span class="hero-badge">
+                    <i class="fas fa-star"></i> ALL-INCLUSIVE
+                </span>
             </div>
-            <a href="{% url 'honeymoon_Tour' tour.pk %}" class="btn btn-olive"onclick="showLoading(event)">View Tour</a>
-
-          </div>
-        </article>
-      </div>
-
-      {% endfor %}
-
+            
+            <h1 class="hero-title">Tanzania Honeymoon Safaris</h1>
+            <p class="hero-subtitle">Where Love Meets Adventure</p>
+            
+            <nav aria-label="breadcrumb" class="breadcrumb-premium">
+                <ol class="breadcrumb mb-0">
+                    <li class="breadcrumb-item"><a href="/">Home</a></li>
+                    <li class="breadcrumb-item"><a href="#">Safari Tours</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">Honeymoon Safaris</li>
+                </ol>
+            </nav>
+        </div>
     </div>
-  </main>
+</section>
 
-  <!-- Bootstrap JS -->
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-</body>
+<!-- Why Honeymoon Safari Section -->
+<section class="why-honeymoon">
+    <div class="container">
+        <div class="section-title-premium">
+            <h2>Why Choose a Honeymoon Safari?</h2>
+            <p class="text-muted mt-3">Create unforgettable memories in Africa's most romantic destinations</p>
+        </div>
+        
+        <div class="benefits-grid">
+            <div class="benefit-card">
+                <div class="benefit-icon">
+                    <i class="fas fa-heart"></i>
+                </div>
+                <h3 class="benefit-title">Ultimate Romance</h3>
+                <p>Private bush dinners, champagne sunsets, and starlit baths create the perfect romantic atmosphere.</p>
+            </div>
+            
+            <div class="benefit-card">
+                <div class="benefit-icon">
+                    <i class="fas fa-gem"></i>
+                </div>
+                <h3 class="benefit-title">Luxury Accommodation</h3>
+                <p>Exclusive lodges with private plunge pools, king-size beds, and personal butler service.</p>
+            </div>
+            
+            <div class="benefit-card">
+                <div class="benefit-icon">
+                    <i class="fas fa-compass"></i>
+                </div>
+                <h3 class="benefit-title">Dual Experience</h3>
+                <p>Combine thrilling wildlife adventures with relaxing beach escapes in Zanzibar.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Tour Description -->
+<section class="tour-description-section">
+    <div class="container">
+        <div class="tour-description">
+            <p>
+                Tanzania honeymoon safaris offer the ultimate romantic adventure for newlyweds seeking an 
+                unforgettable start to their married life. Imagine beginning your day with a private 
+                champagne breakfast overlooking the Serengeti plains, spending your afternoon spotting the 
+                Big Five on an exclusive game drive, and ending your evening with a candlelit dinner under 
+                a blanket of African stars.
+            </p>
+            <p>
+                Our meticulously crafted honeymoon itineraries combine luxury, romance, and adventure in 
+                perfect harmony. From the world-famous Serengeti National Park and Ngorongoro Crater to 
+                the pristine beaches of Zanzibar, we create personalized experiences that cater to every 
+                couple's dreams. Enjoy private safari vehicles, exclusive lodge accommodations, and 
+                romantic surprises at every turn.
+            </p>
+            <p>
+                Whether you're soaring over the savannah in a hot air balloon at sunrise, enjoying couples 
+                massages at a luxury spa, or snorkeling together in turquoise Indian Ocean waters, your 
+                Tanzania honeymoon safari will be filled with moments you'll cherish forever. Let us create 
+                the perfect romantic adventure for the beginning of your forever.
+            </p>
+        </div>
+    </div>
+</section>
+
+<!-- Premium Honeymoon Tours -->
+<section class="honeymoon-tour-section">
+    <div class="container">
+        <div class="section-title-premium">
+            <h2>Honeymoon Safari Packages</h2>
+            <p class="text-muted mt-3">Choose your perfect romantic adventure</p>
+        </div>
+        
+        <div class="row g-4 g-lg-5">
+            {% for tour in tour_list %}
+            <div class="col-12 col-md-6 col-lg-4">
+                <div class="premium-honeymoon-card">
+                    <div class="honeymoon-card-header">
+                        <img src="{{ tour.image }}" alt="{{ tour.Tour_title }}">
+                        <span class="honeymoon-badge">
+                            <i class="fas fa-heart"></i> HONEYMOON
+                        </span>
+                    </div>
+                    
+                    <div class="honeymoon-card-body">
+                        <h3 class="honeymoon-card-title">{{ tour.Tour_title }}</h3>
+                        
+                        <p class="honeymoon-card-desc">
+                            Experience Tanzania's most romantic destinations with luxury accommodations, 
+                            private experiences, and unforgettable moments for newlyweds.
+                        </p>
+                        
+                        <div class="honeymoon-features">
+                            <span class="honeymoon-feature">
+                                <i class="fas fa-bed"></i> Luxury Suite
+                            </span>
+                            <span class="honeymoon-feature">
+                                <i class="fas fa-wine-glass-alt"></i> Champagne
+                            </span>
+                            <span class="honeymoon-feature">
+                                <i class="fas fa-binoculars"></i> Private Safari
+                            </span>
+                        </div>
+                    </div>
+                    
+                    <div class="honeymoon-card-footer">
+                        <div class="honeymoon-price">
+                            <span class="amount">${{ tour.Tour_price }}</span>
+                            <span class="per">per couple</span>
+                        </div>
+                        <a href="{% url 'honeymoon_Tour' tour.pk %}" class="btn-honeymoon-view">
+                            <i class="fas fa-eye"></i> View Tour
+                        </a>
+                    </div>
+                </div>
+            </div>
+            {% empty %}
+            <!-- No Tours Available -->
+            <div class="col-12 text-center py-5">
+                <div class="no-tours">
+                    <div class="no-tours-icon">
+                        <i class="fas fa-heart fa-3x text-muted mb-3"></i>
+                    </div>
+                    <h3 class="text-muted">Honeymoon Tours Coming Soon</h3>
+                    <p class="text-muted">Our romantic honeymoon packages are being updated. Check back soon!</p>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<!-- Romantic Experiences Section -->
+<section class="romantic-experiences">
+    <div class="container">
+        <div class="section-title-premium">
+            <h2 style="color: white;">Romantic Experiences</h2>
+            <p style="color: rgba(255,255,255,0.9);">Create unforgettable memories together</p>
+        </div>
+        
+        <div class="experience-grid">
+            <div class="experience-card">
+                <div class="experience-icon">
+                    <i class="fas fa-hot-air-balloon"></i>
+                </div>
+                <h3 class="experience-title">Hot Air Balloon Rides</h3>
+                <p class="opacity-90">Soar over the Serengeti at sunrise with champagne breakfast</p>
+            </div>
+            
+            <div class="experience-card">
+                <div class="experience-icon">
+                    <i class="fas fa-umbrella-beach"></i>
+                </div>
+                <h3 class="experience-title">Private Beach Dinners</h3>
+                <p class="opacity-90">Candlelit dinners on Zanzibar's pristine white-sand beaches</p>
+            </div>
+            
+            <div class="experience-card">
+                <div class="experience-icon">
+                    <i class="fas fa-spa"></i>
+                </div>
+                <h3 class="experience-title">Couples Spa Treatments</h3>
+                <p class="opacity-90">Relaxing massages and spa experiences at luxury lodges</p>
+            </div>
+            
+            <div class="experience-card">
+                <div class="experience-icon">
+                    <i class="fas fa-campfire"></i>
+                </div>
+                <h3 class="experience-title">Bush Romance Dinners</h3>
+                <p class="opacity-90">Private dinners under the stars in the African wilderness</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Booking CTA -->
+<section class="honeymoon-cta">
+    <div class="cta-content">
+        <h2 class="cta-title">Ready for Your Romantic Adventure?</h2>
+        <p class="cta-subtitle">
+            Start your forever with an unforgettable honeymoon safari. 
+            Limited availability for the most romantic dates.
+        </p>
+        <button class="btn-honeymoon-cta" onclick="scrollToBooking()">
+            <i class="fas fa-calendar-heart"></i> BOOK YOUR HONEYMOON SAFARI
+        </button>
+        <p class="mt-4 small opacity-80">Special offer: Complimentary honeymoon package upgrade</p>
+    </div>
+</section>
+
+<!-- JavaScript -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Parallax effect on hero
+    window.addEventListener('scroll', function() {
+        const hero = document.querySelector('.honeymoon-hero');
+        const scrolled = window.pageYOffset;
+        if (hero) {
+            hero.style.transform = `translateY(${scrolled * 0.03}px)`;
+        }
+    });
+    
+    // Animate honeymoon cards on scroll
+    const honeymoonCards = document.querySelectorAll('.premium-honeymoon-card');
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry, index) => {
+            if (entry.isIntersecting) {
+                setTimeout(() => {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }, index * 200);
+            }
+        });
+    }, { threshold: 0.1 });
+    
+    honeymoonCards.forEach(card => {
+        card.style.opacity = '0';
+        card.style.transform = 'translateY(30px)';
+        card.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+        observer.observe(card);
+    });
+    
+    // Animate experience cards
+    const experienceCards = document.querySelectorAll('.experience-card');
+    experienceCards.forEach((card, index) => {
+        card.style.opacity = '0';
+        card.style.transform = 'translateY(30px)';
+        card.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+        
+        setTimeout(() => {
+            card.style.opacity = '1';
+            card.style.transform = 'translateY(0)';
+        }, index * 200 + 500);
+    });
+    
+    // Animate benefit cards on scroll
+    const benefitCards = document.querySelectorAll('.benefit-card');
+    const benefitObserver = new IntersectionObserver((entries) => {
+        entries.forEach((entry, index) => {
+            if (entry.isIntersecting) {
+                setTimeout(() => {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }, index * 200);
+            }
+        });
+    }, { threshold: 0.1 });
+    
+    benefitCards.forEach(card => {
+        card.style.opacity = '0';
+        card.style.transform = 'translateY(30px)';
+        card.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+        benefitObserver.observe(card);
+    });
+    
+    // Scroll to booking function
+    window.scrollToBooking = function() {
+        const bookingSection = document.querySelector('.honeymoon-tour-section');
+        if (bookingSection) {
+            bookingSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+    };
+    
+    // View tour loading effect
+    window.showLoading = function(event) {
+        const button = event.target.closest('a');
+        if (button) {
+            const originalText = button.innerHTML;
+            button.innerHTML = '<i class="fas fa-spinner fa-spin me-2"></i> Loading...';
+            button.classList.add('disabled');
+            
+            // Simulate loading (remove in production)
+            setTimeout(() => {
+                button.innerHTML = originalText;
+                button.classList.remove('disabled');
+            }, 1500);
+        }
+    };
+    
+    // Add heart pulse animation to all heart icons
+    const heartIcons = document.querySelectorAll('.fa-heart');
+    heartIcons.forEach(icon => {
+        icon.classList.add('heart-pulse');
+    });
+});
+</script>
+
+<!-- Font Awesome for Icons -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
 {% endblock %}

@@ -3,242 +3,931 @@
 
 {% block content %}
 <style>
-/* Fantastic Safari-Themed Styles */
+/* Premium Safari-Themed Styles */
+:root {
+    --safari-gold: #d4af37;
+    --safari-green: #1a472a;
+    --earth-brown: #8b5a2b;
+    --sunset-orange: #e67e22;
+    --savanna-yellow: #f6d365;
+    --shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+    --transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
 .safari-hero {
-    background: linear-gradient(120deg, #f6d365 0%, #fda085 100%), url("{% static 'img/bg-4.jpg' %}") center/cover no-repeat;
     position: relative;
+    height: 85vh;
+    min-height: 700px;
+    display: flex;
+    align-items: center;
+    background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.7)), 
+                url("{% static 'img/bg-4.jpg' %}") center/cover no-repeat fixed;
     overflow: hidden;
-    animation: zoomEffect 10s infinite ease-in-out;
-    padding: 150px 0;
+    border-radius: 0 0 50px 50px;
+    margin-bottom: 60px;
+    box-shadow: 0 40px 80px rgba(0,0,0,0.3);
 }
 
-.safari-hero::before {
-    content: "";
+.safari-hero:before {
+    content: '';
     position: absolute;
-    inset: 0;
-    background: rgba(0, 0, 0, 0.5);
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(45deg, rgba(26, 71, 42, 0.3), rgba(212, 175, 55, 0.2));
     z-index: 1;
+    animation: gradientShift 10s infinite alternate;
 }
 
-.safari-hero .container {
+@keyframes gradientShift {
+    0% { background: linear-gradient(45deg, rgba(26, 71, 42, 0.3), rgba(212, 175, 55, 0.2)); }
+    100% { background: linear-gradient(45deg, rgba(139, 90, 43, 0.3), rgba(212, 175, 55, 0.3)); }
+}
+
+.hero-content {
     position: relative;
+    z-index: 2;
+    text-align: center;
+    color: white;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+.hero-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 5rem;
+    font-weight: 900;
+    margin-bottom: 1rem;
+    text-shadow: 3px 3px 20px rgba(0,0,0,0.6);
+    line-height: 1.1;
+    letter-spacing: 2px;
+    animation: titleRise 1.5s ease-out;
+}
+
+@keyframes titleRise {
+    from { opacity: 0; transform: translateY(50px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.hero-subtitle {
+    font-size: 1.8rem;
+    color: var(--safari-gold);
+    margin-bottom: 2rem;
+    font-weight: 500;
+    letter-spacing: 2px;
+    text-shadow: 1px 1px 5px rgba(0,0,0,0.3);
+}
+
+.breadcrumb-premium {
+    background: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(10px);
+    border-radius: 50px;
+    padding: 15px 30px;
+    display: inline-flex;
+    margin-top: 20px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.breadcrumb-premium a {
+    color: var(--safari-gold);
+    text-decoration: none;
+    font-weight: 600;
+    transition: var(--transition);
+}
+
+.breadcrumb-premium a:hover {
+    color: white;
+    transform: translateX(5px);
+}
+
+.breadcrumb-premium .active {
+    color: rgba(255, 255, 255, 0.8);
+}
+
+/* Destination Filters */
+.destination-filters {
+    padding: 60px 0;
+    background: linear-gradient(135deg, #ffffff, #f8f9fa);
+    border-radius: 40px;
+    margin: -40px 20px 40px;
+    box-shadow: var(--shadow);
+    position: relative;
+    z-index: 10;
+}
+
+.filter-card {
+    background: white;
+    border-radius: 25px;
+    padding: 30px;
+    box-shadow: var(--shadow);
+    border: 2px solid rgba(212, 175, 55, 0.1);
+    transition: var(--transition);
+}
+
+.filter-card:hover {
+    border-color: var(--safari-gold);
+    transform: translateY(-5px);
+}
+
+.filter-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.5rem;
+    color: var(--safari-green);
+    margin-bottom: 20px;
+    position: relative;
+}
+
+.filter-title:after {
+    content: '';
+    position: absolute;
+    width: 60px;
+    height: 3px;
+    background: linear-gradient(to right, var(--safari-gold), var(--sunset-orange));
+    bottom: -10px;
+    left: 0;
+    border-radius: 2px;
+}
+
+.filter-select {
+    width: 100%;
+    padding: 12px 20px;
+    border: 2px solid rgba(212, 175, 55, 0.2);
+    border-radius: 15px;
+    background: white;
+    color: var(--safari-green);
+    font-weight: 500;
+    transition: var(--transition);
+}
+
+.filter-select:focus {
+    outline: none;
+    border-color: var(--safari-gold);
+    box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.1);
+}
+
+.btn-safari-filter {
+    background: linear-gradient(135deg, var(--safari-green), #2c5e41);
+    color: white;
+    border: none;
+    border-radius: 15px;
+    padding: 15px 30px;
+    font-weight: 700;
+    transition: var(--transition);
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+
+.btn-safari-filter:hover {
+    background: linear-gradient(135deg, var(--safari-gold), #f4d03f);
+    color: var(--safari-green);
+    transform: translateY(-3px);
+    box-shadow: 0 10px 25px rgba(212, 175, 55, 0.3);
+}
+
+/* Premium Destination Cards */
+.premium-destination-card {
+    background: white;
+    border-radius: 25px;
+    overflow: hidden;
+    box-shadow: var(--shadow);
+    transition: var(--transition);
+    height: 100%;
+    position: relative;
+    border: 2px solid transparent;
+}
+
+.premium-destination-card:hover {
+    transform: translateY(-20px);
+    box-shadow: 0 30px 60px rgba(0, 0, 0, 0.15);
+    border-color: var(--safari-gold);
+}
+
+.card-image-wrapper {
+    position: relative;
+    height: 300px;
+    overflow: hidden;
+}
+
+.card-image-wrapper img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 1s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.premium-destination-card:hover .card-image-wrapper img {
+    transform: scale(1.2);
+}
+
+.card-badge {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    background: linear-gradient(135deg, var(--safari-gold), #f4d03f);
+    color: var(--safari-green);
+    font-weight: 800;
+    padding: 8px 20px;
+    border-radius: 50px;
+    font-size: 0.85rem;
+    letter-spacing: 1px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.2);
     z-index: 2;
 }
 
-@keyframes zoomEffect {
-    0% { background-size: 100%; }
-    50% { background-size: 110%; }
-    100% { background-size: 100%; }
+.unesco-badge {
+    background: linear-gradient(135deg, #8b5a2b, #a97142);
+    color: white;
 }
 
-.section-title {
-    font-family: 'Playfair Display', serif;
-    letter-spacing: 4px;
-    color: #fda085;
-}
-
-.display-3 {
-    font-family: 'Playfair Display', serif;
-    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
-}
-
-.breadcrumb {
-    background: rgba(255, 255, 255, 0.2);
-    border-radius: 50px;
-    padding: 10px 20px;
-}
-
-.breadcrumb-item a {
-    color: #fff;
-    text-decoration: none;
-    transition: color 0.3s ease;
-}
-
-.breadcrumb-item a:hover {
-    color: #f6d365;
-}
-
-.destination-card {
-    background: rgba(255, 255, 255, 0.9);
-    border: none;
-    border-radius: 20px;
-    overflow: hidden;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-    height: 100%;
-}
-
-.destination-card:hover {
-    transform: translateY(-10px);
-    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2) !important;
-}
-
-.destination-card img {
-    object-fit: cover;
-    height: 250px;
-    width: 100%;
-    transition: transform 0.5s ease;
-}
-
-.destination-card:hover img {
-    transform: scale(1.1);
-}
-
-.card-body {
-    font-family: 'Lora', serif;
-    padding: 20px;
+.card-content {
+    padding: 30px;
+    position: relative;
 }
 
 .card-title {
     font-family: 'Playfair Display', serif;
-    color: #333;
+    font-size: 1.6rem;
+    color: var(--safari-green);
+    margin-bottom: 15px;
+    font-weight: 700;
+    line-height: 1.3;
 }
 
-.text-muted {
-    color: #666 !important;
+.card-location {
+    color: var(--earth-brown);
+    font-size: 1rem;
+    margin-bottom: 15px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
 }
 
-.btn-safari-gold {
-    background: linear-gradient(135deg, #f6d365 0%, #fda085 100%);
-    color: #1a1a1f;
-    border: none;
-    border-radius: 50px;
-    padding: 10px 25px;
+.card-description {
+    color: #666;
+    line-height: 1.7;
+    margin-bottom: 20px;
+    font-size: 0.95rem;
+}
+
+.card-features {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    margin-bottom: 25px;
+}
+
+.feature-tag {
+    background: rgba(212, 175, 55, 0.1);
+    color: var(--safari-green);
+    padding: 6px 15px;
+    border-radius: 20px;
+    font-size: 0.85rem;
     font-weight: 500;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    border: 1px solid rgba(212, 175, 55, 0.2);
 }
 
-.btn-safari-gold:hover {
-    transform: scale(1.05);
-    box-shadow: 0 8px 20px rgba(253, 160, 133, 0.4);
+.card-action {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 20px;
+    padding-top: 20px;
+    border-top: 2px dashed #e5e7eb;
 }
 
-.pagination .page-link {
-    background: rgba(246, 211, 101, 0.2);
-    border: 1px solid #f6d365;
-    color: #fda085;
-    border-radius: 50px;
-    margin: 0 5px;
-    transition: all 0.3s ease;
-}
-
-.pagination .page-link:hover {
-    background: #f6d365;
-    color: #1a1a1f;
-}
-
-.pagination .active .page-link {
-    background: linear-gradient(135deg, #f6d365 0%, #fda085 100%);
-    color: #1a1a1f;
+.btn-premium-view {
+    background: linear-gradient(135deg, var(--safari-green), #2c5e41);
+    color: white;
+    font-weight: 700;
     border: none;
+    border-radius: 50px;
+    padding: 12px 30px;
+    font-size: 0.95rem;
+    letter-spacing: 0.5px;
+    transition: var(--transition);
+    display: flex;
+    align-items: center;
+    gap: 10px;
 }
 
-/* Responsive Adjustments */
+.btn-premium-view:hover {
+    background: linear-gradient(135deg, var(--safari-gold), #f4d03f);
+    color: var(--safari-green);
+    transform: translateY(-3px);
+    box-shadow: 0 10px 25px rgba(212, 175, 55, 0.3);
+}
+
+/* Experience Types */
+.experience-types {
+    padding: 80px 0;
+    background: linear-gradient(135deg, var(--safari-green), #1a3a29);
+    color: white;
+    border-radius: 40px;
+    margin: 80px 0;
+    position: relative;
+    overflow: hidden;
+}
+
+.experience-types:before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: url('https://images.unsplash.com/photo-1551632811-561732d1e306?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80') center/cover;
+    opacity: 0.1;
+}
+
+.experience-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 30px;
+    margin-top: 50px;
+    position: relative;
+    z-index: 1;
+}
+
+.experience-card {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    border-radius: 25px;
+    padding: 40px 30px;
+    text-align: center;
+    transition: var(--transition);
+    border: 1px solid rgba(212, 175, 55, 0.2);
+}
+
+.experience-card:hover {
+    transform: translateY(-15px);
+    background: rgba(255, 255, 255, 0.15);
+    border-color: var(--safari-gold);
+}
+
+.experience-icon {
+    width: 80px;
+    height: 80px;
+    background: var(--safari-gold);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 25px;
+    color: var(--safari-green);
+    font-size: 2rem;
+}
+
+.experience-title {
+    font-size: 1.4rem;
+    margin-bottom: 15px;
+    color: white;
+}
+
+/* Pagination Premium */
+.pagination-premium {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    margin-top: 60px;
+}
+
+.page-item-premium {
+    list-style: none;
+}
+
+.page-link-premium {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background: white;
+    color: var(--safari-green);
+    text-decoration: none;
+    font-weight: 700;
+    box-shadow: var(--shadow);
+    transition: var(--transition);
+    border: 2px solid transparent;
+}
+
+.page-link-premium:hover {
+    background: linear-gradient(135deg, var(--safari-gold), #f4d03f);
+    color: var(--safari-green);
+    transform: translateY(-3px);
+    border-color: var(--safari-gold);
+}
+
+.page-link-premium.active {
+    background: linear-gradient(135deg, var(--safari-green), #2c5e41);
+    color: white;
+    border-color: var(--safari-gold);
+}
+
+.page-link-premium.disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+/* No Results */
+.no-results {
+    text-align: center;
+    padding: 80px 20px;
+    background: linear-gradient(135deg, #ffffff, #f8f9fa);
+    border-radius: 30px;
+    box-shadow: var(--shadow);
+}
+
+.no-results-icon {
+    font-size: 4rem;
+    color: var(--safari-gold);
+    margin-bottom: 20px;
+    opacity: 0.7;
+}
+
+/* Responsive Design */
+@media (max-width: 1200px) {
+    .hero-title {
+        font-size: 4rem;
+    }
+}
+
+@media (max-width: 992px) {
+    .safari-hero {
+        height: 75vh;
+        min-height: 600px;
+    }
+    
+    .hero-title {
+        font-size: 3.5rem;
+    }
+    
+    .card-image-wrapper {
+        height: 250px;
+    }
+}
+
 @media (max-width: 768px) {
     .safari-hero {
-        padding: 100px 0;
+        height: 65vh;
+        min-height: 500px;
+        border-radius: 0 0 30px 30px;
     }
-    .display-3 {
-        font-size: 2.5rem;
+    
+    .hero-title {
+        font-size: 2.8rem;
     }
-    .destination-card img {
-        height: 200px;
+    
+    .hero-subtitle {
+        font-size: 1.5rem;
+    }
+    
+    .destination-filters {
+        margin: -30px 15px 30px;
+        padding: 40px 20px;
+    }
+    
+    .card-image-wrapper {
+        height: 220px;
+    }
+    
+    .card-content {
+        padding: 25px;
+    }
+    
+    .experience-grid {
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
     }
 }
 
 @media (max-width: 576px) {
-    .display-3 {
-        font-size: 2rem;
+    .hero-title {
+        font-size: 2.2rem;
     }
-    .btn-safari-gold {
-        padding: 8px 20px;
+    
+    .safari-hero {
+        height: 60vh;
+        min-height: 450px;
+    }
+    
+    .breadcrumb-premium {
+        padding: 12px 20px;
+        font-size: 0.9rem;
+    }
+    
+    .card-title {
+        font-size: 1.4rem;
+    }
+    
+    .page-link-premium {
+        width: 40px;
+        height: 40px;
         font-size: 0.9rem;
     }
 }
+
+/* Loading Animation */
+@keyframes shimmer {
+    0% { background-position: -200% center; }
+    100% { background-position: 200% center; }
+}
+
+.loading-shimmer {
+    background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+    background-size: 200% 100%;
+    animation: shimmer 1.5s infinite;
+}
 </style>
 
-<!-- Hero Section -->
-<section class="safari-hero mb-5">
-    <div class="container text-center">
-        <h1 class="display-3 text-white wow fadeInDown" data-wow-delay="0.2s">Destinations</h1>
-        <nav aria-label="breadcrumb" class="wow fadeInUp" data-wow-delay="0.4s">
-            <ol class="breadcrumb justify-content-center">
-                <li class="breadcrumb-item"><a href="#">Home</a></li>
-                <li class="breadcrumb-item text-white active" aria-current="page">Destinations</li>
+<!-- Premium Hero Section -->
+<section class="safari-hero">
+    <div class="hero-content">
+        <h1 class="hero-title">Discover Tanzania's Wonders</h1>
+        <p class="hero-subtitle">Where Nature Writes Its Greatest Stories</p>
+        
+        <nav aria-label="breadcrumb" class="breadcrumb-premium">
+            <ol class="breadcrumb mb-0">
+                <li class="breadcrumb-item"><a href="/">Home</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Destinations</li>
             </ol>
         </nav>
+    </div>
+</section>
+
+<!-- Destination Filters -->
+<section class="destination-filters">
+    <div class="container">
+        <div class="row g-4">
+            <div class="col-lg-4">
+                <div class="filter-card">
+                    <h3 class="filter-title">Filter by Region</h3>
+                    <select class="filter-select" id="regionFilter">
+                        <option value="">All Regions</option>
+                        <option value="northern">Northern Circuit</option>
+                        <option value="southern">Southern Circuit</option>
+                        <option value="western">Western Tanzania</option>
+                        <option value="coastal">Coastal & Islands</option>
+                    </select>
+                </div>
+            </div>
+            
+            <div class="col-lg-4">
+                <div class="filter-card">
+                    <h3 class="filter-title">Best Time to Visit</h3>
+                    <select class="filter-select" id="seasonFilter">
+                        <option value="">Any Season</option>
+                        <option value="dry">Dry Season (Jun-Oct)</option>
+                        <option value="green">Green Season (Nov-May)</option>
+                        <option value="migration">Great Migration (Jul-Oct)</option>
+                        <option value="calving">Calving Season (Jan-Mar)</option>
+                    </select>
+                </div>
+            </div>
+            
+            <div class="col-lg-4">
+                <div class="filter-card">
+                    <h3 class="filter-title">Experience Type</h3>
+                    <select class="filter-select" id="experienceFilter">
+                        <option value="">All Experiences</option>
+                        <option value="safari">Wildlife Safari</option>
+                        <option value="beach">Beach & Relaxation</option>
+                        <option value="cultural">Cultural Experience</option>
+                        <option value="adventure">Adventure & Trekking</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        
+        <div class="row mt-4">
+            <div class="col-12 text-center">
+                <button class="btn btn-safari-filter" id="applyFilters">
+                    <i class="fas fa-filter"></i> Apply Filters
+                </button>
+            </div>
+        </div>
     </div>
 </section>
 
 <!-- Destination Cards Section -->
 <section class="container-xxl py-5">
     <div class="container">
-        <div class="text-center mb-5 wow fadeIn" data-wow-delay="0.2s">
-            <h6 class="section-title bg-transparent text-center text-primary px-3">Explore</h6>
-            <h1 class="mb-4" style="font-family: 'Playfair Display', serif;">Travel Destinations</h1>
-            <p class="lead text-muted">Discover the wonders of Tanzania's iconic landmarks and hidden gems.</p>
+        <div class="text-center mb-5">
+            <h6 class="text-uppercase text-primary fw-bold letter-spacing-2">Explore</h6>
+            <h1 class="display-4 fw-bold mb-3" style="color: var(--safari-green);">Premium Destinations</h1>
+            <p class="lead text-muted w-75 mx-auto">
+                Journey through Tanzania's most spectacular landscapes, from world-famous national parks 
+                to hidden gems waiting to be discovered.
+            </p>
         </div>
-        <div class="row g-4 justify-content-center">
-            {% for dest in destinations %}
-            <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.{{ forloop.counter|add:1 }}s">
-                <div class="card destination-card shadow-sm h-100">
-                    <div class="overflow-hidden">
-                        <img src="{{ dest.image }}" alt="{{ dest.name }}" class="card-img-top">
-                    </div>
-                    <div class="card-body d-flex flex-column">
-                        <h5 class="card-title">{{ dest.name }}</h5>
-                        <p class="mb-2 small text-muted">{{ dest.location }}{% if dest.is_unesco_site %} · UNESCO Site{% endif %}</p>
-                        <p class="card-text flex-grow-1">
-                            {{ dest.description|truncatechars:120 }}
-                        </p>
-                        <div class="mb-2">
-                            <small class="d-block"><strong>Best time to visit:</strong> {{ dest.best_time_to_visit|default:"Anytime" }}</small>
-                            <small class="d-block"><strong>Nearest city:</strong> {{ dest.nearest_city|default:"N/A" }}</small>
-                        </div>
-                        <div class="mt-auto text-center">
-                            <a href="{% url 'destination_detail' dest.pk %}" class="btn btn-safari-gold rounded-pill px-4 py-2 shadow-lg" onclick="showLoading(event)">View Details</a>
+        
+        <!-- Loading State -->
+        <div id="destinationsLoading" class="d-none">
+            <div class="row g-4">
+                {% for i in "123456" %}
+                <div class="col-lg-4 col-md-6">
+                    <div class="premium-destination-card">
+                        <div class="card-image-wrapper loading-shimmer"></div>
+                        <div class="card-content">
+                            <div class="card-title loading-shimmer" style="height: 30px; margin-bottom: 15px;"></div>
+                            <div class="card-description loading-shimmer" style="height: 80px; margin-bottom: 20px;"></div>
                         </div>
                     </div>
                 </div>
+                {% endfor %}
             </div>
-            {% empty %}
-            <div class="col-12 text-center wow fadeIn" data-wow-delay="0.2s">
-                <p class="text-muted">Hakuna maeneo yaliyopangwa kuoneshwa kwa sasa.</p>
-            </div>
-            {% endfor %}
         </div>
-
+        
+        <!-- Destinations Grid -->
+        <div id="destinationsGrid">
+            {% if destinations %}
+            <div class="row g-4 justify-content-center">
+                {% for dest in destinations %}
+                <div class="col-lg-4 col-md-6">
+                    <div class="premium-destination-card">
+                        <div class="card-image-wrapper">
+                            <img src="{{ dest.image }}" alt="{{ dest.name }}" class="destination-image">
+                            {% if dest.is_unesco_site %}
+                            <span class="card-badge unesco-badge">
+                                <i class="fas fa-landmark me-1"></i> UNESCO
+                            </span>
+                            {% endif %}
+                            {% if dest.is_popular %}
+                            <span class="card-badge" style="top: 60px;">
+                                <i class="fas fa-fire me-1"></i> POPULAR
+                            </span>
+                            {% endif %}
+                        </div>
+                        
+                        <div class="card-content">
+                            <h3 class="card-title">{{ dest.name }}</h3>
+                            <div class="card-location">
+                                <i class="fas fa-map-marker-alt"></i>
+                                <span>{{ dest.location }}</span>
+                            </div>
+                            
+                            <p class="card-description">
+                                {{ dest.description|truncatechars:150 }}
+                            </p>
+                            
+                            <div class="card-features">
+                                <span class="feature-tag">
+                                    <i class="fas fa-calendar-alt"></i> {{ dest.best_time_to_visit|default:"Year-round" }}
+                                </span>
+                                <span class="feature-tag">
+                                    <i class="fas fa-city"></i> {{ dest.nearest_city|default:"Various" }}
+                                </span>
+                                {% if dest.wildlife_rating %}
+                                <span class="feature-tag">
+                                    <i class="fas fa-paw"></i> Wildlife: {{ dest.wildlife_rating }}/5
+                                </span>
+                                {% endif %}
+                            </div>
+                            
+                            <div class="card-action">
+                                <a href="{% url 'destination_detail' dest.pk %}" class="btn-premium-view">
+                                    <i class="fas fa-binoculars"></i> Explore Destination
+                                </a>
+                                <span class="text-muted small">
+                                    <i class="fas fa-clock"></i> {{ dest.recommended_days|default:"3-7" }} days
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+            {% else %}
+            <!-- No Results -->
+            <div class="no-results">
+                <div class="no-results-icon">
+                    <i class="fas fa-compass"></i>
+                </div>
+                <h3 class="mb-3" style="color: var(--safari-green);">No Destinations Found</h3>
+                <p class="text-muted mb-4">
+                    Adjust your filters or explore our featured destinations below.
+                </p>
+                <button class="btn-premium-view" onclick="resetFilters()">
+                    <i class="fas fa-redo"></i> Reset All Filters
+                </button>
+            </div>
+            {% endif %}
+        </div>
+        
         <!-- Pagination -->
-        <nav aria-label="Destination pagination" class="mt-5 wow fadeInUp" data-wow-delay="0.2s">
-          <ul class="pagination justify-content-center">
-            {% if page_obj.has_previous %}
-            <li class="page-item">
-              <a class="page-link" href="?page={{ page_obj.previous_page_number }}&location={{ filters.location }}&best_time={{ filters.best_time }}">Previous</a>
-            </li>
-            {% else %}
-            <li class="page-item disabled"><span class="page-link">Previous</span></li>
-            {% endif %}
+        {% if page_obj.paginator.num_pages > 1 %}
+        <nav class="mt-5">
+            <ul class="pagination-premium">
+                {% if page_obj.has_previous %}
+                <li class="page-item-premium">
+                    <a class="page-link-premium" href="?page={{ page_obj.previous_page_number }}" aria-label="Previous">
+                        <i class="fas fa-chevron-left"></i>
+                    </a>
+                </li>
+                {% else %}
+                <li class="page-item-premium">
+                    <span class="page-link-premium disabled">
+                        <i class="fas fa-chevron-left"></i>
+                    </span>
+                </li>
+                {% endif %}
 
-            {% for num in page_obj.paginator.page_range %}
-              {% if page_obj.number == num %}
-                <li class="page-item active"><span class="page-link">{{ num }}</span></li>
-              {% elif num >= page_obj.number|add:-2 and num <= page_obj.number|add:2 %}
-                <li class="page-item"><a class="page-link" href="?page={{ num }}&location={{ filters.location }}&best_time={{ filters.best_time }}">{{ num }}</a></li>
-              {% endif %}
-            {% endfor %}
+                {% for num in page_obj.paginator.page_range %}
+                    {% if page_obj.number == num %}
+                    <li class="page-item-premium">
+                        <span class="page-link-premium active">{{ num }}</span>
+                    </li>
+                    {% elif num >= page_obj.number|add:-2 and num <= page_obj.number|add:2 %}
+                    <li class="page-item-premium">
+                        <a class="page-link-premium" href="?page={{ num }}">{{ num }}</a>
+                    </li>
+                    {% endif %}
+                {% endfor %}
 
-            {% if page_obj.has_next %}
-            <li class="page-item">
-              <a class="page-link" href="?page={{ page_obj.next_page_number }}&location={{ filters.location }}&best_time={{ filters.best_time }}">Next</a>
-            </li>
-            {% else %}
-            <li class="page-item disabled"><span class="page-link">Next</span></li>
-            {% endif %}
-          </ul>
+                {% if page_obj.has_next %}
+                <li class="page-item-premium">
+                    <a class="page-link-premium" href="?page={{ page_obj.next_page_number }}" aria-label="Next">
+                        <i class="fas fa-chevron-right"></i>
+                    </a>
+                </li>
+                {% else %}
+                <li class="page-item-premium">
+                    <span class="page-link-premium disabled">
+                        <i class="fas fa-chevron-right"></i>
+                    </span>
+                </li>
+                {% endif %}
+            </ul>
         </nav>
+        {% endif %}
     </div>
 </section>
 
-<!-- Dependencies for Fonts and Animations (Add to base.html if not present) -->
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Lora:wght@400;600&display=swap" rel="stylesheet">
+<!-- Experience Types Section -->
+<section class="experience-types">
+    <div class="container">
+        <div class="text-center mb-5">
+            <h6 class="text-uppercase text-warning fw-bold letter-spacing-2">Experiences</h6>
+            <h2 class="display-5 fw-bold mb-3">Types of Safari Experiences</h2>
+            <p class="lead w-75 mx-auto opacity-90">
+                Tanzania offers diverse adventures for every type of traveler. Discover your perfect experience.
+            </p>
+        </div>
+        
+        <div class="experience-grid">
+            <div class="experience-card">
+                <div class="experience-icon">
+                    <i class="fas fa-binoculars"></i>
+                </div>
+                <h3 class="experience-title">Wildlife Safaris</h3>
+                <p class="opacity-90">Game drives, walking safaris, and night drives in world-famous parks.</p>
+            </div>
+            
+            <div class="experience-card">
+                <div class="experience-icon">
+                    <i class="fas fa-mountain"></i>
+                </div>
+                <h3 class="experience-title">Mountain Climbing</h3>
+                <p class="opacity-90">Summit Kilimanjaro, Mount Meru, and other volcanic peaks.</p>
+            </div>
+            
+            <div class="experience-card">
+                <div class="experience-icon">
+                    <i class="fas fa-umbrella-beach"></i>
+                </div>
+                <h3 class="experience-title">Beach Getaways</h3>
+                <p class="opacity-90">Pristine beaches of Zanzibar, Mafia, and Pemba islands.</p>
+            </div>
+            
+            <div class="experience-card">
+                <div class="experience-icon">
+                    <i class="fas fa-users"></i>
+                </div>
+                <h3 class="experience-title">Cultural Immersion</h3>
+                <p class="opacity-90">Visit Maasai villages and experience traditional Tanzanian culture.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- JavaScript -->
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Filter functionality
+    const applyFiltersBtn = document.getElementById('applyFilters');
+    const regionFilter = document.getElementById('regionFilter');
+    const seasonFilter = document.getElementById('seasonFilter');
+    const experienceFilter = document.getElementById('experienceFilter');
+    const destinationsGrid = document.getElementById('destinationsGrid');
+    const destinationsLoading = document.getElementById('destinationsLoading');
+    
+    // Store original content
+    const originalContent = destinationsGrid.innerHTML;
+    
+    applyFiltersBtn.addEventListener('click', function() {
+        // Show loading state
+        destinationsGrid.classList.add('d-none');
+        destinationsLoading.classList.remove('d-none');
+        
+        // Simulate API call or filtering
+        setTimeout(() => {
+            // In a real implementation, this would make an AJAX request
+            // or redirect with filter parameters
+            const params = new URLSearchParams();
+            
+            if (regionFilter.value) params.append('region', regionFilter.value);
+            if (seasonFilter.value) params.append('season', seasonFilter.value);
+            if (experienceFilter.value) params.append('experience', experienceFilter.value);
+            
+            // For demo purposes, we'll just simulate filtering
+            destinationsLoading.classList.add('d-none');
+            destinationsGrid.classList.remove('d-none');
+            
+            // Show filtered results (in real app, this would be server-side)
+            console.log('Applied filters:', params.toString());
+            
+            // For now, just show original content with a note
+            destinationsGrid.innerHTML = originalContent + `
+                <div class="alert alert-info mt-4">
+                    <i class="fas fa-info-circle me-2"></i>
+                    Filters applied: ${regionFilter.value || 'All regions'} | 
+                    ${seasonFilter.value || 'Any season'} | 
+                    ${experienceFilter.value || 'All experiences'}
+                </div>
+            `;
+            
+            // Add smooth scroll to results
+            destinationsGrid.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }, 800);
+    });
+    
+    // Reset filters
+    window.resetFilters = function() {
+        regionFilter.value = '';
+        seasonFilter.value = '';
+        experienceFilter.value = '';
+        destinationsGrid.innerHTML = originalContent;
+        
+        // Scroll to top
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    };
+    
+    // Parallax effect on hero
+    window.addEventListener('scroll', function() {
+        const hero = document.querySelector('.safari-hero');
+        const scrolled = window.pageYOffset;
+        if (hero) {
+            hero.style.transform = `translateY(${scrolled * 0.03}px)`;
+        }
+    });
+    
+    // Add animation to destination cards on scroll
+    const destinationCards = document.querySelectorAll('.premium-destination-card');
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry, index) => {
+            if (entry.isIntersecting) {
+                setTimeout(() => {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }, index * 150);
+            }
+        });
+    }, { threshold: 0.1 });
+    
+    destinationCards.forEach(card => {
+        card.style.opacity = '0';
+        card.style.transform = 'translateY(30px)';
+        card.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+        observer.observe(card);
+    });
+    
+    // Animate experience cards
+    const experienceCards = document.querySelectorAll('.experience-card');
+    experienceCards.forEach((card, index) => {
+        card.style.opacity = '0';
+        card.style.transform = 'translateY(30px)';
+        card.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+        
+        setTimeout(() => {
+            card.style.opacity = '1';
+            card.style.transform = 'translateY(0)';
+        }, index * 200 + 500);
+    });
+});
+</script>
+
+<!-- Font Awesome for Icons -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700;800;900&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
 {% endblock %}

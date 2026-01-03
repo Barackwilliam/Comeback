@@ -1199,12 +1199,12 @@
           <img src="{{ i.image|default:'{% static "images/logo.jpg" %}' }}" 
                alt="Comeback African Safaris Logo" 
                style="width: 70px !important; height: 70px !important; object-fit: cover;">
-          <span>{{ i.company_name|default:'Comeback African Safaris' }}</span>
+          <span>{{ i.company_name }}</span>
           {% empty %}
-          <img src="{% static 'images/logo.jpg' %}" 
+          <img src="{% static 'img/4.jpg' %}" 
                alt="Comeback African Safaris Logo" 
                style="width: 70px !important; height: 70px !important; object-fit: cover;">
-          <span>Comeback African Safaris</span>
+          <span></span>
           {% endfor %}
         </a>
 
@@ -1440,6 +1440,7 @@
     </div>
   </div>
   <!-- JavaScript -->
+
   <script>
     document.addEventListener('DOMContentLoaded', function() {
       trackVisit();
@@ -1519,6 +1520,10 @@
       })
       .catch(error => console.error('Activity tracking error:', error));
     }
+
+
+
+    
     function getCookie(name) {
       let cookieValue = null;
       if (document.cookie && document.cookie !== '') {

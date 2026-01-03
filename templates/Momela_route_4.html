@@ -1,287 +1,1308 @@
 {% extends 'base.html' %}
 {% load static %}
 
-{% block title %}{{ tour.title }}{% endblock %}
+{% block title %}Mt. Meru Climbing - Momela Route 4 Days | Premium Trekking Experience{% endblock %}
 
 {% block content %}
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700;800&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
 <style>
-  body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background: #f0f4f8;
-    color: #333;
+  :root {
+    --mountain-blue: #1e3a8a;
+    --summit-gold: #fbbf24;
+    --forest-green: #065f46;
+    --glacier-white: #e0f2fe;
+    --volcanic-orange: #ea580c;
+    --accent-purple: #7c3aed;
+    --shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+    --transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
   }
 
-  /* Hero */
-  .hero {
-    background: url("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRDZh4pjokuZmCl_ojQ1BxpqFwE99RGtuiEVA&s") center/cover no-repeat;
-    height: 60vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: #fff;
-    text-align: center;
-    padding: 0 20px;
+  body {
+    font-family: 'Montserrat', sans-serif;
+    background: linear-gradient(180deg, #f0f9ff 0%, #e0f2fe 100%);
+    color: #1f2937;
+    line-height: 1.8;
+    overflow-x: hidden;
+  }
+
+  h1, h2, h3, h4, h5 {
+    font-family: 'Playfair Display', serif;
+    font-weight: 700;
+    color: var(--mountain-blue);
+  }
+
+  /* Premium Hero Section */
+  .mountain-hero {
     position: relative;
+    height: 90vh;
+    min-height: 800px;
+    display: flex;
+    align-items: flex-end;
+    background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.7)), 
+                url("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRDZh4pjokuZmCl_ojQ1BxpqFwE99RGtuiEVA&s") center/cover no-repeat fixed;
+    overflow: hidden;
+    border-radius: 0 0 50px 50px;
+    margin-bottom: 60px;
+    box-shadow: 0 40px 80px rgba(0,0,0,0.3);
   }
-  .hero h1 {
-    font-size: clamp(2rem, 5vw, 3.5rem);
-    font-weight: 800;
-    animation: fadeDown 1s ease-in-out;
-    text-shadow: 0 4px 12px rgba(0,0,0,0.5);
+
+  .mountain-hero:before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(45deg, rgba(30, 58, 138, 0.3), rgba(251, 191, 36, 0.2), rgba(124, 58, 237, 0.2));
+    z-index: 1;
+    animation: gradientShift 10s infinite alternate;
   }
-  @keyframes fadeDown {
-    from { opacity: 0; transform: translateY(-30px);}
+
+  @keyframes gradientShift {
+    0% { background: linear-gradient(45deg, rgba(30, 58, 138, 0.3), rgba(251, 191, 36, 0.2), rgba(124, 58, 237, 0.2)); }
+    100% { background: linear-gradient(45deg, rgba(6, 95, 70, 0.3), rgba(251, 191, 36, 0.3), rgba(30, 58, 138, 0.2)); }
+  }
+
+  .hero-overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    padding: 100px 0 60px;
+    background: linear-gradient(to top, rgba(6, 95, 70, 0.95), transparent);
+    color: white;
+    z-index: 2;
+  }
+
+  .hero-content {
+    position: relative;
+    z-index: 3;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+  }
+
+  .hero-title {
+    font-size: 4.5rem;
+    font-weight: 900;
+    color: white;
+    text-shadow: 3px 3px 20px rgba(0,0,0,0.6);
+    line-height: 1.1;
+    margin-bottom: 1rem;
+    letter-spacing: 1.5px;
+    animation: summitRise 1.5s ease-out;
+  }
+
+  @keyframes summitRise {
+    from { opacity: 0; transform: translateY(50px);}
     to { opacity: 1; transform: translateY(0);}
   }
 
-  /* Breadcrumb */
-  .breadcrumb {
-    background: transparent;
-    padding: 0.75rem 0;
-    margin: 20px 0;
-  }
-  .breadcrumb a {
-    text-decoration: none;
-    color: #0d6efd;
-    font-weight: 500;
-    transition: color 0.3s;
-  }
-  .breadcrumb a:hover {
-    color: #6f42c1;
-  }
-
-  /* Tour Content */
-  .tour-content {
-    background: #fff;
-    border-radius: 1rem;
-    padding: 2.2rem;
-    box-shadow: 0 6px 20px rgba(0,0,0,0.08);
-    margin-bottom: 2rem;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-  }
-  .tour-content:hover {
-    transform: translateY(-6px);
-    box-shadow: 0 10px 30px rgba(0,0,0,0.12);
-  }
-  .tour-content h2 {
-    color: #0d6efd;
-    font-weight: 700;
-    margin-bottom: 1.2rem;
-    border-left: 5px solid #6f42c1;
-    padding-left: 10px;
-  }
-
-  /* Accordion */
-  .accordion-item {
-    border-radius: 14px !important;
-    overflow: hidden;
-    margin-bottom: 18px;
-    border: none;
-    box-shadow: 0 4px 16px rgba(0,0,0,0.08);
-  }
-  .accordion-button {
-    transition: all 0.3s ease;
-    font-size: 1rem;
-    font-weight: 600;
-    background: #f8f9fa;
-  }
-  .accordion-button:not(.collapsed) {
-    background: linear-gradient(135deg, #0d6efd, #6f42c1) !important;
-    color: #fff !important;
-  }
-  .accordion-body {
-    background: #fff;
-    animation: fadeIn 0.5s ease-in-out;
-    font-size: 0.95rem;
-    line-height: 1.6;
-  }
-  @keyframes fadeIn {
-    from {opacity: 0; transform: translateY(12px);}
-    to {opacity: 1; transform: translateY(0);}
-  }
-  .badge-day {
-    font-size: 0.85rem;
-    margin-right: 12px;
-    background: linear-gradient(135deg, #0d6efd, #6f42c1);
-  }
-
-  /* Section Heading */
-  h3.section-title {
-    margin: 3rem 0 1.5rem;
+  .hero-subtitle {
     font-size: 1.8rem;
-    font-weight: 700;
-    text-align: center;
-    background: linear-gradient(135deg, #0d6efd, #6f42c1);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
+    color: var(--summit-gold);
+    margin-bottom: 2rem;
+    font-weight: 500;
+    letter-spacing: 2px;
+    text-shadow: 1px 1px 5px rgba(0,0,0,0.3);
   }
 
-  /* Responsive */
+  .hero-badges {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    margin-bottom: 30px;
+  }
+
+  .hero-badge {
+    background: linear-gradient(135deg, var(--summit-gold), #f59e0b);
+    color: var(--mountain-blue);
+    font-weight: 700;
+    padding: 12px 30px;
+    border-radius: 50px;
+    font-size: 0.9rem;
+    letter-spacing: 1.2px;
+    box-shadow: 0 10px 25px rgba(251, 191, 36, 0.4);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    backdrop-filter: blur(5px);
+    transition: var(--transition);
+  }
+
+  .hero-badge:nth-child(2) {
+    background: linear-gradient(135deg, var(--accent-purple), #8b5cf6);
+  }
+
+  .hero-badge:nth-child(3) {
+    background: linear-gradient(135deg, var(--forest-green), #10b981);
+  }
+
+  .hero-badge:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 35px rgba(251, 191, 36, 0.6);
+  }
+
+  .breadcrumb-premium {
+    background: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(10px);
+    border-radius: 50px;
+    padding: 15px 30px;
+    display: inline-flex;
+    margin-top: 20px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+  }
+
+  .breadcrumb-premium a {
+    color: var(--summit-gold);
+    text-decoration: none;
+    font-weight: 600;
+    transition: var(--transition);
+  }
+
+  .breadcrumb-premium a:hover {
+    color: white;
+    transform: translateX(5px);
+  }
+
+  .breadcrumb-premium .active {
+    color: rgba(255, 255, 255, 0.8);
+  }
+
+  /* Why 4 Days Section */
+  .why-four-days {
+    padding: 80px 0;
+    background: linear-gradient(135deg, #ffffff, #f8fafc);
+    border-radius: 40px;
+    margin: 60px 0;
+    box-shadow: var(--shadow);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .why-four-days:before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle, rgba(251, 191, 36, 0.05) 0%, transparent 70%);
+    animation: rotate 20s linear infinite;
+  }
+
+  @keyframes rotate {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
+
+  .section-title-premium {
+    margin-bottom: 50px;
+    position: relative;
+    text-align: center;
+  }
+
+  .section-title-premium h2 {
+    font-size: 3rem;
+    margin-bottom: 15px;
+    position: relative;
+    display: inline-block;
+  }
+
+  .section-title-premium h2:after {
+    content: '';
+    position: absolute;
+    width: 150px;
+    height: 4px;
+    background: linear-gradient(to right, var(--summit-gold), var(--accent-purple));
+    bottom: -15px;
+    left: 50%;
+    transform: translateX(-50%);
+    border-radius: 2px;
+  }
+
+  .benefits-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+    margin-top: 50px;
+    position: relative;
+    z-index: 1;
+  }
+
+  .benefit-card {
+    background: white;
+    border-radius: 25px;
+    padding: 40px 30px;
+    box-shadow: var(--shadow);
+    transition: var(--transition);
+    border: 2px solid transparent;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .benefit-card:hover {
+    transform: translateY(-20px);
+    box-shadow: 0 30px 60px rgba(0,0,0,0.15);
+    border-color: var(--summit-gold);
+  }
+
+  .benefit-card:before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 5px;
+    background: linear-gradient(to right, var(--summit-gold), var(--accent-purple));
+  }
+
+  .benefit-icon {
+    width: 80px;
+    height: 80px;
+    background: linear-gradient(135deg, var(--mountain-blue), var(--accent-purple));
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 2rem;
+    margin: 0 auto 25px;
+  }
+
+  .benefit-title {
+    font-size: 1.5rem;
+    color: var(--mountain-blue);
+    margin-bottom: 15px;
+    font-weight: 700;
+  }
+
+  /* Tour Description */
+  .tour-description-section {
+    padding: 80px 0;
+  }
+
+  .tour-description {
+    font-size: 1.25rem;
+    color: #374151;
+    line-height: 1.9;
+    margin-bottom: 40px;
+    text-align: justify;
+    background: white;
+    padding: 40px;
+    border-radius: 30px;
+    box-shadow: var(--shadow);
+    border-left: 5px solid var(--forest-green);
+  }
+
+  /* Ascent Timeline */
+  .ascent-timeline {
+    padding: 80px 0;
+    background: linear-gradient(135deg, #f0f9ff, #e0f2fe);
+    border-radius: 40px;
+    margin: 80px 0;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .timeline-header {
+    text-align: center;
+    margin-bottom: 60px;
+  }
+
+  .timeline-header h2 {
+    font-size: 3.5rem;
+    margin-bottom: 15px;
+    color: var(--mountain-blue);
+    position: relative;
+    display: inline-block;
+  }
+
+  .timeline-header h2:after {
+    content: '';
+    position: absolute;
+    width: 200px;
+    height: 4px;
+    background: linear-gradient(to right, var(--summit-gold), var(--accent-purple));
+    bottom: -15px;
+    left: 50%;
+    transform: translateX(-50%);
+    border-radius: 2px;
+  }
+
+  /* Enhanced Timeline */
+  .enhanced-timeline {
+    position: relative;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 60px 0;
+  }
+
+  .timeline-path {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 4px;
+    height: 100%;
+    background: linear-gradient(to bottom, var(--forest-green), var(--summit-gold), var(--accent-purple));
+    border-radius: 2px;
+    z-index: 1;
+  }
+
+  .timeline-marker {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 20px;
+    height: 20px;
+    background: white;
+    border: 4px solid var(--summit-gold);
+    border-radius: 50%;
+    z-index: 2;
+    box-shadow: 0 0 0 4px white;
+  }
+
+  .timeline-items {
+    position: relative;
+    z-index: 3;
+  }
+
+  .timeline-day {
+    background: white;
+    border-radius: 25px;
+    padding: 35px;
+    margin-bottom: 60px;
+    box-shadow: var(--shadow);
+    border: 2px solid var(--glacier-white);
+    transition: var(--transition);
+    position: relative;
+    overflow: hidden;
+    width: calc(50% - 60px);
+  }
+
+  .timeline-day:hover {
+    transform: translateX(10px);
+    box-shadow: 0 25px 50px rgba(0,0,0,0.15);
+    border-color: var(--summit-gold);
+  }
+
+  .timeline-day:nth-child(odd) {
+    margin-left: auto;
+  }
+
+  .timeline-day:nth-child(even) {
+    margin-right: auto;
+  }
+
+  .timeline-day:before {
+    content: '';
+    position: absolute;
+    top: 30px;
+    width: 40px;
+    height: 4px;
+    background: linear-gradient(to right, var(--summit-gold), var(--accent-purple));
+  }
+
+  .timeline-day:nth-child(odd):before {
+    right: -40px;
+  }
+
+  .timeline-day:nth-child(even):before {
+    left: -40px;
+  }
+
+  .day-header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+  }
+
+  .day-badge {
+    background: linear-gradient(135deg, var(--mountain-blue), var(--accent-purple));
+    color: white;
+    font-weight: 800;
+    padding: 12px 25px;
+    border-radius: 50px;
+    font-size: 1.2rem;
+    letter-spacing: 1px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+    margin-right: 20px;
+    min-width: 120px;
+    text-align: center;
+  }
+
+  .day-title {
+    font-size: 1.5rem;
+    color: var(--mountain-blue);
+    font-weight: 700;
+    flex: 1;
+  }
+
+  .day-content {
+    color: #4b5563;
+    line-height: 1.8;
+    font-size: 1.1rem;
+  }
+
+  .day-stats {
+    display: flex;
+    gap: 30px;
+    margin-top: 20px;
+    padding-top: 20px;
+    border-top: 2px dashed #e5e7eb;
+  }
+
+  .stat {
+    text-align: center;
+  }
+
+  .stat-value {
+    font-size: 1.5rem;
+    font-weight: 800;
+    color: var(--mountain-blue);
+  }
+
+  .stat-label {
+    font-size: 0.85rem;
+    color: #6b7280;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+
+  /* Comparison Section */
+  .comparison-section {
+    padding: 80px 0;
+    background: linear-gradient(135deg, var(--mountain-blue), #1e40af);
+    color: white;
+    border-radius: 40px;
+    margin: 80px 0;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .comparison-section:before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: url('https://images.unsplash.com/photo-1551632811-561732d1e306?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80') center/cover;
+    opacity: 0.1;
+  }
+
+  .comparison-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 40px;
+    margin-top: 50px;
+    position: relative;
+    z-index: 1;
+  }
+
+  .comparison-card {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    border-radius: 20px;
+    padding: 40px 30px;
+    text-align: center;
+    transition: var(--transition);
+    border: 1px solid rgba(251, 191, 36, 0.2);
+  }
+
+  .comparison-card.featured {
+    background: rgba(251, 191, 36, 0.15);
+    border-color: var(--summit-gold);
+    transform: scale(1.05);
+    position: relative;
+  }
+
+  .comparison-card.featured:before {
+    content: 'RECOMMENDED';
+    position: absolute;
+    top: -15px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--summit-gold);
+    color: var(--mountain-blue);
+    font-weight: 800;
+    padding: 8px 25px;
+    border-radius: 50px;
+    font-size: 0.9rem;
+    letter-spacing: 1px;
+  }
+
+  .comparison-card:hover {
+    transform: translateY(-10px);
+    background: rgba(255, 255, 255, 0.15);
+    border-color: var(--summit-gold);
+  }
+
+  .comparison-card.featured:hover {
+    transform: translateY(-10px) scale(1.05);
+  }
+
+  .comparison-title {
+    font-size: 1.8rem;
+    margin-bottom: 20px;
+    color: var(--summit-gold);
+  }
+
+  .comparison-list {
+    text-align: left;
+    margin-bottom: 25px;
+  }
+
+  .comparison-list li {
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .comparison-list i.fa-check {
+    color: #10b981;
+  }
+
+  .comparison-list i.fa-times {
+    color: #ef4444;
+  }
+
+  /* Booking CTA */
+  .summit-cta {
+    padding: 100px 0;
+    background: linear-gradient(135deg, var(--forest-green), #047857);
+    color: white;
+    text-align: center;
+    border-radius: 40px;
+    margin: 80px 0;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .summit-cta:before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: url('https://images.unsplash.com/photo-1551632811-561732d1e306?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80') center/cover;
+    opacity: 0.1;
+  }
+
+  .cta-content {
+    position: relative;
+    z-index: 1;
+    max-width: 800px;
+    margin: 0 auto;
+  }
+
+  .cta-title {
+    font-size: 3.5rem;
+    margin-bottom: 20px;
+    color: white;
+    text-shadow: 2px 2px 10px rgba(0,0,0,0.3);
+  }
+
+  .cta-subtitle {
+    font-size: 1.4rem;
+    margin-bottom: 40px;
+    opacity: 0.9;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .btn-summit {
+    background: linear-gradient(135deg, var(--summit-gold), var(--accent-purple));
+    color: white;
+    font-weight: 800;
+    border: none;
+    border-radius: 50px;
+    padding: 20px 60px;
+    font-size: 1.3rem;
+    letter-spacing: 1.5px;
+    transition: var(--transition);
+    display: inline-flex;
+    align-items: center;
+    gap: 15px;
+    box-shadow: 0 20px 40px rgba(251, 191, 36, 0.4);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .btn-summit:hover {
+    transform: translateY(-5px) scale(1.05);
+    box-shadow: 0 30px 60px rgba(251, 191, 36, 0.6);
+    color: white;
+  }
+
+  .btn-summit:before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+    transition: 0.6s;
+  }
+
+  .btn-summit:hover:before {
+    left: 100%;
+  }
+
+  /* Responsive Design */
+  @media (max-width: 1200px) {
+    .hero-title {
+      font-size: 4rem;
+    }
+    
+    .section-title-premium h2 {
+      font-size: 2.8rem;
+    }
+    
+    .timeline-day {
+      width: calc(60% - 60px);
+    }
+  }
+
+  @media (max-width: 992px) {
+    .mountain-hero {
+      height: 80vh;
+      min-height: 700px;
+    }
+    
+    .hero-title {
+      font-size: 3.5rem;
+    }
+    
+    .timeline-path {
+      left: 30px;
+    }
+    
+    .timeline-day {
+      width: calc(100% - 80px);
+      margin-left: 80px !important;
+      margin-right: 0 !important;
+    }
+    
+    .timeline-day:nth-child(odd):before,
+    .timeline-day:nth-child(even):before {
+      left: -60px;
+      right: auto;
+    }
+    
+    .comparison-card.featured {
+      transform: scale(1);
+    }
+    
+    .comparison-card.featured:hover {
+      transform: translateY(-10px);
+    }
+    
+    .cta-title {
+      font-size: 3rem;
+    }
+  }
+
   @media (max-width: 768px) {
-    .hero {
-      height: 45vh;
+    .mountain-hero {
+      height: 70vh;
+      min-height: 600px;
+      border-radius: 0 0 30px 30px;
     }
-    .tour-content {
-      padding: 1.4rem;
+    
+    .hero-title {
+      font-size: 2.8rem;
     }
-    .hero h1 {
+    
+    .hero-subtitle {
+      font-size: 1.5rem;
+    }
+    
+    .hero-badges {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+    
+    .section-title-premium h2 {
+      font-size: 2.4rem;
+    }
+    
+    .tour-description {
+      font-size: 1.1rem;
+      padding: 30px 20px;
+    }
+    
+    .day-header {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+    
+    .day-badge {
+      margin-bottom: 15px;
+      margin-right: 0;
+    }
+    
+    .timeline-day {
+      padding: 25px;
+    }
+    
+    .cta-title {
+      font-size: 2.5rem;
+    }
+    
+    .cta-subtitle {
+      font-size: 1.2rem;
+    }
+  }
+
+  @media (max-width: 576px) {
+    .hero-title {
+      font-size: 2.2rem;
+    }
+    
+    .mountain-hero {
+      height: 60vh;
+      min-height: 500px;
+    }
+    
+    .hero-badge {
+      padding: 10px 20px;
+      font-size: 0.85rem;
+    }
+    
+    .section-title-premium h2 {
       font-size: 2rem;
+    }
+    
+    .benefit-card {
+      padding: 30px 20px;
+    }
+    
+    .timeline-day {
+      width: calc(100% - 60px);
+      margin-left: 60px !important;
+    }
+    
+    .timeline-day:before {
+      left: -50px !important;
+      width: 30px;
+    }
+    
+    .cta-title {
+      font-size: 2rem;
+    }
+    
+    .btn-summit {
+      padding: 18px 40px;
+      font-size: 1.1rem;
     }
   }
 </style>
 
-<!-- Hero Section -->
-<section class="hero">
-  <h1>Momela Route 4 Days</h1>
+<!-- Premium Hero Section -->
+<section class="mountain-hero">
+  <div class="hero-overlay">
+    <div class="hero-content">
+      <div class="hero-badges">
+        <span class="hero-badge">
+          <i class="fas fa-mountain"></i> 4,566M SUMMIT
+        </span>
+        <span class="hero-badge">
+          <i class="fas fa-calendar-alt"></i> 4 DAYS
+        </span>
+        <span class="hero-badge">
+          <i class="fas fa-chart-line"></i> 98% SUCCESS RATE
+        </span>
+        <span class="hero-badge">
+          <i class="fas fa-user-friends"></i> SMALL GROUPS
+        </span>
+      </div>
+      
+      <h1 class="hero-title">Momela Route - 4 Days</h1>
+      <p class="hero-subtitle">The Optimal Mount Meru Climbing Experience</p>
+      
+      <nav aria-label="breadcrumb" class="breadcrumb-premium">
+        <ol class="breadcrumb mb-0">
+          <li class="breadcrumb-item"><a href="/">Home</a></li>
+          <li class="breadcrumb-item"><a href="#">Mountain Climbing</a></li>
+          <li class="breadcrumb-item"><a href="#">Mount Meru</a></li>
+          <li class="breadcrumb-item active" aria-current="page">Momela Route 4 Days</li>
+        </ol>
+      </nav>
+    </div>
+  </div>
 </section>
 
-<!-- Breadcrumb -->
-<div class="container">
-  <nav aria-label="breadcrumb">
-    <ol class="breadcrumb">
-      <li class="breadcrumb-item"><a href="/">🏠 Home</a></li>
-      <li class="breadcrumb-item active" aria-current="page">Momela route 4 days</li>
-    </ol>
-  </nav>
-</div>
-
-<!-- Tour Details -->
-<div class="container">
-  <div class="tour-content">
-    <h2>Momela Route 4 Days</h2>
-    <p>The peak can be ascended in 3 or 4 days on the Momela Route, which is the only way up to the summit. You don’t need any technical equipment for the climb but you will need to be prepared for the altitude gain. You will hike past wildlife, the landscape is spectacular, and sunrise on the summit has Kilimanjaro as the backdrop. Meru is a great preparation hike for climbing Kilimanjaro, or a spectacular trek for those not compelled to do Kilimanjaro. The climb not only offers spectacular views of Mount Kilimanjaro, but also wildlife on the forested slopes and the summit itself offers an amazing view of small cones and craters, which are probably the results of numerous volcanic activities in the past.</p>
-    <p>Kilimanjaro may be the main attraction in Tanzania, but Mt. Meru is worth your attention as well.</p>
-     </div>
-</div>
-
-<!-- Itinerary Accordion -->
-<h3 style="text-align: center;" class="section display-5">Momela Route 4 Days Itinerary</h3>
-
-<div class="container mb-5">
-  <div class="accordion" id="itineraryAccordion">
-
-    <!-- Day 1 -->
-    <div class="accordion-item">
-      <h2 class="accordion-header" id="heading1">
-        <button 
-          class="accordion-button collapsed" 
-          type="button" 
-          data-bs-toggle="collapse" 
-          data-bs-target="#collapse1" 
-          aria-expanded="false" 
-          aria-controls="collapse1">
-          <span class="badge rounded-pill px-3 py-2 badge-day">Day 1</span>
-           ARUSHA - MOMELLA GATE - MIRIAKAMBA HUTS        </button>
-      </h2>
-      <div 
-        id="collapse1" 
-        class="accordion-collapse collapse" 
-        aria-labelledby="heading1" 
-        data-bs-parent="#itineraryAccordion">
-        <div class="accordion-body">
-          <p>You’ll be picked up from your Moshi accommodations and make the drive to Kilimanjaro National Park.
-Here, you’ll liaise with your guides and begin your ascent through the verdant rainforest that clothes the lower reaches of Kilimanjaro.
-
-Hiking for 5-6 hours through this ancient jungle, you’ll get to go on a miniature safari as you spot wildlife such as black and white colobus monkeys along the way.
-
-You’ll spend your night at the modern Mandara Huts, which boast luxuries such as solar lighting and flush toilets. You won’t be seeing those again anytime soon!</p>
+<!-- Why Choose 4 Days Section -->
+<section class="why-four-days">
+  <div class="container">
+    <div class="section-title-premium">
+      <h2>Why Choose the 4-Day Ascent?</h2>
+      <p class="text-muted mt-3">Maximize success, safety, and enjoyment with our optimal itinerary</p>
+    </div>
+    
+    <div class="benefits-grid">
+      <div class="benefit-card">
+        <div class="benefit-icon">
+          <i class="fas fa-lungs"></i>
         </div>
+        <h3 class="benefit-title">Better Acclimatization</h3>
+        <p>Extra day allows proper altitude adjustment, reducing altitude sickness risk and increasing summit success rate to 98%.</p>
+      </div>
+      
+      <div class="benefit-card">
+        <div class="benefit-icon">
+          <i class="fas fa-heart"></i>
+        </div>
+        <h3 class="benefit-title">More Enjoyable Pace</h3>
+        <p>Shorter daily hikes with extra recovery time makes the climb more enjoyable and less strenuous.</p>
+      </div>
+      
+      <div class="benefit-card">
+        <div class="benefit-icon">
+          <i class="fas fa-camera"></i>
+        </div>
+        <h3 class="benefit-title">Enhanced Experience</h3>
+        <p>More time to appreciate wildlife, photography opportunities, and spectacular scenery along the route.</p>
       </div>
     </div>
+  </div>
+</section>
 
-    <!-- Day 2 -->
-    <div class="accordion-item">
-      <h2 class="accordion-header" id="heading2">
-        <button 
-          class="accordion-button collapsed" 
-          type="button" 
-          data-bs-toggle="collapse" 
-          data-bs-target="#collapse2" 
-          aria-expanded="false" 
-          aria-controls="collapse2">
-          <span class="badge rounded-pill px-3 py-2 badge-day">Day 2</span>
-           MIRIAKAMBA HUTS - SADDLE HUTS
-        </button>
-      </h2>
-      <div 
-        id="collapse2" 
-        class="accordion-collapse collapse" 
-        aria-labelledby="heading2" 
-        data-bs-parent="#itineraryAccordion">
-        <div class="accordion-body">
-          <p>You’ll pass from the lush rainforest and into the more spartan heath zone today, with giant clumps of heather and other moorland scrub dotting the terrain.
+<!-- Tour Description -->
+<section class="tour-description-section">
+  <div class="container">
+    <div class="tour-description">
+      <p>
+        Mount Meru stands as Tanzania's magnificent second-highest peak and Africa's fifth highest mountain. 
+        Often overshadowed by its famous neighbor Kilimanjaro, Mount Meru offers a more intimate and equally 
+        spectacular climbing experience with breathtaking views of Kilimanjaro from its summit.
+      </p>
+      <p>
+        The <strong>4-day Momela Route</strong> represents the optimal balance between challenge and enjoyment. 
+        This extended itinerary provides better acclimatization, increased summit success rates (98%), and 
+        more time to appreciate the diverse ecosystems you'll traverse—from lush montane rainforest teeming 
+        with wildlife to alpine deserts and the dramatic volcanic summit crater.
+      </p>
+      <p>
+        This expedition serves as excellent preparation for Kilimanjaro or as a spectacular standalone 
+        achievement. With expert guides, comfortable mountain huts, and carefully planned acclimatization, 
+        we ensure your safety and success on this unforgettable journey to Socialist Peak (4,566m).
+      </p>
+    </div>
+  </div>
+</section>
 
-Hiking along the ridge of the Mount Meru Crater, you’ll have breathtaking views of both the crater and the Ash Tray.
-
-For those with a little extra energy, there’s the option to ascend to the peak of Little Mount Meru for a panoramic view of Arusha and its surrounds.</p>
+<!-- Enhanced Ascent Timeline -->
+<section class="ascent-timeline">
+  <div class="container">
+    <div class="timeline-header">
+      <h2>4-Day Climbing Itinerary</h2>
+      <p class="text-muted mt-3">Your optimal journey to the summit with proper acclimatization</p>
+    </div>
+    
+    <div class="enhanced-timeline">
+      <div class="timeline-path"></div>
+      
+      <div class="timeline-items">
+        
+        <!-- Day 1 -->
+        <div class="timeline-day">
+          <div class="day-header">
+            <div class="day-badge">DAY 1</div>
+            <h3 class="day-title">ARUSHA → MOMELLA GATE → MIRIAKAMBA HUTS</h3>
+          </div>
+          <div class="day-content">
+            <p>
+              Your adventure begins with pickup from Arusha and a scenic drive to Arusha National Park's 
+              Momella Gate. After park formalities and meeting your expert mountain crew, you'll start 
+              ascending through lush montane rainforest.
+            </p>
+            <p>
+              This 5-6 hour hike serves as a gentle introduction, offering opportunities to spot black 
+              and white colobus monkeys, giraffes, and buffalo. You'll spend your first night at Miriakamba 
+              Huts (2,514m), featuring solar lighting and comfortable bedding.
+            </p>
+            <div class="day-stats">
+              <div class="stat">
+                <div class="stat-value">5-6 hrs</div>
+                <div class="stat-label">Hiking Time</div>
+              </div>
+              <div class="stat">
+                <div class="stat-value">1,000m</div>
+                <div class="stat-label">Altitude Gain</div>
+              </div>
+              <div class="stat">
+                <div class="stat-value">2,514m</div>
+                <div class="stat-label">Sleeping Altitude</div>
+              </div>
+            </div>
+          </div>
         </div>
+        
+        <!-- Day 2 -->
+        <div class="timeline-day">
+          <div class="day-header">
+            <div class="day-badge">DAY 2</div>
+            <h3 class="day-title">MIRIAKAMBA HUTS → SADDLE HUTS</h3>
+          </div>
+          <div class="day-content">
+            <p>
+              Today's trek ascends through the heath and moorland zone, leaving the forest behind for 
+              open terrain with giant heather and lobelia plants. The trail follows the crater rim, 
+              offering spectacular views of the Meru Crater and the "Ash Tray" volcanic cone.
+            </p>
+            <p>
+              An optional side trip to Little Mount Meru (3,820m) provides panoramic views of Arusha 
+              and surrounding plains. You'll overnight at Saddle Huts (3,570m), strategically positioned 
+              for your summit attempt with extra time for acclimatization.
+            </p>
+            <div class="day-stats">
+              <div class="stat">
+                <div class="stat-value">4-5 hrs</div>
+                <div class="stat-label">Hiking Time</div>
+              </div>
+              <div class="stat">
+                <div class="stat-value">1,056m</div>
+                <div class="stat-label">Altitude Gain</div>
+              </div>
+              <div class="stat">
+                <div class="stat-value">3,570m</div>
+                <div class="stat-label">Sleeping Altitude</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Day 3 -->
+        <div class="timeline-day">
+          <div class="day-header">
+            <div class="day-badge">DAY 3</div>
+            <h3 class="day-title">SUMMIT ASCENT → RETURN TO MIRIAKAMBA</h3>
+          </div>
+          <div class="day-content">
+            <p>
+              Summit day begins around midnight with hot tea and snacks. Ascend by headlamp through 
+              volcanic terrain, passing Rhino Point and Cobra Point before reaching Socialist Peak 
+              (4,566m) for sunrise.
+            </p>
+            <p>
+              The pre-dawn effort rewards you with breathtaking views—Kilimanjaro glowing in the east, 
+              the Meru Crater below, and African plains stretching to the horizon. After celebrating 
+              your achievement, descend to Miriakamba Huts for a well-earned rest and recovery night.
+            </p>
+            <p class="text-primary fw-bold">
+              <i class="fas fa-star me-2"></i>Key Advantage: Extra recovery night improves safety and comfort
+            </p>
+            <div class="day-stats">
+              <div class="stat">
+                <div class="stat-value">10-12 hrs</div>
+                <div class="stat-label">Hiking Time</div>
+              </div>
+              <div class="stat">
+                <div class="stat-value">4,566m</div>
+                <div class="stat-label">Summit Altitude</div>
+              </div>
+              <div class="stat">
+                <div class="stat-value">996m</div>
+                <div class="stat-label">Descent</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Day 4 -->
+        <div class="timeline-day">
+          <div class="day-header">
+            <div class="day-badge">DAY 4</div>
+            <h3 class="day-title">MIRIAKAMBA HUTS → ARUSHA</h3>
+          </div>
+          <div class="day-content">
+            <p>
+              A relaxed morning hike through the rainforest back to Momella Gate. Enjoy your final 
+              opportunities to spot wildlife and reflect on your incredible achievement.
+            </p>
+            <p>
+              You'll be met at the gate by our driver and transferred to your Arusha accommodations, 
+              arriving by early afternoon with plenty of time to celebrate your successful summit.
+            </p>
+            <p class="text-success fw-bold">
+              <i class="fas fa-check-circle me-2"></i>Benefit: Return refreshed rather than exhausted
+            </p>
+            <div class="day-stats">
+              <div class="stat">
+                <div class="stat-value">3-4 hrs</div>
+                <div class="stat-label">Hiking Time</div>
+              </div>
+              <div class="stat">
+                <div class="stat-value">1,000m</div>
+                <div class="stat-label">Final Descent</div>
+              </div>
+              <div class="stat">
+                <div class="stat-value">100%</div>
+                <div class="stat-label">Success Rate</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        
       </div>
     </div>
+  </div>
+</section>
 
-    <!-- Day 3 -->
-    <div class="accordion-item">
-      <h2 class="accordion-header" id="heading3">
-        <button 
-          class="accordion-button collapsed" 
-          type="button" 
-          data-bs-toggle="collapse" 
-          data-bs-target="#collapse3" 
-          aria-expanded="false" 
-          aria-controls="collapse3">
-          <span class="badge rounded-pill px-3 py-2 badge-day">Day 3</span>
-         SADDLE HUTS - SUMMIT - MIRIAKAMBA HUTS
-        </button>
-      </h2>
-      <div 
-        id="collapse3" 
-        class="accordion-collapse collapse" 
-        aria-labelledby="heading3" 
-        data-bs-parent="#itineraryAccordion">
-        <div class="accordion-body">
-          <p>You’ll be up very early today. Around midnight, in fact!
-
-It’s a steep trail that separates you from the summit of Mt. Meru and your trail takes you via Rhino Point and Cobra Point through volcanic terrain before you finally reach Socialist Point.
-
-From here, you’ll experience a stunning sunset via of Arusha and the surrounding landscape before beginning your descent back to Miriakamba Huts.
-
-You’ll overnight here to get some well-earned rest!</p>
+<!-- 3-Day vs 4-Day Comparison -->
+<section class="comparison-section">
+  <div class="container">
+    <div class="section-title-premium">
+      <h2 style="color: white;">3-Day vs 4-Day Comparison</h2>
+      <p style="color: rgba(255,255,255,0.9);">Choose the itinerary that best fits your goals</p>
+    </div>
+    
+    <div class="comparison-grid">
+      <div class="comparison-card">
+        <h3 class="comparison-title">3-Day Itinerary</h3>
+        <div class="comparison-list">
+          <ul class="list-unstyled">
+            <li><i class="fas fa-check me-2"></i> Faster completion</li>
+            <li><i class="fas fa-check me-2"></i> Lower cost</li>
+            <li><i class="fas fa-times me-2"></i> Higher altitude sickness risk</li>
+            <li><i class="fas fa-times me-2"></i> More strenuous pace</li>
+            <li><i class="fas fa-times me-2"></i> Less time for acclimatization</li>
+            <li><i class="fas fa-times me-2"></i> 85% success rate</li>
+          </ul>
         </div>
+        <p><strong>Best for:</strong> Experienced hikers, time-constrained travelers</p>
+      </div>
+      
+      <div class="comparison-card featured">
+        <h3 class="comparison-title">4-Day Itinerary</h3>
+        <div class="comparison-list">
+          <ul class="list-unstyled">
+            <li><i class="fas fa-check me-2"></i> Better acclimatization</li>
+            <li><i class="fas fa-check me-2"></i> 98% success rate</li>
+            <li><i class="fas fa-check me-2"></i> More enjoyable pace</li>
+            <li><i class="fas fa-check me-2"></i> Extra recovery night</li>
+            <li><i class="fas fa-check me-2"></i> Lower altitude sickness risk</li>
+            <li><i class="fas fa-check me-2"></i> Better wildlife viewing</li>
+          </ul>
+        </div>
+        <p><strong>Best for:</strong> Most climbers, first-time high-altitude hikers, photography enthusiasts</p>
       </div>
     </div>
+  </div>
+</section>
 
+<!-- Summit CTA -->
+<section class="summit-cta">
+  <div class="cta-content">
+    <h2 class="cta-title">Ready for the Optimal Climb?</h2>
+    <p class="cta-subtitle">
+      Join our small-group 4-day expedition for maximum safety, enjoyment, and summit success. 
+      Limited spots available—book your premium Mount Meru experience today.
+    </p>
+    <button class="btn-summit" onclick="openBookingModal()">
+      <i class="fas fa-calendar-check"></i> BOOK 4-DAY EXPEDITION
+    </button>
+    <p class="mt-4 small">Special offer: Free summit certificate & expedition photos included</p>
+  </div>
+</section>
 
-     <!-- Day 4 -->
-    <div class="accordion-item">
-      <h2 class="accordion-header" id="heading4">
-        <button 
-          class="accordion-button collapsed" 
-          type="button" 
-          data-bs-toggle="collapse" 
-          data-bs-target="#collapse4" 
-          aria-expanded="false" 
-          aria-controls="collapse4">
-          <span class="badge rounded-pill px-3 py-2 badge-day">Day 4</span>
-          MIRIAKAMBA HUTS - ARUSHA
-        </button>
-      </h2>
-      <div 
-        id="collapse4" 
-        class="accordion-collapse collapse" 
-        aria-labelledby="heading4" 
-        data-bs-parent="#itineraryAccordion">
-        <div class="accordion-body">
-          <p>It’s a relatively short morning of hiking through the rainforest and back to the Momella Gate.
-
-You’ll be met here by a Shadows of Africa driver and taken to your Arusha accommodations.</p>
+<!-- Booking Modal -->
+<div class="modal fade" id="climbingModal" tabindex="-1" aria-labelledby="climbingModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg modal-dialog-centered">
+    <div class="modal-content border-0">
+      <div class="modal-header" style="background: linear-gradient(135deg, var(--mountain-blue), var(--accent-purple)); color: white;">
+        <h5 class="modal-title" id="climbingModalLabel">
+          <i class="fas fa-mountain me-2"></i>Book 4-Day Mount Meru Climb
+        </h5>
+        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body p-5">
+        <div class="text-center mb-4">
+          <h4 class="text-primary">Start Your 4-Day Climbing Adventure</h4>
+          <p>Complete the form below and our mountain experts will contact you within 24 hours.</p>
         </div>
+        <form id="climbingForm">
+          <div class="row g-3">
+            <div class="col-md-6">
+              <div class="form-floating">
+                <input type="text" class="form-control" id="climberName" placeholder="Full Name" required>
+                <label for="climberName">Full Name</label>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-floating">
+                <input type="email" class="form-control" id="climberEmail" placeholder="Email Address" required>
+                <label for="climberEmail">Email Address</label>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-floating">
+                <input type="tel" class="form-control" id="climberPhone" placeholder="Phone Number" required>
+                <label for="climberPhone">Phone Number</label>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-floating">
+                <input type="date" class="form-control" id="climbDate" required min="2024-01-01">
+                <label for="climbDate">Preferred Start Date</label>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-floating">
+                <select class="form-select" id="groupSize" required>
+                  <option value="" selected disabled>Number of Climbers</option>
+                  <option value="1">1 (Solo)</option>
+                  <option value="2">2</option>
+                  <option value="3">3</option>
+                  <option value="4">4</option>
+                  <option value="5">5+ (Group)</option>
+                </select>
+                <label for="groupSize">Group Size</label>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-floating">
+                <select class="form-select" id="experienceLevel" required>
+                  <option value="" selected disabled>Experience Level</option>
+                  <option value="beginner">Beginner (First high-altitude climb)</option>
+                  <option value="intermediate">Intermediate (Some hiking experience)</option>
+                  <option value="advanced">Advanced (Multiple climbs)</option>
+                </select>
+                <label for="experienceLevel">Climbing Experience</label>
+              </div>
+            </div>
+            <div class="col-12">
+              <div class="form-check">
+                <input class="form-check-input" type="checkbox" id="includeGear" checked>
+                <label class="form-check-label" for="includeGear">
+                  Include gear rental (sleeping bag, trekking poles, duffel bag)
+                </label>
+              </div>
+            </div>
+            <div class="col-12">
+              <div class="form-floating">
+                <textarea class="form-control" id="climberNotes" placeholder="Medical notes, dietary restrictions, special requests" style="height: 120px"></textarea>
+                <label for="climberNotes">Medical Notes / Special Requests</label>
+              </div>
+            </div>
+            <div class="col-12 mt-4">
+              <button type="submit" class="btn btn-primary w-100 py-3" style="background: linear-gradient(135deg, var(--summit-gold), var(--accent-purple)); border: none;">
+                <i class="fas fa-paper-plane me-2"></i> BOOK 4-DAY MOUNT MERU CLIMB
+              </button>
+            </div>
+          </div>
+        </form>
       </div>
     </div>
-
   </div>
 </div>
 
-<!-- Bootstrap JS -->
+<!-- JavaScript -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+  // Animate timeline items on scroll
+  document.addEventListener('DOMContentLoaded', function() {
+    const timelineItems = document.querySelectorAll('.timeline-day');
+    
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.style.opacity = '1';
+          entry.target.style.transform = 'translateX(0)';
+          entry.target.style.transition = 'opacity 0.8s ease, transform 0.8s ease';
+        }
+      });
+    }, {
+      threshold: 0.2,
+      rootMargin: '0px 0px -50px 0px'
+    });
+    
+    timelineItems.forEach((item, index) => {
+      item.style.opacity = '0';
+      if (index % 2 === 0) {
+        item.style.transform = 'translateX(50px)';
+      } else {
+        item.style.transform = 'translateX(-50px)';
+      }
+      setTimeout(() => {
+        observer.observe(item);
+      }, index * 200);
+    });
+    
+    // Parallax effect on hero
+    window.addEventListener('scroll', function() {
+      const hero = document.querySelector('.mountain-hero');
+      const scrolled = window.pageYOffset;
+      if (hero) {
+        hero.style.transform = `translateY(${scrolled * 0.03}px)`;
+      }
+    });
+    
+    // Initialize modal
+    const climbingModal = new bootstrap.Modal(document.getElementById('climbingModal'));
+    
+    // Booking form submission
+    const climbingForm = document.getElementById('climbingForm');
+    if (climbingForm) {
+      climbingForm.addEventListener('submit', function(e) {
+        e.preventDefault();
+        climbingModal.hide();
+        
+        // Show success message
+        const successAlert = document.createElement('div');
+        successAlert.className = 'alert alert-success alert-dismissible fade show position-fixed top-0 start-50 translate-middle-x mt-3';
+        successAlert.style.zIndex = '9999';
+        successAlert.innerHTML = `
+          <i class="fas fa-check-circle me-2"></i>
+          <strong>4-Day climbing inquiry sent!</strong> Our mountain experts will contact you within 24 hours with full details.
+          <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        `;
+        document.body.appendChild(successAlert);
+        
+        setTimeout(() => {
+          if (successAlert.parentNode) {
+            successAlert.remove();
+          }
+        }, 5000);
+        
+        climbingForm.reset();
+      });
+    }
+    
+    // Open booking modal
+    window.openBookingModal = function() {
+      climbingModal.show();
+    };
+    
+    // Animate benefit cards on scroll
+    const benefitCards = document.querySelectorAll('.benefit-card');
+    const benefitObserver = new IntersectionObserver((entries) => {
+      entries.forEach((entry, index) => {
+        if (entry.isIntersecting) {
+          setTimeout(() => {
+            entry.target.style.opacity = '1';
+            entry.target.style.transform = 'translateY(0)';
+          }, index * 200);
+        }
+      });
+    }, { threshold: 0.1 });
+    
+    benefitCards.forEach(card => {
+      card.style.opacity = '0';
+      card.style.transform = 'translateY(30px)';
+      card.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+      benefitObserver.observe(card);
+    });
+  });
+</script>
 {% endblock %}
