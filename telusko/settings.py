@@ -28,7 +28,7 @@ GEOIP_PATH = '/path/to/GeoIP/database/'
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 CSRF_TRUSTED_ORIGINS = [
-    'https://kilihappytanzaniaadventures.com',
+    'https://www.comebackafricansafaris.com',
     'http://localhost:8000',
 ]
 

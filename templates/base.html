@@ -1194,7 +1194,7 @@
   <nav class="container-fluid premium-navbar px-3 px-lg-4 position-relative">
     <div class="container">
       <div class="d-flex align-items-center justify-content-between w-100">
-        <a href="{% url 'index' %}" class="navbar-brand">
+        <a href="{% url 'admin:index' %}" class="navbar-brand">
           {% for i in compan %}
           <img src="{{ i.image|default:'{% static "images/logo.jpg" %}' }}" 
                alt="Comeback African Safaris Logo" 
