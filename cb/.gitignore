@@ -1,0 +1,70 @@
+# =========================
+# Python
+# =========================
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.pyc
+
+# =========================
+# Virtual Environment
+# =========================
+venv/
+env/
+.venv/
+.virtualenv/
+
+# =========================
+# Django
+# =========================
+*.log
+local_settings.py
+db.sqlite3
+db.sqlite3-journal
+media/
+staticfiles/
+
+# Migrations (optional – usually keep)
+# **/migrations/
+
+# =========================
+# Environment Variables
+# =========================
+.env
+.env.*
+*.env
+
+# =========================
+# IDE / Editors
+# =========================
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+
+# =========================
+# OS Files
+# =========================
+.DS_Store
+Thumbs.db
+
+# =========================
+# Test / Coverage
+# =========================
+htmlcov/
+.coverage
+.pytest_cache/
+
+# =========================
+# Poetry / Pip
+# =========================
+poetry.lock
+pip-log.txt
+
+# =========================
+# Build / Deploy
+# =========================
+dist/
+build/
+*.egg-info/
