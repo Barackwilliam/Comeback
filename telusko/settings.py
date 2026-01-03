@@ -209,10 +209,10 @@ MEDIA_URL = f"https://res.cloudinary.com/{os.getenv('CLOUDINARY_CLOUD_NAME')}/"
 
 
 JAZZMIN_SETTINGS = {
-    "site_title": "Kilihappy Advantures Site Admin",
-    "site_header": "Kilihappy Dashboard",
-    "welcome_sign": "Karibu kwenye Dashboard ya  Kilihappy Tanzania Advantures",
-    "copyright": "© 2025  Kilihappy Tanzania Advantures",
+    "site_title": "Comeback African Safaris Site Admin",
+    "site_header": "Comeback African Safaris Dashboard",
+    "welcome_sign": "Karibu kwenye Dashboard ya  Comeback African Safaris",
+    "copyright": "© 2026  Comeback African Safaris",
     "show_sidebar": True,
     "navigation_expanded": True,
     "user_avatar": None,
@@ -220,7 +220,7 @@ JAZZMIN_SETTINGS = {
     "topmenu_links": [
         {"name": "Home", "url": "admin:index", "permissions": ["auth.view_user"]},
         {"model": "auth.User"},
-        {"app": " Kilihappy Tanzania Advantures"},
+        {"app": " Comeback African Safaris"},
     ],
 }
 
