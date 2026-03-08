@@ -1,0 +1,2018 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+<style>
+.btn-outline-white {
+  border: 2px solid #fff;
+  color: #fff;
+  background: transparent;
+  border-radius: 0; /* haina kona za mviringo */
+}
+
+.btn-outline-white:hover {
+  background: transparent; /* hubaki transparent */
+  color: #fff;
+}
+
+</style>
+
+
+<div class="container-fluid p-0 position-relative vh-100 overflow-hidden">
+ {% for item in home_text %}
+<div id="welcomeCarousel{{ forloop.counter }}" 
+     class="carousel slide position-absolute w-100 h-100" 
+     data-bs-ride="carousel" 
+     data-bs-interval="6000">
+
+  <div class="carousel-inner w-100 h-100">
+    {% if item.image_1 %}
+    <div class="carousel-item active w-100 h-100">
+      <img src="{{ item.image_1 }}"
+           alt="Background KILIHAPPY 1" 
+           class="w-100 h-100" 
+           style="object-fit: cover;">
+    </div>
+    {% endif %}
+
+    {% if item.image_2 %}
+    <div class="carousel-item w-100 h-100">
+      <img src="{{ item.image_2 }}"
+           alt="Background KILIHAPPY 2" 
+           class="w-100 h-100" 
+           style="object-fit: cover;">
+    </div>
+    {% endif %}
+
+    {% if item.image_3 %}
+    <div class="carousel-item w-100 h-100">
+      <img src="{{ item.image_3 }}"
+           alt="Background KILIHAPPY 3" 
+           class="w-100 h-100" 
+           style="object-fit: cover;">
+    </div>
+    {% endif %}
+
+    {% if item.image_4 %}
+    <div class="carousel-item w-100 h-100">
+      <img src="{{ item.image_4 }}"
+           alt="Background KILIHAPPY 4" 
+           class="w-100 h-100" 
+           style="object-fit: cover;">
+    </div>
+    {% endif %}
+
+    {% if item.image_5 %}
+    <div class="carousel-item w-100 h-100">
+      <img src="{{ item.image_5 }}"
+           alt="Background KILIHAPPY 5" 
+           class="w-100 h-100" 
+           style="object-fit: cover;">
+    </div>
+    {% endif %}
+
+
+    {% if item.image_6 %}
+    <div class="carousel-item w-100 h-100">
+      <img src="{{ item.image_6 }}"
+           alt="Background KILIHAPPY 6" 
+           class="w-100 h-100" 
+           style="object-fit: cover;">
+    </div>
+    {% endif %}
+  </div>
+</div>
+{% empty %}
+<video autoplay muted loop playsinline class="position-absolute w-100 h-100" style="object-fit: cover;">
+    <source src="{% static 'img/bg-video.mp4' %}" type="video/mp4">
+    Your browser does not support HTML5 video.
+</video>
+{% endfor %}
+
+    <!-- Overlay -->
+    <div class="position-absolute top-0 start-0 w-100 h-100" style="background: rgba(20, 20, 31, 0.7); z-index: 1;"></div>
+
+    <!-- Foreground content -->
+    <div class="container h-100 position-relative d-flex align-items-center justify-content-center" style="z-index: 2;">
+        <div class="row w-100 justify-content-center text-center px-3">
+            <div class="col-lg-10">
+               {% for i in home_text %}
+                <h1 class="display-4 text-white mb-3 animated slideInDown">{{i.title}}</h1>
+                <h5 style="color: #f8f9fa;">{{i.subtitle}}</h5>
+                {% empty %}
+                <h1 class="display-4 text-white mb-3 animated slideInDown">Welcome to Kilihappy</h1>
+                <p class="fs-5 text-white mb-4 animated slideInDown">Let Us Guide You to the Prime Wonders of Tanzania</p>
+                {% endfor %}
+                <div class="position-relative mx-auto animated slideInDown" style="max-width: 600px;">
+              <input class="form-control border-0 rounded-pill py-3 ps-4 pe-5" type="text" placeholder="Start booking..">
+              <a href="javascript:void(0)" 
+                class="btn btn-primary rounded-pill py-2 px-4 position-absolute top-50 end-0 translate-middle-y me-2"
+                data-bs-toggle="modal" data-bs-target="#tourPopup">
+                Start
+              </a>
+            </div> 
+            
+            <!-- <a href=" " 
+                class="btn btn-primary rounded-pill py-2 px-4 position-absolute top-50 end-0 translate-middle-y me-2"
+                data-bs-toggle="" data-bs-target="">
+                Start
+              </a>
+            </div> -->
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<!-- Popup Modal -->
+<div class="modal fade" id="tourPopup" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content rounded-4 shadow-lg border-0">
+      <div class="modal-header border-0">
+        <h5 class="modal-title fw-bold text-primary">Welcome to Kilihappy Tanzania Adventures🌍</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body text-center px-4 py-5">
+        <h4 class="fw-bold mb-3">Plan Your Dream Safari</h4>
+        <p class="text-muted mb-4">
+          Ready to create unforgettable memories? Scroll down and customize your perfect trip with our booking form.
+        </p>
+        <a href="{% url 'form' %}"><button class="btn btn-gradient px-5 py-3">
+          <i class="fas fa-arrow-down me-2"></i> Book Now</button></a>
+          
+          <!-- <button id="scrollToBooking" class="btn btn-gradient px-5 py-3">
+          <i class="fas fa-arrow-down me-2"></i> Book Now
+        </button> -->
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Gradient Button Style -->
+<style>
+  .btn-gradient {
+    background: linear-gradient(45deg, #1e3c72, #00bfff);
+    color: #fff;
+    border: none;
+    border-radius: 50px;
+    transition: all 0.3s ease;
+  }
+  .btn-gradient:hover {
+    transform: translateY(-3px) scale(1.05);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.25);
+  }
+</style>
+
+<!-- Scroll Script -->
+<script>
+  document.getElementById("scrollToBooking")?.addEventListener("click", function () {
+    var bookingSection = document.getElementById("booking");
+    if (bookingSection) {
+      var modal = bootstrap.Modal.getInstance(document.getElementById("tourPopup"));
+      modal.hide(); // close popup first
+      setTimeout(() => {
+        bookingSection.scrollIntoView({ behavior: "smooth" });
+      }, 300);
+    }
+  });
+</script>
+
+    <!-- Navbar & Hero End -->{% if headline %}
+<div class="container my-5">
+  <div class="row justify-content-center">
+    <div class="col-md-8">
+      <div class="p-3 text-center bg-white shadow rounded half-height">
+        {% for i in headline %}
+        <h1 class="display-6 text-dark stylish-heading">
+          {{ i.name_of_headline }}
+        </h1>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+
+  .half-height {
+    padding-top: 2rem;   /* nusu ya padding ya p-5 */
+    padding-bottom: 2rem;
+  }
+  .stylish-heading {
+    letter-spacing: 1px;
+    display: inline-block;
+    padding-bottom: 8px;
+  }
+</style>
+{% endif %}
+
+
+<!-- About Start --> 
+{% if abouts %}
+  {% for i in abouts %}
+    <div class="container-xxl py-5 about-section">
+      <div class="container">
+        <div class="row g-5 align-items-center">
+
+          <!-- Picha yenye background nyeupe -->
+          <div class="col-lg-6 wow fadeInUp" data-wow-delay="0.1s">
+            <div class="position-relative h-100 about-image-wrapper" style="min-height: 400px;">
+              <img class="img-fluid position-absolute w-100 h-100" src="{{ i.image }}" alt="" style="object-fit: cover;">
+            </div>
+          </div>
+
+          <!-- About Box -->
+          <div class="col-lg-6 wow fadeInUp about-box" data-wow-delay="0.3s">
+            <div class="section-head">
+              <h2 style="color: rgb(187, 21, 21);" class="about-label">
+                <span class="decor">
+                  <span class="line short"></span>
+                  <span class="line long"></span>
+                </span>
+                ABOUT US
+                <span class="decor">
+                  <span class="line short"></span>
+                  <span class="line long"></span>
+                </span>
+              </h2>
+            </div>
+
+            <h1 class="mb-4">{{ i.title }}</h1>
+            <p style="color: black;" class="mb-4">{{ i.content }}</p>
+            <a style="background-color: blue;" 
+               class="btn py-3 px-5 text-white mt-2" 
+               href="{% url 'about'%}" 
+               onclick="showLoading(event)">Read More</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  {% endfor %}
+{% else %}
+  <div class="alert alert-info text-center">
+    <h4>Information about our organization will be available soon.</h4>
+  </div>
+{% endif %}
+
+<style>
+  /* Gradient background for entire section */
+  .about-section {
+    background: linear-gradient(135deg, #1a2a6c 0%, #b21f1f 50%, #fdbb2d 100%);
+    padding: 60px 0;
+  }
+
+  /* About box */
+  .about-box {
+    background: #fff;          /* background nyeupe */
+    border: 10px solid rgba(92, 4, 4, 0.856);    /* mstari wa rangi nyekundu */
+    padding: 20px;
+    border-radius: 10px;
+  }
+
+  /* Picha wrapper yenye background nyeupe */
+  .about-image-wrapper {
+    background: #fff;
+    border-radius: 10px;
+    overflow: hidden;
+  }
+
+  /* Optional: make text inside more readable */
+  .about-box h1, 
+  .about-box p {
+    color: #000;
+  }
+</style>
+<!-- About End -->
+
+
+
+<!-- Luxury Safari Services Section -->
+<div class="container-xxl py-5" style="background: linear-gradient(135deg, #1a2a6c 0%, #b21f1f 50%, #fdbb2d 100%);">
+    <div class="container">
+        <!-- Section Header -->
+        <div class="text-center mb-6 wow fadeIn" data-wow-delay="0.2s">
+            <div class="d-inline-block px-4 py-2 mb-3"
+                 style="background: rgba(255,255,255,0.1); backdrop-filter: blur(10px); border-radius: 30px; border: 1px solid rgba(255,255,255,0.2);">
+                <h6 class="mb-0 text-uppercase tracking-widest" style="letter-spacing: 3px; color: #d4af37; font-weight: 600;">
+                    <i class="fas fa-crown me-2"></i>Premium Services
+                </h6>
+            </div>
+            <h1 class="display-4 fw-light mb-3" style="color: #fff; font-family: 'Playfair Display', serif;">
+                Explore Our <span class="fw-bold"
+                                   style="background: linear-gradient(135deg,#d4af37 0%,#f4d03f 100%);
+                                   -webkit-background-clip:text; -webkit-text-fill-color:transparent;">Exclusive Services</span>
+            </h1>
+            <div class="mx-auto"
+                 style="width: 120px; height: 3px; background: linear-gradient(90deg, rgba(212,175,55,0) 0%, #d4af37 50%, rgba(212,175,55,0) 100%); border-radius: 50px;"></div>
+        </div>
+
+        <div class="row g-5">
+            {% for service in services %}
+            <div class="col-xl-3 col-lg-4 col-md-6">
+                <!-- Luxury Service Card -->
+                <div class="card service-card overflow-hidden position-relative border-0 shadow-lg">
+                    <!-- Image -->
+                    <div class="luxury-img-container">
+                        <img src="{{ service.image }}" alt="{{ service.title }}" class="luxury-img">
+                    </div>
+
+                    <!-- Card Body Below Image -->
+                    <div class="card-body text-center py-3" style="background: rgba(0,0,0,0.6); border-top: 2px solid rgba(212,175,55,0.3);">
+                        <h5 class="mb-2" style="font-family: 'Playfair Display', serif; color: rgb(1, 1, 129);">{{ service.title }}</h5>
+                        <p class="text-light mb-3" style="font-size: 0.9rem;">{{ service.description }}</p>
+                        <a href="{% url 'service' %}" class="btn btn-gold btn-sm rounded-pill hover-grow" onclick="showLoading(event)">
+                            <i class="fas fa-arrow-right me-1"></i> Learn More
+                        </a>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+
+        <!-- View More Button -->
+        <div class="text-center mt-6 pt-4">
+            <a href="{% url 'service' %}" class="btn btn-dark btn-lg rounded-pill px-5 py-3 shadow hover-grow position-relative overflow-hidden"
+               style="border: 1px solid rgba(212,175,55,0.3); font-weight: 500;" onclick="showLoading(event)">
+                <span class="position-relative z-2">Explore All Services <i class="fas fa-arrow-right ms-2"></i></span>
+            </a>
+        </div>
+    </div>
+</div>
+
+<!-- Luxury Services CSS -->
+<style>
+.service-card {
+    border-radius: 16px;
+    transition: all 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+    cursor: pointer;
+}
+.service-card:hover {
+    transform: translateY(-12px) scale(1.02) !important;
+    box-shadow: 0 30px 60px -15px rgba(0,0,0,0.3) !important;
+}
+.luxury-img-container {
+    height: 250px;
+    overflow: hidden;
+    border-bottom: 2px solid rgba(212,175,55,0.3);
+}
+.luxury-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 1.2s cubic-bezier(0.2, 0.9, 0.4, 1);
+}
+.service-card:hover .luxury-img {
+    transform: scale(1.15) rotate(1.5deg);
+}
+.btn-gold {
+    background: linear-gradient(135deg, #d4af37 0%, #f4d03f 100%);
+    border: none;
+    font-weight: 600;
+}
+.btn-gold:hover {
+    box-shadow: 0 0 25px rgba(212, 175, 55, 0.6);
+}
+.hover-grow {
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+.hover-grow:hover {
+    transform: scale(1.1);
+}
+</style>
+
+
+
+    <!-- Service End -->
+<div class="container py-5">
+  <div class="text-center mb-5">
+    <h2 class="text-uppercase fw-bold text-dark">Why Travel with <span class="text-dark">Kilihappy Tanzania Adventure</span></h2>
+    <p class="text-danger fst-italic">More than just a journey — it’s a life-changing experience.</p>
+  </div>
+
+  <div class="row g-4">
+    <!-- Box 1 -->
+    <div class="col-md-4">
+      <div class="p-4 rounded-4 text-center bg-dark border border-warning shadow-lg h-100">
+        <i class="fas fa-map-marked-alt text-warning fs-1 mb-3"></i>
+        <h5 class="text-light fw-semibold">Authentic Local Expertise</h5>
+        <p class="text-white">
+          All our guides were born and raised near Mt. Kilimanjaro. They know every trail, every tale, and every secret of the mountain. You're not just climbing — you're learning the mountain's soul.
+        </p>
+      </div>
+    </div>
+
+    <!-- Box 2 -->
+    <div class="col-md-4">
+      <div class="p-4 rounded-4 text-center bg-dark border border-warning shadow-lg h-100">
+        <i class="fas fa-shield-alt text-warning fs-1 mb-3"></i>
+        <h5 class="text-light fw-semibold">Unmatched Safety Standards</h5>
+        <p class="text-white">
+          Your safety is our mission. From daily health checks to high-altitude gear and oxygen support, we follow international standards to keep you secure throughout your climb.
+        </p>
+      </div>
+    </div>
+
+    <!-- Box 3 -->
+    <div class="col-md-4">
+      <div class="p-4 rounded-4 text-center bg-dark border border-warning shadow-lg h-100">
+        <i class="fas fa-heart text-warning fs-1 mb-3"></i>
+        <h5 class="text-light fw-semibold">Heartfelt, Lasting Memories</h5>
+        <p class="text-white">
+          Experience the mountain with deep connection — singing with porters, celebrating at Uhuru Peak, and sharing fireside stories. Every moment becomes a memory.
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+body {
+    font-family: 'Arial', sans-serif;
+    color: #000;
+    line-height: 1.6;
+}
+
+h1 {
+    color: #008000; /* green like screenshot */
+    font-weight: bold;
+    text-align: center;
+    margin-top: 40px;
+    margin-bottom: 20px;
+}
+
+p {
+    font-size: 1rem;
+    text-align: justify;
+    max-width: 900px;
+    margin: auto;
+}
+
+.carousel-item img {
+    width: 100%;
+    height: 400px;
+    object-fit: cover;
+}
+
+/* modern caption */
+.carousel-caption-top {
+    position: absolute;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    text-align: center;
+    width: 90%;
+    background: linear-gradient(to right, rgba(0,0,0,0.6), rgba(0,0,0,0.2));
+    padding: 10px 20px;
+    border-radius: 12px;
+}
+
+.carousel-caption-top h3 {
+    color: #ff9800;
+    font-size: 1.5rem;
+    font-weight: 600;
+    text-shadow: 1px 1px 6px rgba(0,0,0,0.8);
+    margin: 0;
+}
+
+@media (max-width: 768px) {
+    .carousel-item img {
+        height: 250px;
+    }
+
+    p {
+        font-size: 0.9rem;
+        padding: 0 10px;
+    }
+
+    .carousel-caption-top h3 {
+        font-size: 1rem;
+    }
+}
+</style>
+
+
+<div class="container">
+    <h1 style="text-align: center; font-family: 'Times New Roman', Times, serif; color: #b21f1f;">
+        <b>Mt Kilimanjaro Climbing and Tanzania Safaris</b>
+    </h1>
+    <p style="text-align: center;">
+        Embark on unforgettable <b>Mt Kilimanjaro climbing</b> and conquer Africa’s highest peak, standing tall at 5,895 meters. Choose iconic routes like the <b>scenic Machame Route</b>, the <b>challenging Lemosho Route</b>, or the shorter <b>Marangu Route</b>, each offering breathtaking views and a unique trekking experience. As you ascend, traverse diverse ecosystems—from lush rainforests to alpine deserts—culminating in the incredible achievement of reaching <b>Uhuru Peak</b>, the “Roof of Africa.” Whether you’re a seasoned climber or a first-time adventurer, these tours promise a life-changing journey filled with natural beauty and personal triumph.
+    </p>
+    <p style="text-align: center;">
+        After the climb, immerse yourself in the wonders of <b>Tanzania safaris</b>, exploring world-famous destinations like the <b>Serengeti</b>, home to the spectacular <b>Great Migration</b>, or the wildlife-rich <b>Ngorongoro Crater</b>, where you can encounter the legendary Big Five. Visit <b>Tarangire National Park</b>, renowned for its majestic elephant herds and ancient baobab trees, and unwind in luxury lodges or tented camps featuring gourmet dining and personalized service. Combining <b>Mount Kilimanjaro climbing tours</b> with <b>Tanzania safaris</b> offers the perfect blend of adventure and relaxation, creating a once-in-a-lifetime experience in the heart of Africa.
+    </p>
+
+    <!-- Bootstrap Carousel -->
+    <div id="safariCarousel" class="carousel slide mt-4" data-bs-ride="carousel">
+        <div class="carousel-inner">
+            {% for item in climbing %}
+                {% if item.image_1 %}
+                    <div class="carousel-item {% if forloop.first %}active{% endif %}">
+                        <img src="{{item.image_1}}" class="d-block w-100" alt="Tanzania Safari">
+                        <div class="carousel-caption-top">
+                            <h3>{{item.title_1}}</h3>
+                       </div>
+
+                    </div>
+                {% endif %}
+                {% if item.image_2 %}
+                    <div class="carousel-item">
+                        <img src="{{item.image_2}}" class="d-block w-100" alt="Tanzania Safari">
+                        <div class="carousel-caption-top">
+                            <h3>{{item.title_2}}</h3>
+                        </div>
+                    </div>
+                {% endif %}
+                {% if item.image_3 %}
+                    <div class="carousel-item">
+                        <img src="{{item.image_3}}" class="d-block w-100" alt="Tanzania Safari">
+                        <div class="carousel-caption-top">
+                            <h3>{{item.title_3}}</h3>
+                        </div>
+                    </div>
+                {% endif %}
+                {% if item.image_4 %}
+                    <div class="carousel-item">
+                        <img src="{{item.image_4}}" class="d-block w-100" alt="Tanzania Safari">
+                        <div class="carousel-caption-top">
+                           <h3> {{item.title_4}}</h3>
+                        </div>
+                    </div>
+                {% endif %}
+                {% if item.image_5 %}
+                    <div class="carousel-item">
+                        <img src="{{item.image_5}}" class="d-block w-100" alt="Tanzania Safari">
+                        <div class="carousel-caption-top">
+                            <h3>{{item.title_5}}</h3>
+                        </div>
+                    </div>
+                {% endif %}
+                {% if item.image_6 %}
+                    <div class="carousel-item">
+                        <img src="{{item.image_6}}" class="d-block w-100" alt="Tanzania Safari">
+                        <div class="carousel-caption-top">
+                          <h3>  {{item.title_6}}</h3>
+                        </div>
+                    </div>
+                {% endif %}
+                {% if item.image_7 %}
+                    <div class="carousel-item">
+                        <img src="{{item.image_7}}" class="d-block w-100" alt="Tanzania Safari">
+                        <div class="carousel-caption-top">
+                           <h3> {{item.title_7}}</h3>
+                        </div>
+                    </div>
+                {% endif %}
+                {% if item.image_8 %}
+                    <div class="carousel-item">
+                        <img src="{{item.image_8}}" class="d-block w-100" alt="Tanzania Safari">
+                        <div class="carousel-caption-top">
+                           <h3> {{item.title_8}}</h3>
+                        </div>
+                    </div>
+                {% endif %}
+            {% endfor %}
+        </div>
+
+        <!-- Controls -->
+        <button class="carousel-control-prev" type="button" data-bs-target="#safariCarousel" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#safariCarousel" data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+        </button>
+    </div>
+</div>
+
+
+
+
+
+
+
+<br>
+
+
+<div class="container py-5 bg-dark text-light rounded-4 shadow-lg">
+<!-- <div style="background: linear-gradient(135deg, #1a2a6c 0%, #b21f1f 50%, #fdbb2d 100%);" class="container my-5"> -->
+<div class="itinerary-step text-dark rounded p-4" 
+       style="background: linear-gradient(135deg, #1a2a6c 0%, #b21f1f 50%, #fdbb2d 100%);">
+    
+    <h2 class="fw-bold text-warning text-center display-4 mb-4" 
+        style="font-family: 'Playfair Display', serif;">
+      PLAN YOUR DREAM TANZANIA SAFARI
+    </h2>
+    <p class="fs-5 text-center display-4 text-white mb-5">Understand the Best Time to Visit</p>
+</div>
+
+<br><br>
+
+
+  <div class="row align-items-center g-5">
+    <div class="col-lg-6">
+      <h2 class="fw-bold text-warning display-5 mb-4">🧭 Best Time to Climb Mount Kilimanjaro</h2>
+      <p class="fs-5 text-white-emphasis">
+        Mount Kilimanjaro, the highest peak in Africa, offers different climbing experiences throughout the year.
+        Choosing the right time to climb increases your chances of reaching the summit and enjoying breathtaking views.
+      </p>
+
+      <div class="bg-light rounded-3 p-4 text-dark mt-4">
+        <h5 class="fw-bold text-success mb-3">🌞 Recommended Seasons:</h5>
+        <ul class="list-unstyled">
+          <li class="mb-2">✔️ <strong>January to early March</strong> – Warm conditions, moderate traffic, clear views.</li>
+          <li class="mb-2">✔️ <strong>June to October</strong> – Dry season, excellent visibility, most popular period.</li>
+        </ul>
+      </div>
+
+      <div class="bg-warning-subtle rounded-3 p-3 mt-4">
+        <h6 class="text-danger fw-semibold">🚫 Avoid These Months:</h6>
+        <p style="color: #000000;" class="mb-0">April to May and November – These are the rainy seasons, trails become muddy and slippery, visibility is low, and summit success rates drop significantly.</p>
+      </div>
+    </div>
+
+
+
+
+
+
+
+    
+
+  <div class="col-lg-6 text-center">
+    <img src="{% static 'img/Kilimanjaro.jpg' %}" alt="Kilimanjaro Season"
+        class="img-fluid rounded-4 border border-warning shadow-lg" style="max-height: 450px; object-fit: cover;">
+    </div>
+  </div>
+
+</div>
+</div>
+
+<div class="container py-5" style="background-color: #f8f9fa;">
+  <h2 class="text-center fw-bold mb-3" style="color: #222;">🧳 Important Things to Pack for Climbing Mount Kilimanjaro</h2>
+  <p class="text-center text-muted mb-5" style="max-width: 700px; margin: auto;">
+    Preparing for your Kilimanjaro climb is more than just stuffing a bag—it’s about choosing the right gear that will keep you warm, dry, and energized from rainforest to the roof of Africa. Here's a complete guide to packing smart and safely.
+  </p>
+
+  <div class="row g-5">
+    <!-- Clothing -->
+    <div class="col-md-4">
+      <div class="card h-100 border-0 shadow-lg rounded-4">
+        <div class="card-body p-4">
+          <h5 class="card-title fw-semibold text-center text-success mb-3">🧥 Technical Clothing</h5>
+          <ul class="text-muted small">
+            <li><strong>Thermal underwear:</strong> Base layer to keep you warm.</li>
+            <li><strong>Insulated mid-layers:</strong> Fleece/down jackets for warmth.</li>
+            <li><strong>Waterproof outer layers:</strong> Jacket and trousers for wind/rain protection.</li>
+            <li><strong>Wool socks & gloves:</strong> Multiple pairs to stay dry and warm.</li>
+            <li><strong>Neck gaiter / Buff:</strong> For dust, wind and cold protection.</li>
+            <li><strong>Sun hat & beanie:</strong> Daytime sun and night-time cold.</li>
+            <li><strong>High-quality hiking boots:</strong> Waterproof and broken-in.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- Health & Hygiene -->
+    <div class="col-md-4">
+      <div class="card h-100 border-0 shadow-lg rounded-4">
+        <div class="card-body p-4">
+          <h5 class="card-title fw-semibold text-center text-primary mb-3">💊 Health & Hygiene</h5>
+          <ul class="text-muted small">
+            <li><strong>Altitude meds:</strong> E.g. Diamox (consult doctor).</li>
+            <li><strong>First aid kit:</strong> Plasters, painkillers, antiseptic.</li>
+            <li><strong>Sunscreen SPF 30+:</strong> UV protection at high altitudes.</li>
+            <li><strong>Biodegradable wipes:</strong> For body cleaning in camps.</li>
+            <li><strong>Hand sanitizer:</strong> Cleanliness when water is limited.</li>
+            <li><strong>Lip balm with SPF:</strong> Prevent chapping and sunburn.</li>
+            <li><strong>Toilet paper:</strong> Always carry your own!</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- Essentials -->
+    <div class="col-md-4">
+      <div class="card h-100 border-0 shadow-lg rounded-4">
+        <div class="card-body p-4">
+          <h5 class="card-title fw-semibold text-center text-warning mb-3">🎒 Essentials & Accessories</h5>
+          <ul class="text-muted small">
+            <li><strong>Backpack (30-40L):</strong> For day essentials.</li>
+            <li><strong>Headlamp:</strong> Required for summit night.</li>
+            <li><strong>Water bottles (3L total):</strong> Stay hydrated daily.</li>
+            <li><strong>Energy snacks:</strong> Bars, nuts, chocolate.</li>
+            <li><strong>Camera or GoPro:</strong> Capture your experience!</li>
+            <li><strong>Power bank:</strong> Keep electronics charged.</li>
+            <li><strong>Trekking poles:</strong> Support on steep descents.</li>
+            <li><strong>Dry bags:</strong> Keep gear dry inside your pack.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+<div class="container py-5 bg-dark text-light rounded-4 shadow-lg">
+  <div class="row align-items-center g-5">
+    <div class="col-lg-6">
+      <h2 class="fw-bold text-warning display-5 mb-4">🦁 Best Time for Tanzania Safari</h2>
+      <p class="fs-5 text-white-emphasis">
+        Tanzania is home to world-famous safari destinations such as Serengeti, Ngorongoro Crater, and Tarangire.
+        Choosing the right season ensures you’ll witness incredible wildlife moments, from the Great Migration to big cat sightings.
+      </p>
+
+      <div class="bg-light rounded-3 p-4 text-dark mt-4">
+        <h5 class="fw-bold text-success mb-3">🌞 Recommended Seasons:</h5>
+        <ul class="list-unstyled">
+          <li class="mb-2">✔️ <strong>June to October</strong> – Dry season, best for game viewing, animals gather around water sources.</li>
+          <li class="mb-2">✔️ <strong>December to March</strong> – Calving season in Serengeti, plenty of predator action, lush landscapes.</li>
+        </ul>
+      </div>
+
+      <div class="bg-warning-subtle rounded-3 p-3 mt-4">
+        <h6 class="text-danger fw-semibold">🚫 Avoid These Months:</h6>
+        <p style="color: black;" class="mb-0">April and May – Heavy rains make roads muddy, some lodges close, and wildlife viewing becomes difficult.</p>
+      </div>
+    </div>
+
+    <div class="col-lg-6 text-center">
+
+      <img src="{% static 'img/safari.webp' %}" alt="Tanzania Safari Season"
+        class="img-fluid rounded-4 border border-warning shadow-lg" style="max-height: 450px; object-fit: cover;">
+    </div>
+  </div>
+</div>
+
+
+<div class="container py-5" style="background-color: #f8f9fa;">
+  <h2 class="text-center fw-bold mb-3" style="color: #222;">🧳 What to Pack for a Tanzania Safari</h2>
+  <p class="text-center text-muted mb-5" style="max-width: 700px; margin: auto;">
+    A safari is not only about the destination but also about being well-prepared. The right clothing, health essentials, and accessories will make your adventure safe, comfortable, and unforgettable.
+  </p>
+
+  <div class="row g-5">
+    <!-- Clothing -->
+    <div class="col-md-4">
+      <div class="card h-100 border-0 shadow-lg rounded-4">
+        <div class="card-body p-4">
+          <h5 class="card-title fw-semibold text-center text-success mb-3">🧥 Safari Clothing</h5>
+          <ul class="text-muted small">
+            <li><strong>Lightweight neutral-colored clothes:</strong> Blend with nature, avoid bright colors.</li>
+            <li><strong>Warm jacket:</strong> Early morning & evening drives can be cold.</li>
+            <li><strong>Hat & sunglasses:</strong> Sun protection is essential.</li>
+            <li><strong>Comfortable walking shoes:</strong> For bush walks & camp use.</li>
+            <li><strong>Rain jacket:</strong> Handy during unpredictable showers.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- Health & Hygiene -->
+    <div class="col-md-4">
+      <div class="card h-100 border-0 shadow-lg rounded-4">
+        <div class="card-body p-4">
+          <h5 class="card-title fw-semibold text-center text-primary mb-3">💊 Health & Hygiene</h5>
+          <ul class="text-muted small">
+            <li><strong>Malaria prophylaxis:</strong> Consult your doctor before travel.</li>
+            <li><strong>First aid kit:</strong> Basic meds & plasters.</li>
+            <li><strong>Sunscreen SPF 30+:</strong> Intense African sun.</li>
+            <li><strong>Insect repellent:</strong> Especially for evenings.</li>
+            <li><strong>Hand sanitizer & wipes:</strong> For quick hygiene.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- Essentials -->
+    <div class="col-md-4">
+      <div class="card h-100 border-0 shadow-lg rounded-4">
+        <div class="card-body p-4">
+          <h5 class="card-title fw-semibold text-center text-warning mb-3">🎒 Safari Essentials</h5>
+          <ul class="text-muted small">
+            <li><strong>Binoculars:</strong> Get closer views of wildlife.</li>
+            <li><strong>Camera with zoom lens:</strong> Capture unforgettable moments.</li>
+            <li><strong>Power bank:</strong> Keep devices charged.</li>
+            <li><strong>Reusable water bottle:</strong> Stay hydrated.</li>
+            <li><strong>Travel documents:</strong> Passport, insurance, permits.</li>
+            <li><strong>Field guide book:</strong> Learn about wildlife & birds.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Luxury Travel Destination Cards -->
+<div class="container-xxl py-5" style="background: linear-gradient(135deg, #1a2a6c 0%, #b21f1f 50%, #fdbb2d 100%);">
+  <div class="container">
+    <!-- Premium Section Header -->
+    <div class="text-center mb-6 wow fadeIn" data-wow-delay="0.2s">
+      <div class="d-inline-block px-4 py-2 mb-3"
+           style="background: rgba(255,255,255,0.1); backdrop-filter: blur(10px); border-radius: 30px; border: 1px solid rgba(255,255,255,0.2);">
+        <h6 class="mb-0 text-uppercase tracking-widest"
+            style="letter-spacing: 3px; color: #d4af37; font-weight: 600;">
+          <i class="fas fa-crown me-2"></i>Curated Selection
+        </h6>
+      </div>
+      <h1 class="display-4 fw-light mb-3"
+          style="color: #fff; font-family: 'Playfair Display', serif;">
+        Tanzania <span class="fw-bold"
+                       style="background: linear-gradient(135deg, #d4af37 0%, #f4d03f 100%);
+                       -webkit-background-clip: text; -webkit-text-fill-color: transparent;">Most Exclusive</span> Destinations
+      </h1>
+      <div class="mx-auto"
+           style="width: 120px; height: 3px; background: linear-gradient(90deg, rgba(212,175,55,0) 0%, #d4af37 50%, rgba(212,175,55,0) 100%); border-radius: 50px;"></div>
+    </div>
+
+    <div class="row g-5">
+      {% for dest in destinations %}
+      <div class="col-xl-3 col-lg-4 col-md-6">
+        <!-- Gold Border Card -->
+        <div class="card luxury-card overflow-hidden position-relative border-0 shadow-lg">
+          <!-- Parallax Image Container -->
+          <div class="luxury-img-container">
+            <img src="{{ dest.image }}" class="luxury-img"
+                 alt="{{ dest.name }}">
+          </div>
+
+          <!-- Premium Badges -->
+          <div class="position-absolute top-0 start-0 p-4 w-100 d-flex justify-content-between">
+            {% if dest.Offer_in_percent %}
+            <span class="badge rounded-pill px-3 py-2 shadow"
+                  style="background: rgba(0,0,0,0.6); color: #d4af37; font-weight: 600; backdrop-filter: blur(8px);">
+              <i class="fas fa-gem me-1"></i>{{ dest.Offer_in_percent }}% OFF
+            </span>
+            {% endif %}
+
+            {% if dest.exclusive %}
+            <span class="badge rounded-pill px-3 py-2 shadow"
+                  style="background: rgba(212, 175, 55, 0.15); color: #fff; font-weight: 600; backdrop-filter: blur(8px);">
+              <i class="fas fa-star me-1"></i> EXCLUSIVE
+            </span>
+            {% endif %}
+          </div>
+
+          <!-- Luxury Card Body -->
+          <div class="card-body position-absolute bottom-0 start-0 w-100 p-4"
+               style="background: linear-gradient(0deg, rgba(0,0,0,0.9) 0%, transparent 100%);">
+            <div class="d-flex justify-content-between align-items-end">
+              <div>
+                <h5 class="text-white mb-1"
+                    style="font-family: 'Playfair Display', serif; font-size: 1.5rem;">{{ dest.name }}</h5>
+                <p class="text-light mb-2" style="font-size: 0.9rem;">
+                  <i class="fas fa-map-marker-alt text-gold me-2"></i>{{ dest.location }}
+                </p>
+              </div>
+
+              <!-- Gold View Button -->
+              <a href="{% url 'destination_detail' dest.pk %}"
+                 class="btn btn-gold rounded-circle shadow-lg hover-grow"
+                 onclick="showLoading(event)">
+                <i class="fas fa-arrow-right text-dark"></i>
+              </a>
+            </div>
+          </div>
+
+          <!-- Hover Overlay -->
+          <div class="luxury-overlay">
+            <a href="{% url 'destination_detail' dest.pk %}"
+               class="btn btn-gold btn-lg rounded-pill px-4 py-3 shadow hover-grow"
+               onclick="showLoading(event)">
+              <i class="fas fa-eye me-2"></i> VIEW DETAILS
+            </a>
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+
+    <!-- Premium View More Button -->
+    <div class="text-center mt-6 pt-4">
+      <a href="{% url 'destinations_list' %}"
+         class="btn btn-dark btn-lg rounded-pill px-5 py-3 shadow hover-grow position-relative overflow-hidden"
+         style="border: 1px solid rgba(212, 175, 55, 0.3); font-weight: 500;"
+         onclick="showLoading(event)">
+        <span class="position-relative z-2">
+          EXPLORE ALL DESTINATIONS <i class="fas fa-arrow-right ms-2"></i>
+        </span>
+      </a>
+    </div>
+  </div>
+</div>
+
+<!-- Luxury CSS -->
+<style>
+.luxury-card {
+  border-radius: 16px;
+  transition: all 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.luxury-card:hover {
+  transform: translateY(-12px) scale(1.03) !important;
+  box-shadow: 0 35px 70px -15px rgba(0,0,0,0.5) !important;
+}
+.luxury-img-container {
+  height: 320px;
+  overflow: hidden;
+}
+.luxury-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 1.2s cubic-bezier(0.2, 0.9, 0.4, 1);
+}
+.luxury-card:hover .luxury-img {
+  transform: scale(1.2) rotate(1.5deg);
+}
+.luxury-overlay {
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background: rgba(0,0,0,0.7);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: all 0.6s ease;
+}
+.luxury-card:hover .luxury-overlay {
+  opacity: 1 !important;
+}
+.btn-gold {
+  background: linear-gradient(135deg, #d4af37 0%, #f4d03f 100%);
+  border: none;
+}
+.btn-gold:hover {
+  box-shadow: 0 0 25px rgba(212, 175, 55, 0.6);
+}
+.hover-grow {
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+.hover-grow:hover {
+  transform: scale(1.1);
+}
+.text-gold {
+  color: #d4af37 !important;
+}
+</style>
+
+
+
+
+<div class="itinerary-step text-dark rounded p-4" 
+       style="background: linear-gradient(135deg, #610051 0%, #440101 50%, #254609 100%);">
+    
+    <h2 class="fw-bold text-warning text-center display-4 mb-4" 
+        style="font-family: 'Playfair Display', serif;">
+      CREATE LIFE TIME MEMORIES
+    </h2>
+                 <h1 class="fw-bold text-danger text-center display-5 mb-4" 
+        style="font-family: 'Playfair Display', serif;">
+    Our top Tanzania Packages
+    </h1>
+
+</div>
+
+
+<!-- Package Start -->
+<div style="background-color:rgba(255, 153, 0, 0.24);" class="container-xxl py-5 text-light">
+    <div class="container">
+        <div class="text-center mb-5 wow fadeInUp" data-wow-delay="0.1s">
+            <!-- <h6 class="section-title text-center text-warning bg-dark px-3 rounded-pill">Our Packages</h6> -->
+            <h1 class="display-5 fw-bold text-danger">Unforgettable Safari & Trekking Adventures</h1>
+            <p class=" fw-bold text-dark">Choose from our expertly crafted tours — whether it's conquering Mount Kilimanjaro or exploring Tanzania's wild plains.</p>
+        </div>
+
+
+       <h2 class="fw-bold text-dark text-center display-6 mb-4" 
+        style="font-family: 'Playfair Display', serif;">
+     Unforgettable Safari Packages
+    </h2>
+    <div class="row g-4 justify-content-center">
+    {% for pac in safari_list %}
+    <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
+        <div class="card bg-transparent text-white border-0 shadow-lg overflow-hidden" style="border-radius: 20px;">
+            <div class="card-img position-relative" style="height: 350px; background: url('{{ pac.featured_image }}') center center/cover no-repeat;">
+                <div class="position-absolute top-0 start-0 w-100 h-100" style="background:  rgba(7, 7, 7, 0.342);"></div>
+                <div class="position-absolute bottom-0 start-0 p-4">
+                    <h4 class="fw-bold text-warning mb-1">{{ pac.location }}</h4>
+                    <small class="text-light">{{ pac.days }} Days {{ pac.safari_type }}</small>
+                </div>
+            </div>
+
+            <div class="card-body bg-dark bg-opacity-75 p-4">
+                <p class="mb-2 text-white-50">Starting From</p>
+                <h3 class="text-warning fw-bold mb-2">${{ pac.price }}</h3>
+                <small class="text-muted">Per person</small>
+                <div class="mt-3 text-center">
+                    <a href="{% url 'safari_detail' pac.id %}" class="btn btn-warning text-dark fw-semibold rounded-pill px-4 py-2 shadow"onclick="showLoading(event)">
+                        View Details
+                    </a>
+
+
+                   <!-- <a href="{% url 'safari_detail' pac.id %}" class="btn-outline-white px-4 py-2 fw-semibold shadow">
+                  View
+                </a> -->
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+</div>
+</div>
+<!-- Package End -->
+
+
+<div class="itinerary-step text-dark rounded p-4" 
+       style="background: linear-gradient(135deg, #610051 0%, #440101 50%, #254609 100%);">
+    
+    <h2 class="fw-bold text-warning text-center display-4 mb-4" 
+        style="font-family: 'Playfair Display', serif;">
+       TREKKING ADVENTURE PACKAGES
+    </h2>
+                 <h1 class="fw-bold text-danger text-center display-6 mb-4" 
+        style="font-family: 'Playfair Display', serif;">
+  Our top tanzania trekking packages
+    </h1>
+
+</div>
+
+<!-- 
+<div class="itinerary-step text-dark rounded p-4" 
+       style="background: linear-gradient(135deg, #082e03 0%, #3b031b 50%, #060a02 100%);">
+    
+    <h2 class="fw-bold text-warning text-center display-4 mb-4" 
+        style="font-family: 'Ink Free';">
+    TREKKING ADVENTURE PACKAGES
+    </h2>
+    <p class="fs-5 text-center display-4 text-white mb-5">Our Top Tanzania Trekking Packages</p>
+</div> -->
+
+
+<br>
+    <div class="container">
+<div class="row g-4 justify-content-center">
+    {% for i in tours %}
+    <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
+        <div class="card bg-transparent text-white border-0 shadow-lg overflow-hidden" style="border-radius: 20px;">
+            <div class="card-img position-relative" style="height: 350px; background: url('{{ i.featured_image }}') center center/cover no-repeat;">
+                <div class="position-absolute top-0 start-0 w-100 h-100" style="background:  rgba(7, 7, 7, 0.342);"></div>
+                <div class="position-absolute bottom-0 start-0 p-4">
+                    <h4 class="fw-bold text-warning mb-1">{{ i.title }}</h4>
+                    <small class="text-light">{{ i.days }} Days {{ i.safari_type }}</small>
+                </div>
+            </div>
+
+            <div class="card-body bg-dark bg-opacity-75 p-4">
+                <p class="mb-2 text-white-50">Starting From</p>
+                <h3 class="text-warning fw-bold mb-2">$ {{ i.price }}</h3>
+                <small class="text-white">Per person</small>
+                <div class="mt-3 text-center">
+                    <a href="{% url 'tour_detail' i.id %}" class="btn btn-warning text-dark fw-semibold rounded-pill px-4 py-2 shadow"onclick="showLoading(event)">
+                        View Details
+                    </a>
+
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+    <div class="text-center mt-4">
+              <a href="{% url 'tour_list' %}" class="btn btn-success btn-lg rounded-pill px-5"onclick="showLoading(event)">
+                Explore More Packages
+              </a>
+      </div>
+      <br>
+</div>
+   
+</div>
+
+<br>
+
+
+
+
+
+
+
+<section class="py-5t"  style="background: linear-gradient(135deg, #1a2a6c 0%, #b21f1f 50%, #fdbb2d 100%);">
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-lg-8 col-md-10">
+        <div class="card shadow-lg border-0 rounded-4 overflow-hidden">
+
+          <!-- Carousel Start -->
+          <div id="serengetiCarousel" class="carousel slide" data-bs-ride="carousel">
+            <div class="carousel-inner">
+              <div class="carousel-item active">
+                <img src="https://plus.unsplash.com/premium_photo-1664302716901-63777e888686?fm=jpg&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Nnx8c2VyZW5nZXRpJTIwbmF0aW9uYWwlMjBwYXJrJTJDJTIwdGFuemFuaWF8ZW58MHx8MHx8fDA%3D&ixlib=rb-4.1.0&q=60&w=3000" class="d-block w-100" alt="Serengeti Migration">
+              </div>
+              <div class="carousel-item">
+                <img src="https://www.focuseastafricatours.com/wp-content/uploads/3-Days-Serengeti-Wildebeest-Migration-Safari.jpg" class="d-block w-100" alt="Serengeti Plains">
+              </div>
+              <div class="carousel-item">
+                <img src="https://www.focuseastafricatours.com/wp-content/uploads/2-Days-Nyungwe-forest-chimpanzee-trekking-safarisssss.jpg" class="d-block w-100" alt="Migration Herd">
+              </div>
+            </div>
+
+            <!-- Carousel Controls -->
+            <button class="carousel-control-prev" type="button" data-bs-target="#serengetiCarousel" data-bs-slide="prev">
+              <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+              <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#serengetiCarousel" data-bs-slide="next">
+              <span class="carousel-control-next-icon" aria-hidden="true"></span>
+              <span class="visually-hidden">Next</span>
+            </button>
+          </div>
+          <!-- Carousel End -->
+
+          <div class="card-body p-4">
+            <h3 style="color: rgb(255, 3, 3);" class="card-title text-center mb-3">CIRCLE OF LIFE: WITNESS THE SERENGETI WILDEBEEST MIGRATION'S DRAMA AND BEAUTY</h3>
+            <p class="card-text text-muted" style="line-height: 1.7;">
+              The Great Serengeti Wildebeest Migration is one of the most remarkable wildlife spectacles on the planet, showcasing the raw power and beauty of nature. Each year, over 1.5 million wildebeest, along with hundreds of thousands of zebras and gazelles, embark on an epic journey across the vast Serengeti plains in Tanzania, into Kenya’s Masai Mara. This massive migration covers over 1,800 miles in search of fresh grass and water, following seasonal rainfall patterns.
+            </p>
+            <div class="text-center mt-4">
+              <a href="{% url 'serengeti_migration' %}" class="btn btn-success btn-lg rounded-pill px-5"onclick="showLoading(event)">
+                Explore More
+              </a>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="py-5"  style="background: linear-gradient(135deg, #1a2a6c 0%, #b21f1f 50%, #fdbb2d 100%);">
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-lg-8 col-md-10">
+        <div class="card shadow-lg border-0 rounded-4 overflow-hidden">
+
+          <!-- Carousel Start -->
+          <div id="honeymoonCarousel" class="carousel slide" data-bs-ride="carousel">
+            <div class="carousel-inner">
+              <div class="carousel-item active">
+                <img src="https://36w5gsdu79.ucarecd.net/cc86fc89-affa-4012-8750-bb0fea449f4b/" class="d-block w-100" alt="Tanzania Honeymoon Safari">
+              </div>
+              <div class="carousel-item">
+                <img src="https://www.backtoafricasafaris.com/wp-content/uploads/2021/10/tanzania-honeymoon-safari-packages-prices.jpg" class="d-block w-100" alt="Serene Safari">
+              </div>
+              <div class="carousel-item">
+                <img src="https://www.southerntanzaniasafari.com/wp-content/uploads/2022/12/Tanzania-honeymoon-safari.jpeg" class="d-block w-100" alt="Romantic Safari">
+              </div>
+            </div>
+
+            <!-- Carousel Controls -->
+            <button class="carousel-control-prev" type="button" data-bs-target="#honeymoonCarousel" data-bs-slide="prev">
+              <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+              <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#honeymoonCarousel" data-bs-slide="next">
+              <span class="carousel-control-next-icon" aria-hidden="true"></span>
+              <span class="visually-hidden">Next</span>
+            </button>
+          </div>
+          <!-- Carousel End -->
+
+          <div class="card-body p-4">
+            <h3 style="color: rgb(255, 0, 0);" class="card-title text-center mb-3">HONEYMOON SAFARIS IN TANZANIA: A JOURNEY OF LOVE</h3>
+            <p class="card-text text-muted" style="line-height: 1.7;">
+              Tanzania honeymoon safaris are an extraordinary way to combine romance, adventure, and luxury. From the iconic Serengeti National Park, where couples can witness the awe-inspiring Great Migration, to the lush and wildlife-rich Ngorongoro Crater, Tanzania offers diverse experiences for newlyweds. For those seeking tranquility and exclusivity, destinations like the Selous Game Reserve and Tarangire National Park provide intimate settings surrounded by natural beauty.
+            </p>
+            <div class="text-center mt-4">
+              <a href="{% url 'honeymoon_safaris' %}" class="btn btn-success btn-lg rounded-pill px-5"onclick="showLoading(event)">
+                Explore More
+              </a>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="py-5"  style="background: linear-gradient(135deg, #1a2a6c 0%, #b21f1f 50%, #fdbb2d 100%);">
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-lg-8 col-md-10">
+        <div class="card shadow-lg border-0 rounded-4 overflow-hidden">
+
+          <!-- Carousel Start -->
+          <div id="campingCarousel" class="carousel slide" data-bs-ride="carousel">
+            <div class="carousel-inner">
+              <div class="carousel-item active">
+                <img src="https://wildlifesafaritanzania.com/wp-content/uploads/2021/11/camping.jpg" class="d-block w-100" alt="Camping in Serengeti">
+
+              </div>
+              <div class="carousel-item">
+                <img src="https://africaadventurevacations.com/wp-content/uploads/2022/04/3-Days-Tanzania-Camping-Safari.jpg" class="d-block w-100" alt="Tanzania Camping Safari">
+              </div>
+              <div class="carousel-item">
+                <img src="https://savannahexplorers.net/blog/wp-content/uploads/2020/05/camping-safari-tanzania.jpg" class="d-block w-100" alt="Budget Safari Adventure">
+              </div>
+            </div>
+
+            <!-- Carousel Controls -->
+            <button class="carousel-control-prev" type="button" data-bs-target="#campingCarousel" data-bs-slide="prev">
+              <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+              <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#campingCarousel" data-bs-slide="next">
+              <span class="carousel-control-next-icon" aria-hidden="true"></span>
+              <span class="visually-hidden">Next</span>
+            </button>
+          </div>
+          <!-- Carousel End -->
+
+          <div class="card-body p-4">
+            <h3 style="color: rgb(255, 0, 0);" class="card-title text-center mb-3">TANZANIA CAMPING SAFARIS WHERE NATURE MEET THRILL</h3>
+            <p class="card-text text-muted" style="line-height: 1.7;">
+              Embark on an unforgettable journey with a camping budget safari, the ultimate way to experience Tanzania’s incredible wildlife and breathtaking landscapes without straining your finances. A camping budget safari combines affordability with adventure, allowing travelers to explore world-renowned destinations like the Serengeti, Ngorongoro Crater, and Tarangire National Park. Whether you’re chasing the Great Migration or soaking in the serenity of the savannah, a camping budget safari offers an authentic, immersive experience that connects you with nature. For those seeking an adventure that’s both cost-effective and exhilarating, a camping budget safari in Tanzania is the perfect choice.
+            </p>
+            <div class="text-center mt-4">
+              <a href="{% url 'camping_safaris' %}" class="btn btn-success btn-lg rounded-pill px-5"onclick="showLoading(event)">
+                Explore More
+              </a>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+
+
+<section class="py-5"  style="background: linear-gradient(135deg, #1a2a6c 0%, #b21f1f 50%, #fdbb2d 100%);">
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-lg-8 col-md-10">
+        <div class="card shadow-lg border-0 rounded-4 overflow-hidden">
+          <img src="https://africaadventurevacations.com/wp-content/uploads/2022/07/Reasons-for-exploring-Zanzibar.jpg" class="card-img-top" alt="Explore Zanzibar">
+          <div class="card-body p-4">
+            <h3 style="color: rgb(255, 0, 0);" class="card-title text-center mb-3">EXPLORE ZANZIBAR BEACH HOLIDAYS</h3>
+            <h5 style="color: rgb(14, 61, 10);" class="card-title text-center mb-3">Relax, Recharge and Enjoy The Sun - Kissed beaches</h5>
+            <p class="card-text text-muted" style="line-height: 1.7;">
+              Explore Zanzibar, an exotic island paradise off the coast of Tanzania, where stunning beaches, rich history, and vibrant culture come together to create an unforgettable experience. Relax on the white sandy shores of Nungwi, Kendwa, and Paje, or dive into the crystal-clear waters teeming with marine life. Discover the UNESCO-listed Stone Town, a fascinating blend of Arab, Persian, Indian, and European influences, with its narrow alleys, bustling markets, and historic sites like the House of Wonders and the Old Fort.
+            </p>
+            <div class="text-center mt-4">
+              <a href="{% url 'explore_zanzibar' %}" class="btn btn-success btn-lg rounded-pill px-5"onclick="showLoading(event)">
+                Explore More
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+
+
+<!-- Tanzania Safari Activities Section -->
+<div class="container-xxl py-5" style="background: linear-gradient(135deg, #1a2a6c 0%, #b21f1f 50%, #fdbb2d 100%);">
+    <div class="container">
+        <div class="text-center mb-5 wow fadeInUp" data-wow-delay="0.1s">
+            <h6 class="section-title text-center text-warning bg-dark px-4 py-2 rounded-pill d-inline-block mb-3">
+                <i class="fas fa-compass me-2"></i>IMMERSIVE EXPERIENCES
+            </h6>
+            <h1 class="display-4 fw-bold text-white mb-3">ACTIVITIES DURING TANZANIA SAFARI & TREKKING</h1>
+            <p class="lead text-light">Discover authentic cultural encounters and unforgettable adventures in the heart of Tanzania</p>
+        </div>
+
+        <!-- Activities Grid -->
+        <div class="row g-4">
+            <!-- Arusha City Tour -->
+            <div class="col-lg-6 mb-4">
+                <div class="card activity-card h-100 border-0 shadow-lg overflow-hidden">
+                    <div class="card-header bg-warning text-dark py-3">
+                        <h4 style="color: rgb(7, 7, 7);" class="mb-0"><i class="fas fa-city me-2"></i>🏙️ Arusha City Tour</h4>
+                    </div>
+                    <div class="card-body bg-light p-0">
+                        <div class="activity-image-container">
+                            <img src="{% static 'img/arusha-city.jpg' %}" 
+                                 alt="Bird Watching Tanzania" class="activity-image">
+                            <div class="image-overlay">
+                                <div class="overlay-content">
+                                    <h5>Arusha City Highlights</h5>
+                                    <p>Clock Tower • Central Market • Cultural Heritage • Local Culture</p>
+                                    <div class="overlay-icons">
+                                        <a style="color: white;" href="{% url 'Arusha_highlight' %}"><span class="icon-item">🦅 View Details</span></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+            
+                    </div>
+                </div>
+            </div>
+
+
+
+
+                <!-- Bird Watching -->
+            <div class="col-lg-6 mb-4">
+                <div class="card activity-card h-100 border-0 shadow-lg overflow-hidden">
+                    <div class="card-header bg-warning text-dark py-3">
+                        <h4 style="color: rgb(2, 2, 2);" class="mb-0"><i class="fas fa-dove me-2"></i>🦜 Bird Watching</h4>
+                    </div>
+                    <div class="card-body bg-light p-0">
+                        <div class="activity-image-container">
+                            <img src="{% static 'img/birdwatching.jpg' %}" 
+                                 alt="Bird Watching Tanzania" class="activity-image">
+                            <div class="image-overlay">
+                                <div class="overlay-content">
+                                    <h5>Bird Watching Paradise</h5>
+                                    <p>130+ Species • Lake Duluti • Professional Guides • Binoculars Provided</p>
+                                    <div class="overlay-icons">
+                                        <a style="color: white;" href="{% url 'Bird_Watching' %}"><span class="icon-item"onclick="showLoading(event)">🦅 View Details</span></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Cultural Tours -->
+            <div class="col-lg-6 mb-4">
+                <div class="card activity-card h-100 border-0 shadow-lg overflow-hidden">
+                    <div class="card-header bg-warning text-dark py-3">
+                        <h4 style="color: rgb(8, 8, 8);" class="mb-0"><i class="fas fa-users me-2"></i>🏹 Hadzabe & Maasai Cultural Tours</h4>
+                    </div>
+                    <div class="card-body bg-light p-0">
+                        <div class="activity-image-container">
+                            <img src="{% static 'img/cultural-experience.jpg' %}" 
+                                 alt="Maasai Cultural Experience" class="activity-image">
+                            <div class="image-overlay">
+                                <div class="overlay-content">
+                                    <h5>Cultural Immersion</h5>
+                                    <p>Traditional Dances • Hunting Skills • Fire Making • Unique Language</p>
+                                    <div class="overlay-icons">
+                                        <a style="color: white;" href="{% url 'Cultural_Immersion' %}"><span class="icon-item" onclick="showLoading(event)">🦅 View Details</span></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Traditional Food -->
+            <div class="col-lg-6 mb-4">
+                <div class="card activity-card h-100 border-0 shadow-lg overflow-hidden">
+                    <div class="card-header bg-warning text-dark py-3">
+                        <h4 class="mb-0"><i class="fas fa-utensils me-2"></i>🍲 Explore & Eat Arusha Local Traditional Food</h4>
+                    </div>
+                    <div class="card-body bg-light p-0">
+                        <div class="activity-image-container">
+                            <img src="{% static 'img/food-journey.jpg' %}" 
+                                 alt="Tanzanian Traditional Food" class="activity-image">
+                            <div class="image-overlay">
+                                <div class="overlay-content">
+                                    <h5>Culinary Adventure</h5>
+                                    <p>Ugali • Nyama Choma • Pilau • Makande • Mchicha</p>
+                                    <div class="overlay-icons">
+                                        <a style="color: white;" href="{% url 'Culinary_Adventure' %}"><span class="icon-item"onclick="showLoading(event)">🦅 View Details</span></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                     
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Suggested Itinerary -->
+        <div class="row mt-5">
+            <div class="col-12">
+                <div class="card border-0 shadow-lg bg-dark text-white">
+                    <div class="card-header bg-warning text-dark py-3">
+                        <h4 class="mb-0"><i class="fas fa-calendar-alt me-2"></i>👉 Suggested 1-Day Combined Itinerary</h4>
+                    </div>
+                    <div class="card-body">
+                        <div class="row text-center">
+                            <div class="col-md-3 mb-3">
+                                <div class="itinerary-step bg-primary rounded p-3">
+                                    <h5>🌅 Morning</h5>
+                                    <p class="mb-0">Arusha City Tour</p>
+                                </div>
+                            </div>
+                            <div class="col-md-3 mb-3">
+                                <div class="itinerary-step bg-success rounded p-3">
+                                    <h5>🕛 Mid-day</h5>
+                                    <p class="mb-0">Bird Watching at Lake Duluti</p>
+                                </div>
+                            </div>
+                            <div class="col-md-3 mb-3">
+                                <div class="itinerary-step bg-info rounded p-3">
+                                    <h5>☀️ Afternoon</h5>
+                                    <p class="mb-0">Hadzabe & Maasai Cultural Experience</p>
+                                </div>
+                            </div>
+                            <div class="col-md-3 mb-3">
+                                <div class="itinerary-step bg-warning text-dark rounded p-3">
+                                    <h5>🌇 Evening</h5>
+                                    <p class="mb-0">Dinner with Traditional Tanzanian Food</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="text-center mt-4">
+                            <a href="https://wa.me/255658571653" class="btn btn-light btn-lg px-5 py-3 rounded-pill shadow"onclick="showLoading(event)">
+                                <i class="fas fa-calendar-check me-2"></i>Enjoy This Experience
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+.activity-card {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    border-radius: 15px;
+}
+
+.activity-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 35px rgba(0,0,0,0.1) !important;
+}
+
+.activity-image-container {
+    position: relative;
+    overflow: hidden;
+    height: 250px;
+}
+
+.activity-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+}
+
+.activity-image-container:hover .activity-image {
+    transform: scale(1.1);
+}
+
+.image-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.7);
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+padding: 20px;
+}
+
+.activity-image-container:hover .image-overlay {
+opacity: 1;
+}
+
+.overlay-content {
+text-align: center;
+}
+
+.overlay-content h5 {
+color: #ffc107;
+margin-bottom: 10px;
+font-weight: bold;
+}
+
+.overlay-content p {
+margin-bottom: 15px;
+font-size: 0.9rem;
+}
+
+.overlay-icons {
+display: flex;
+justify-content: center;
+gap: 10px;
+flex-wrap: wrap;
+}
+
+.icon-item {
+background: rgba(255, 193, 7, 0.2);
+padding: 5px 10px;
+border-radius: 15px;
+font-size: 0.8rem;
+border: 1px solid #ffc107;
+}
+
+.timeline {
+position: relative;
+padding-left: 30px;
+}
+
+.timeline-item {
+position: relative;
+margin-bottom: 15px;
+}
+
+.timeline-badge {
+position: absolute;
+left: -30px;
+top: 2px;
+width: 24px;
+height: 24px;
+border-radius: 50%;
+display: flex;
+align-items: center;
+justify-content: center;
+font-size: 12px;
+}
+
+.highlights-list .highlight-item {
+display: flex;
+align-items: center;
+margin-bottom: 10px;
+padding: 8px;
+background: rgba(0,123,255,0.1);
+border-radius: 8px;
+}
+
+.highlight-icon {
+margin-right: 10px;
+font-size: 18px;
+min-width: 30px;
+text-align: center;
+}
+
+.cultural-experience .experience-time {
+margin-bottom: 15px;
+padding: 15px;
+border-radius: 10px;
+background: rgba(0,0,0,0.03);
+}
+
+.food-journey .food-step {
+display: flex;
+align-items: center;
+margin-bottom: 12px;
+padding: 10px;
+background: rgba(255,193,7,0.1);
+border-radius: 8px;
+}
+
+.step-number {
+width: 30px;
+height: 30px;
+background: #ffc107;
+color: #000;
+border-radius: 50%;
+display: flex;
+align-items: center;
+justify-content: center;
+font-weight: bold;
+margin-right: 15px;
+flex-shrink: 0;
+}
+
+.itinerary-step {
+transition: transform 0.3s ease;
+}
+
+.itinerary-step:hover {
+transform: scale(1.05);
+}
+
+@media (max-width: 768px) {
+.display-4 {
+font-size: 2rem;
+}
+
+.activity-card {
+    margin-bottom: 20px;
+}
+
+.activity-image-container {
+    height: 200px;
+}
+
+.overlay-icons {
+    flex-direction: column;
+    gap: 5px;
+}
+
+.icon-item {
+    font-size: 0.7rem;
+}
+}
+</style>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- About Full Width Box -->
+<div class="container-fluid wow fadeInUp py-5" data-wow-delay="0.3s"
+     style="background-color: #044404e7;">
+
+  <div class="text-center px-4 px-md-5">
+    <h1 class="mb-4 display-4 text-white">
+      Climbing Mount Meru Tanzania: A Thirilling Tanzania Adventure
+    </h1>
+    <p class="mb-4 text-white fs-5">
+      Embark on an exhilarating journey with climbing Mount Meru Tanzania, 
+      where you’ll conquer Tanzania’s second-highest peak at 4,566 meters (14,980 ft) 
+      in Arusha National Park. As Africa’s fifth-highest mountain, Mount Meru offers 
+      stunning volcanic craters, diverse wildlife, and panoramic views of Kilimanjaro—making it 
+      a top choice for acclimatization hikes or standalone treks. Whether you’re tackling a 
+      3-day or 4-day itinerary, this guide covers routes, costs, difficulty, and everything 
+      for your mount meru climbing experience. For expert tours, check out climbing mount 
+      meru tanzania packages.
+    </p>
+
+    <img src="https://www.arushacityguide.com/wp-content/uploads/2024/06/Meru-4.jpg"
+         class="img-fluid rounded shadow-lg border border-light"
+         alt="Tanzania Visa" 
+         style="max-height: 600px; object-fit: cover;">
+  </div>
+
+</div>
+
+          <!-- Luxury Safari Services Section -->
+<div class="container-xxl py-5" 
+     style="background: linear-gradient(135deg, #1a2a6c 0%, #b21f1f 50%, #fdbb2d 100%);">
+  <div class="container">
+    
+    <!-- Section Header -->
+    <div class="text-center mb-6 wow fadeIn" data-wow-delay="0.2s">
+      <div class="d-inline-block px-4 py-2 mb-3"
+           style="background: rgba(255,255,255,0.1); backdrop-filter: blur(10px); border-radius: 30px; border: 1px solid rgba(255,255,255,0.2);">
+        <h6 class="mb-0 text-uppercase tracking-widest" 
+            style="letter-spacing: 3px; color: #d4af37; font-weight: 600;">
+          <i class="fas fa-crown me-2"></i>Premium Climbing
+        </h6>
+      </div>
+
+      <h1 class="display-4 fw-light mb-3" style="color: #fff; font-family: 'Playfair Display', serif;">
+        Why Choose Climbing 
+        <span class="fw-bold"
+              style="background: linear-gradient(135deg,#d4af37 0%,#f4d03f 100%);
+              -webkit-background-clip:text; -webkit-text-fill-color:transparent;">
+          Mount Meru Tanzania
+        </span>
+      </h1>
+
+      <div class="mx-auto"
+           style="width: 120px; height: 3px; 
+           background: linear-gradient(90deg, rgba(212,175,55,0) 0%, #d4af37 50%, rgba(212,175,55,0) 100%); 
+           border-radius: 50px;">
+      </div>
+    </div>
+
+    <!-- Content Section -->
+    <div class="row g-5">
+      <div class="col-lg-12">
+        <h3 class="fw-bold text-warning mb-3" 
+            style="font-family: 'Playfair Display', serif;">
+      
+        </h3>
+        <p style="background-color: rgb(206, 190, 190); border-radius: 15px; padding: 10px;" class="text-dark fs-5">
+          Climbing Mount Meru Tanzania stands out for its blend of challenge and accessibility. 
+          Unlike the more crowded Kilimanjaro, Meru provides a serene trek through lush forests, 
+          moorlands, and alpine zones, with chances to spot elephants, buffaloes, giraffes, and Colobus monkeys.  
+        
+          <br>
+          It’s often used as prep for Kilimanjaro due to its altitude, helping climbers acclimatize 
+          while enjoying breathtaking summit views. With updated park facilities, it’s an underrated gem 
+          for adventurers seeking wildlife-rich hikes.
+        </p>
+      </div>
+    </div>
+            <!-- View More Button -->
+        <div class="text-center mt-6 pt-4">
+            <a href="{% url 'meru_climbing' %}" class="btn btn-dark btn-lg rounded-pill px-5 py-3 shadow hover-grow position-relative overflow-hidden"
+               style="border: 1px solid rgba(212,175,55,0.3); font-weight: 500;" onclick="showLoading(event)">
+                <span class="position-relative z-2">View itinerary <i class="fas fa-arrow-right ms-2"></i></span>
+            </a>
+        </div>
+  </div>
+</div>
+
+
+
+
+<section id="how-to-book" class="py-5"  style="background: linear-gradient(135deg, #1a2a6c 0%, #b21f1f 50%, #fdbb2d 100%);">
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-lg-10 col-md-12">
+        <div class="card shadow-lg border-0 rounded-4 overflow-hidden">
+          <div class="card-body p-5" style="background-color:#cac5b7;">
+
+            <!-- Title -->
+            <h3 class="text-center mb-3 fw-bold" style="color:#fd0202; font-size: 1.7rem;">
+              ✨ How to Book Your Trip with Kilihappy Tanzania Adventures
+            </h3>
+            <p class="text-center mb-5" style="color:#333; font-size: 1.1rem;">
+              Booking your dream safari, trekking adventure, or beach holiday is <b>simple and stress-free</b>.  
+              Follow these 7 steps to start your unforgettable journey with us:
+            </p>
+
+            <!-- Steps -->
+            <div class="row gy-4">
+              
+              <!-- Step 1 -->
+              <div class="col-md-6">
+                <div class="p-4 border rounded-3 shadow-sm h-100 hover-luxury" style="background-color:#faf3e0;"style="background-color:#faf3e0;">
+                  <h5 class="fw-bold" style="color:#004d40;">
+                    <i class="bi bi-telephone-fill me-2" style="color:#d4af37;"></i> Step 1: Get in Touch
+                  </h5>
+                  <p class="text-muted mb-0">
+                    Send us a message or call. Tell us what you are interested in (safari, trekking, or beach holiday) and feel free to ask questions about destinations or services.
+                  </p>
+                </div>
+              </div>
+
+              <!-- Step 2 -->
+              <div class="col-md-6">
+                <div class="p-4 border rounded-3 shadow-sm h-100 hover-luxury" style="background-color:#faf3e0;">
+                  <h5 class="fw-bold" style="color:#004d40;">
+                    <i class="bi bi-calendar-event-fill me-2" style="color:#d4af37;"></i> Step 2: Choose Your Travel Dates
+                  </h5>
+                  <p class="text-muted mb-0">
+                    Select your preferred travel dates. Don’t forget to check park opening hours, weather conditions, and any seasonal events.
+                  </p>
+                </div>
+              </div>
+
+              <!-- Step 3 -->
+              <div class="col-md-6">
+                <div class="p-4 border rounded-3 shadow-sm h-100 hover-luxury" style="background-color:#faf3e0;">
+                  <h5 class="fw-bold" style="color:#004d40;">
+                    <i class="bi bi-house-heart-fill me-2" style="color:#d4af37;"></i> Step 3: Select Accommodation & Package
+                  </h5>
+                  <p class="text-muted mb-0">
+                    Choose from luxury lodges, tented camps, or budget-friendly stays.  
+                    Pick a safari/holiday package that matches your needs (guided tours, transport, activities).
+                  </p>
+                </div>
+              </div>
+
+              <!-- Step 4 -->
+              <div class="col-md-6">
+                <div class="p-4 border rounded-3 shadow-sm h-100 hover-luxury" style="background-color:#faf3e0;">
+                  <h5 class="fw-bold" style="color:#004d40;">
+                    <i class="bi bi-file-earmark-text-fill me-2" style="color:#d4af37;"></i> Step 4: Fill Out the Booking Form
+                  </h5>
+                  <p class="text-muted mb-0">
+                    Provide your details (name, email, phone, nationality). Mention any special requests such as dietary restrictions or accessibility needs.
+                  </p>
+                </div>
+              </div>
+
+              <!-- Step 5 -->
+              <div class="col-md-6">
+                <div class="p-4 border rounded-3 shadow-sm h-100 hover-luxury" style="background-color:#faf3e0;">
+                  <h5 class="fw-bold" style="color:#004d40;">
+                    <i class="bi bi-check-circle-fill me-2" style="color:#d4af37;"></i> Step 5: Review & Confirm
+                  </h5>
+                  <p class="text-muted mb-0">
+                    Double-check your travel dates, accommodation, and package.  
+                    Review payment terms, cancellation policies, and additional fees.
+                  </p>
+                </div>
+              </div>
+
+              <!-- Step 6 -->
+              <div class="col-md-6">
+                <div class="p-4 border rounded-3 shadow-sm h-100 hover-luxury" style="background-color:#faf3e0;">
+                  <h5 class="fw-bold" style="color:#004d40;">
+                    <i class="bi bi-credit-card-fill me-2" style="color:#d4af37;"></i> Step 6: Make a Payment
+                  </h5>
+                  <p class="text-muted mb-0">
+                    Secure your booking with a deposit or full payment.  
+                    We accept safe methods such as credit cards, bank transfers, or trusted online platforms.
+                  </p>
+                </div>
+              </div>
+
+              <!-- Step 7 -->
+              <div class="col-12">
+                <div class="p-4 border rounded-3 shadow-sm h-100 hover-luxury" style="background-color:#faf3e0;">
+                  <h5 class="fw-bold" style="color:#004d40;">
+                    <i class="bi bi-envelope-open-fill me-2" style="color:#d4af37;"></i> Step 7: Receive Confirmation
+                  </h5>
+                  <p class="text-muted mb-0">
+                    Get your confirmation email with receipt, itinerary, packing list, and meeting points.  
+                    You’re now ready for your adventure with <b>Kilihappy Tanzania Adventures</b> 🎉.
+                  </p>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Custom luxury hover style -->
+<style>
+  .hover-luxury {
+    transition: all 0.3s ease;
+  }
+  .hover-luxury:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 22px rgba(0,0,0,0.2);
+    border-color: #d4af37;
+  }
+</style>
+
+<!-- Scroll Script -->
+<script>
+  document.getElementById("scrollToBooking")?.addEventListener("click", function () {
+    var bookingSection = document.getElementById("booking");
+    if (bookingSection) {
+      var modal = bootstrap.Modal.getInstance(document.getElementById("tourPopup"));
+      if (modal) modal.hide(); // close popup if open
+      setTimeout(() => {
+        bookingSection.scrollIntoView({ behavior: "smooth" });
+      }, 300);
+    }
+  });
+</script>
+
+
+
+{% comment %}
+
+    <!-- Process Start -->
+    <div class="container-xxl py-5">
+        <div class="container">
+            <div class="text-center pb-4 wow fadeInUp" data-wow-delay="0.1s">
+                <h6 style="color: red;" class="section-title bg-white text-center  px-3">Process</h6>
+                <h1 class="mb-5">With Easy Steps</h1>
+            </div>
+            <div class="row gy-5 gx-4 justify-content-center">
+
+                {% for stp in step %}
+                <div class="col-lg-4 col-sm-6 text-center pt-4 wow fadeInUp" data-wow-delay="0.1s">
+                    <div class="position-relative border border-primary pt-5 pb-4 px-4">
+                        <!-- <div class="d-inline-flex align-items-center justify-content-center bg-primary rounded-circle position-absolute top-0 start-50 translate-middle shadow" style="width: 100px; height: 100px;"> -->
+                            <img class="bg-white rounded-circle shadow p-1 mx-auto mb-3" src="{{stp.image}}" style="width: 80px; height: 80px;">
+
+                            <!-- <i class="fa fa-globe fa-3x text-white"></i> -->
+                        <!-- </div> -->
+                        <h5 class="mt-4">{{stp.Title}}</h5>
+                        <hr class="w-25 mx-auto bg-primary mb-1">
+                        <hr class="w-50 mx-auto bg-primary mt-0">
+                        <p style="color: black;" class="mb-0">{{stp.description}}</p>
+                    </div>
+                </div>
+
+                {% endfor %}
+
+
+
+            </div>
+        </div>
+    </div>
+    <!-- Process Start -->
+
+
+    {% endcomment %}
+
+    <!-- Team End -->
+     
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+{% include "booking_form.html" %}
+
+    <!-- Testimonial Start -->
+    <div class="container-xxl py-5 wow fadeInUp" data-wow-delay="0.1s">
+        <div class="container">
+            <div class="text-center">
+                <h6 style="color: red;" class="section-title bg-white text-center  px-3">Testimonial</h6>
+                <h1 class="mb-5">Our Clients Say!!!</h1>
+            </div>
+            <div class="owl-carousel testimonial-carousel position-relative">
+
+                  {% for test in testimonial %}
+                <div class="testimonial-item bg-white text-center border p-4">
+                    <img class="bg-white rounded-circle shadow p-1 mx-auto mb-3" src="{{test.image}}" style="width: 80px; height: 80px;">
+                    <h5 class="mb-0">{{test.Full_name}}</h5>
+                    <p>{{test.country}}</p>
+                    <p class="mb-0">{{test.description}}.</p>
+                </div>
+                    {% endfor %}
+                
+            </div>
+        </div>
+    </div>
+    <!-- Testimonial End -->
+
+
+
+<section class="py-5" style="background: linear-gradient(135deg, #1a2a6c 0%, #b21f1f 50%, #fdbb2d 100%);">
+  <div class="container">
+
+    <!-- Section Heading -->
+    <div class="text-center mb-4">
+      <h5 class="text-uppercase fw-bold mb-1" style="color: #d4af37;">Roaming Tales</h5>
+      <h2 class="fw-bold" style="color: #fff;">Travel Blog</h2>
+      <p class="text-light mx-auto" style="max-width: 700px;">
+        We share our experiences, tips and travel stories to inspire and guide our readers in their own wanderlust adventures. 
+        From hidden gems to popular destinations, we showcase the beauty and diversity of the world, and promote responsible and sustainable travel.
+      </p>
+    </div>
+
+    <div class="row g-4 justify-content-center">
+
+      <!-- Blog Post 1 -->
+      <div class="col-md-6">
+        <div class="card shadow-sm border-0 rounded-4 overflow-hidden h-100">
+          <img src="https://www.climbing-kilimanjaro.com/wp-content/uploads/2020/11/KLM_Airlines_Kilimanjaro-2.jpg" 
+               class="card-img-top" alt="Air Tanzania Flight" style="height: 250px; object-fit: cover;">
+          <div class="card-body" style="background: rgba(0,0,0,0.6);">
+            <h5 class="card-title fw-bold" style="color: #ffd700;">
+              How to fly to Tanzania Routes from all over the world
+            </h5>
+            <small class="text-light d-block mb-2">September 14, 2025 // 5:54 am // No Comments</small>
+            <p class="card-text text-light">
+              Flying to Tanzania is easier than ever, with convenient routes available from the U.S., Europe, and Asia to its...
+            </p>
+            <a href="{% url 'fly_Tz' %}" class="btn btn-gold btn-sm rounded-pill">
+              Read More »
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Blog Post 2 -->
+      <div class="col-md-6">
+        <div class="card shadow-sm border-0 rounded-4 overflow-hidden h-100">
+          <img src="https://evisa-tanzania.it.com/images/step-by-step-guide-to-tanzania-evisa-application.png" 
+               class="card-img-top" alt="Tanzania Visa" style="height: 250px; object-fit: cover;">
+          <div class="card-body" style="background: rgba(0,0,0,0.6);">
+            <h5 class="card-title fw-bold" style="color: #ffd700;">
+              How to Get a Tanzania Visa Online and on Arrival – A Safari Traveler’s Guide
+            </h5>
+            <small class="text-light d-block mb-2">September 14, 2025 // 5:50 am // No Comments</small>
+            <p class="card-text text-light">
+              Planning a safari in Tanzania? Before you set off to spot lions in the Serengeti or climb the mighty...
+            </p>
+            <a href="{% url 'Tanzania_Visa' %}" class="btn btn-gold btn-sm rounded-pill">
+              Read More »
+            </a>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- Gold Button CSS -->
+<style>
+.btn-gold {
+  background: linear-gradient(135deg, #d4af37 0%, #f4d03f 100%);
+  border: none;
+  color: #111;
+  font-weight: 600;
+}
+.btn-gold:hover {
+  box-shadow: 0 0 25px rgba(212, 175, 55, 0.6);
+}
+</style>
+
+
+        
+    {% endblock %}
+
