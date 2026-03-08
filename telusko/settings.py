@@ -71,18 +71,21 @@ CKEDITOR_CONFIGS = {
 }
 
 # If using uploader:
-CKEDITOR_UPLOAD_PATH = 'uploads/'  # Folder for uploaded images/files
+CKEDITOR_UPLOAD_PATH = 'uploads/' 
+JAMIITEK_API_KEY = "JbY-BM0b_FEBApYachm0DbTho7vedxnwdWi6UsBUYJGht86paGTJ_kbPtMWXVs85"
+JAMIITEK_API_URL = "https://jamiitek.co.tz/api/site-status/"
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
-    'whitenoise.middleware.WhiteNoiseMiddleware',  # This one here
-
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'jamiitek_middleware.JamiiTekStatusMiddleware',  # This one here
+
 ]
 
 ROOT_URLCONF = 'telusko.urls'
