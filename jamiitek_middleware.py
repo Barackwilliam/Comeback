@@ -117,7 +117,7 @@ class JamiiTekStatusMiddleware:
         self.api_key = getattr(settings, 'JAMIITEK_API_KEY', None)
         self.api_url = getattr(
             settings, 'JAMIITEK_API_URL',
-            'https://jamiitek.co.tz/api/site-status/'
+            'https://jamiitek.com/api/site-status/'
         )
 
     def __call__(self, request):

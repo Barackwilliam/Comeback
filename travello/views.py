@@ -76,7 +76,8 @@ def index(request):
     }
 
     return render(request, 'index.html',context)
-    #return render(request,'close-page.html')
+    # return render(request, 'close.html',context)
+
 
 
 from django.shortcuts import render, get_object_or_404
