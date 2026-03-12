@@ -76,7 +76,6 @@ def index(request):
     }
 
     return render(request, 'index.html',context)
-    # return render(request, 'close.html',context)
 
 
 
