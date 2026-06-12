@@ -16,7 +16,7 @@ GEOIP_PATH = '/path/to/GeoIP/database/'
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 CSRF_TRUSTED_ORIGINS = [
-    'https://www.comebackafricansafaris.com',
+    'https://www.sunriseandsunsetsafaris.com/',
     'http://localhost:8000',
 ]
 
@@ -72,7 +72,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    # 'jamiitek_middleware.JamiiTekStatusMiddleware',  
+    'jamiitek_middleware.JamiiTekStatusMiddleware',  
 
 ]
 
