@@ -41,7 +41,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
        'cloudinary',
-       'django_ckeditor_5',
+       'ckeditor',
     'ckeditor_uploader',
     'cloudinary_storage',
     "django_countries",
