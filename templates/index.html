@@ -1,1667 +1,1218 @@
 {% extends 'base.html' %}
 {% load static %}
 
-{% block content %}
+{% block title %}Sunrise and Sunset Safaris Limited | Luxury Tanzania Safari Adventures{% endblock %}
+{% block meta_desc %}Experience Africa's finest safaris with Sunrise and Sunset Safaris Limited. Serengeti, Kilimanjaro, Zanzibar &amp; beyond. Your Safari, Our Care.{% endblock %}
 
+{% block extra_css %}
 <style>
-:root {
-    --safari-gold: #77241e;
-    --safari-gold-light: #FFD700;
-    --safari-green: #ff0505;
-    --safari-green-dark: #ffdb0c;
-    --safari-brown: #8B4513;
-    --safari-brown-dark: #5D2906;
-    --safari-sand: #F4E4BC;
-    --safari-sand-light: #FFF9E6;
-    --safari-sky: #87CEEB;
-    --safari-sunset: #FF6B35;
+/* ============================================================
+   HERO — bulletproof full-screen fix
+============================================================ */
+.hero-section {
+  position: relative !important;
+  width: 100% !important;
+  height: 100vh !important;
+  min-height: 600px !important;
+  max-height: 100vh !important;
+  overflow: hidden !important;
+  background: linear-gradient(135deg, #1B3A2D 0%, #111C17 100%);
+  /* force the section to actually have height even with all-absolute children */
+  display: block !important;
+}
+/* slider container — fills hero as bg */
+.hero-bg-slider {
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  z-index: 0;
+}
+/* each bg slide */
+.hero-bg-slide {
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
+  opacity: 0;
+  transition: opacity 1.4s ease-in-out;
+  transform: scale(1);
+  animation: kenBurns 12s ease-in-out infinite alternate;
+}
+.hero-bg-slide.active { opacity: 1; }
+@keyframes kenBurns {
+  from { transform: scale(1);    transform-origin: center center; }
+  to   { transform: scale(1.08); transform-origin: 60% 40%; }
+}
+/* dark overlay */
+.hero-overlay {
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  z-index: 1;
+  background: linear-gradient(
+    135deg,
+    rgba(27,58,45,0.75) 0%,
+    rgba(17,28,23,0.55) 45%,
+    rgba(0,0,0,0.35) 100%
+  );
+}
+/* text + buttons */
+.hero-content {
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  padding: 0 6%;
+  padding-top: 80px; /* clear navbar */
+}
+.hero-badge {
+  display: inline-flex; align-items: center; gap: 7px;
+  background: rgba(201,168,76,0.15);
+  border: 1px solid rgba(201,168,76,0.5);
+  color: #E8C96A;
+  font-size: 0.7rem; font-weight: 700;
+  letter-spacing: 0.22em; text-transform: uppercase;
+  padding: 8px 20px; border-radius: 50px;
+  backdrop-filter: blur(6px);
+  margin-bottom: 24px;
+  animation: fadeUp 0.7s ease both;
+}
+.hero-title {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(2.6rem, 7vw, 5.2rem);
+  font-weight: 900;
+  color: #fff;
+  line-height: 1.06;
+  margin-bottom: 20px;
+  animation: fadeUp 0.9s 0.1s ease both;
+}
+.hero-title em {
+  font-style: normal;
+  color: #C9A84C;
+  display: block;
+}
+.hero-subtitle {
+  font-size: clamp(0.95rem, 2vw, 1.12rem);
+  color: rgba(255,255,255,0.8);
+  line-height: 1.75;
+  max-width: 500px;
+  margin-bottom: 38px;
+  animation: fadeUp 0.9s 0.2s ease both;
+}
+.hero-actions {
+  display: flex; flex-wrap: wrap; gap: 14px;
+  animation: fadeUp 0.9s 0.32s ease both;
+}
+.btn-hero-primary {
+  display: inline-flex; align-items: center; gap: 9px;
+  background: #C9A84C; color: #1B3A2D !important;
+  font-family: 'Cinzel', serif; font-size: 0.82rem;
+  font-weight: 700; letter-spacing: 0.09em; text-transform: uppercase;
+  padding: 15px 32px; border-radius: 50px;
+  box-shadow: 0 6px 24px rgba(201,168,76,0.38);
+  transition: all 0.35s ease;
+}
+.btn-hero-primary:hover {
+  background: #E8C96A; transform: translateY(-3px);
+  box-shadow: 0 12px 32px rgba(201,168,76,0.5);
+}
+.btn-hero-outline {
+  display: inline-flex; align-items: center; gap: 9px;
+  background: rgba(255,255,255,0.1);
+  border: 2px solid rgba(255,255,255,0.55);
+  color: #fff !important;
+  font-size: 0.82rem; font-weight: 600;
+  padding: 13px 28px; border-radius: 50px;
+  backdrop-filter: blur(6px);
+  transition: all 0.35s ease;
+}
+.btn-hero-outline:hover {
+  background: rgba(255,255,255,0.22);
+  border-color: #fff; transform: translateY(-3px);
+}
+/* dots */
+.hero-dots {
+  position: absolute;
+  bottom: 88px; left: 50%;
+  transform: translateX(-50%);
+  z-index: 3;
+  display: flex; gap: 8px;
+}
+.hero-dot {
+  width: 9px; height: 9px; border-radius: 50%;
+  background: rgba(255,255,255,0.38);
+  border: none; cursor: pointer; padding: 0;
+  transition: all 0.3s ease;
+}
+.hero-dot.active { background: #C9A84C; transform: scale(1.4); }
+/* scroll hint */
+.scroll-hint {
+  position: absolute; bottom: 88px; left: 50%;
+  transform: translateX(-50%);
+  z-index: 3;
+  display: flex; flex-direction: column; align-items: center; gap: 5px;
+  color: rgba(255,255,255,0.5); font-size: 0.65rem;
+  letter-spacing: 0.18em; text-transform: uppercase;
+  animation: scrollBounce 2.4s ease-in-out infinite;
+  /* hide when dots are showing (JS shows dots after slide load) */
+  pointer-events: none;
+}
+.hero-has-images .scroll-hint { display: none; }
+.scroll-hint-line {
+  width: 1px; height: 38px;
+  background: linear-gradient(to bottom, rgba(201,168,76,0.7), transparent);
+}
+@keyframes scrollBounce {
+  0%,100% { transform: translateX(-50%) translateY(0); opacity:0.55; }
+  50%      { transform: translateX(-50%) translateY(7px); opacity:1; }
+}
+/* stats bar */
+.hero-stats {
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  z-index: 3;
+  background: rgba(17,28,23,0.78);
+  backdrop-filter: blur(14px);
+  border-top: 1px solid rgba(201,168,76,0.18);
+  padding: 18px 0;
+}
+.hero-stat { text-align: center; }
+.hero-stat-num {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.65rem; font-weight: 900;
+  color: #C9A84C; display: block; line-height: 1;
+}
+.hero-stat-label {
+  font-size: 0.7rem; letter-spacing: 0.14em;
+  text-transform: uppercase; color: rgba(255,255,255,0.5);
+  margin-top: 2px; display: block;
+}
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(22px); }
+  to   { opacity: 1; transform: translateY(0); }
 }
 
-/* Background images for different sections */
-.bg-section-1 {
-    background: linear-gradient(rgba(0, 0, 0, 0.151), rgba(0, 0, 0, 0.349)), url('{% static "img/safari-bg-1.jpg" %}');
-    background-size: cover;
-    background-position: center;
-    background-attachment: fixed;
+/* ============================================================
+   SECTIONS SHARED
+============================================================ */
+.section-head        { margin-bottom: 48px; }
+.section-head.center { text-align: center; }
+.section-head.center .section-divider { margin: 14px auto 0; }
+
+/* ============================================================
+   POPULAR SAFARIS
+============================================================ */
+.safaris-section { background: var(--cream-dark); position: relative; z-index: 1; }
+.safari-card {
+  position: relative; border-radius: var(--radius-lg);
+  overflow: hidden; cursor: pointer;
+  box-shadow: var(--shadow); transition: var(--transition);
+}
+.safari-card:hover { transform: translateY(-6px); box-shadow: 0 16px 48px rgba(0,0,0,0.2); }
+.safari-card img { width: 100%; height: 280px; object-fit: cover; transition: transform 0.6s ease; }
+.safari-card:hover img { transform: scale(1.07); }
+.safari-card-overlay {
+  position: absolute; inset: 0;
+  background: linear-gradient(to top, rgba(17,28,23,0.88) 0%, rgba(0,0,0,0.1) 55%, transparent 100%);
+}
+.safari-card-body { position: absolute; bottom: 0; left: 0; right: 0; padding: 20px 18px 18px; }
+.safari-card-badge {
+  display: inline-flex; align-items: center; gap: 5px;
+  background: var(--gold); color: var(--forest);
+  font-size: 0.67rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase;
+  padding: 4px 12px; border-radius: 50px; margin-bottom: 8px;
+}
+.safari-card-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.15rem; font-weight: 700; color: #fff; margin: 0;
+}
+.safari-card-sub { font-size: 0.78rem; color: rgba(255,255,255,0.7); margin-top: 3px; }
+.safari-card-arrow {
+  position: absolute; top: 16px; right: 16px;
+  width: 36px; height: 36px; border-radius: 50%;
+  background: rgba(255,255,255,0.15); border: 1px solid rgba(255,255,255,0.3);
+  display: flex; align-items: center; justify-content: center;
+  color: #fff; font-size: 0.8rem; transition: var(--transition);
+  backdrop-filter: blur(4px);
+}
+.safari-card:hover .safari-card-arrow { background: var(--gold); color: var(--forest); border-color: var(--gold); }
+
+/* ============================================================
+   ABOUT
+============================================================ */
+.about-img-wrap { position: relative; }
+.about-main-img { width: 100%; height: 480px; object-fit: cover; border-radius: var(--radius-lg); box-shadow: var(--shadow); }
+.about-badge-overlay {
+  position: absolute; top: 20px; left: 20px;
+  background: var(--gold); color: var(--forest);
+  font-family: 'Cinzel', serif; font-size: 0.72rem; font-weight: 700;
+  letter-spacing: 0.12em; text-transform: uppercase;
+  padding: 8px 18px; border-radius: 50px;
+}
+.about-rating {
+  position: absolute; bottom: -20px; right: 20px;
+  background: #fff; border-radius: var(--radius); padding: 14px 20px;
+  box-shadow: var(--shadow); display: flex; align-items: center; gap: 10px;
+}
+.about-rating-stars { color: #F59E0B; font-size: 0.82rem; letter-spacing: 2px; }
+.about-rating-text  { font-size: 0.8rem; font-weight: 700; color: var(--forest); }
+.about-feature {
+  display: flex; align-items: flex-start; gap: 14px;
+  padding: 16px; border-radius: var(--radius);
+  background: var(--cream); border: 1px solid rgba(201,168,76,0.15);
+  transition: var(--transition);
+}
+.about-feature:hover { border-color: var(--gold); box-shadow: var(--shadow-gold); transform: translateY(-2px); }
+.about-feature-icon {
+  width: 44px; height: 44px; flex-shrink: 0; border-radius: 10px;
+  background: linear-gradient(135deg, var(--forest), var(--forest-mid));
+  display: flex; align-items: center; justify-content: center;
+  color: var(--gold); font-size: 1rem;
+}
+.about-feature h6 { font-size: 0.88rem; font-weight: 700; color: var(--forest); margin-bottom: 2px; }
+.about-feature p  { font-size: 0.78rem; color: var(--text-light); margin: 0; }
+
+/* ============================================================
+   SERVICES
+============================================================ */
+.services-section { background: var(--forest); }
+.svc-card {
+  background: rgba(255,255,255,0.05); border: 1px solid rgba(201,168,76,0.18);
+  border-radius: var(--radius-lg); padding: 36px 28px; text-align: center;
+  transition: var(--transition);
+}
+.svc-card:hover { background: rgba(201,168,76,0.1); border-color: rgba(201,168,76,0.45); transform: translateY(-6px); }
+.svc-icon-wrap {
+  width: 72px; height: 72px; border-radius: 50%;
+  background: linear-gradient(135deg, var(--gold), var(--gold-dark));
+  display: flex; align-items: center; justify-content: center;
+  margin: 0 auto 20px; font-size: 1.5rem; color: var(--forest);
+  box-shadow: 0 6px 20px rgba(201,168,76,0.3); transition: var(--transition);
+}
+.svc-card:hover .svc-icon-wrap { transform: scale(1.1) rotate(5deg); }
+.svc-title { font-family: 'Cinzel', serif; font-size: 0.92rem; font-weight: 700; color: var(--gold); margin-bottom: 10px; letter-spacing: 0.06em; }
+.svc-desc  { font-size: 0.82rem; color: rgba(249,244,236,0.65); line-height: 1.65; }
+
+/* ============================================================
+   DESTINATIONS
+============================================================ */
+.destinations-section { background: var(--forest); }
+.dest-card { border-radius: var(--radius-lg); overflow: hidden; position: relative; height: 400px; box-shadow: var(--shadow); transition: var(--transition); }
+.dest-card img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.6s ease; }
+.dest-card:hover img { transform: scale(1.06); }
+.dest-overlay { position: absolute; inset: 0; background: linear-gradient(to top, rgba(17,28,23,0.9) 0%, rgba(0,0,0,0.1) 50%, transparent 100%); }
+.dest-body { position: absolute; bottom: 0; left: 0; right: 0; padding: 24px 20px; transform: translateY(52px); transition: var(--transition); }
+.dest-card:hover .dest-body { transform: translateY(0); }
+.dest-name { font-family: 'Playfair Display', serif; font-size: 1.3rem; font-weight: 700; color: #fff; margin-bottom: 4px; }
+.dest-loc  { font-size: 0.78rem; color: rgba(255,255,255,0.65); margin-bottom: 12px; }
+.dest-desc { font-size: 0.82rem; color: rgba(255,255,255,0.8); line-height: 1.55; margin-bottom: 14px; }
+.dest-btn {
+  display: inline-flex; align-items: center; gap: 6px;
+  background: var(--gold); color: var(--forest) !important;
+  font-size: 0.78rem; font-weight: 700; font-family: 'Cinzel', serif;
+  letter-spacing: 0.06em; padding: 8px 18px; border-radius: 50px; transition: var(--transition);
+}
+.dest-btn:hover { background: var(--gold-light); transform: translateX(3px); }
+.dest-offer-badge {
+  position: absolute; top: 16px; left: 16px;
+  background: rgba(230,76,62,0.9); color: #fff;
+  font-size: 0.7rem; font-weight: 700; padding: 5px 12px; border-radius: 50px;
 }
 
-.bg-section-2 {
-    background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('{% static "img/safari-bg-2.jpg" %}');
-    background-size: cover;
-    background-position: center;
-    background-attachment: fixed;
-}
+/* ============================================================
+   PACKAGES
+============================================================ */
+.packages-section { background: var(--cream); }
+.pkg-card { background: #fff; border-radius: var(--radius-lg); overflow: hidden; box-shadow: var(--shadow); transition: var(--transition); border: 1px solid rgba(201,168,76,0.12); }
+.pkg-card:hover { transform: translateY(-6px); box-shadow: 0 16px 48px rgba(0,0,0,0.14); border-color: var(--gold); }
+.pkg-img-wrap { position: relative; height: 220px; overflow: hidden; }
+.pkg-img-wrap img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s ease; }
+.pkg-card:hover .pkg-img-wrap img { transform: scale(1.07); }
+.pkg-type-badge { position: absolute; top: 12px; right: 12px; background: var(--forest); color: var(--gold); font-size: 0.65rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; padding: 5px 12px; border-radius: 50px; border: 1px solid rgba(201,168,76,0.3); }
+.pkg-body { padding: 22px 20px 20px; }
+.pkg-meta { display: flex; align-items: center; gap: 14px; font-size: 0.76rem; color: var(--text-light); margin-bottom: 10px; }
+.pkg-meta span { display: flex; align-items: center; gap: 4px; }
+.pkg-meta i { color: var(--gold); }
+.pkg-title { font-family: 'Playfair Display', serif; font-size: 1.1rem; font-weight: 700; color: var(--forest); margin-bottom: 8px; line-height: 1.3; }
+.pkg-desc  { font-size: 0.82rem; color: var(--text-light); line-height: 1.6; margin-bottom: 16px; }
+.pkg-footer { display: flex; align-items: center; justify-content: space-between; padding-top: 14px; border-top: 1px solid rgba(201,168,76,0.12); }
+.pkg-price-label { font-size: 0.68rem; color: var(--text-light); display: block; }
+.pkg-price-value { font-family: 'Playfair Display', serif; font-size: 1.3rem; font-weight: 900; color: var(--gold-dark); }
+.pkg-btn { display: inline-flex; align-items: center; gap: 6px; background: var(--forest); color: var(--gold) !important; font-size: 0.76rem; font-weight: 700; font-family: 'Cinzel', serif; letter-spacing: 0.06em; padding: 9px 18px; border-radius: 50px; transition: var(--transition); }
+.pkg-btn:hover { background: var(--gold); color: var(--forest) !important; }
 
-.bg-section-3 {
-    background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('{% static "img/safari-bg-3.jpg" %}');
-    background-size: cover;
-    background-position: center;
-    background-attachment: fixed;
-}
+/* ============================================================
+   SEASONS
+============================================================ */
+.seasons-section { background: var(--cream); }
+.season-card { background: #fff; border-radius: var(--radius-lg); overflow: hidden; box-shadow: var(--shadow); border: 1px solid rgba(201,168,76,0.1); height: 100%; }
+.season-card-head { padding: 24px 24px 20px; border-bottom: 1px solid rgba(201,168,76,0.12); }
+.season-icon  { font-size: 2rem; margin-bottom: 10px; display: block; }
+.season-title { font-family: 'Playfair Display', serif; font-size: 1.25rem; font-weight: 700; color: var(--forest); margin-bottom: 4px; }
+.season-months{ font-size: 0.72rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--gold-dark); }
+.season-body  { padding: 20px 24px 24px; }
+.season-item  { display: flex; align-items: flex-start; gap: 10px; margin-bottom: 12px; font-size: 0.83rem; color: var(--text); }
+.season-item i{ color: var(--gold); margin-top: 2px; font-size: 0.75rem; flex-shrink: 0; }
+.seasons-img  { border-radius: var(--radius-lg); overflow: hidden; height: 100%; min-height: 320px; }
+.seasons-img img { width: 100%; height: 100%; object-fit: cover; }
 
-.bg-section-4 {
-    background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('{% static "img/safari-bg-4.jpg" %}');
-    background-size: cover;
-    background-position: center;
-    background-attachment: fixed;
+/* ============================================================
+   HOW IT WORKS
+============================================================ */
+.process-section { background: var(--cream-dark); }
+.step-wrap { position: relative; text-align: center; }
+.step-num {
+  width: 56px; height: 56px; border-radius: 50%;
+  background: var(--forest); border: 3px solid var(--gold);
+  display: flex; align-items: center; justify-content: center;
+  margin: 0 auto 18px; font-family: 'Cinzel', serif; font-size: 1.05rem; font-weight: 700;
+  color: var(--gold); box-shadow: 0 4px 16px rgba(201,168,76,0.25); transition: var(--transition);
 }
-
-.bg-pattern-1 {
-    background-color: #f9f5f0;
-    background-image: 
-        url('{% static "img/pattern-1.png" %}'),
-        radial-gradient(circle at 10% 20%, rgba(212, 175, 55, 0.05) 0%, transparent 20%);
-    background-size: 300px, cover;
-    background-blend-mode: overlay;
+.step-wrap:hover .step-num { background: var(--gold); color: var(--forest); transform: scale(1.1); }
+.step-icon {
+  width: 80px; height: 80px; border-radius: 50%;
+  background: linear-gradient(135deg, var(--cream), var(--cream-dark));
+  border: 3px solid rgba(201,168,76,0.3);
+  display: flex; align-items: center; justify-content: center;
+  margin: 0 auto 14px; font-size: 1.6rem; color: var(--gold);
 }
+.step-title { font-family: 'Cinzel', serif; font-size: 0.85rem; font-weight: 700; color: var(--forest); letter-spacing: 0.06em; margin-bottom: 8px; }
+.step-desc  { font-size: 0.8rem; color: var(--text-light); line-height: 1.6; }
 
-/* Premium Hero Section */
-.premium-hero {
-    position: relative;
-    height: 100vh;
-    overflow: hidden;
+/* ============================================================
+   TESTIMONIALS
+============================================================ */
+.testimonials-section { background: var(--cream); }
+.testi-card { background: #fff; border-radius: var(--radius-lg); padding: 30px 28px; box-shadow: var(--shadow); border: 1px solid rgba(201,168,76,0.1); position: relative; transition: var(--transition); }
+.testi-card:hover { box-shadow: var(--shadow-gold); border-color: rgba(201,168,76,0.3); }
+.testi-quote { font-size: 4.5rem; line-height: 1; color: var(--gold); opacity: 0.18; font-family: Georgia, serif; position: absolute; top: 12px; left: 20px; }
+.testi-text  { font-size: 0.88rem; line-height: 1.75; color: var(--text-light); margin-bottom: 22px; padding-top: 16px; }
+.testi-author{ display: flex; align-items: center; gap: 12px; }
+.testi-author img { width: 50px; height: 50px; border-radius: 50%; object-fit: cover; border: 2px solid var(--gold); }
+.testi-name  { font-family: 'Playfair Display', serif; font-size: 0.92rem; font-weight: 700; color: var(--forest); margin-bottom: 1px; }
+.testi-country{ font-size: 0.75rem; color: var(--text-light); }
+.testi-stars { color: #F59E0B; font-size: 0.78rem; letter-spacing: 1.5px; }
+
+/* ============================================================
+   CTA
+============================================================ */
+.cta-section { position: relative; overflow: hidden; min-height: 440px; display: flex; align-items: center; }
+.cta-bg { position: absolute; inset: 0; background: linear-gradient(135deg, var(--forest) 0%, var(--dark) 100%); }
+.cta-bg-pattern { position: absolute; inset: 0; opacity: 0.04; background-image: repeating-linear-gradient(45deg, var(--gold) 0px, var(--gold) 1px, transparent 1px, transparent 32px); }
+.cta-glow { position: absolute; width: 500px; height: 500px; border-radius: 50%; background: radial-gradient(circle, rgba(201,168,76,0.12), transparent 70%); top: -100px; right: -100px; }
+.cta-content { position: relative; z-index: 1; }
+.cta-label { font-size: 0.7rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold); font-weight: 700; display: block; margin-bottom: 14px; }
+.cta-title { font-family: 'Playfair Display', serif; font-size: clamp(1.8rem, 4vw, 3rem); font-weight: 900; color: #fff; line-height: 1.2; margin-bottom: 16px; }
+.cta-title span { color: var(--gold); }
+.cta-desc  { font-size: 0.95rem; color: rgba(255,255,255,0.65); line-height: 1.7; margin-bottom: 32px; max-width: 540px; }
+.btn-cta-primary { display: inline-flex; align-items: center; gap: 8px; background: var(--gold); color: var(--forest) !important; font-family: 'Cinzel', serif; font-size: 0.82rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; padding: 14px 30px; border-radius: 50px; transition: var(--transition); box-shadow: 0 6px 24px rgba(201,168,76,0.35); }
+.btn-cta-primary:hover { background: var(--gold-light); transform: translateY(-3px); }
+.btn-cta-outline { display: inline-flex; align-items: center; gap: 8px; background: transparent; border: 2px solid rgba(201,168,76,0.4); color: var(--gold) !important; font-size: 0.82rem; font-weight: 600; padding: 12px 26px; border-radius: 50px; transition: var(--transition); }
+.btn-cta-outline:hover { background: rgba(201,168,76,0.12); border-color: var(--gold); transform: translateY(-3px); }
+.cta-pill { display: inline-flex; align-items: center; gap: 7px; background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.12); color: rgba(255,255,255,0.75) !important; font-size: 0.78rem; padding: 7px 14px; border-radius: 50px; transition: var(--transition); }
+.cta-pill:hover { background: rgba(201,168,76,0.15); border-color: rgba(201,168,76,0.35); color: var(--gold) !important; }
+.cta-pill i { color: var(--gold); }
+
+/* ============================================================
+   RESPONSIVE
+============================================================ */
+@media (max-width: 991px) {
+  .hero-content { padding: 0 5%; padding-top: 70px; }
 }
-
-.hero-overlay-premium {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(135deg, 
-        rgba(139, 69, 19, 0.85) 0%,
-        rgba(212, 175, 55, 0.7) 25%,
-        rgba(11, 102, 35, 0.8) 75%,
-        rgba(20, 20, 31, 0.9) 100%);
-    z-index: 1;
+@media (max-width: 767px) {
+  .hero-title    { font-size: clamp(2rem, 9vw, 3rem); }
+  .hero-stats    { display: none !important; }
+  .about-main-img{ height: 300px; }
+  .safari-card img{ height: 240px; }
+  .dest-card     { height: 320px; }
+  .dest-body     { transform: translateY(0); }
+  .hero-dots     { bottom: 20px; }
+  .scroll-hint   { bottom: 20px; }
 }
-
-.hero-content-premium {
-    position: relative;
-    z-index: 2;
-    backdrop-filter: blur(5px);
-}
-
-/* Premium Typography */
-.premium-heading {
-    font-family: 'Cinzel', 'Playfair Display', serif;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 3px;
-    background: linear-gradient(45deg, var(--safari-gold), var(--safari-green));
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
-}
-
-.premium-subheading {
-    font-family: 'Playfair Display', serif;
-    font-style: italic;
-    font-size: 1.5rem;
-    position: relative;
-    display: inline-block;
-}
-
-.premium-subheading::after {
-    content: '';
-    position: absolute;
-    bottom: -10px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 100px;
-    height: 3px;
-    background: linear-gradient(90deg, transparent, var(--safari-gold), transparent);
-}
-
-/* Premium Cards */
-.premium-card {
-    background: linear-gradient(145deg, #ffffff, #f8f9fa);
-    border: 2px solid transparent;
-    border-radius: 20px;
-    overflow: hidden;
-    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-    box-shadow: 0 10px 30px rgba(0,0,0,0.08);
-    position: relative;
-}
-
-.premium-card::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 5px;
-    background: linear-gradient(90deg, var(--safari-gold), var(--safari-green));
-}
-
-.premium-card:hover {
-    transform: translateY(-15px) scale(1.02);
-    box-shadow: 0 25px 50px rgba(212, 175, 55, 0.2);
-    border-color: var(--safari-gold);
-}
-
-/* Premium Badges */
-.premium-badge {
-    background: linear-gradient(135deg, var(--safari-gold), var(--safari-green));
-    color: white;
-    padding: 8px 20px;
-    border-radius: 25px;
-    font-weight: 700;
-    letter-spacing: 1.5px;
-    text-transform: uppercase;
-    font-size: 0.8rem;
-    box-shadow: 0 4px 15px rgba(212, 175, 55, 0.3);
-    position: relative;
-    overflow: hidden;
-}
-
-.premium-badge::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: -100%;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
-    transition: 0.5s;
-}
-
-.premium-badge:hover::before {
-    left: 100%;
-}
-
-/* Premium Buttons */
-.btn-premium {
-    background: linear-gradient(135deg, var(--safari-gold), var(--safari-green));
-    color: white;
-    border: none;
-    padding: 15px 40px;
-    border-radius: 30px;
-    font-weight: 700;
-    letter-spacing: 1.5px;
-    text-transform: uppercase;
-    position: relative;
-    overflow: hidden;
-    transition: all 0.4s ease;
-    box-shadow: 0 8px 25px rgba(212, 175, 55, 0.3);
-}
-
-.btn-premium::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: -100%;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
-    transition: 0.5s;
-}
-
-.btn-premium:hover {
-    transform: translateY(-5px) scale(1.05);
-    box-shadow: 0 15px 35px rgba(212, 175, 55, 0.4);
-    color: white;
-}
-
-.btn-premium:hover::before {
-    left: 100%;
-}
-
-/* Safari Icon Styling */
-.safari-icon {
-    font-size: 3rem;
-    background: linear-gradient(45deg, var(--safari-gold), var(--safari-green));
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    filter: drop-shadow(2px 2px 4px rgba(0,0,0,0.1));
-}
-
-/* Glowing Effects */
-.glow-effect {
-    position: relative;
-}
-
-.glow-effect::after {
-    content: '';
-    position: absolute;
-    top: -10px;
-    left: -10px;
-    right: -10px;
-    bottom: -10px;
-    background: linear-gradient(45deg, var(--safari-gold), transparent, var(--safari-green));
-    border-radius: inherit;
-    z-index: -1;
-    opacity: 0;
-    transition: opacity 0.3s ease;
-}
-
-.glow-effect:hover::after {
-    opacity: 0.3;
-}
-
-/* Luxury Section Styling */
-.luxury-section {
-    background: linear-gradient(135deg, #f9f5f0 0%, #fffaf0 100%);
-    position: relative;
-    overflow: hidden;
-}
-
-.luxury-section::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: url('{% static "img/pattern-gold.png" %}');
-    background-size: 200px 200px;
-    background-repeat: repeat;
-    opacity: 0.05;
-}
-
-/* Safari Animal Patterns */
-.animal-pattern {
-    background: url('{% static "img/animal-pattern.png" %}');
-    background-size: 200px 200px;
-    background-repeat: repeat;
-    opacity: 0.1;
-}
-
-/* Animated Background Elements */
-.floating-element {
-    position: absolute;
-    background: linear-gradient(45deg, var(--safari-gold-light), var(--safari-green));
-    border-radius: 50%;
-    opacity: 0.1;
-    animation: float 20s infinite ease-in-out;
-}
-
-@keyframes float {
-    0%, 100% { transform: translate(0, 0) rotate(0deg); }
-    33% { transform: translate(30px, -30px) rotate(120deg); }
-    66% { transform: translate(-20px, 20px) rotate(240deg); }
-}
-
-/* Safari Header Section */
-.safari-header-section {
-    background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('{% static "img/safari-header.jpg" %}');
-    background-size: cover;
-    background-position: center;
-    background-attachment: fixed;
-    position: relative;
-}
-
-/* Premium Search Bar */
-.premium-search {
-    background: rgba(255,255,255,0.95);
-    backdrop-filter: blur(10px);
-    border: 2px solid var(--safari-gold);
-    border-radius: 50px;
-    padding: 10px;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
-}
-
-.premium-search input {
-    border: none;
-    background: transparent;
-    padding: 15px 25px;
-    font-size: 1.1rem;
-}
-
-.premium-search input:focus {
-    outline: none;
-    box-shadow: none;
-}
-
-/* Luxury Package Cards */
-.luxury-package-card {
-    position: relative;
-    overflow: hidden;
-    border-radius: 20px;
-    height: 450px;
-}
-
-.luxury-package-card img {
-    transition: transform 0.6s ease;
-    height: 100%;
-    object-fit: cover;
-}
-
-.luxury-package-card:hover img {
-    transform: scale(1.1);
-}
-
-.luxury-package-overlay {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    background: linear-gradient(transparent, rgba(0,0,0,0.9));
-    padding: 30px;
-    color: white;
-    transform: translateY(100px);
-    transition: transform 0.4s ease;
-}
-
-.luxury-package-card:hover .luxury-package-overlay {
-    transform: translateY(0);
-}
-
-/* Premium Testimonial Cards */
-.premium-testimonial {
-    background: white;
-    border-radius: 20px;
-    padding: 40px;
-    box-shadow: 0 20px 40px rgba(0,0,0,0.1);
-    position: relative;
-}
-
-.premium-testimonial::before {
-    content: '"';
-    position: absolute;
-    top: -20px;
-    left: 30px;
-    font-size: 100px;
-    color: var(--safari-gold);
-    opacity: 0.2;
-    font-family: Georgia, serif;
-}
-
-/* Safari Luxury Colors */
-.bg-safari-gold {
-    background: var(--safari-gold);
-}
-
-.bg-safari-green {
-    background: var(--safari-green);
-}
-
-.bg-safari-brown {
-    background: var(--safari-brown);
-}
-
-.text-safari-gold {
-    color: var(--safari-gold);
-}
-
-.text-safari-green {
-    color: var(--safari-green);
-}
-
-.text-safari-brown {
-    color: var(--safari-brown);
-}
-
-/* Premium Borders */
-.border-premium {
-    border: 2px solid transparent;
-    border-image: linear-gradient(45deg, var(--safari-gold), var(--safari-green)) 1;
-}
-
-/* Safari Pattern Background */
-.bg-safari-pattern {
-    background-color: #f9f5f0;
-    background-image: 
-        url('{% static "img/safari-pattern-bg.jpg" %}'),
-        radial-gradient(circle at 10% 20%, rgba(212, 175, 55, 0.05) 0%, transparent 20%);
-    background-size: cover, auto;
-    background-blend-mode: overlay;
-}
-
-/* Premium Animations */
-@keyframes shimmer {
-    0% { background-position: -1000px 0; }
-    100% { background-position: 1000px 0; }
-}
-
-.shimmer-effect {
-    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
-    background-size: 1000px 100%;
-    animation: shimmer 2s infinite;
-}
-
-/* Responsive Design */
-@media (max-width: 768px) {
-    .premium-heading {
-        font-size: 2.5rem;
-        letter-spacing: 2px;
-    }
-    
-    .premium-card {
-        margin-bottom: 30px;
-    }
-    
-    .btn-premium {
-        padding: 12px 30px;
-        font-size: 0.9rem;
-    }
+@media (max-width: 576px) {
+  .hero-actions  { flex-direction: column; }
+  .btn-hero-primary, .btn-hero-outline { justify-content: center; }
+  .hero-badge    { font-size: 0.62rem; }
 }
 </style>
+{% endblock %}
 
-<!-- Premium Hero Section -->
-<div class="premium-hero bg-section-1">
-    {% for item in home_text %}
-    <div id="welcomeCarousel{{ forloop.counter }}" 
-         class="carousel slide position-absolute w-100 h-100" 
-         data-bs-ride="carousel" 
-         data-bs-interval="5000">
+{% block content %}
 
-      <div class="carousel-inner w-100 h-100">
-        {% if item.image_1 %}
-        <div class="carousel-item active w-100 h-100">
-          <img src="{{ item.image_1 }}"
-               alt="Comeback African Safaris Luxury Safari 1" 
-               class="w-100 h-100" 
-               style="object-fit: cover; filter: brightness();">
-        </div>
-        {% endif %}
+<!-- ============================================================
+     HERO SECTION
+============================================================ -->
+<section class="hero-section" id="heroSection" style="position:relative;width:100%;display:block;">
+<div class="hero-inner" style="position:relative;width:100%;height:85vh;min-height:520px;max-height:780px;overflow:hidden;background:linear-gradient(135deg,#1B3A2D 0%,#111C17 100%);">
 
-        {% if item.image_2 %}
-        <div class="carousel-item w-100 h-100">
-          <img src="{{ item.image_2 }}"
-               alt="Comeback African Safaris Luxury Safari 2" 
-               class="w-100 h-100" 
-               style="object-fit: cover; filter: brightness(1);">
-        </div>
-        {% endif %}
+  <!-- Layer 0: background image slider (filled by JS) -->
+  <div class="hero-bg-slider" id="heroBgSlider"></div>
 
-        {% if item.image_3 %}
-        <div class="carousel-item w-100 h-100">
-          <img src="{{ item.image_3 }}"
-               alt="Comeback African Safaris Luxury Safari 3" 
-               class="w-100 h-100" 
-               style="object-fit: cover; filter: brightness(1);">
-        </div>
-        {% endif %}
+  <!-- Layer 1: dark overlay -->
+  <div class="hero-overlay"></div>
 
-        {% if item.image_4 %}
-        <div class="carousel-item w-100 h-100">
-          <img src="{{ item.image_4 }}"
-               alt="Comeback African Safaris Luxury Safari 4" 
-               class="w-100 h-100" 
-               style="object-fit: cover; filter: brightness(1);">
-        </div>
-        {% endif %}
+  <!-- Layer 2: text content -->
+  <div class="hero-content">
+    <div style="max-width:640px;">
 
-        {% if item.image_5 %}
-        <div class="carousel-item w-100 h-100">
-          <img src="{{ item.image_5 }}"
-               alt="Comeback African Safaris Luxury Safari 5" 
-               class="w-100 h-100" 
-               style="object-fit: cover; filter: brightness(1);">
-        </div>
-        {% endif %}
-
-        {% if item.image_6 %}
-        <div class="carousel-item w-100 h-100">
-          <img src="{{ item.image_6 }}"
-               alt="Comeback African Safaris Luxury Safari 6" 
-               class="w-100 h-100" 
-               style="object-fit: cover; filter: brightness(1);">
-        </div>
-        {% endif %}
+      <div class="hero-badge">
+        <i class="fas fa-sun"></i> Tanzania's Premier Safari Company
       </div>
-      
-      <!-- Carousel Controls -->
-      <button class="carousel-control-prev" type="button" data-bs-target="#welcomeCarousel{{ forloop.counter }}" data-bs-slide="prev">
-        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-        <span class="visually-hidden">Previous</span>
-      </button>
-      <button class="carousel-control-next" type="button" data-bs-target="#welcomeCarousel{{ forloop.counter }}" data-bs-slide="next">
-        <span class="carousel-control-next-icon" aria-hidden="true"></span>
-        <span class="visually-hidden">Next</span>
-      </button>
-    </div>
-    {% empty %}
-    <video autoplay muted loop playsinline class="position-absolute w-100 h-100" style="object-fit: cover; filter: brightness(0.7);">
-        <source src="{% static 'img/safari-luxury-hero.mp4' %}" type="video/mp4">
-        Your browser does not support HTML5 video.
-    </video>
-    {% endfor %}
 
-    <!-- Luxury Overlay -->
-    <div class="hero-overlay-premium"></div>
-    
-    <!-- Floating Elements -->
-    <div class="floating-element" style="width: 300px; height: 300px; top: 10%; left: 5%;"></div>
-    <div class="floating-element" style="width: 200px; height: 200px; bottom: 20%; right: 10%; animation-delay: -5s;"></div>
-    <div class="floating-element" style="width: 150px; height: 150px; top: 40%; right: 15%; animation-delay: -10s;"></div>
+      {% if home_text %}
+        {% with home_text.0 as hero %}
+          <h1 class="hero-title">
+            {{ hero.title|default:"Explore Africa." }}
+            <em>{{ hero.subtitle|default:"Create Memories." }}</em>
+          </h1>
+          <p class="hero-subtitle">
+            Authentic safaris. Exceptional experiences.<br>
+            Guided by care, inspired by Africa.
+          </p>
+          {# image URLs hidden for JS to read #}
+          <div id="heroImages" style="display:none;" aria-hidden="true">
+            {% if hero.image_1 %}<span data-src="{{ hero.image_1 }}"></span>{% endif %}
+            {% if hero.image_2 %}<span data-src="{{ hero.image_2 }}"></span>{% endif %}
+            {% if hero.image_3 %}<span data-src="{{ hero.image_3 }}"></span>{% endif %}
+            {% if hero.image_4 %}<span data-src="{{ hero.image_4 }}"></span>{% endif %}
+            {% if hero.image_5 %}<span data-src="{{ hero.image_5 }}"></span>{% endif %}
+          </div>
+        {% endwith %}
+      {% else %}
+        <h1 class="hero-title">
+          Explore Africa.
+          <em>Create Memories.</em>
+        </h1>
+        <p class="hero-subtitle">
+          Authentic safaris. Exceptional experiences.<br>
+          Guided by care, inspired by Africa.
+        </p>
+      {% endif %}
 
-    <!-- Premium Hero Content -->
-    <div class="container h-100 position-relative d-flex align-items-center justify-content-center hero-content-premium">
-        <div class="row w-100 justify-content-center text-center px-3">
-            <div class="col-lg-8">
-               {% for i in home_text %}
-                <h1 class="display-2 fw-bold text-white mb-4 animated slideInDown">
-                    <span class="premium-heading">{{i.title|default:"COMEBACK AFRICAN SAFARIS"}}</span>
-                </h1>
-                <p class="fs-3 text-white mb-5 animated slideInDown premium-subheading">
-                    {{i.subtitle|default:"Where Luxury Meets The Wild"}}
-                </p>
-                {% empty %}
-                <h1 class="display-2 fw-bold text-white mb-4 animated slideInDown">
-                    <span class="premium-heading">COMEBACK AFRICAN SAFARIS</span>
-                </h1>
-                <p class="fs-3 text-white mb-5 animated slideInDown premium-subheading">
-                    Where Luxury Meets The Wild
-                </p>
-                {% endfor %}
-                
-                <!-- Premium Search Box -->
-                <div class="position-relative mx-auto animated slideInDown premium-search" style="max-width: 700px;">
-                  <input class="form-control border-0 rounded-pill py-3 ps-5 pe-5" type="text" placeholder="Search Premium Safaris & Luxury Experiences...">
-                  <a href="mailto:luxury@comebackafricansafaris.com" class="btn btn-premium rounded-pill py-3 px-5 position-absolute top-50 end-0 translate-middle-y me-2">
-                    <i class="fas fa-gem me-2"></i>Book Luxury Experience
-                  </a>
-                </div>
-                
-                <!-- Quick Stats -->
-                <!-- <div class="row mt-5 pt-5">
-                    <div class="col-md-3 col-6">
-                        <div class="text-center">
-                            <h3 class="text-safari-gold fw-bold display-6">15+</h3>
-                            <p class="text-white mb-0">Years Experience</p>
-                        </div>
-                    </div>
-                    <div class="col-md-3 col-6">
-                        <div class="text-center">
-                            <h3 class="text-safari-gold fw-bold display-6">500+</h3>
-                            <p class="text-white mb-0">Luxury Safaris</p>
-                        </div>
-                    </div>
-                    <div class="col-md-3 col-6">
-                        <div class="text-center">
-                            <h3 class="text-safari-gold fw-bold display-6">98%</h3>
-                            <p class="text-white mb-0">Client Satisfaction</p>
-                        </div>
-                    </div>
-                    <div class="col-md-3 col-6">
-                        <div class="text-center">
-                            <h3 class="text-safari-gold fw-bold display-6">24/7</h3>
-                            <p class="text-white mb-0">Premium Support</p>
-                        </div>
-                    </div>
-                </div> -->
-            </div>
-        </div>
-    </div>
-    
-    <!-- Scroll Indicator -->
-    <div class="position-absolute bottom-0 start-50 translate-middle-x mb-5" style="z-index: 3;">
-        <a href="#about" class="text-white text-decoration-none">
-            <div class="d-flex flex-column align-items-center">
-                <span class="mb-2">Explore Luxury</span>
-                <i class="fas fa-chevron-down fa-bounce"></i>
-            </div>
+      <div class="hero-actions">
+        <a href="{% url 'safari_list' %}" class="btn-hero-primary" onclick="showLoading()">
+          <i class="fas fa-compass"></i> Explore Safaris
         </a>
-    </div>
-</div>
+        <a href="{% url 'form' %}" class="btn-hero-outline" onclick="showLoading()">
+          <i class="fas fa-paper-plane"></i> Book Now
+        </a>
+      </div>
 
-<!-- Luxury About Section -->
-<div class="container-xxl py-5 luxury-section" id="about">
+    </div>
+  </div>
+
+  <!-- Layer 3: dots + scroll hint -->
+  <div class="hero-dots" id="heroDots"></div>
+  <div class="scroll-hint" id="scrollHint">
+    <div class="scroll-hint-line"></div>
+    <span>Scroll</span>
+  </div>
+
+  <!-- Layer 3: stats bar (desktop only) -->
+  <div class="hero-stats d-none d-md-block">
     <div class="container">
-        <div class="row g-5 align-items-center">
-            <div class="col-lg-6 wow fadeInUp" data-wow-delay="0.1s">
-                <div class="position-relative h-100">
-                    <!-- Main Image -->
-                    <div class="premium-card h-100" style="height: 500px;">
-                        <img class="img-fluid w-100 h-100" src="{% if abouts.0.image %}{{ abouts.0.image }}{% else %}{% static 'img/luxury-safari-about.jpg' %}{% endif %}" 
-                             alt="Comeback African Safaris Luxury" 
-                             style="object-fit: cover;">
-                        <!-- Luxury Badge Overlay -->
-                        <div class="position-absolute top-0 start-0 m-4">
-                            <span class="premium-badge">⭐ LUXURY EXPERIENCE</span>
-                        </div>
-                        <!-- Rating Overlay -->
-                        <div class="position-absolute bottom-0 end-0 m-4">
-                            <div class="bg-white rounded-pill px-3 py-2 shadow">
-                                <i class="fas fa-star text-warning"></i>
-                                <i class="fas fa-star text-warning"></i>
-                                <i class="fas fa-star text-warning"></i>
-                                <i class="fas fa-star text-warning"></i>
-                                <i class="fas fa-star text-warning"></i>
-                                <span class="ms-2 fw-bold">5.0</span>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <!-- Floating Small Images -->
-                    <div class="position-absolute" style="bottom: -30px; right: -30px; z-index: 2;">
-                        <div class="premium-card" style="width: 200px; height: 150px; overflow: hidden;">
-                            <img src="{% static 'img/1.avif' %}" class="w-100 h-100" style="object-fit: cover;" alt="Luxury Lodge">
-                        </div>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="col-lg-6 wow fadeInUp" data-wow-delay="0.3s">
-                <div class="ps-lg-5">
-                    <div class="mb-4">
-                        <span class="premium-badge">ABOUT US</span>
-                    </div>
-                    
-                    <h1 class="display-4 mb-4 premium-heading">
-                        <span class="text-dark">Welcome to</span><br>
-                        Comeback African Safaris
-                    </h1>
-                    
-                    <p class="lead text-muted mb-4" style="line-height: 1.8;">
-                        {{ abouts.0.content|default:"Comeback African Safaris represents the pinnacle of luxury safari experiences in Africa. We craft unforgettable journeys that blend premium wildlife viewing with exclusive accommodations, gourmet dining, and personalized service." }}
-                    </p>
-                    
-                    <!-- Luxury Features -->
-                    <div class="row g-3 mb-4">
-                        <div class="col-6">
-                            <div class="d-flex align-items-center">
-                                <div class="me-3">
-                                    <i class="fas fa-crown fa-2x safari-icon"></i>
-                                </div>
-                                <div>
-                                    <h6 class="mb-1">Premium Service</h6>
-                                    <small class="text-muted">24/7 Luxury Concierge</small>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-6">
-                            <div class="d-flex align-items-center">
-                                <div class="me-3">
-                                    <i class="fas fa-shield-alt fa-2x safari-icon"></i>
-                                </div>
-                                <div>
-                                    <h6 class="mb-1">Safety First</h6>
-                                    <small class="text-muted">Premium Security</small>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-6">
-                            <div class="d-flex align-items-center">
-                                <div class="me-3">
-                                    <i class="fas fa-leaf fa-2x safari-icon"></i>
-                                </div>
-                                <div>
-                                    <h6 class="mb-1">Eco-Luxury</h6>
-                                    <small class="text-muted">Sustainable Luxury</small>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-6">
-                            <div class="d-flex align-items-center">
-                                <div class="me-3">
-                                    <i class="fas fa-award fa-2x safari-icon"></i>
-                                </div>
-                                <div>
-                                    <h6 class="mb-1">Award Winning</h6>
-                                    <small class="text-muted">5-Star Rated</small>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <a href="{% url 'about'%}" class="btn btn-premium px-5 py-3">
-                        <i class="fas fa-gem me-2"></i>Discover Our Story
-                    </a>
-                </div>
-            </div>
+      <div class="row g-0">
+        <div class="col-3">
+          <div class="hero-stat">
+            <span class="hero-stat-num">500+</span>
+            <span class="hero-stat-label">Happy Travelers</span>
+          </div>
         </div>
+        <div class="col-3">
+          <div class="hero-stat">
+            <span class="hero-stat-num">10+</span>
+            <span class="hero-stat-label">Safari Routes</span>
+          </div>
+        </div>
+        <div class="col-3">
+          <div class="hero-stat">
+            <span class="hero-stat-num">5★</span>
+            <span class="hero-stat-label">TripAdvisor Rated</span>
+          </div>
+        </div>
+        <div class="col-3">
+          <div class="hero-stat">
+            <span class="hero-stat-num">24/7</span>
+            <span class="hero-stat-label">Guest Support</span>
+          </div>
+        </div>
+      </div>
     </div>
-</div>
+  </div>
 
-<!-- Premium Services Section -->
-<div class="container-xxl py-5 bg-safari-pattern position-relative overflow-hidden">
-    <!-- Background Pattern -->
-    <div class="position-absolute top-0 start-0 w-100 h-100 animal-pattern"></div>
-    
-    <div class="container position-relative">
-        <div class="text-center mb-5 wow fadeInUp" data-wow-delay="0.1s">
-            <span class="premium-badge d-inline-block mb-3">PREMIUM SERVICES</span>
-            <h1 class="display-4 mb-4 premium-heading">Luxury Safari Experiences</h1>
-            <p class="lead text-muted">Experience Africa with our curated premium services</p>
+</div><!-- /hero-inner -->
+</section><!-- /hero-section -->
+
+<!-- ============================================================
+     POPULAR SAFARIS
+============================================================ -->
+<section class="safaris-section py-5 py-lg-6" id="safaris">
+  <div class="container py-3">
+    <div class="section-head center wow fadeInUp">
+      <span class="section-label">Popular Safaris</span>
+      <h2 class="section-title">Journeys You'll Never Forget</h2>
+      <div class="section-divider center"></div>
+    </div>
+    <div class="row g-4 wow fadeInUp" data-wow-delay="0.15s">
+      {% for s in safari_list|slice:":4" %}
+      <div class="col-lg-3 col-md-6">
+        <a href="{% url 'safari_detail' s.id %}" onclick="showLoading()">
+          <div class="safari-card">
+            <img src="{{ s.featured_image }}" alt="{{ s.location }}">
+            <div class="safari-card-overlay"></div>
+            <div class="safari-card-body">
+              <div class="safari-card-badge"><i class="fas fa-paw"></i> {{ s.safari_type|default:"Safari" }}</div>
+              <div class="safari-card-title">{{ s.location }}</div>
+              <div class="safari-card-sub">{{ s.days }} Days &bull; From ${{ s.price }}</div>
+            </div>
+            <div class="safari-card-arrow"><i class="fas fa-arrow-right"></i></div>
+          </div>
+        </a>
+      </div>
+      {% empty %}
+      <div class="col-lg-3 col-md-6">
+        <div class="safari-card">
+          <img src="{% static 'img/4.jpg' %}" alt="Serengeti">
+          <div class="safari-card-overlay"></div>
+          <div class="safari-card-body">
+            <div class="safari-card-badge"><i class="fas fa-paw"></i> Safari</div>
+            <div class="safari-card-title">Serengeti</div>
+            <div class="safari-card-sub">Unforgettable Adventure</div>
+          </div>
+          <div class="safari-card-arrow"><i class="fas fa-arrow-right"></i></div>
         </div>
-        
-        <div class="row g-4">
-            {% for service in services %}
-            <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="{{ forloop.counter|add:'0.1' }}s">
-                <div class="premium-card h-100 text-center p-5 glow-effect">
-                    <div class="mb-4">
-                        <div class="mx-auto" style="width: 100px; height: 100px; background: linear-gradient(135deg, var(--safari-gold), var(--safari-green)); border-radius: 50%; display: flex; align-items: center; justify-content: center;">
-                            <i class="fas fa-{{ service.icon|default:'crown' }} fa-3x text-white"></i>
-                        </div>
-                    </div>
-                    <h4 class="mb-3 premium-heading">{{ service.title }}</h4>
-                    <p class="text-muted mb-4">{{ service.description }}</p>
-                    <div class="mt-auto">
-                        <span class="premium-badge">Premium</span>
-                    </div>
-                </div>
-            </div>
-            {% empty %}
-            <!-- Default Luxury Services -->
-            <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.2s">
-                <div class="premium-card h-100 text-center p-5 glow-effect">
-                    <div class="mb-4">
-                        <div class="mx-auto" style="width: 100px; height: 100px; background: linear-gradient(135deg, var(--safari-gold), var(--safari-green)); border-radius: 50%; display: flex; align-items: center; justify-content: center;">
-                            <i class="fas fa-crown fa-3x text-white"></i>
-                        </div>
-                    </div>
-                    <h4 class="mb-3 premium-heading">Luxury Safaris</h4>
-                    <p class="text-muted mb-4">Private game drives, exclusive lodges, and premium wildlife viewing</p>
-                    <div class="mt-auto">
-                        <span class="premium-badge">Premium</span>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.3s">
-                <div class="premium-card h-100 text-center p-5 glow-effect">
-                    <div class="mb-4">
-                        <div class="mx-auto" style="width: 100px; height: 100px; background: linear-gradient(135deg, var(--safari-gold), var(--safari-green)); border-radius: 50%; display: flex; align-items: center; justify-content: center;">
-                            <i class="fas fa-hotel fa-3x text-white"></i>
-                        </div>
-                    </div>
-                    <h4 class="mb-3 premium-heading">Premium Lodges</h4>
-                    <p class="text-muted mb-4">5-star accommodations with breathtaking views and luxury amenities</p>
-                    <div class="mt-auto">
-                        <span class="premium-badge">Luxury</span>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.4s">
-                <div class="premium-card h-100 text-center p-5 glow-effect">
-                    <div class="mb-4">
-                        <div class="mx-auto" style="width: 100px; height: 100px; background: linear-gradient(135deg, var(--safari-gold), var(--safari-green)); border-radius: 50%; display: flex; align-items: center; justify-content: center;">
-                            <i class="fas fa-utensils fa-3x text-white"></i>
-                        </div>
-                    </div>
-                    <h4 class="mb-3 premium-heading">Gourmet Dining</h4>
-                    <p class="text-muted mb-4">Michelin-inspired bush dining under African stars</p>
-                    <div class="mt-auto">
-                        <span class="premium-badge">Gourmet</span>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.5s">
-                <div class="premium-card h-100 text-center p-5 glow-effect">
-                    <div class="mb-4">
-                        <div class="mx-auto" style="width: 100px; height: 100px; background: linear-gradient(135deg, var(--safari-gold), var(--safari-green)); border-radius: 50%; display: flex; align-items: center; justify-content: center;">
-                            <i class="fas fa-spa fa-3x text-white"></i>
-                        </div>
-                    </div>
-                    <h4 class="mb-3 premium-heading">Wellness Retreats</h4>
-                    <p class="text-muted mb-4">Safari wellness with spa treatments and yoga sessions</p>
-                    <div class="mt-auto">
-                        <span class="premium-badge">Wellness</span>
-                    </div>
-                </div>
-            </div>
-            {% endfor %}
+      </div>
+      <div class="col-lg-3 col-md-6">
+        <div class="safari-card">
+          <img src="{% static 'img/4.jpg' %}" alt="Ngorongoro">
+          <div class="safari-card-overlay"></div>
+          <div class="safari-card-body">
+            <div class="safari-card-badge"><i class="fas fa-paw"></i> Safari</div>
+            <div class="safari-card-title">Ngorongoro</div>
+            <div class="safari-card-sub">Unforgettable Adventure</div>
+          </div>
+          <div class="safari-card-arrow"><i class="fas fa-arrow-right"></i></div>
         </div>
-        
-        <div class="text-center mt-5 pt-4">
-            <a href="{% url 'service' %}" class="btn btn-premium px-5 py-3">
-                <i class="fas fa-compass me-2"></i>Explore All Premium Services
+      </div>
+      <div class="col-lg-3 col-md-6">
+        <div class="safari-card">
+          <img src="{% static 'img/4.jpg' %}" alt="Zanzibar">
+          <div class="safari-card-overlay"></div>
+          <div class="safari-card-body">
+            <div class="safari-card-badge"><i class="fas fa-paw"></i> Safari</div>
+            <div class="safari-card-title">Zanzibar</div>
+            <div class="safari-card-sub">Unforgettable Adventure</div>
+          </div>
+          <div class="safari-card-arrow"><i class="fas fa-arrow-right"></i></div>
+        </div>
+      </div>
+      <div class="col-lg-3 col-md-6">
+        <div class="safari-card">
+          <img src="{% static 'img/4.jpg' %}" alt="Kilimanjaro">
+          <div class="safari-card-overlay"></div>
+          <div class="safari-card-body">
+            <div class="safari-card-badge"><i class="fas fa-paw"></i> Safari</div>
+            <div class="safari-card-title">Kilimanjaro</div>
+            <div class="safari-card-sub">Unforgettable Adventure</div>
+          </div>
+          <div class="safari-card-arrow"><i class="fas fa-arrow-right"></i></div>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+    <div class="text-center mt-5 wow fadeInUp" data-wow-delay="0.2s">
+      <a href="{% url 'safari_list' %}" class="btn-book-nav" onclick="showLoading()">
+        <i class="fas fa-globe-africa"></i> View All Safaris
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     ABOUT
+============================================================ -->
+<section class="py-5 py-lg-6" id="about" style="background:var(--cream);">
+  <div class="container py-3">
+    <div class="row g-5 align-items-center">
+      <div class="col-lg-5 wow fadeInLeft">
+        <div class="about-img-wrap">
+          <img class="about-main-img"
+            src="{% if abouts %}{{ abouts.0.image }}{% else %}{% static 'img/4.jpg' %}{% endif %}"
+            alt="Sunrise and Sunset Safaris">
+          <div class="about-badge-overlay">⭐ Trusted Safari Company</div>
+          <div class="about-rating">
+            <div>
+              <div class="about-rating-stars">★★★★★</div>
+              <div class="about-rating-text">5.0 on TripAdvisor</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-7 wow fadeInRight">
+        <div class="section-head">
+          <span class="section-label">About Us</span>
+          <h2 class="section-title">
+            Welcome to<br>
+            <span style="color:var(--gold-dark);">Sunrise and Sunset Safaris</span>
+          </h2>
+          <div class="section-divider"></div>
+        </div>
+        <p style="font-size:0.95rem; line-height:1.8; color:var(--text-light); margin:20px 0 28px;">
+          {% if abouts %}{{ abouts.0.content }}{% else %}Sunrise and Sunset Safaris Limited is your trusted partner for premium Tanzania safari adventures. We craft unforgettable journeys — from the golden plains of Serengeti to the pristine shores of Zanzibar — with an unwavering commitment to personalized care, safety, and sustainable tourism.{% endif %}
+        </p>
+        <div class="row g-3 mb-4">
+          <div class="col-sm-6">
+            <div class="about-feature">
+              <div class="about-feature-icon"><i class="fas fa-heart"></i></div>
+              <div><h6>Personalized Care</h6><p>We treat every guest like family</p></div>
+            </div>
+          </div>
+          <div class="col-sm-6">
+            <div class="about-feature">
+              <div class="about-feature-icon"><i class="fas fa-map-marked-alt"></i></div>
+              <div><h6>Expert Local Guides</h6>
+                <p>Deep local knowledge, global standards</p>
+              </div>
+            </div>
+          </div>
+          <div class="col-sm-6">
+            <div class="about-feature">
+              <div class="about-feature-icon"><i class="fas fa-shield-alt"></i></div>
+              <div><h6>Safety First</h6><p>Your safety is always our priority</p></div>
+            </div>
+          </div>
+          <div class="col-sm-6">
+            <div class="about-feature">
+              <div class="about-feature-icon"><i class="fas fa-leaf"></i></div>
+              <div><h6>Sustainable Tourism</h6><p>Travel with purpose, protect our heritage</p></div>
+            </div>
+          </div>
+        </div>
+        <a href="{% url 'about' %}" class="btn-book-nav" onclick="showLoading()">
+          <i class="fas fa-arrow-right"></i> Discover Our Story
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     SERVICES
+============================================================ -->
+<section class="services-section py-5 py-lg-6">
+  <div class="container py-3">
+    <div class="section-head center wow fadeInUp">
+      <span class="section-label" style="color:rgba(201,168,76,0.75);">What We Offer</span>
+      <h2 class="section-title" style="color:var(--cream);">Premium Safari Experiences</h2>
+      <div class="section-divider center"></div>
+    </div>
+    <div class="row g-4 wow fadeInUp" data-wow-delay="0.1s">
+      {% for service in services %}
+      <div class="col-lg-3 col-md-6">
+        <div class="svc-card">
+          <div class="svc-icon-wrap"><i class="fas fa-{{ service.icon|default:'compass' }}"></i></div>
+          <div class="svc-title">{{ service.title }}</div>
+          <div class="svc-desc">{{ service.description }}</div>
+        </div>
+      </div>
+      {% empty %}
+      <div class="col-lg-3 col-md-6">
+        <div class="svc-card">
+          <div class="svc-icon-wrap"><i class="fas fa-paw"></i></div>
+          <div class="svc-title">Wildlife Safaris</div>
+          <div class="svc-desc">Private game drives across Tanzania's most iconic national parks and reserves.</div>
+        </div>
+      </div>
+      <div class="col-lg-3 col-md-6">
+        <div class="svc-card">
+          <div class="svc-icon-wrap"><i class="fas fa-mountain"></i></div>
+          <div class="svc-title">Mountain Climbing</div>
+          <div class="svc-desc">Guided Kilimanjaro and Mount Meru climbs with certified, experienced trekking guides.</div>
+        </div>
+      </div>
+      <div class="col-lg-3 col-md-6">
+        <div class="svc-card">
+          <div class="svc-icon-wrap"><i class="fas fa-umbrella-beach"></i></div>
+          <div class="svc-title">Beach Holidays</div>
+          <div class="svc-desc">Zanzibar beach escapes with pristine waters, rich culture, and spice island experiences.</div>
+        </div>
+      </div>
+      <div class="col-lg-3 col-md-6">
+        <div class="svc-card">
+          <div class="svc-icon-wrap"><i class="fas fa-heart"></i></div>
+          <div class="svc-title">Honeymoon Safaris</div>
+          <div class="svc-desc">Romantic bush getaways crafted for couples seeking magic under the African sky.</div>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+    <div class="text-center mt-5 wow fadeInUp">
+      <a href="{% url 'service' %}" onclick="showLoading()"
+         style="display:inline-flex;align-items:center;gap:8px;background:transparent;border:2px solid rgba(201,168,76,0.4);color:var(--gold)!important;font-size:0.82rem;font-weight:600;padding:12px 26px;border-radius:50px;transition:var(--transition);">
+        <i class="fas fa-arrow-right"></i> View All Services
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     DESTINATIONS
+============================================================ -->
+<section class="destinations-section py-5 py-lg-6">
+  <div class="container py-3">
+    <div class="section-head center wow fadeInUp">
+      <span class="section-label" style="color:rgba(201,168,76,0.75);">Explore Tanzania</span>
+      <h2 class="section-title" style="color:var(--cream);">Top Safari Destinations</h2>
+      <div class="section-divider center"></div>
+    </div>
+    <div class="row g-4 wow fadeInUp" data-wow-delay="0.1s">
+      {% for dest in destinations|slice:":3" %}
+      <div class="col-lg-4 col-md-6">
+        <div class="dest-card">
+          <img src="{{ dest.image }}" alt="{{ dest.name }}">
+          <div class="dest-overlay"></div>
+          {% if dest.Offer_in_percent %}
+          <div class="dest-offer-badge">{{ dest.Offer_in_percent }}% OFF</div>
+          {% endif %}
+          <div class="dest-body">
+            <div class="dest-name">{{ dest.name }}</div>
+            <div class="dest-loc"><i class="fas fa-map-marker-alt me-1"></i>{{ dest.location }}</div>
+            <div class="dest-desc">{{ dest.description|truncatewords:18 }}</div>
+            <a href="{% url 'destination_detail' dest.pk %}" class="dest-btn" onclick="showLoading()">
+              <i class="fas fa-arrow-right"></i> Explore
             </a>
+          </div>
         </div>
+      </div>
+      {% empty %}
+      <div class="col-lg-4 col-md-6">
+        <div class="dest-card">
+          <img src="{% static 'img/4.jpg' %}" alt="Serengeti">
+          <div class="dest-overlay"></div>
+          <div class="dest-body">
+            <div class="dest-name">Serengeti</div>
+            <div class="dest-loc"><i class="fas fa-map-marker-alt me-1"></i>Tanzania</div>
+            <div class="dest-desc">Home of the Great Migration and Tanzania's most iconic wildlife viewing.</div>
+            <a href="{% url 'destinations_list' %}" class="dest-btn" onclick="showLoading()"><i class="fas fa-arrow-right"></i> Explore</a>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-4 col-md-6">
+        <div class="dest-card">
+          <img src="{% static 'img/4.jpg' %}" alt="Ngorongoro">
+          <div class="dest-overlay"></div>
+          <div class="dest-body">
+            <div class="dest-name">Ngorongoro</div>
+            <div class="dest-loc"><i class="fas fa-map-marker-alt me-1"></i>Tanzania</div>
+            <div class="dest-desc">The world's largest intact volcanic caldera, teeming with the Big Five.</div>
+            <a href="{% url 'destinations_list' %}" class="dest-btn" onclick="showLoading()"><i class="fas fa-arrow-right"></i> Explore</a>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-4 col-md-6">
+        <div class="dest-card">
+          <img src="{% static 'img/4.jpg' %}" alt="Zanzibar">
+          <div class="dest-overlay"></div>
+          <div class="dest-body">
+            <div class="dest-name">Zanzibar</div>
+            <div class="dest-loc"><i class="fas fa-map-marker-alt me-1"></i>Tanzania</div>
+            <div class="dest-desc">Pristine beaches, vibrant culture, and the famous spice island experience.</div>
+            <a href="{% url 'explore_zanzibar' %}" class="dest-btn" onclick="showLoading()"><i class="fas fa-arrow-right"></i> Explore</a>
+          </div>
+        </div>
+      </div>
+      {% endfor %}
     </div>
-</div>
-
-<!-- Why Choose Us - Luxury Version -->
-<div class="container py-5 bg-section-2 text-white">
-    <div class="container">
-        <div class="text-center mb-5">
-            <span class="premium-badge d-inline-block mb-3">WHY CHOOSE US</span>
-            <h2 class="display-4 text-white mb-4">The Ultimate Safari Experience</h2>
-            <p class="lead">Premium features that set us apart</p>
-        </div>
-
-        <div class="row g-4">
-            <!-- Box 1 -->
-            <div class="col-md-4">
-                <div class="premium-card p-5 text-center h-100 glow-effect">
-                    <div class="mb-4">
-                        <i class="fas fa-helicopter fa-3x safari-icon"></i>
-                    </div>
-                    <h4 class="premium-heading mb-3">Private Air Safaris</h4>
-                    <p class="text-muted">
-                        Exclusive access via private aircraft to remote wilderness areas
-                    </p>
-                    <div class="mt-3">
-                        <span class="premium-badge">VIP Access</span>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Box 2 -->
-            <div class="col-md-4">
-                <div class="premium-card p-5 text-center h-100 glow-effect">
-                    <div class="mb-4">
-                        <i class="fas fa-binoculars fa-3x safari-icon"></i>
-                    </div>
-                    <h4 class="premium-heading mb-3">Expert Guides</h4>
-                    <p class="text-muted">
-                        Wildlife experts with 15+ years experience in African safari guiding
-                    </p>
-                    <div class="mt-3">
-                        <span class="premium-badge">Expert Led</span>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Box 3 -->
-            <div class="col-md-4">
-                <div class="premium-card p-5 text-center h-100 glow-effect">
-                    <div class="mb-4">
-                        <i class="fas fa-leaf fa-3x safari-icon"></i>
-                    </div>
-                    <h4 class="premium-heading mb-3">Conservation Focus</h4>
-                    <p class="text-muted">
-                        Supporting wildlife conservation and community development
-                    </p>
-                    <div class="mt-3">
-                        <span class="premium-badge">Eco-Luxury</span>
-                    </div>
-                </div>
-            </div>
-        </div>
+    <div class="text-center mt-5 wow fadeInUp" data-wow-delay="0.15s">
+      <a href="{% url 'destinations_list' %}" onclick="showLoading()"
+         style="display:inline-flex;align-items:center;gap:8px;background:transparent;border:2px solid rgba(201,168,76,0.4);color:var(--gold)!important;font-size:0.82rem;font-weight:600;padding:12px 26px;border-radius:50px;transition:var(--transition);">
+        <i class="fas fa-globe-africa"></i> View All Destinations
+      </a>
     </div>
-</div>
+  </div>
+</section>
 
-<!-- Luxury Safari Calendar -->
-<div class="container py-5 premium-card border-premium bg-pattern-1">
-    <div class="row align-items-center g-5">
-        <div class="col-lg-6">
-            <h2 class="premium-heading display-5 mb-4">📅 Premium Safari Seasons</h2>
-            <p class="text-muted fs-5">
-                Discover the perfect time for your luxury African adventure. Each season offers unique wildlife viewing opportunities.
-            </p>
-
-            <div class="mt-4">
-                <div class="premium-card border-0 mb-3">
-                    <div class="p-4">
-                        <h5 class="premium-heading mb-3">🌞 Peak Season (Jun-Oct)</h5>
-                        <ul class="list-unstyled text-muted">
-                            <li class="mb-2">✅ <strong>Dry Season</strong> - Best game viewing</li>
-                            <li class="mb-2">✅ <strong>Great Migration</strong> - River crossings</li>
-                            <li class="mb-2">✅ <strong>Clear Skies</strong> - Perfect photography</li>
-                        </ul>
-                    </div>
-                </div>
-
-                <div class="premium-card border-0">
-                    <div class="p-4">
-                        <h5 class="premium-heading mb-3">🌸 Green Season (Nov-May)</h5>
-                        <ul class="list-unstyled text-muted">
-                            <li class="mb-2">✅ <strong>Lower Rates</strong> - Luxury value</li>
-                            <li class="mb-2">✅ <strong>Lush Landscapes</strong> - Green scenery</li>
-                            <li class="mb-2">✅ <strong>Bird Watching</strong> - Migratory birds</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="col-lg-6 text-center">
-            <div class="premium-card overflow-hidden">
-                <img src="{% static 'img/4.jpg' %}" alt="Safari Seasons"
-                    class="img-fluid" style="max-height: 500px; object-fit: cover;">
-                <div class="position-absolute top-0 start-0 m-4">
-                    <span class="premium-badge">⭐ RECOMMENDED</span>
-                </div>
-            </div>
-        </div>
+<!-- ============================================================
+     SAFARI PACKAGES
+============================================================ -->
+<section class="packages-section py-5 py-lg-6">
+  <div class="container py-3">
+    <div class="section-head center wow fadeInUp">
+      <span class="section-label">Safari Packages</span>
+      <h2 class="section-title">Choose Your Adventure</h2>
+      <div class="section-divider center"></div>
     </div>
-</div>
-
-<!-- Luxury Safari Packing -->
-<div class="container py-5 luxury-section">
-    <div class="text-center mb-5">
-        <span class="premium-badge d-inline-block mb-3">LUXURY PACKING</span>
-        <h2 class="display-4 premium-heading mb-4">👜 Premium Safari Essentials</h2>
-        <p class="lead text-muted">Pack like royalty for your African adventure</p>
+    <div class="row g-4 wow fadeInUp" data-wow-delay="0.1s">
+      {% for pac in safari_list|slice:":3" %}
+      <div class="col-lg-4 col-md-6">
+        <div class="pkg-card">
+          <div class="pkg-img-wrap">
+            <img src="{{ pac.featured_image }}" alt="{{ pac.location }}">
+            <div class="pkg-type-badge">{{ pac.safari_type|default:"SAFARI" }}</div>
+          </div>
+          <div class="pkg-body">
+            <div class="pkg-meta">
+              <span><i class="fas fa-calendar-alt"></i> {{ pac.days }} Days</span>
+              <span><i class="fas fa-star" style="color:#F59E0B;"></i> 5.0</span>
+              <span><i class="fas fa-users"></i> Small Group</span>
+            </div>
+            <div class="pkg-title">{{ pac.location }}</div>
+            <div class="pkg-desc">{{ pac.description|truncatewords:22|default:"An unforgettable safari experience through Tanzania's most breathtaking landscapes." }}</div>
+            <div class="pkg-footer">
+              <div>
+                <span class="pkg-price-label">From</span>
+                <span class="pkg-price-value">${{ pac.price }}</span>
+              </div>
+              <a href="{% url 'safari_detail' pac.id %}" class="pkg-btn" onclick="showLoading()">
+                <i class="fas fa-arrow-right"></i> Details
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+      {% empty %}
+      <div class="col-lg-4 col-md-6">
+        <div class="pkg-card">
+          <div class="pkg-img-wrap">
+            <img src="{% static 'img/4.jpg' %}" alt="Great Migration">
+            <div class="pkg-type-badge">SAFARI</div>
+          </div>
+          <div class="pkg-body">
+            <div class="pkg-meta"><span><i class="fas fa-calendar-alt"></i> 7 Days</span></div>
+            <div class="pkg-title">Great Migration</div>
+            <div class="pkg-desc">An unforgettable safari experience through Tanzania's most breathtaking landscapes.</div>
+            <div class="pkg-footer">
+              <div><span class="pkg-price-label">From</span><span class="pkg-price-value">Contact Us</span></div>
+              <a href="{% url 'form' %}" class="pkg-btn" onclick="showLoading()"><i class="fas fa-paper-plane"></i> Enquire</a>
+            </div>
+          </div>
+        </div>
+      </div>
+      {% endfor %}
     </div>
-
-    <div class="row g-4">
-        <!-- Clothing -->
-        <div class="col-md-4">
-            <div class="premium-card h-100 p-4 glow-effect">
-                <div class="text-center mb-4">
-                    <i class="fas fa-tshirt fa-3x safari-icon"></i>
-                </div>
-                <h4 class="premium-heading text-center mb-4">Designer Safari Wear</h4>
-                <ul class="list-unstyled text-muted">
-                    <li class="mb-3 d-flex align-items-start">
-                        <i class="fas fa-check-circle text-safari-green me-3 mt-1"></i>
-                        <span>Premium neutral-colored linen outfits</span>
-                    </li>
-                    <li class="mb-3 d-flex align-items-start">
-                        <i class="fas fa-check-circle text-safari-green me-3 mt-1"></i>
-                        <span>Designer safari jackets & vests</span>
-                    </li>
-                    <li class="mb-3 d-flex align-items-start">
-                        <i class="fas fa-check-circle text-safari-green me-3 mt-1"></i>
-                        <span>Luxury walking shoes & boots</span>
-                    </li>
-                    <li class="mb-3 d-flex align-items-start">
-                        <i class="fas fa-check-circle text-safari-green me-3 mt-1"></i>
-                        <span>Premium cashmere wraps for evenings</span>
-                    </li>
-                </ul>
-            </div>
-        </div>
-
-        <!-- Equipment -->
-        <div class="col-md-4">
-            <div class="premium-card h-100 p-4 glow-effect">
-                <div class="text-center mb-4">
-                    <i class="fas fa-camera fa-3x safari-icon"></i>
-                </div>
-                <h4 class="premium-heading text-center mb-4">Professional Gear</h4>
-                <ul class="list-unstyled text-muted">
-                    <li class="mb-3 d-flex align-items-start">
-                        <i class="fas fa-check-circle text-safari-green me-3 mt-1"></i>
-                        <span>Professional DSLR with telephoto lens</span>
-                    </li>
-                    <li class="mb-3 d-flex align-items-start">
-                        <i class="fas fa-check-circle text-safari-green me-3 mt-1"></i>
-                        <span>Swiss-made binoculars (8x42)</span>
-                    </li>
-                    <li class="mb-3 d-flex align-items-start">
-                        <i class="fas fa-check-circle text-safari-green me-3 mt-1"></i>
-                        <span>Premium leather camera bags</span>
-                    </li>
-                    <li class="mb-3 d-flex align-items-start">
-                        <i class="fas fa-check-circle text-safari-green me-3 mt-1"></i>
-                        <span>Solar-powered charging stations</span>
-                    </li>
-                </ul>
-            </div>
-        </div>
-
-        <!-- Luxury Items -->
-        <div class="col-md-4">
-            <div class="premium-card h-100 p-4 glow-effect">
-                <div class="text-center mb-4">
-                    <i class="fas fa-gem fa-3x safari-icon"></i>
-                </div>
-                <h4 class="premium-heading text-center mb-4">Luxury Extras</h4>
-                <ul class="list-unstyled text-muted">
-                    <li class="mb-3 d-flex align-items-start">
-                        <i class="fas fa-check-circle text-safari-green me-3 mt-1"></i>
-                        <span>Premium safari journal & pen</span>
-                    </li>
-                    <li class="mb-3 d-flex align-items-start">
-                        <i class="fas fa-check-circle text-safari-green me-3 mt-1"></i>
-                        <span>Luxury skin care & SPF products</span>
-                    </li>
-                    <li class="mb-3 d-flex align-items-start">
-                        <i class="fas fa-check-circle text-safari-green me-3 mt-1"></i>
-                        <span>Premium insect repellent</span>
-                    </li>
-                    <li class="mb-3 d-flex align-items-start">
-                        <i class="fas fa-check-circle text-safari-green me-3 mt-1"></i>
-                        <span>Luxury travel documents holder</span>
-                    </li>
-                </ul>
-            </div>
-        </div>
+    <div class="text-center mt-5 wow fadeInUp">
+      <a href="{% url 'safari_list' %}" class="btn-book-nav" onclick="showLoading()">
+        <i class="fas fa-compass"></i> View All Packages
+      </a>
     </div>
-</div>
+  </div>
+</section>
 
-<!-- Luxury Destination Showcase -->
-<div class="container-xxl py-5 bg-section-3">
-    <div class="container">
-        <div class="text-center mb-5 wow fadeInUp" data-wow-delay="0.1s">
-            <span class="premium-badge d-inline-block mb-3">LUXURY DESTINATIONS</span>
-            <h1 class="display-4 text-white mb-4">Africa's Most Exclusive Safari Destinations</h1>
-            <p class="lead text-light">Experience wildlife in ultimate luxury</p>
-        </div>
-
-        <div class="row g-4">
-            {% for dest in destinations|slice:":3" %}
-            <div class="col-lg-4 wow fadeInUp" data-wow-delay="{{ forloop.counter|add:'0.1' }}s">
-                <div class="luxury-package-card">
-                    <img src="{{ dest.image }}" class="w-100 h-100" style="object-fit: cover;" alt="{{ dest.name }}">
-                    <div class="luxury-package-overlay">
-                        <div class="d-flex justify-content-between align-items-start mb-3">
-                            <div>
-                                <h3 class="text-white mb-1">{{ dest.name }}</h3>
-                                <p class="text-light mb-0">{{ dest.location }}</p>
-                            </div>
-                            {% if dest.Offer_in_percent %}
-                            <span class="premium-badge">{{ dest.Offer_in_percent }}% OFF</span>
-                            {% endif %}
-                        </div>
-                        <p class="text-light mb-4">{{ dest.description|truncatewords:15 }}</p>
-                        <a href="{% url 'destination_detail' dest.pk %}" class="btn btn-premium">
-                            <i class="fas fa-eye me-2"></i>Explore Luxury
-                        </a>
-                    </div>
-                </div>
-            </div>
-            {% empty %}
-            <!-- Default Luxury Destinations -->
-            <div class="col-lg-4 wow fadeInUp" data-wow-delay="0.2s">
-                <div class="luxury-package-card">
-                    <img src="{% static 'img/serengeti-luxury.jpg' %}" class="w-100 h-100" style="object-fit: cover;" alt="Serengeti Luxury">
-                    <div class="luxury-package-overlay">
-                        <div class="d-flex justify-content-between align-items-start mb-3">
-                            <div>
-                                <h3 class="text-white mb-1">Serengeti</h3>
-                                <p class="text-light mb-0">Tanzania</p>
-                            </div>
-                            <span class="premium-badge">LUXURY</span>
-                        </div>
-                        <p class="text-light mb-4">Experience the Great Migration in ultimate luxury</p>
-                        <a href="#" class="btn btn-premium">
-                            <i class="fas fa-eye me-2"></i>Explore Luxury
-                        </a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-4 wow fadeInUp" data-wow-delay="0.3s">
-                <div class="luxury-package-card">
-                    <img src="{% static 'img/ngorongoro-luxury.jpg' %}" class="w-100 h-100" style="object-fit: cover;" alt="Ngorongoro Luxury">
-                    <div class="luxury-package-overlay">
-                        <div class="d-flex justify-content-between align-items-start mb-3">
-                            <div>
-                                <h3 class="text-white mb-1">Ngorongoro</h3>
-                                <p class="text-light mb-0">Crater, Tanzania</p>
-                            </div>
-                            <span class="premium-badge">EXCLUSIVE</span>
-                        </div>
-                        <p class="text-light mb-4">World's largest intact volcanic caldera</p>
-                        <a href="#" class="btn btn-premium">
-                            <i class="fas fa-eye me-2"></i>Explore Luxury
-                        </a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-4 wow fadeInUp" data-wow-delay="0.4s">
-                <div class="luxury-package-card">
-                    <img src="{% static 'img/okavango-luxury.jpg' %}" class="w-100 h-100" style="object-fit: cover;" alt="Okavango Luxury">
-                    <div class="luxury-package-overlay">
-                        <div class="d-flex justify-content-between align-items-start mb-3">
-                            <div>
-                                <h3 class="text-white mb-1">Okavango Delta</h3>
-                                <p class="text-light mb-0">Botswana</p>
-                            </div>
-                            <span class="premium-badge">PREMIUM</span>
-                        </div>
-                        <p class="text-light mb-4">Luxury water-based safari experiences</p>
-                        <a href="#" class="btn btn-premium">
-                            <i class="fas fa-eye me-2"></i>Explore Luxury
-                        </a>
-                    </div>
-                </div>
-            </div>
-            {% endfor %}
-        </div>
-        
-        <div class="text-center mt-5">
-            <a href="{% url 'destinations_list' %}" class="btn btn-premium px-5 py-3">
-                <i class="fas fa-globe-africa me-2"></i>View All Luxury Destinations
-            </a>
-        </div>
+<!-- ============================================================
+     SEASONS
+============================================================ -->
+<section class="seasons-section py-5 py-lg-6">
+  <div class="container py-3">
+    <div class="section-head center wow fadeInUp">
+      <span class="section-label">Best Time to Visit</span>
+      <h2 class="section-title">Safari Seasons Guide</h2>
+      <div class="section-divider center"></div>
     </div>
-</div>
-
-<!-- Exclusive Safari Packages -->
-<div class="container-xxl py-5 bg-section-4 text-light position-relative overflow-hidden">
-    <!-- Floating Elements -->
-    <div class="floating-element" style="width: 150px; height: 150px; top: 10%; left: 10%; opacity: 0.05;"></div>
-    <div class="floating-element" style="width: 100px; height: 100px; bottom: 20%; right: 15%; opacity: 0.05; animation-delay: -3s;"></div>
-    
-    <div class="container position-relative">
-        <div class="text-center mb-5 wow fadeInUp" data-wow-delay="0.1s">
-            <span class="premium-badge d-inline-block mb-3">EXCLUSIVE PACKAGES</span>
-            <h1 class="display-3 fw-bold text-white mb-4">Signature Safari Collections</h1>
-            <p class="lead">Curated luxury experiences for the discerning traveler</p>
+    <div class="row g-4 align-items-stretch wow fadeInUp" data-wow-delay="0.1s">
+      <div class="col-lg-4 col-md-6">
+        <div class="season-card">
+          <div class="season-card-head">
+            <span class="season-icon">☀️</span>
+            <div class="season-title">Peak Season</div>
+            <div class="season-months">June — October</div>
+          </div>
+          <div class="season-body">
+            <div class="season-item"><i class="fas fa-check-circle"></i><span><strong>Dry Season</strong> — Best wildlife visibility</span></div>
+            <div class="season-item"><i class="fas fa-check-circle"></i><span><strong>Great Migration</strong> — Dramatic river crossings</span></div>
+            <div class="season-item"><i class="fas fa-check-circle"></i><span><strong>Clear Skies</strong> — Perfect photography conditions</span></div>
+            <div class="season-item"><i class="fas fa-check-circle"></i><span><strong>All Big Five</strong> — High sighting probability</span></div>
+          </div>
         </div>
-
-        <div class="row g-4 justify-content-center">
-            {% for pac in safari_list|slice:":3" %}
-            <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="{{ forloop.counter|add:'0.1' }}s">
-                <div class="premium-card overflow-hidden border-premium">
-                    <div class="position-relative" style="height: 250px;">
-                        <img src="{{ pac.featured_image }}" class="w-100 h-100" style="object-fit: cover;" alt="{{ pac.location }}">
-                        <div class="position-absolute top-0 start-0 w-100 h-100" style="background: linear-gradient(transparent, rgba(0,0,0,0.7));"></div>
-                        <div class="position-absolute top-0 end-0 p-3">
-                            <span class="premium-badge">{{ pac.safari_type|default:"LUXURY" }}</span>
-                        </div>
-                        <div class="position-absolute bottom-0 start-0 p-4">
-                            <h4 class="text-white mb-1">{{ pac.location }}</h4>
-                            <small class="text-light">{{ pac.days }} Days • Premium Experience</small>
-                        </div>
-                    </div>
-                    <div class="p-4 bg-dark">
-                        <div class="d-flex justify-content-between align-items-center mb-3">
-                            <div>
-                                <h3 class="text-safari-gold mb-0">${{ pac.price }}</h3>
-                                <small class="text-muted">per person</small>
-                            </div>
-                            <div class="text-end">
-                                <div class="text-warning">
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                </div>
-                                <small class="text-muted">5.0 Rating</small>
-                            </div>
-                        </div>
-                        <p class="text-light mb-4">{{ pac.description|truncatewords:20|default:"Premium safari experience with luxury accommodations and exclusive wildlife viewing" }}</p>
-                        <a href="{% url 'safari_detail' pac.id %}" class="btn btn-premium w-100">
-                            <i class="fas fa-gem me-2"></i>View Exclusive Details
-                        </a>
-                    </div>
-                </div>
-            </div>
-            {% empty %}
-            <!-- Default Luxury Packages -->
-            <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.2s">
-                <div class="premium-card overflow-hidden border-premium">
-                    <div class="position-relative" style="height: 250px;">
-                        <img src="{% static 'img/premium-safari-1.jpg' %}" class="w-100 h-100" style="object-fit: cover;" alt="Premium Safari">
-                        <div class="position-absolute top-0 start-0 w-100 h-100" style="background: linear-gradient(transparent, rgba(0,0,0,0.7));"></div>
-                        <div class="position-absolute top-0 end-0 p-3">
-                            <span class="premium-badge">PLATINUM</span>
-                        </div>
-                        <div class="position-absolute bottom-0 start-0 p-4">
-                            <h4 class="text-white mb-1">Great Migration</h4>
-                            <small class="text-light">10 Days • Private Experience</small>
-                        </div>
-                    </div>
-                    <div class="p-4 bg-dark">
-                        <div class="d-flex justify-content-between align-items-center mb-3">
-                            <div>
-                                <h3 class="text-safari-gold mb-0">$12,500</h3>
-                                <small class="text-muted">per person</small>
-                            </div>
-                            <div class="text-end">
-                                <div class="text-warning">
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                </div>
-                                <small class="text-muted">5.0 Rating</small>
-                            </div>
-                        </div>
-                        <p class="text-light mb-4">Private luxury safari following the Great Migration with exclusive camp locations</p>
-                        <a href="#" class="btn btn-premium w-100">
-                            <i class="fas fa-gem me-2"></i>View Exclusive Details
-                        </a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.3s">
-                <div class="premium-card overflow-hidden border-premium">
-                    <div class="position-relative" style="height: 250px;">
-                        <img src="{% static 'img/premium-safari-2.jpg' %}" class="w-100 h-100" style="object-fit: cover;" alt="Big Five Luxury">
-                        <div class="position-absolute top-0 start-0 w-100 h-100" style="background: linear-gradient(transparent, rgba(0,0,0,0.7));"></div>
-                        <div class="position-absolute top-0 end-0 p-3">
-                            <span class="premium-badge">DIAMOND</span>
-                        </div>
-                        <div class="position-absolute bottom-0 start-0 p-4">
-                            <h4 class="text-white mb-1">Big Five Luxury</h4>
-                            <small class="text-light">8 Days • Exclusive</small>
-                        </div>
-                    </div>
-                    <div class="p-4 bg-dark">
-                        <div class="d-flex justify-content-between align-items-center mb-3">
-                            <div>
-                                <h3 class="text-safari-gold mb-0">$9,800</h3>
-                                <small class="text-muted">per person</small>
-                            </div>
-                            <div class="text-end">
-                                <div class="text-warning">
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                </div>
-                                <small class="text-muted">5.0 Rating</small>
-                            </div>
-                        </div>
-                        <p class="text-light mb-4">Luxury safari focusing on Africa's Big Five with private guides and premium lodges</p>
-                        <a href="#" class="btn btn-premium w-100">
-                            <i class="fas fa-gem me-2"></i>View Exclusive Details
-                        </a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.4s">
-                <div class="premium-card overflow-hidden border-premium">
-                    <div class="position-relative" style="height: 250px;">
-                        <img src="{% static 'img/premium-safari-3.jpg' %}" class="w-100 h-100" style="object-fit: cover;" alt="Family Luxury">
-                        <div class="position-absolute top-0 start-0 w-100 h-100" style="background: linear-gradient(transparent, rgba(0,0,0,0.7));"></div>
-                        <div class="position-absolute top-0 end-0 p-3">
-                            <span class="premium-badge">FAMILY</span>
-                        </div>
-                        <div class="position-absolute bottom-0 start-0 p-4">
-                            <h4 class="text-white mb-1">Family Luxury</h4>
-                            <small class="text-light">12 Days • All Inclusive</small>
-                        </div>
-                    </div>
-                    <div class="p-4 bg-dark">
-                        <div class="d-flex justify-content-between align-items-center mb-3">
-                            <div>
-                                <h3 class="text-safari-gold mb-0">$25,000</h3>
-                                <small class="text-muted">family package</small>
-                            </div>
-                            <div class="text-end">
-                                <div class="text-warning">
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                </div>
-                                <small class="text-muted">5.0 Rating</small>
-                            </div>
-                        </div>
-                        <p class="text-light mb-4">Ultimate family safari with private villa accommodations and tailored activities</p>
-                        <a href="#" class="btn btn-premium w-100">
-                            <i class="fas fa-gem me-2"></i>View Exclusive Details
-                        </a>
-                    </div>
-                </div>
-            </div>
-            {% endfor %}
+      </div>
+      <div class="col-lg-4 col-md-6">
+        <div class="season-card">
+          <div class="season-card-head">
+            <span class="season-icon">🌸</span>
+            <div class="season-title">Green Season</div>
+            <div class="season-months">November — May</div>
+          </div>
+          <div class="season-body">
+            <div class="season-item"><i class="fas fa-check-circle"></i><span><strong>Lush Landscapes</strong> — Vibrant green scenery</span></div>
+            <div class="season-item"><i class="fas fa-check-circle"></i><span><strong>Fewer Crowds</strong> — Exclusive game viewing</span></div>
+            <div class="season-item"><i class="fas fa-check-circle"></i><span><strong>Birdwatching</strong> — 500+ migratory species</span></div>
+            <div class="season-item"><i class="fas fa-check-circle"></i><span><strong>Newborn Animals</strong> — Calving season magic</span></div>
+          </div>
         </div>
-        
-        <div class="text-center mt-5">
-            <a href="#" class="btn btn-premium px-5 py-3">
-                <i class="fas fa-calendar-alt me-2"></i>Request Custom Luxury Itinerary
-            </a>
+      </div>
+      <div class="col-lg-4">
+        <div class="seasons-img">
+          <img src="{% static 'img/4.jpg' %}" alt="Safari Season Tanzania">
         </div>
+      </div>
     </div>
-</div>
+  </div>
+</section>
 
-<!-- Luxury Experiences Section -->
-<div class="container-xxl py-5 luxury-section">
-    <div class="container">
-        <div class="text-center mb-5 wow fadeInUp" data-wow-delay="0.1s">
-            <span class="premium-badge d-inline-block mb-3">EXCLUSIVE EXPERIENCES</span>
-            <h1 class="display-4 premium-heading mb-4">Beyond Safari: Premium Activities</h1>
-            <p class="lead text-muted">Unique luxury experiences that redefine African travel</p>
-        </div>
-
-        <!-- Activities Grid -->
-        <div class="row g-4">
-            <!-- Hot Air Balloon -->
-            <div class="col-lg-6 mb-4">
-                <div class="premium-card h-100 overflow-hidden">
-                    <div class="row g-0 h-100">
-                        <div class="col-md-4">
-                            <div class="h-100" style="background: linear-gradient(135deg, var(--safari-gold), var(--safari-brown)); display: flex; align-items: center; justify-content: center;">
-                                <i class="fas fa-hot-air-balloon fa-4x text-white"></i>
-                            </div>
-                        </div>
-                        <div class="col-md-8">
-                            <div class="p-4 h-100 d-flex flex-column">
-                                <h4 class="premium-heading mb-3">Sunrise Balloon Safari</h4>
-                                <p class="text-muted flex-grow-1">Float above the Serengeti at sunrise with champagne breakfast served in the wilderness.</p>
-                                <div class="mt-auto">
-                                    <span class="premium-badge">⭐ MOST POPULAR</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Bush Dining -->
-            <div class="col-lg-6 mb-4">
-                <div class="premium-card h-100 overflow-hidden">
-                    <div class="row g-0 h-100">
-                        <div class="col-md-4">
-                            <div class="h-100" style="background: linear-gradient(135deg, var(--safari-green), var(--safari-brown)); display: flex; align-items: center; justify-content: center;">
-                                <i class="fas fa-utensils fa-4x text-white"></i>
-                            </div>
-                        </div>
-                        <div class="col-md-8">
-                            <div class="p-4 h-100 d-flex flex-column">
-                                <h4 class="premium-heading mb-3">Michelin Bush Dining</h4>
-                                <p class="text-muted flex-grow-1">Gourmet meals under the stars with private chef and sommelier service.</p>
-                                <div class="mt-auto">
-                                    <span class="premium-badge">🍽️ GOURMET</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Photography -->
-            <div class="col-lg-6 mb-4">
-                <div class="premium-card h-100 overflow-hidden">
-                    <div class="row g-0 h-100">
-                        <div class="col-md-4">
-                            <div class="h-100" style="background: linear-gradient(135deg, var(--safari-gold), var(--safari-green)); display: flex; align-items: center; justify-content: center;">
-                                <i class="fas fa-camera fa-4x text-white"></i>
-                            </div>
-                        </div>
-                        <div class="col-md-8">
-                            <div class="p-4 h-100 d-flex flex-column">
-                                <h4 class="premium-heading mb-3">Professional Photography</h4>
-                                <p class="text-muted flex-grow-1">Learn from award-winning wildlife photographers with premium equipment provided.</p>
-                                <div class="mt-auto">
-                                    <span class="premium-badge">📸 PRO MASTERCLASS</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Wellness -->
-            <div class="col-lg-6 mb-4">
-                <div class="premium-card h-100 overflow-hidden">
-                    <div class="row g-0 h-100">
-                        <div class="col-md-4">
-                            <div class="h-100" style="background: linear-gradient(135deg, var(--safari-green), var(--safari-gold)); display: flex; align-items: center; justify-content: center;">
-                                <i class="fas fa-spa fa-4x text-white"></i>
-                            </div>
-                        </div>
-                        <div class="col-md-8">
-                            <div class="p-4 h-100 d-flex flex-column">
-                                <h4 class="premium-heading mb-3">Safari Wellness Retreat</h4>
-                                <p class="text-muted flex-grow-1">Morning yoga with wildlife views, spa treatments, and meditation sessions.</p>
-                                <div class="mt-auto">
-                                    <span class="premium-badge">🧘 WELLNESS</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-
+<!-- Booking Form -->
 {% include 'booking_form.html' %}
 
-<!-- Luxury Booking Process -->
-<div class="container-xxl py-5 luxury-section">
-    <div class="container">
-        <div class="text-center pb-4 wow fadeInUp" data-wow-delay="0.1s">
-            <span class="premium-badge d-inline-block mb-3">LUXURY BOOKING PROCESS</span>
-            <h1 class="display-4 premium-heading mb-5">Seamless Luxury Experience</h1>
-        </div>
-        
-        <div class="row gy-5 gx-4 justify-content-center">
-            {% for stp in step %}
-            <div class="col-lg-3 col-sm-6 text-center wow fadeInUp" data-wow-delay="{{ forloop.counter|add:'0.1' }}s">
-                <div class="premium-card p-4 position-relative">
-                    <!-- Step Number -->
-                    <div class="position-absolute top-0 start-50 translate-middle" style="margin-top: -40px;">
-                        <div style="width: 80px; height: 80px; background: linear-gradient(135deg, var(--safari-gold), var(--safari-green)); border-radius: 50%; display: flex; align-items: center; justify-content: center; border: 5px solid white; box-shadow: 0 5px 15px rgba(0,0,0,0.1);">
-                            <span class="display-6 fw-bold text-white">{{ forloop.counter }}</span>
-                        </div>
-                    </div>
-                    
-                    <!-- Content -->
-                    <div class="mt-5 pt-3">
-                        <div class="mb-4">
-                            <img src="{{stp.image}}" class="rounded-circle" style="width: 100px; height: 100px; object-fit: cover; border: 3px solid var(--safari-gold);">
-                        </div>
-                        <h4 class="premium-heading mb-3">{{stp.Title}}</h4>
-                        <p class="text-muted mb-0">{{stp.description}}</p>
-                    </div>
-                </div>
-            </div>
-            {% empty %}
-            <!-- Default Luxury Steps -->
-            <div class="col-lg-3 col-sm-6 text-center wow fadeInUp" data-wow-delay="0.2s">
-                <div class="premium-card p-4 position-relative">
-                    <div class="position-absolute top-0 start-50 translate-middle" style="margin-top: -40px;">
-                        <div style="width: 80px; height: 80px; background: linear-gradient(135deg, var(--safari-gold), var(--safari-green)); border-radius: 50%; display: flex; align-items: center; justify-content: center; border: 5px solid white; box-shadow: 0 5px 15px rgba(0,0,0,0.1);">
-                            <span class="display-6 fw-bold text-white">1</span>
-                        </div>
-                    </div>
-                    <div class="mt-5 pt-3">
-                        <div class="mb-4">
-                            <i class="fas fa-headset fa-3x safari-icon"></i>
-                        </div>
-                        <h4 class="premium-heading mb-3">Luxury Consultation</h4>
-                        <p class="text-muted mb-0">Personalized planning with our luxury travel designers</p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-3 col-sm-6 text-center wow fadeInUp" data-wow-delay="0.3s">
-                <div class="premium-card p-4 position-relative">
-                    <div class="position-absolute top-0 start-50 translate-middle" style="margin-top: -40px;">
-                        <div style="width: 80px; height: 80px; background: linear-gradient(135deg, var(--safari-gold), var(--safari-green)); border-radius: 50%; display: flex; align-items: center; justify-content: center; border: 5px solid white; box-shadow: 0 5px 15px rgba(0,0,0,0.1);">
-                            <span class="display-6 fw-bold text-white">2</span>
-                        </div>
-                    </div>
-                    <div class="mt-5 pt-3">
-                        <div class="mb-4">
-                            <i class="fas fa-gem fa-3x safari-icon"></i>
-                        </div>
-                        <h4 class="premium-heading mb-3">Custom Itinerary</h4>
-                        <p class="text-muted mb-0">Tailored luxury itinerary with exclusive experiences</p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-3 col-sm-6 text-center wow fadeInUp" data-wow-delay="0.4s">
-                <div class="premium-card p-4 position-relative">
-                    <div class="position-absolute top-0 start-50 translate-middle" style="margin-top: -40px;">
-                        <div style="width: 80px; height: 80px; background: linear-gradient(135deg, var(--safari-gold), var(--safari-green)); border-radius: 50%; display: flex; align-items: center; justify-content: center; border: 5px solid white; box-shadow: 0 5px 15px rgba(0,0,0,0.1);">
-                            <span class="display-6 fw-bold text-white">3</span>
-                        </div>
-                    </div>
-                    <div class="mt-5 pt-3">
-                        <div class="mb-4">
-                            <i class="fas fa-concierge-bell fa-3x safari-icon"></i>
-                        </div>
-                        <h4 class="premium-heading mb-3">Premium Service</h4>
-                        <p class="text-muted mb-0">24/7 luxury concierge service throughout your journey</p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-3 col-sm-6 text-center wow fadeInUp" data-wow-delay="0.5s">
-                <div class="premium-card p-4 position-relative">
-                    <div class="position-absolute top-0 start-50 translate-middle" style="margin-top: -40px;">
-                        <div style="width: 80px; height: 80px; background: linear-gradient(135deg, var(--safari-gold), var(--safari-green)); border-radius: 50%; display: flex; align-items: center; justify-content: center; border: 5px solid white; box-shadow: 0 5px 15px rgba(0,0,0,0.1);">
-                            <span class="display-6 fw-bold text-white">4</span>
-                        </div>
-                    </div>
-                    <div class="mt-5 pt-3">
-                        <div class="mb-4">
-                            <i class="fas fa-award fa-3x safari-icon"></i>
-                        </div>
-                        <h4 class="premium-heading mb-3">Memories Guaranteed</h4>
-                        <p class="text-muted mb-0">Lifetime memories with premium photography service</p>
-                    </div>
-                </div>
-            </div>
-            {% endfor %}
-        </div>
+<!-- ============================================================
+     HOW IT WORKS
+============================================================ -->
+<section class="process-section py-5 py-lg-6">
+  <div class="container py-3">
+    <div class="section-head center wow fadeInUp">
+      <span class="section-label">How It Works</span>
+      <h2 class="section-title">Your Safari, Simplified</h2>
+      <div class="section-divider center"></div>
     </div>
-</div>
+    <div class="row g-4 justify-content-center wow fadeInUp" data-wow-delay="0.1s">
+      {% for stp in step %}
+      <div class="col-lg-3 col-sm-6">
+        <div class="step-wrap">
+          <div class="step-num">{{ forloop.counter }}</div>
+          {% if stp.image %}
+          <img style="width:80px;height:80px;border-radius:50%;object-fit:cover;border:3px solid var(--gold);margin:0 auto 14px;display:block;"
+               src="{{ stp.image }}" alt="{{ stp.Title }}">
+          {% else %}
+          <div class="step-icon">
+            {% if forloop.counter == 1 %}<i class="fas fa-headset"></i>
+            {% elif forloop.counter == 2 %}<i class="fas fa-map-marked-alt"></i>
+            {% elif forloop.counter == 3 %}<i class="fas fa-concierge-bell"></i>
+            {% else %}<i class="fas fa-award"></i>{% endif %}
+          </div>
+          {% endif %}
+          <div class="step-title">{{ stp.Title }}</div>
+          <div class="step-desc">{{ stp.description }}</div>
+        </div>
+      </div>
+      {% empty %}
+      <div class="col-lg-3 col-sm-6">
+        <div class="step-wrap">
+          <div class="step-num">1</div>
+          <div class="step-icon"><i class="fas fa-headset"></i></div>
+          <div class="step-title">Consultation</div>
+          <div class="step-desc">Share your dream safari — we listen and plan around your needs.</div>
+        </div>
+      </div>
+      <div class="col-lg-3 col-sm-6">
+        <div class="step-wrap">
+          <div class="step-num">2</div>
+          <div class="step-icon"><i class="fas fa-map-marked-alt"></i></div>
+          <div class="step-title">Custom Itinerary</div>
+          <div class="step-desc">We craft a tailored itinerary with the perfect balance of adventure and comfort.</div>
+        </div>
+      </div>
+      <div class="col-lg-3 col-sm-6">
+        <div class="step-wrap">
+          <div class="step-num">3</div>
+          <div class="step-icon"><i class="fas fa-concierge-bell"></i></div>
+          <div class="step-title">Expert Guidance</div>
+          <div class="step-desc">Our certified guides lead your journey every step of the way.</div>
+        </div>
+      </div>
+      <div class="col-lg-3 col-sm-6">
+        <div class="step-wrap">
+          <div class="step-num">4</div>
+          <div class="step-icon"><i class="fas fa-camera"></i></div>
+          <div class="step-title">Memories Made</div>
+          <div class="step-desc">Return home with stories, photos, and memories that last a lifetime.</div>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
 
-<!-- Luxury Testimonials -->
-<div class="container-xxl py-5 wow fadeInUp" data-wow-delay="0.1s" style="background: linear-gradient(135deg, #f9f5f0 0%, #fffaf0 100%);">
-    <div class="container">
-        <div class="text-center">
-            <span class="premium-badge d-inline-block mb-3">ELITE TESTIMONIALS</span>
-            <h1 class="display-4 premium-heading mb-5">What Our Luxury Guests Say</h1>
-        </div>
-        
-        <div class="owl-carousel testimonial-carousel position-relative">
-            {% for test in testimonial %}
-            <div class="premium-testimonial">
-                <div class="d-flex align-items-start mb-4">
-                    <img class="rounded-circle me-3" src="{{test.image}}" style="width: 80px; height: 80px; object-fit: cover; border: 3px solid var(--safari-gold);">
-                    <div>
-                        <h5 class="premium-heading mb-1">{{test.Full_name}}</h5>
-                        <p class="text-muted mb-2">{{test.country}}</p>
-                        <div class="text-warning">
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                        </div>
-                    </div>
-                </div>
-                <p class="text-muted mb-0">"{{test.description}}"</p>
-            </div>
-            {% empty %}
-            <!-- Default Luxury Testimonials -->
-            <div class="premium-testimonial">
-                <div class="d-flex align-items-start mb-4">
-                    <img class="rounded-circle me-3" src="{% static 'img/prof.png' %}" style="width: 80px; height: 80px; object-fit: cover; border: 3px solid var(--safari-gold);">
-                    <div>
-                        <h5 class="premium-heading mb-1">Sarah Johnson</h5>
-                        <p class="text-muted mb-2">New York, USA</p>
-                        <div class="text-warning">
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                        </div>
-                    </div>
-                </div>
-                <p class="text-muted mb-0">"Comeback African Safaris redefined luxury travel for us. Every detail was perfect - from the private plane transfers to the Michelin-level bush dining. This wasn't just a safari; it was a life-changing experience."</p>
-            </div>
-            <div class="premium-testimonial">
-                <div class="d-flex align-items-start mb-4">
-                    <img class="rounded-circle me-3" src="{% static 'img/prof.png' %}" style="width: 80px; height: 80px; object-fit: cover; border: 3px solid var(--safari-gold);">
-                    <div>
-                        <h5 class="premium-heading mb-1">Robert Chen</h5>
-                        <p class="text-muted mb-2">Shanghai, China</p>
-                        <div class="text-warning">
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                        </div>
-                    </div>
-                </div>
-                <p class="text-muted mb-0">"The attention to detail was extraordinary. Our private guide was not only a wildlife expert but also a wonderful companion. The luxury lodges were beyond our expectations - true 5-star quality in the heart of the wilderness."</p>
-            </div>
-            <div class="premium-testimonial">
-                <div class="d-flex align-items-start mb-4">
-                    <img class="rounded-circle me-3" src="{% static 'img/prof.png' %}" style="width: 80px; height: 80px; object-fit: cover; border: 3px solid var(--safari-gold);">
-                    <div>
-                        <h5 class="premium-heading mb-1">The Williams Family</h5>
-                        <p class="text-muted mb-2">London, UK</p>
-                        <div class="text-warning">
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                        </div>
-                    </div>
-                </div>
-                <p class="text-muted mb-0">"Our family safari with Comeback African Safaris was magical. The children had their own guides and activities, while we enjoyed romantic bush dinners. The level of service was impeccable - we felt like royalty throughout our journey."</p>
-            </div>
-            {% endfor %}
-        </div>
-        
-        <!-- Trust Badges -->
-        <div class="text-center mt-5 pt-4">
-            <div class="row justify-content-center">
-                <div class="col-lg-10">
-                    <div class="premium-card p-4">
-                        <div class="row align-items-center">
-                            <div class="col-md-3">
-                                <div class="text-center">
-                                    <i class="fas fa-award fa-3x safari-icon mb-2"></i>
-                                    <h6 class="premium-heading mb-0">Award Winning</h6>
-                                </div>
-                            </div>
-                            <div class="col-md-3">
-                                <div class="text-center">
-                                    <i class="fas fa-shield-alt fa-3x safari-icon mb-2"></i>
-                                    <h6 class="premium-heading mb-0">Premium Safety</h6>
-                                </div>
-                            </div>
-                            <div class="col-md-3">
-                                <div class="text-center">
-                                    <i class="fas fa-leaf fa-3x safari-icon mb-2"></i>
-                                    <h6 class="premium-heading mb-0">Eco-Luxury</h6>
-                                </div>
-                            </div>
-                            <div class="col-md-3">
-                                <div class="text-center">
-                                    <i class="fas fa-star fa-3x safari-icon mb-2"></i>
-                                    <h6 class="premium-heading mb-0">5-Star Rated</h6>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+<!-- ============================================================
+     TESTIMONIALS
+============================================================ -->
+<section class="testimonials-section py-5 py-lg-6">
+  <div class="container py-3">
+    <div class="section-head center wow fadeInUp">
+      <span class="section-label">Guest Reviews</span>
+      <h2 class="section-title">What Our Travelers Say</h2>
+      <div class="section-divider center"></div>
     </div>
-</div>
+    <div class="owl-carousel testimonial-carousel wow fadeInUp" data-wow-delay="0.1s">
+      {% for test in testimonial %}
+      <div class="testi-card">
+        <div class="testi-quote">"</div>
+        <div class="testi-text">{{ test.description }}</div>
+        <div class="testi-author">
+          <img src="{{ test.image }}" alt="{{ test.Full_name }}">
+          <div>
+            <div class="testi-name">{{ test.Full_name }}</div>
+            <div class="testi-country">{{ test.country }}</div>
+            <div class="testi-stars">★★★★★</div>
+          </div>
+        </div>
+      </div>
+      {% empty %}
+      <div class="testi-card">
+        <div class="testi-quote">"</div>
+        <div class="testi-text">Sunrise and Sunset Safaris gave us the most incredible experience of our lives. Every detail was thoughtfully planned, and our guide's knowledge of the wildlife was extraordinary.</div>
+        <div class="testi-author">
+          <img src="{% static 'img/prof.png' %}" alt="Sarah Johnson">
+          <div>
+            <div class="testi-name">Sarah Johnson</div>
+            <div class="testi-country">New York, USA</div>
+            <div class="testi-stars">★★★★★</div>
+          </div>
+        </div>
+      </div>
+      <div class="testi-card">
+        <div class="testi-quote">"</div>
+        <div class="testi-text">The Serengeti migration was absolutely breathtaking. The team at Sunrise and Sunset ensured we had front-row seats to nature's greatest show. Truly world-class service!</div>
+        <div class="testi-author">
+          <img src="{% static 'img/prof.png' %}" alt="David Müller">
+          <div>
+            <div class="testi-name">David Müller</div>
+            <div class="testi-country">Berlin, Germany</div>
+            <div class="testi-stars">★★★★★</div>
+          </div>
+        </div>
+      </div>
+      <div class="testi-card">
+        <div class="testi-quote">"</div>
+        <div class="testi-text">Our honeymoon safari was pure magic. From the private game drives to the sunset dinners in the bush — everything was perfect. Sunrise and Sunset Safaris made our dream come true.</div>
+        <div class="testi-author">
+          <img src="{% static 'img/prof.png' %}" alt="The Patel Family">
+          <div>
+            <div class="testi-name">The Patel Family</div>
+            <div class="testi-country">London, UK</div>
+            <div class="testi-stars">★★★★★</div>
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
 
-<!-- Luxury Call to Action -->
-<div class="container-fluid p-0">
-    <div class="position-relative overflow-hidden" style="height: 500px;">
-        <img src="{% static 'img/luxury-cta.avif' %}" class="w-100 h-100" style="object-fit: cover; filter: brightness(0.7);" alt="Luxury Safari Call to Action">
-        <div class="position-absolute top-0 start-0 w-100 h-100" style="background: linear-gradient(135deg, rgba(212, 175, 55, 0.8), rgba(11, 102, 35, 0.9));"></div>
-        <div class="position-absolute top-50 start-50 translate-middle text-center text-white" style="width: 90%; max-width: 800px;">
-            <h2 class="display-3 fw-bold mb-4">Ready for Your Luxury Safari?</h2>
-            <p class="fs-4 mb-5">Experience Africa like never before with Comeback African Safaris - where every journey is crafted to perfection.</p>
-            <div class="d-flex flex-column flex-md-row justify-content-center gap-4">
-                <a href="mailto:info@comebackafricansafaris.com" class="btn btn-premium px-5 py-3">
-                    <i class="fas fa-gem me-2"></i>Book Luxury Experience
-                </a>
-                <a href="tel:+255742561041" class="btn btn-outline-light px-5 py-3 border-2">
-                    <i class="fas fa-phone me-2"></i>Call Our Luxury Team
-                </a>
-            </div>
+<!-- ============================================================
+     CTA
+============================================================ -->
+<section class="cta-section">
+  <div class="cta-bg"></div>
+  <div class="cta-bg-pattern"></div>
+  <div class="cta-glow"></div>
+  <div class="container py-5 py-lg-6">
+    <div class="row align-items-center g-5">
+      <div class="col-lg-7 cta-content wow fadeInLeft">
+        <span class="cta-label">Start Your Journey</span>
+        <h2 class="cta-title">Ready for Your<br><span>Safari Adventure?</span></h2>
+        <p class="cta-desc">Experience Africa like never before with Sunrise and Sunset Safaris Limited — where every journey is crafted with care, guided by passion, and remembered forever.</p>
+        <div class="d-flex flex-wrap gap-3 mb-3">
+          <a href="{% url 'form' %}" class="btn-cta-primary" onclick="showLoading()"><i class="fas fa-paper-plane"></i> Book Your Safari</a>
+          <a href="{% url 'contact' %}" class="btn-cta-outline" onclick="showLoading()"><i class="fas fa-phone"></i> Talk to Us</a>
         </div>
+        <div style="display:flex;flex-wrap:wrap;gap:10px;margin-top:20px;">
+          <a href="https://wa.me/255742561041" target="_blank" class="cta-pill"><i class="fab fa-whatsapp"></i> +255 742 561 041</a>
+          <a href="https://wa.me/255689861041" target="_blank" class="cta-pill"><i class="fab fa-whatsapp"></i> +255 689 861 041</a>
+          <a href="mailto:sunriseandsunsetsafaris@gmail.com" class="cta-pill"><i class="fas fa-envelope"></i> Email Us</a>
+        </div>
+      </div>
+      <div class="col-lg-5 wow fadeInRight">
+        <div style="background:rgba(201,168,76,0.08);border:1px solid rgba(201,168,76,0.2);border-radius:var(--radius-lg);padding:32px;">
+          <h4 style="font-family:'Cinzel',serif;color:var(--gold);font-size:0.9rem;letter-spacing:0.1em;text-transform:uppercase;margin-bottom:20px;">
+            <i class="fas fa-star me-2"></i>Why Choose Us
+          </h4>
+          <div style="display:flex;align-items:center;gap:12px;padding:12px 0;border-bottom:1px solid rgba(201,168,76,0.1);">
+            <div style="width:38px;height:38px;border-radius:50%;background:rgba(201,168,76,0.15);display:flex;align-items:center;justify-content:center;flex-shrink:0;"><i class="fas fa-heart" style="color:var(--gold);"></i></div>
+            <div><div style="font-size:0.85rem;font-weight:700;color:var(--cream);">Personalized Experiences</div><div style="font-size:0.75rem;color:rgba(249,244,236,0.5);">Every trip tailored to you</div></div>
+          </div>
+          <div style="display:flex;align-items:center;gap:12px;padding:12px 0;border-bottom:1px solid rgba(201,168,76,0.1);">
+            <div style="width:38px;height:38px;border-radius:50%;background:rgba(201,168,76,0.15);display:flex;align-items:center;justify-content:center;flex-shrink:0;"><i class="fas fa-award" style="color:var(--gold);"></i></div>
+            <div><div style="font-size:0.85rem;font-weight:700;color:var(--cream);">Certified & Trusted</div><div style="font-size:0.75rem;color:rgba(249,244,236,0.5);">Licensed Tanzania safari operator</div></div>
+          </div>
+          <div style="display:flex;align-items:center;gap:12px;padding:12px 0;border-bottom:1px solid rgba(201,168,76,0.1);">
+            <div style="width:38px;height:38px;border-radius:50%;background:rgba(201,168,76,0.15);display:flex;align-items:center;justify-content:center;flex-shrink:0;"><i class="fas fa-clock" style="color:var(--gold);"></i></div>
+            <div><div style="font-size:0.85rem;font-weight:700;color:var(--cream);">24/7 Support</div><div style="font-size:0.75rem;color:rgba(249,244,236,0.5);">We're always here for you</div></div>
+          </div>
+          <div style="display:flex;align-items:center;gap:12px;padding:12px 0;border-bottom:1px solid rgba(201,168,76,0.1);">
+            <div style="width:38px;height:38px;border-radius:50%;background:rgba(201,168,76,0.15);display:flex;align-items:center;justify-content:center;flex-shrink:0;"><i class="fas fa-leaf" style="color:var(--gold);"></i></div>
+            <div><div style="font-size:0.85rem;font-weight:700;color:var(--cream);">Eco-Conscious Travel</div><div style="font-size:0.75rem;color:rgba(249,244,236,0.5);">Protecting Africa's wilderness</div></div>
+          </div>
+          <div style="display:flex;align-items:center;gap:12px;padding:12px 0;">
+            <div style="width:38px;height:38px;border-radius:50%;background:rgba(201,168,76,0.15);display:flex;align-items:center;justify-content:center;flex-shrink:0;"><i class="fas fa-compass" style="color:var(--gold);"></i></div>
+            <div><div style="font-size:0.85rem;font-weight:700;color:var(--cream);">Expert Local Knowledge</div><div style="font-size:0.75rem;color:rgba(249,244,236,0.5);">Deep roots in Tanzanian nature</div></div>
+          </div>
+        </div>
+      </div>
     </div>
-</div>
+  </div>
+</section>
 
 {% endblock %}
 
+{% block extra_js %}
 <script>
+/* Testimonials carousel */
 document.addEventListener('DOMContentLoaded', function () {
-    // Premium hover effects
-    document.querySelectorAll('.premium-card').forEach(card => {
-        card.addEventListener('mouseenter', function() {
-            this.style.transform = 'translateY(-15px) scale(1.02)';
-            this.style.boxShadow = '0 25px 50px rgba(212, 175, 55, 0.2)';
-        });
-        card.addEventListener('mouseleave', function() {
-            this.style.transform = '';
-            this.style.boxShadow = '';
-        });
+  if (typeof $.fn.owlCarousel !== 'undefined') {
+    $('.testimonial-carousel').owlCarousel({
+      autoplay: true, smartSpeed: 1000, margin: 24,
+      dots: true, loop: true, autoplayTimeout: 5000,
+      responsive: { 0: {items:1}, 768: {items:2}, 1200: {items:3} }
     });
-    
-    // Shimmer effect for premium badges
-    document.querySelectorAll('.premium-badge').forEach(badge => {
-        badge.addEventListener('mouseenter', function() {
-            this.style.background = 'linear-gradient(135deg, #FFD700, #0B6623)';
-        });
-        badge.addEventListener('mouseleave', function() {
-            this.style.background = 'linear-gradient(135deg, var(--safari-gold), var(--safari-green))';
-        });
-    });
-    
-    // Parallax effect for hero
-    window.addEventListener('scroll', function() {
-        const scrolled = window.pageYOffset;
-        const hero = document.querySelector('.premium-hero');
-        if (hero) {
-            hero.style.transform = `translateY(${scrolled * 0.5}px)`;
-        }
-    });
-    
-    // Initialize Wow.js for animations
-    if (typeof WOW === 'function') {
-        new WOW().init();
-    }
+  }
 });
+
+/* ============================================================
+   HERO BACKGROUND SLIDER
+   Reads data-src attributes from #heroImages spans.
+   Builds bg-image divs, crossfades, adds dots.
+============================================================ */
+(function () {
+  var section  = document.getElementById('heroSection');
+  var inner    = section ? section.querySelector('.hero-inner') : null;
+  var slider   = document.getElementById('heroBgSlider');
+  var dotsWrap = document.getElementById('heroDots');
+  var imgNodes = document.querySelectorAll('#heroImages span[data-src]');
+
+  if (!slider || imgNodes.length === 0) return;
+
+  section.classList.add('hero-has-images');
+
+  var srcs    = Array.from(imgNodes).map(function (el) { return el.getAttribute('data-src'); });
+  var slides  = [];
+  var dots    = [];
+  var current = 0;
+
+  srcs.forEach(function (src, idx) {
+    var div = document.createElement('div');
+    div.className = 'hero-bg-slide' + (idx === 0 ? ' active' : '');
+    div.style.backgroundImage = "url('" + src + "')";
+    slider.appendChild(div);
+    slides.push(div);
+
+    var btn = document.createElement('button');
+    btn.className = 'hero-dot' + (idx === 0 ? ' active' : '');
+    btn.setAttribute('aria-label', 'Slide ' + (idx + 1));
+    btn.addEventListener('click', function () { goTo(idx); resetTimer(); });
+    dotsWrap.appendChild(btn);
+    dots.push(btn);
+  });
+
+  function goTo(n) {
+    slides[current].classList.remove('active');
+    dots[current].classList.remove('active');
+    current = (n + slides.length) % slides.length;
+    slides[current].classList.add('active');
+    dots[current].classList.add('active');
+  }
+
+  var timer;
+  function startTimer() { timer = setInterval(function () { goTo(current + 1); }, 5500); }
+  function resetTimer()  { clearInterval(timer); startTimer(); }
+  startTimer();
+
+  if (inner) {
+    inner.addEventListener('mouseenter', function () { clearInterval(timer); });
+    inner.addEventListener('mouseleave', startTimer);
+    var tx = 0;
+    inner.addEventListener('touchstart', function (e) { tx = e.changedTouches[0].screenX; }, {passive:true});
+    inner.addEventListener('touchend',   function (e) {
+      var dx = tx - e.changedTouches[0].screenX;
+      if (Math.abs(dx) > 40) { goTo(dx > 0 ? current + 1 : current - 1); resetTimer(); }
+    }, {passive:true});
+  }
+})();
 </script>
+{% endblock %}

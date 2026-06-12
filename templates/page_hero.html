@@ -1,0 +1,404 @@
+{# Usage: {% include 'page_hero.html' with title="About Us" subtitle="Your Safari, Our Care" breadcrumb="About Us" label="Our Story" %} #}
+
+<section class="ph-section" id="pageHero">
+  <div class="ph-slider" id="phSlider"></div>
+  <div class="ph-overlay-base"></div>
+  <div class="ph-overlay-vignette"></div>
+  <div class="ph-overlay-bottom"></div>
+  <div class="ph-ring"></div>
+
+  <div class="ph-content container">
+    <div class="ph-label wow fadeInDown" data-wow-delay="0.05s">
+      <span class="ph-label-dot"></span>
+      {{ label|default:"Sunrise &amp; Sunset Safaris" }}
+      <span class="ph-label-dot"></span>
+    </div>
+    <h1 class="ph-title wow fadeInUp" data-wow-delay="0.12s">
+      {{ title|default:"Welcome" }}
+    </h1>
+    {% if subtitle %}
+    <p class="ph-sub wow fadeInUp" data-wow-delay="0.2s">{{ subtitle }}</p>
+    {% endif %}
+    <div class="ph-divider wow fadeInUp" data-wow-delay="0.25s">
+      <span class="ph-divider-line"></span>
+      <i class="fas fa-paw ph-divider-icon"></i>
+      <span class="ph-divider-line"></span>
+    </div>
+    <nav class="wow fadeInUp" data-wow-delay="0.3s" aria-label="breadcrumb">
+      <ol class="ph-breadcrumb">
+        <li><a href="{% url 'index' %}"><i class="fas fa-home"></i> Home</a></li>
+        <li class="ph-sep"><i class="fas fa-chevron-right"></i></li>
+        <li class="ph-active">{{ breadcrumb|default:title }}</li>
+      </ol>
+    </nav>
+  </div>
+
+  <div class="ph-dots" id="phDots"></div>
+
+  <div class="ph-wave">
+    <svg viewBox="0 0 1440 54" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M0,54 C360,0 1080,0 1440,54 L1440,54 L0,54 Z" fill="var(--cream,#F9F4EC)"/>
+    </svg>
+  </div>
+</section>
+
+<style>
+/* ---- container ---- */
+.ph-section {
+  position: relative;
+  width: 100%;
+  display: block;
+}
+.ph-section > * { box-sizing: border-box; }
+
+.ph-section::before {
+  content: '';
+  display: block;
+  width: 100%;
+  height: 62vh;
+  min-height: 480px;
+  max-height: 680px;
+  pointer-events: none;
+}
+
+/* ---- slider ---- */
+.ph-slider {
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  z-index: 0;
+  overflow: hidden;
+}
+.ph-slide {
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  background-position: center;
+  opacity: 0;
+  transition: opacity 1.6s ease-in-out;
+  /* FIX: animation inaanza paused — inacheza active slide tu */
+  animation: phKB1 14s ease-in-out infinite alternate;
+  animation-play-state: paused;
+  will-change: transform, opacity;
+}
+.ph-slide.active {
+  opacity: 1;
+  animation-play-state: running;
+}
+
+.ph-slide:nth-child(1) { animation-name: phKB1; }
+.ph-slide:nth-child(2) { animation-name: phKB2; }
+.ph-slide:nth-child(3) { animation-name: phKB3; }
+.ph-slide:nth-child(4) { animation-name: phKB4; }
+.ph-slide:nth-child(5) { animation-name: phKB5; }
+
+@keyframes phKB1 { from{transform:scale(1)    translate(0,0)}     to{transform:scale(1.08) translate(-1%,-1%)} }
+@keyframes phKB2 { from{transform:scale(1.05) translate(-1%,0)}   to{transform:scale(1)    translate(1%, 1%)} }
+@keyframes phKB3 { from{transform:scale(1)    translate(1%,-1%)}  to{transform:scale(1.07) translate(0, 1%)} }
+@keyframes phKB4 { from{transform:scale(1.04) translate(0, 1%)}   to{transform:scale(1)    translate(-1%,-1%)} }
+@keyframes phKB5 { from{transform:scale(1)    translate(-1%, 1%)} to{transform:scale(1.06) translate(1%, 0)} }
+
+/* Respect reduced-motion preference */
+@media (prefers-reduced-motion: reduce) {
+  .ph-slide { animation: none !important; }
+  .ph-ring, .ph-ring::after { animation: none !important; }
+}
+
+/* ---- overlay layers ---- */
+.ph-overlay-base {
+  position: absolute; inset: 0; z-index: 1; pointer-events: none;
+  background: linear-gradient(
+    135deg,
+    rgba(17,28,23,0.72) 0%,
+    rgba(27,58,45,0.52) 45%,
+    rgba(10,18,14,0.42) 100%
+  );
+}
+.ph-overlay-vignette {
+  position: absolute; inset: 0; z-index: 2; pointer-events: none;
+  background: radial-gradient(ellipse at center, transparent 40%, rgba(0,0,0,0.45) 100%);
+}
+.ph-overlay-bottom {
+  position: absolute; left: 0; right: 0; bottom: 0; z-index: 3;
+  height: 45%;
+  background: linear-gradient(to top, rgba(17,28,23,0.65) 0%, transparent 100%);
+  pointer-events: none;
+}
+
+/* ---- decorative ring ---- */
+.ph-ring {
+  position: absolute;
+  width: 500px; height: 500px;
+  border-radius: 50%;
+  border: 1px solid rgba(201,168,76,0.12);
+  top: -180px; right: -120px;
+  z-index: 2; pointer-events: none;
+  animation: phRingSpin 30s linear infinite;
+}
+.ph-ring::after {
+  content: '';
+  position: absolute;
+  inset: 40px;
+  border-radius: 50%;
+  border: 1px solid rgba(201,168,76,0.08);
+  animation: phRingSpin 20s linear infinite reverse;
+}
+@keyframes phRingSpin { to { transform: rotate(360deg); } }
+
+/* ---- content ---- */
+.ph-content {
+  position: absolute;
+  inset: 0;
+  z-index: 5;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding-top: 80px;
+  padding-bottom: 60px;
+}
+
+/* label */
+.ph-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.26em;
+  text-transform: uppercase;
+  color: #E8C96A;
+  border: 1px solid rgba(201,168,76,0.38);
+  background: rgba(201,168,76,0.1);
+  /* FIX: backdrop-filter ni heavy — desktop tu */
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  padding: 7px 20px;
+  border-radius: 50px;
+  margin-bottom: 20px;
+  width: fit-content;
+}
+.ph-label-dot {
+  width: 4px; height: 4px; border-radius: 50%;
+  background: #C9A84C;
+  display: inline-block;
+  flex-shrink: 0;
+}
+
+/* title */
+.ph-title {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(2.2rem, 5.5vw, 4.2rem);
+  font-weight: 900;
+  color: #fff;
+  line-height: 1.1;
+  margin-bottom: 14px;
+  text-shadow: 0 4px 24px rgba(0,0,0,0.55);
+  max-width: 720px;
+}
+
+/* subtitle */
+.ph-sub {
+  font-size: clamp(0.9rem, 1.8vw, 1.08rem);
+  color: rgba(255,255,255,0.78);
+  max-width: 560px;
+  line-height: 1.75;
+  margin-bottom: 20px;
+}
+
+/* gold divider */
+.ph-divider {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 22px;
+}
+.ph-divider-line {
+  height: 1px;
+  width: 48px;
+  background: linear-gradient(to right, transparent, rgba(201,168,76,0.6));
+}
+.ph-divider-line:last-child {
+  background: linear-gradient(to left, transparent, rgba(201,168,76,0.6));
+}
+.ph-divider-icon {
+  color: #C9A84C;
+  font-size: 0.78rem;
+  opacity: 0.8;
+}
+
+/* breadcrumb */
+.ph-breadcrumb {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  list-style: none;
+  padding: 0; margin: 0;
+  font-size: 0.78rem;
+}
+.ph-breadcrumb a {
+  color: rgba(201,168,76,0.9) !important;
+  font-weight: 600;
+  transition: color 0.3s ease;
+  display: flex; align-items: center; gap: 5px;
+}
+.ph-breadcrumb a:hover { color: #fff !important; }
+.ph-sep { color: rgba(255,255,255,0.28); font-size: 0.55rem; }
+.ph-active { color: rgba(255,255,255,0.6); font-weight: 600; }
+
+/* ---- slide dots ---- */
+.ph-dots {
+  position: absolute;
+  bottom: 58px;
+  right: 5%;
+  z-index: 6;
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+}
+.ph-dot {
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.35);
+  border: none; cursor: pointer; padding: 0;
+  transition: all 0.35s ease;
+}
+.ph-dot.active {
+  background: #C9A84C;
+  height: 18px;
+  border-radius: 3px;
+}
+
+/* ---- wave shape ---- */
+.ph-wave {
+  position: absolute;
+  bottom: -1px; left: 0; right: 0;
+  z-index: 6;
+  line-height: 0;
+}
+.ph-wave svg {
+  width: 100%;
+  height: 54px;
+  display: block;
+}
+
+/* ---- responsive ---- */
+@media (max-width: 991px) {
+  .ph-section::before { height: 52vh; min-height: 400px; }
+  .ph-ring { width: 320px; height: 320px; top: -120px; right: -80px; }
+  .ph-dots { right: 16px; bottom: 64px; }
+}
+@media (max-width: 767px) {
+  .ph-section::before { height: 48vh; min-height: 360px; max-height: 480px; }
+  .ph-content { padding-top: 70px; padding-bottom: 50px; }
+  .ph-ring { display: none; }
+  .ph-dots { display: none; }
+  .ph-divider { display: none; }
+  /* FIX: ondoa backdrop-filter mobile — GPU sana */
+  .ph-label {
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+    background: rgba(201,168,76,0.18);
+  }
+}
+@media (max-width: 480px) {
+  .ph-section::before { height: 44vh; min-height: 320px; }
+  .ph-label { font-size: 0.6rem; letter-spacing: 0.18em; }
+}
+</style>
+
+<script>
+(function () {
+  /* -----------------------------------------------------------
+     Fallback images — badilisha na paths zako halisi
+  ----------------------------------------------------------- */
+  /* -----------------------------------------------------------
+     IMAGES — badilisha URLs hizi na zako halisi
+  ----------------------------------------------------------- */
+  var images = [
+    "https://images.unsplash.com/photo-1516426122078-c23e76319801?w=1600&q=80",
+    "https://images.unsplash.com/photo-1547471080-7cc2caa01a7e?w=1600&q=80",
+    "https://images.unsplash.com/photo-1523805009345-7448845a9e53?w=1600&q=80",
+    "https://images.unsplash.com/photo-1682687218147-9806132dc697?w=1600&q=80",
+    "https://images.unsplash.com/photo-1504945005722-33670dcaf685?w=1600&q=80"
+  ];
+
+  var slider   = document.getElementById('phSlider');
+  var dotsWrap = document.getElementById('phDots');
+  if (!slider) return;
+
+  var slides  = [];
+  var dots    = [];
+  var current = 0;
+
+  /* ---- Build slides ---- */
+  images.forEach(function (src, i) {
+    var div = document.createElement('div');
+    div.className = 'ph-slide' + (i === 0 ? ' active' : '');
+
+    if (i === 0) {
+      /* FIX: Slide ya kwanza inapakia MARA MOJA */
+      div.style.backgroundImage = "url('" + src + "')";
+    } else {
+      /* FIX: Nyingine zinapakia baadaye tu (lazy) */
+      div.dataset.lazySrc = src;
+    }
+
+    slider.appendChild(div);
+    slides.push(div);
+
+    var btn = document.createElement('button');
+    btn.className = 'ph-dot' + (i === 0 ? ' active' : '');
+    btn.setAttribute('aria-label', 'Slide ' + (i + 1));
+    btn.addEventListener('click', function () { goTo(i); reset(); });
+    dotsWrap.appendChild(btn);
+    dots.push(btn);
+  });
+
+  /* ---- Preload slide inayofuata (background) ---- */
+  function preloadSlide(n) {
+    var idx = (n + slides.length) % slides.length;
+    var slide = slides[idx];
+    if (slide.dataset.lazySrc) {
+      slide.style.backgroundImage = "url('" + slide.dataset.lazySrc + "')";
+      delete slide.dataset.lazySrc;
+    }
+  }
+
+  function goTo(n) {
+    slides[current].classList.remove('active');
+    dots[current].classList.remove('active');
+    current = (n + slides.length) % slides.length;
+
+    /* Hakikisha slide inayofuata imepakia */
+    preloadSlide(current);
+
+    slides[current].classList.add('active');
+    dots[current].classList.add('active');
+
+    /* Preload slide baada ya hii (ili iwe tayari) */
+    preloadSlide(current + 1);
+  }
+
+  /* Preload slide ya pili mapema (itatumika baada ya sekunde 5) */
+  preloadSlide(1);
+
+  var timer;
+  function start() { timer = setInterval(function () { goTo(current + 1); }, 5000); }
+  function reset() { clearInterval(timer); start(); }
+  start();
+
+  /* Pause on hover */
+  var section = slider.closest('.ph-section');
+  if (section) {
+    section.addEventListener('mouseenter', function () { clearInterval(timer); });
+    section.addEventListener('mouseleave', start);
+  }
+
+  /* Touch swipe */
+  var tx = 0;
+  slider.addEventListener('touchstart', function (e) { tx = e.changedTouches[0].screenX; }, { passive: true });
+  slider.addEventListener('touchend', function (e) {
+    var dx = tx - e.changedTouches[0].screenX;
+    if (Math.abs(dx) > 40) { goTo(dx > 0 ? current + 1 : current - 1); reset(); }
+  }, { passive: true });
+})();
+</script>

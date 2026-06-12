@@ -1,49 +1,135 @@
-<!-- tour_list.html -->
 {% extends 'base.html' %}
 {% load static %}
-
-{% block title %}Tour Listings{% endblock %}
-
+{% block title %}Safari Packages | Sunrise and Sunset Safaris Limited{% endblock %}
 {% block content %}
-<section class="container py-5">
-  <h1 class="mb-4 text-center">Available Tours</h1>
 
-  <form method="get" class="row g-3 mb-5">
-    <div class="col-md-5">
-      <input type="text" name="location" class="form-control" placeholder="Search by Location" value="{{ request.GET.location }}">
-    </div>
-    <div class="col-md-5">
-      <select name="type" class="form-select">
-        <option value="">-- Select Your Tour --</option>
-        {% for type in tour_types %}
-          <option value="{{ type }}" {% if request.GET.type == type %}selected{% endif %}>{{ type }}</option>
-        {% endfor %}
-      </select>
-    </div>
-    <div class="col-md-2">
-      <button type="submit" class="btn btn-primary w-100">Search</button>
-    </div>
-  </form>
+<style>
+.filter-bar {
+  background: var(--white); border-radius: var(--radius-lg);
+  padding: 24px 28px; box-shadow: var(--shadow);
+  border: 1px solid rgba(201,168,76,0.12);
+  margin-bottom: 40px;
+}
+.filter-input {
+  width: 100%; padding: 11px 16px;
+  border: 1.5px solid rgba(201,168,76,0.2); border-radius: 10px;
+  font-size: 0.88rem; color: var(--text); background: var(--cream);
+  font-family: 'Nunito Sans', sans-serif; outline: none; transition: var(--transition);
+}
+.filter-input:focus { border-color: var(--gold); background: var(--white); }
+.filter-btn {
+  width: 100%; padding: 11px 20px;
+  background: var(--forest); color: var(--gold) !important;
+  border: none; border-radius: 10px;
+  font-family: 'Cinzel', serif; font-size: 0.8rem; font-weight: 700;
+  letter-spacing: 0.06em; cursor: pointer; transition: var(--transition);
+}
+.filter-btn:hover { background: var(--gold); color: var(--forest) !important; }
 
-  <div class="row">
-    {% for s in safari %}
-    <div class="col-md-4 mb-4">
-      <div class="card h-100 shadow-sm">
-        {% if s.featured_image %}
-          <img src="{{ s.featured_image }}" class="card-img-top" alt="{{ s.title }}">
-        {% endif %}
-        <div class="card-body d-flex flex-column">
-          <h5 class="card-title">{{ s.title }}</h5>
-          <p class="card-text"><strong>Location:</strong> {{ s.location }}</p>
-          <p class="card-text"><strong>Days:</strong> {{ s.days }}</p>
-          <p class="card-text"><strong>Type:</strong> {{ s.safari_type }}</p>
-          <a href="{% url 'safari_detail' s.pk %}" class="btn btn-outline-primary mt-auto">View Details</a>
+.sl-card {
+  background: var(--white); border-radius: var(--radius-lg);
+  overflow: hidden; box-shadow: var(--shadow);
+  border: 1px solid rgba(201,168,76,0.1);
+  transition: var(--transition); height: 100%;
+}
+.sl-card:hover { transform: translateY(-5px); box-shadow: var(--shadow-gold); border-color: var(--gold); }
+.sl-img-wrap { position: relative; height: 220px; overflow: hidden; }
+.sl-img-wrap img { width:100%; height:100%; object-fit:cover; transition: transform 0.5s ease; }
+.sl-card:hover .sl-img-wrap img { transform: scale(1.06); }
+.sl-type-badge {
+  position: absolute; top: 12px; left: 12px;
+  background: var(--forest); color: var(--gold);
+  font-size: 0.65rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase;
+  padding: 5px 12px; border-radius: 50px; border: 1px solid rgba(201,168,76,0.3);
+}
+.sl-body { padding: 22px 20px 20px; }
+.sl-meta { display:flex; gap:14px; font-size:0.76rem; color:var(--text-light); margin-bottom:10px; }
+.sl-meta span { display:flex; align-items:center; gap:4px; }
+.sl-meta i { color:var(--gold); }
+.sl-title { font-family:'Playfair Display',serif; font-size:1.1rem; font-weight:700; color:var(--forest); margin-bottom:8px; }
+.sl-loc { font-size:0.8rem; color:var(--text-light); margin-bottom:12px; }
+.sl-desc { font-size:0.82rem; color:var(--text-light); line-height:1.65; margin-bottom:16px; }
+.sl-footer { display:flex; align-items:center; justify-content:space-between; border-top:1px solid rgba(201,168,76,0.1); padding-top:14px; }
+.sl-price { font-family:'Playfair Display',serif; }
+.sl-price-label { font-size:0.68rem; color:var(--text-light); display:block; }
+.sl-price-value { font-size:1.25rem; font-weight:900; color:var(--gold-dark); }
+.sl-btn { display:inline-flex; align-items:center; gap:6px; background:var(--forest); color:var(--gold) !important;
+  font-size:0.76rem; font-weight:700; font-family:'Cinzel',serif; letter-spacing:0.06em;
+  padding:9px 18px; border-radius:50px; transition:var(--transition); }
+.sl-btn:hover { background:var(--gold); color:var(--forest) !important; }
+</style>
+
+{% include 'page_hero.html' with title="Safari Packages" subtitle="Explore Tanzania's finest wildlife experiences — from the Serengeti to Zanzibar." breadcrumb="Safari Packages" label="Our Safaris" %}
+
+<section class="py-5 py-lg-6" style="background:var(--cream);">
+  <div class="container py-3">
+
+    <!-- Filter Bar -->
+    <form method="get" class="filter-bar wow fadeInUp">
+      <div class="row g-3 align-items-end">
+        <div class="col-md-5">
+          <label style="font-size:0.75rem; font-weight:700; color:var(--forest); letter-spacing:0.08em; text-transform:uppercase; margin-bottom:6px; display:block;">Search by Location</label>
+          <input type="text" name="location" class="filter-input" placeholder="e.g. Serengeti, Zanzibar..." value="{{ request.GET.location }}">
+        </div>
+        <div class="col-md-5">
+          <label style="font-size:0.75rem; font-weight:700; color:var(--forest); letter-spacing:0.08em; text-transform:uppercase; margin-bottom:6px; display:block;">Safari Type</label>
+          <select name="type" class="filter-input">
+            <option value="">-- All Safari Types --</option>
+            {% for type in tour_types %}
+            <option value="{{ type }}" {% if request.GET.type == type %}selected{% endif %}>{{ type }}</option>
+            {% endfor %}
+          </select>
+        </div>
+        <div class="col-md-2">
+          <button type="submit" class="filter-btn"><i class="fas fa-search me-1"></i> Search</button>
         </div>
       </div>
+    </form>
+
+    <!-- Results -->
+    <div class="row g-4 wow fadeInUp" data-wow-delay="0.1s">
+      {% for s in safari %}
+      <div class="col-lg-4 col-md-6">
+        <div class="sl-card">
+          <div class="sl-img-wrap">
+            {% if s.featured_image %}
+            <img src="{{ s.featured_image }}" alt="{{ s.title }}">
+            {% else %}
+            <img src="{% static 'img/4.jpg' %}" alt="{{ s.title }}">
+            {% endif %}
+            <div class="sl-type-badge">{{ s.safari_type|default:"Safari" }}</div>
+          </div>
+          <div class="sl-body">
+            <div class="sl-meta">
+              <span><i class="fas fa-calendar-alt"></i> {{ s.days }} Days</span>
+              <span><i class="fas fa-star" style="color:#F59E0B"></i> 5.0</span>
+              <span><i class="fas fa-users"></i> Small Group</span>
+            </div>
+            <div class="sl-title">{{ s.title }}</div>
+            <div class="sl-loc"><i class="fas fa-map-marker-alt me-1" style="color:var(--gold);"></i>{{ s.location }}</div>
+            <div class="sl-desc">{{ s.description|truncatewords:20|default:"An unforgettable Tanzania safari experience." }}</div>
+            <div class="sl-footer">
+              <div class="sl-price">
+                <span class="sl-price-label">From</span>
+                <span class="sl-price-value">${{ s.price }}</span>
+              </div>
+              <a href="{% url 'safari_detail' s.pk %}" class="sl-btn" onclick="showLoading()">
+                <i class="fas fa-arrow-right"></i> Details
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+      {% empty %}
+      <div class="col-12 text-center py-5">
+        <i class="fas fa-paw fa-3x" style="color:var(--gold); opacity:0.3; margin-bottom:16px; display:block;"></i>
+        <p style="color:var(--text-light);">No safaris found for your search. <a href="{% url 'safari_list' %}" style="color:var(--gold-dark);">Clear filters</a> or contact us for a custom safari.</p>
+        <a href="{% url 'form' %}" class="btn-book-nav mt-3" onclick="showLoading()"><i class="fas fa-paper-plane"></i> Request Custom Safari</a>
+      </div>
+      {% endfor %}
     </div>
-    {% empty %}
-      <p>No tours available for the selected criteria.</p>
-    {% endfor %}
   </div>
 </section>
+
+{% include 'booking_form.html' %}
 {% endblock %}

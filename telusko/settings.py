@@ -41,7 +41,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
        'cloudinary',
-       'ckeditor',
+       'django_ckeditor_5',
     'ckeditor_uploader',
     'cloudinary_storage',
     "django_countries",
@@ -72,7 +72,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'jamiitek_middleware.JamiiTekStatusMiddleware',  # This one here
+    # 'jamiitek_middleware.JamiiTekStatusMiddleware',  
 
 ]
 
@@ -180,8 +180,8 @@ STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 
 
-DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
-MEDIA_URL = f"https://res.cloudinary.com/{os.getenv('CLOUDINARY_CLOUD_NAME')}/"
+# DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
+# MEDIA_URL = f"https://res.cloudinary.com/{os.getenv('CLOUDINARY_CLOUD_NAME')}/"
 
 # Default primary key field type
 
@@ -190,10 +190,10 @@ MEDIA_URL = f"https://res.cloudinary.com/{os.getenv('CLOUDINARY_CLOUD_NAME')}/"
 
 
 JAZZMIN_SETTINGS = {
-    "site_title": "Comeback African Safaris Site Admin",
-    "site_header": "Comeback African Safaris Dashboard",
-    "welcome_sign": "Karibu kwenye Dashboard ya  Comeback African Safaris",
-    "copyright": "© 2026  Comeback African Safaris",
+    "site_title": "Sunrise and Sunset Safaris Site Admin",
+    "site_header": "Sunrise and Sunset Safaris Dashboard",
+    "welcome_sign": "Karibu kwenye Dashboard ya  Sunrise and Sunset Safaris",
+    "copyright": "© 2026  Sunrise and Sunset Safaris",
     "show_sidebar": True,
     "navigation_expanded": True,
     "user_avatar": None,
@@ -201,7 +201,7 @@ JAZZMIN_SETTINGS = {
     "topmenu_links": [
         {"name": "Home", "url": "admin:index", "permissions": ["auth.view_user"]},
         {"model": "auth.User"},
-        {"app": " Comeback African Safaris"},
+        {"app": " Sunrise and Sunset Safaris"},
     ],
 }
 

@@ -1,663 +1,137 @@
 {% extends 'base.html' %}
 {% load static %}
-
+{% block title %}{{ destination.name|default:"Destination" }} | Sunrise and Sunset Safaris Limited{% endblock %}
 {% block content %}
 
 <style>
-    /* Premium Hero Section */
-    .premier-hero-section {
-        position: relative;
-        height: 85vh;
-        min-height: 600px;
-        overflow: hidden;
-        border-radius: 0 0 40px 40px;
-        margin-bottom: 60px;
-        box-shadow: 0 20px 50px rgba(0,0,0,0.3);
-    }
+.dest-hero { position:relative; height:65vh; min-height:480px; overflow:hidden; }
+.dest-hero img { width:100%; height:100%; object-fit:cover; }
+.dest-hero-overlay {
+  position:absolute; inset:0;
+  background:linear-gradient(to top, rgba(17,28,23,0.92) 0%, rgba(0,0,0,0.3) 55%, transparent 100%);
+}
+.dest-hero-body { position:absolute; bottom:0; left:0; right:0; padding:50px 5%; }
+.dest-detail-title { font-family:'Playfair Display',serif; font-size:clamp(2rem,6vw,3.5rem); font-weight:900; color:var(--white); margin-bottom:8px; text-shadow:0 3px 14px rgba(0,0,0,0.5); }
+.badge-gold { display:inline-flex; align-items:center; gap:6px; background:var(--gold); color:var(--forest); font-size:0.7rem; font-weight:700; letter-spacing:0.1em; text-transform:uppercase; padding:6px 16px; border-radius:50px; }
 
-    .hero-background {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.7)), url("{{ destination.image }}") center/cover no-repeat;
-        transition: transform 1.2s cubic-bezier(0.4, 0, 0.2, 1);
-    }
+.highlight-item { display:flex; align-items:flex-start; gap:12px; padding:14px 0; border-bottom:1px solid rgba(201,168,76,0.1); }
+.highlight-item:last-child { border-bottom:none; }
+.highlight-icon { width:38px; height:38px; border-radius:10px; background:rgba(201,168,76,0.1); display:flex; align-items:center; justify-content:center; flex-shrink:0; color:var(--gold); font-size:0.9rem; }
+.highlight-text h6 { font-size:0.85rem; font-weight:700; color:var(--forest); margin-bottom:2px; }
+.highlight-text p { font-size:0.8rem; color:var(--text-light); margin:0; }
 
-    .hero-overlay {
-        position: absolute;
-        width: 100%;
-        height: 100%;
-        display: flex;
-        align-items: flex-end;
-        padding: 60px;
-        background: linear-gradient(to top, rgba(0,0,0,0.9) 0%, transparent 50%);
-    }
-
-    /* Premium Badge */
-    .premier-badge {
-        position: absolute;
-        top: 40px;
-        left: 40px;
-        background: linear-gradient(135deg, #d4af37, #f4d03f, #ffd700);
-        color: #1a472a;
-        font-weight: 800;
-        padding: 12px 25px;
-        border-radius: 50px;
-        font-size: 0.9rem;
-        letter-spacing: 1px;
-        box-shadow: 0 8px 25px rgba(212, 175, 55, 0.4);
-        z-index: 10;
-        animation: badgeGlow 3s infinite alternate;
-    }
-
-    @keyframes badgeGlow {
-        0% { box-shadow: 0 8px 25px rgba(212, 175, 55, 0.4); }
-        100% { box-shadow: 0 8px 35px rgba(212, 175, 55, 0.7); }
-    }
-
-    /* Premium Title */
-    .premier-title {
-        font-family: 'Playfair Display', serif;
-        font-size: 4.2rem;
-        font-weight: 900;
-        color: white;
-        margin-bottom: 0.8rem;
-        text-shadow: 3px 3px 15px rgba(0,0,0,0.5);
-        line-height: 1.1;
-        letter-spacing: 1px;
-    }
-
-    .premier-location {
-        font-family: 'Montserrat', sans-serif;
-        font-size: 1.4rem;
-        color: #f4d03f;
-        margin-bottom: 1.5rem;
-        letter-spacing: 2px;
-        font-weight: 500;
-    }
-
-    /* Premium Rating */
-    .premier-rating {
-        display: flex;
-        align-items: center;
-        gap: 20px;
-        margin-top: 25px;
-    }
-
-    .rating-stars {
-        color: #f4d03f;
-        font-size: 1.2rem;
-    }
-
-    .rating-text {
-        color: rgba(255,255,255,0.9);
-        font-weight: 600;
-        font-size: 1.1rem;
-    }
-
-    /* Premium Content Section */
-    .premier-content-section {
-        padding: 80px 0;
-        background: linear-gradient(to bottom, #ffffff, #f8f9fa);
-    }
-
-    .premier-description {
-        font-family: 'Montserrat', sans-serif;
-        font-size: 1.15rem;
-        color: #444;
-        line-height: 1.9;
-        margin-bottom: 40px;
-        text-align: justify;
-        padding-right: 30px;
-    }
-
-    /* Premium Features */
-    .premier-features-grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-        gap: 25px;
-        margin: 50px 0;
-    }
-
-    .feature-card {
-        background: white;
-        padding: 30px;
-        border-radius: 20px;
-        box-shadow: 0 15px 35px rgba(0,0,0,0.08);
-        transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-        border: 1px solid rgba(212, 175, 55, 0.1);
-        position: relative;
-        overflow: hidden;
-    }
-
-    .feature-card:hover {
-        transform: translateY(-15px);
-        box-shadow: 0 25px 50px rgba(212, 175, 55, 0.15);
-        border-color: rgba(212, 175, 55, 0.3);
-    }
-
-    .feature-icon {
-        width: 70px;
-        height: 70px;
-        background: linear-gradient(135deg, #d4af37, #f4d03f);
-        border-radius: 20px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        margin-bottom: 20px;
-        color: white;
-        font-size: 1.8rem;
-    }
-
-    .feature-title {
-        font-family: 'Playfair Display', serif;
-        font-size: 1.4rem;
-        color: #1a472a;
-        margin-bottom: 10px;
-        font-weight: 700;
-    }
-
-    .feature-text {
-        color: #666;
-        font-size: 0.95rem;
-        line-height: 1.6;
-    }
-
-    /* Premium Gallery */
-    .premier-gallery {
-        margin: 60px 0;
-    }
-
-    .gallery-grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-        gap: 20px;
-        margin-top: 30px;
-    }
-
-    .gallery-item {
-        border-radius: 20px;
-        overflow: hidden;
-        height: 250px;
-        position: relative;
-        cursor: pointer;
-        transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-    }
-
-    .gallery-item:hover {
-        transform: scale(1.05);
-        z-index: 2;
-    }
-
-    .gallery-item img {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-        transition: transform 0.7s ease;
-    }
-
-    .gallery-item:hover img {
-        transform: scale(1.15);
-    }
-
-    .gallery-overlay {
-        position: absolute;
-        bottom: 0;
-        left: 0;
-        width: 100%;
-        background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);
-        color: white;
-        padding: 20px;
-        transform: translateY(100%);
-        transition: transform 0.4s ease;
-    }
-
-    .gallery-item:hover .gallery-overlay {
-        transform: translateY(0);
-    }
-
-    /* Premium CTA */
-    .premier-cta {
-        background: linear-gradient(135deg, #1a472a, #2c5e41);
-        border-radius: 30px;
-        padding: 60px;
-        margin: 80px 0;
-        text-align: center;
-        color: white;
-        position: relative;
-        overflow: hidden;
-        box-shadow: 0 30px 60px rgba(26, 71, 42, 0.3);
-    }
-
-    .premier-cta:before {
-        content: '';
-        position: absolute;
-        top: -50%;
-        left: -50%;
-        width: 200%;
-        height: 200%;
-        background: radial-gradient(circle, rgba(212, 175, 55, 0.1) 0%, transparent 70%);
-        animation: rotate 20s linear infinite;
-    }
-
-    @keyframes rotate {
-        0% { transform: rotate(0deg); }
-        100% { transform: rotate(360deg); }
-    }
-
-    .cta-title {
-        font-family: 'Playfair Display', serif;
-        font-size: 2.8rem;
-        margin-bottom: 20px;
-        position: relative;
-        z-index: 1;
-    }
-
-    .cta-subtitle {
-        font-size: 1.2rem;
-        margin-bottom: 30px;
-        opacity: 0.9;
-        position: relative;
-        z-index: 1;
-        max-width: 600px;
-        margin-left: auto;
-        margin-right: auto;
-    }
-
-    /* Premium Book Button */
-    .btn-premier-book {
-        background: linear-gradient(135deg, #d4af37, #f4d03f, #ffd700);
-        color: #1a472a;
-        font-weight: 800;
-        border-radius: 50px;
-        padding: 18px 50px;
-        font-size: 1.2rem;
-        letter-spacing: 1px;
-        transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-        border: none;
-        position: relative;
-        z-index: 1;
-        overflow: hidden;
-        box-shadow: 0 15px 35px rgba(212, 175, 55, 0.4);
-    }
-
-    .btn-premier-book:hover {
-        transform: translateY(-5px) scale(1.05);
-        box-shadow: 0 25px 50px rgba(212, 175, 55, 0.6);
-        color: #1a472a;
-    }
-
-    .btn-premier-book:before {
-        content: '';
-        position: absolute;
-        top: 0;
-        left: -100%;
-        width: 100%;
-        height: 100%;
-        background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
-        transition: 0.5s;
-    }
-
-    .btn-premier-book:hover:before {
-        left: 100%;
-    }
-
-    /* Premium Stats */
-    .premier-stats {
-        display: flex;
-        justify-content: space-around;
-        margin: 60px 0;
-        padding: 40px;
-        background: linear-gradient(135deg, #f8f9fa, #ffffff);
-        border-radius: 30px;
-        box-shadow: 0 20px 40px rgba(0,0,0,0.08);
-    }
-
-    .stat-item {
-        text-align: center;
-        padding: 20px;
-    }
-
-    .stat-number {
-        font-family: 'Playfair Display', serif;
-        font-size: 3.5rem;
-        font-weight: 900;
-        color: #d4af37;
-        line-height: 1;
-        margin-bottom: 10px;
-    }
-
-    .stat-label {
-        color: #1a472a;
-        font-weight: 600;
-        font-size: 1rem;
-        letter-spacing: 1px;
-    }
-
-    /* Responsive Design */
-    @media (max-width: 1200px) {
-        .premier-title {
-            font-size: 3.5rem;
-        }
-    }
-
-    @media (max-width: 992px) {
-        .premier-hero-section {
-            height: 70vh;
-        }
-        
-        .premier-title {
-            font-size: 3rem;
-        }
-        
-        .hero-overlay {
-            padding: 40px;
-        }
-        
-        .premier-stats {
-            flex-wrap: wrap;
-        }
-        
-        .stat-item {
-            flex: 0 0 50%;
-            margin-bottom: 20px;
-        }
-    }
-
-    @media (max-width: 768px) {
-        .premier-hero-section {
-            height: 60vh;
-            border-radius: 0 0 30px 30px;
-        }
-        
-        .premier-title {
-            font-size: 2.5rem;
-        }
-        
-        .premier-badge {
-            top: 20px;
-            left: 20px;
-            padding: 10px 20px;
-        }
-        
-        .hero-overlay {
-            padding: 30px;
-        }
-        
-        .premier-cta {
-            padding: 40px 20px;
-            margin: 50px 0;
-        }
-        
-        .cta-title {
-            font-size: 2.2rem;
-        }
-        
-        .feature-card {
-            padding: 20px;
-        }
-        
-        .stat-number {
-            font-size: 2.8rem;
-        }
-    }
-
-    @media (max-width: 576px) {
-        .premier-title {
-            font-size: 2rem;
-        }
-        
-        .premier-location {
-            font-size: 1.1rem;
-        }
-        
-        .premier-description {
-            font-size: 1rem;
-            padding-right: 0;
-        }
-        
-        .stat-item {
-            flex: 0 0 100%;
-        }
-        
-        .gallery-grid {
-            grid-template-columns: 1fr;
-        }
-    }
+.activity-tag { display:inline-flex; align-items:center; gap:5px; background:var(--cream-dark); border:1px solid rgba(201,168,76,0.2); color:var(--forest); font-size:0.78rem; font-weight:600; padding:6px 14px; border-radius:50px; margin:3px; transition:var(--transition); }
+.activity-tag:hover { background:var(--gold); color:var(--forest); border-color:var(--gold); }
+.activity-tag i { color:var(--gold-dark); font-size:0.72rem; }
+.activity-tag:hover i { color:var(--forest); }
 </style>
 
-<!-- Premium Hero Section -->
-<section class="premier-hero-section">
-    <div class="hero-background" id="heroBackground"></div>
-    
-    {% if destination.is_unesco_site %}
-    <div class="premier-badge">
-        <i class="fas fa-crown me-2"></i>PREMIER UNESCO DESTINATION
-    </div>
+<!-- Hero -->
+<div class="dest-hero">
+  <img src="{{ destination.image }}" alt="{{ destination.name }}">
+  <div class="dest-hero-overlay"></div>
+  <div class="dest-hero-body container">
+    {% if destination.Offer_in_percent %}
+    <div class="badge-gold mb-3"><i class="fas fa-tag"></i> {{ destination.Offer_in_percent }}% Special Offer</div>
     {% endif %}
-    
-    <div class="hero-overlay">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-8">
-                    <h1 class="premier-title">{{ destination.name }}</h1>
-                    <p class="premier-location">
-                        <i class="fas fa-map-marker-alt me-2"></i>{{ destination.location }}
-                    </p>
-                    
-                    <div class="premier-rating">
-                        <div class="rating-stars">
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star-half-alt"></i>
-                        </div>
-                        <div class="rating-text">
-                            Rated 4.8/5 by 1,200+ travelers
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+    <div class="dest-detail-title">{{ destination.name }}</div>
+    <div style="display:flex; flex-wrap:wrap; gap:14px; align-items:center;">
+      <div style="display:flex; align-items:center; gap:6px; font-size:0.82rem; color:rgba(255,255,255,0.8); font-weight:600;">
+        <i class="fas fa-map-marker-alt" style="color:var(--gold);"></i> {{ destination.location }}
+      </div>
+      <div style="display:flex; align-items:center; gap:6px; font-size:0.82rem; color:rgba(255,255,255,0.8); font-weight:600;">
+        <i class="fas fa-star" style="color:#F59E0B;"></i> 5.0 Rated
+      </div>
     </div>
-</section>
-
-<!-- Premium Content Section -->
-<section class="premier-content-section">
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-8">
-                <div class="premier-description">
-                    {{ destination.description }}
-                </div>
-                
-                <!-- Premium Features -->
-                <div class="premier-features-grid">
-                    <div class="feature-card">
-                        <div class="feature-icon">
-                            <i class="fas fa-camera"></i>
-                        </div>
-                        <h3 class="feature-title">Photography Paradise</h3>
-                        <p class="feature-text">
-                            Capture breathtaking landscapes and wildlife with golden hour photography sessions guided by professionals.
-                        </p>
-                    </div>
-                    
-                    <div class="feature-card">
-                        <div class="feature-icon">
-                            <i class="fas fa-utensils"></i>
-                        </div>
-                        <h3 class="feature-title">Gourmet Safari Dining</h3>
-                        <p class="feature-text">
-                            Experience bush breakfasts, sunset cocktails, and gourmet meals under the African sky.
-                        </p>
-                    </div>
-                    
-                    <div class="feature-card">
-                        <div class="feature-icon">
-                            <i class="fas fa-bed"></i>
-                        </div>
-                        <h3 class="feature-title">Luxury Accommodation</h3>
-                        <p class="feature-text">
-                            Stay in premium lodges and tented camps with panoramic views and world-class amenities.
-                        </p>
-                    </div>
-                    
-                    <div class="feature-card">
-                        <div class="feature-icon">
-                            <i class="fas fa-user-tie"></i>
-                        </div>
-                        <h3 class="feature-title">Expert Guides</h3>
-                        <p class="feature-text">
-                            Learn from our certified guides with 10+ years of experience in wildlife tracking and conservation.
-                        </p>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="col-lg-4">
-                <!-- Premium Stats -->
-                <div class="premier-stats">
-                    <div class="stat-item">
-                        <div class="stat-number" id="visitorCount">15K+</div>
-                        <div class="stat-label">Annual Visitors</div>
-                    </div>
-                    <div class="stat-item">
-                        <div class="stat-number">98%</div>
-                        <div class="stat-label">Satisfaction Rate</div>
-                    </div>
-                </div>
-                
-                <!-- Quick Facts Card -->
-                <div class="feature-card" style="margin-top: 30px;">
-                    <h3 class="feature-title mb-4">Quick Facts</h3>
-                    <div class="d-flex align-items-center mb-3">
-                        <i class="fas fa-sun text-warning me-3 fa-lg"></i>
-                        <div>
-                            <strong>Best Time to Visit</strong>
-                            <p class="mb-0 text-muted small">June to October</p>
-                        </div>
-                    </div>
-                    <div class="d-flex align-items-center mb-3">
-                        <i class="fas fa-temperature-high text-danger me-3 fa-lg"></i>
-                        <div>
-                            <strong>Average Temperature</strong>
-                            <p class="mb-0 text-muted small">20°C - 30°C</p>
-                        </div>
-                    </div>
-                    <div class="d-flex align-items-center mb-3">
-                        <i class="fas fa-walking text-success me-3 fa-lg"></i>
-                        <div>
-                            <strong>Activity Level</strong>
-                            <p class="mb-0 text-muted small">Moderate</p>
-                        </div>
-                    </div>
-                    <div class="d-flex align-items-center">
-                        <i class="fas fa-clock text-primary me-3 fa-lg"></i>
-                        <div>
-                            <strong>Recommended Stay</strong>
-                            <p class="mb-0 text-muted small">3-7 Days</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        
-        <!-- Premium Gallery -->
-        <div class="premier-gallery">
-            <h2 class="text-center mb-4" style="font-family: 'Playfair Display', serif; color: #1a472a;">
-                <i class="fas fa-images me-2"></i>Gallery Highlights
-            </h2>
-            <div class="gallery-grid">
-                {% for gallery_image in destination.gallery_images|slice:":6" %}
-                <div class="gallery-item">
-                    <img src="{{ gallery_image }}" alt="Gallery Image {{ forloop.counter }}">
-                    <div class="gallery-overlay">
-                        <h5 class="mb-0">{{ destination.name }} View {{ forloop.counter }}</h5>
-                    </div>
-                </div>
-                {% endfor %}
-            </div>
-        </div>
-        
-        <!-- Premium Call to Action -->
-        <div class="premier-cta">
-            <h2 class="cta-title">Ready for an Unforgettable Experience?</h2>
-            <p class="cta-subtitle">
-                Join thousands of travelers who have experienced the magic of {{ destination.name }} with Comeback African Safaris.
-                Limited spots available for premium safari packages.
-            </p>
-            <button class="btn-premier-book" data-bs-toggle="modal" data-bs-target="#bookingModal">
-                <i class="fas fa-calendar-check me-2"></i>BOOK PREMIER SAFARI NOW
-            </button>
-        </div>
-    </div>
-</section>
-
-<!-- Booking Form Modal -->
-<div class="modal fade" id="bookingModal" tabindex="-1" aria-labelledby="bookingModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg">
-        <div class="modal-content">
-            <div class="modal-header bg-success text-white">
-                <h5 class="modal-title" id="bookingModalLabel">
-                    <i class="fas fa-safari me-2"></i>Book Your {{ destination.name }} Safari
-                </h5>
-                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body p-4">
-                {% include "booking_form.html" %}
-            </div>
-        </div>
-    </div>
+  </div>
 </div>
 
-<script>
-    // Interactive background effect
-    document.addEventListener('mousemove', function(e) {
-        const hero = document.getElementById('heroBackground');
-        const xAxis = (window.innerWidth / 2 - e.pageX) / 25;
-        const yAxis = (window.innerHeight / 2 - e.pageY) / 25;
-        hero.style.transform = `translate(${xAxis}px, ${yAxis}px) scale(1.1)`;
-    });
+<!-- Breadcrumb -->
+<div style="background:var(--cream-dark); padding:14px 0; border-bottom:1px solid rgba(201,168,76,0.12);">
+  <div class="container">
+    <nav style="font-size:0.8rem;">
+      <a href="{% url 'index' %}" style="color:var(--gold-dark);" onclick="showLoading()"><i class="fas fa-home me-1"></i>Home</a>
+      <i class="fas fa-chevron-right mx-2" style="color:var(--text-light); font-size:0.6rem;"></i>
+      <a href="{% url 'destinations_list' %}" style="color:var(--gold-dark);" onclick="showLoading()">Destinations</a>
+      <i class="fas fa-chevron-right mx-2" style="color:var(--text-light); font-size:0.6rem;"></i>
+      <span style="color:var(--text-light);">{{ destination.name }}</span>
+    </nav>
+  </div>
+</div>
 
-    // Animate visitor count
-    document.addEventListener('DOMContentLoaded', function() {
-        const visitorElement = document.getElementById('visitorCount');
-        let count = 0;
-        const target = 15000;
-        const increment = target / 100;
-        
-        const timer = setInterval(() => {
-            count += increment;
-            if (count >= target) {
-                count = target;
-                clearInterval(timer);
-            }
-            visitorElement.textContent = Math.floor(count).toLocaleString() + '+';
-        }, 20);
-        
-        // Parallax effect on scroll
-        window.addEventListener('scroll', function() {
-            const scrolled = window.pageYOffset;
-            const hero = document.querySelector('.premier-hero-section');
-            if (hero) {
-                hero.style.transform = `translateY(${scrolled * 0.05}px)`;
-            }
-        });
-        
-        // Gallery lightbox functionality
-        const galleryItems = document.querySelectorAll('.gallery-item');
-        galleryItems.forEach(item => {
-            item.addEventListener('click', function() {
-                const imgSrc = this.querySelector('img').src;
-                // In a full implementation, this would open a lightbox
-                console.log('Opening gallery image:', imgSrc);
-            });
-        });
-    });
-</script>
+<section style="background:var(--cream); padding:56px 0;">
+  <div class="container">
+    <div class="row g-5">
+      <!-- Left -->
+      <div class="col-lg-8">
+        <!-- Description -->
+        <div style="background:var(--white); border-radius:var(--radius-lg); padding:32px; box-shadow:var(--shadow); border:1px solid rgba(201,168,76,0.1); margin-bottom:24px;" class="wow fadeInUp">
+          <h3 style="font-family:'Cinzel',serif; font-size:0.92rem; font-weight:700; color:var(--forest); letter-spacing:0.08em; text-transform:uppercase; margin-bottom:16px; padding-bottom:12px; border-bottom:2px solid rgba(201,168,76,0.15);">About {{ destination.name }}</h3>
+          <p style="font-size:0.9rem; line-height:1.85; color:var(--text-light);">{{ destination.description }}</p>
+          {% if destination.description_2 %}
+          <p style="font-size:0.9rem; line-height:1.85; color:var(--text-light); margin-top:12px;">{{ destination.description_2 }}</p>
+          {% endif %}
+        </div>
 
+        <!-- Activities -->
+        {% if destination.activities %}
+        <div style="background:var(--white); border-radius:var(--radius-lg); padding:32px; box-shadow:var(--shadow); border:1px solid rgba(201,168,76,0.1); margin-bottom:24px;" class="wow fadeInUp">
+          <h3 style="font-family:'Cinzel',serif; font-size:0.92rem; font-weight:700; color:var(--forest); letter-spacing:0.08em; text-transform:uppercase; margin-bottom:16px; padding-bottom:12px; border-bottom:2px solid rgba(201,168,76,0.15);">Activities & Experiences</h3>
+          <div>
+            {% for act in destination.activities.all %}
+            <a href="#" class="activity-tag"><i class="fas fa-check-circle"></i>{{ act.name }}</a>
+            {% endfor %}
+          </div>
+        </div>
+        {% endif %}
+
+        <!-- Gallery -->
+        {% if destination.gallery.all %}
+        <div style="background:var(--white); border-radius:var(--radius-lg); padding:32px; box-shadow:var(--shadow); border:1px solid rgba(201,168,76,0.1);" class="wow fadeInUp">
+          <h3 style="font-family:'Cinzel',serif; font-size:0.92rem; font-weight:700; color:var(--forest); letter-spacing:0.08em; text-transform:uppercase; margin-bottom:16px; padding-bottom:12px; border-bottom:2px solid rgba(201,168,76,0.15);">Gallery</h3>
+          <div style="display:grid; grid-template-columns:repeat(3,1fr); gap:10px;">
+            {% for img in destination.gallery.all %}
+            <img src="{{ img.image }}" alt="{{ destination.name }}" style="width:100%; aspect-ratio:1; object-fit:cover; border-radius:10px; transition:var(--transition);" onmouseover="this.style.transform='scale(1.04)'" onmouseout="this.style.transform=''">
+            {% endfor %}
+          </div>
+        </div>
+        {% endif %}
+      </div>
+
+      <!-- Right: Sidebar -->
+      <div class="col-lg-4 wow fadeInRight">
+        <!-- Book Box -->
+        <div style="background:var(--forest); border-radius:var(--radius-lg); padding:28px; border:1px solid rgba(201,168,76,0.2); margin-bottom:20px; position:sticky; top:80px;">
+          <h4 style="font-family:'Cinzel',serif; color:var(--gold); font-size:0.9rem; letter-spacing:0.08em; margin-bottom:16px;">Plan This Destination</h4>
+          <p style="color:rgba(249,244,236,0.6); font-size:0.82rem; line-height:1.7; margin-bottom:20px;">Ready to explore {{ destination.name }}? Our experts will craft the perfect itinerary for you.</p>
+          <a href="{% url 'form' %}" class="btn-book-nav w-100 justify-content-center mb-2" style="border:none; cursor:pointer; display:flex;" onclick="showLoading()">
+            <i class="fas fa-paper-plane"></i> Book Now
+          </a>
+          <a href="https://wa.me/255742561041" target="_blank" style="display:flex; align-items:center; justify-content:center; gap:8px; background:rgba(37,211,102,0.15); border:1px solid rgba(37,211,102,0.3); color:rgba(249,244,236,0.85) !important; padding:10px 20px; border-radius:50px; font-size:0.8rem; font-weight:600; transition:var(--transition); margin-top:8px;">
+            <i class="fab fa-whatsapp" style="color:#25D366;"></i> Ask on WhatsApp
+          </a>
+        </div>
+
+        <!-- Highlights -->
+        <div style="background:var(--white); border-radius:var(--radius-lg); padding:24px; box-shadow:var(--shadow); border:1px solid rgba(201,168,76,0.1);">
+          <h4 style="font-family:'Cinzel',serif; font-size:0.85rem; font-weight:700; color:var(--forest); letter-spacing:0.08em; margin-bottom:16px;">Why Visit {{ destination.name }}</h4>
+          <div class="highlight-item">
+            <div class="highlight-icon"><i class="fas fa-paw"></i></div>
+            <div class="highlight-text"><h6>World-Class Wildlife</h6><p>Iconic Big Five and migratory species</p></div>
+          </div>
+          <div class="highlight-item">
+            <div class="highlight-icon"><i class="fas fa-camera"></i></div>
+            <div class="highlight-text"><h6>Photography Paradise</h6><p>Stunning landscapes and golden hour light</p></div>
+          </div>
+          <div class="highlight-item">
+            <div class="highlight-icon"><i class="fas fa-users"></i></div>
+            <div class="highlight-text"><h6>Expert Local Guides</h6><p>Deep knowledge of the terrain and wildlife</p></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% include 'booking_form.html' %}
 {% endblock %}

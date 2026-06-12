@@ -1,67 +1,41 @@
-
-      
 {% extends 'base.html' %}
-
+{% load static %}
+{% block title %}Book Your Safari | Sunrise and Sunset Safaris Limited{% endblock %}
 {% block content %}
 
+{% include 'page_hero.html' with title="Book Your Safari" subtitle="Take the first step toward your Tanzania adventure. Our team responds within 24 hours." breadcrumb="Book Now" label="Reservations" %}
 
-      
-      <div class="container-fluid bg-primary py-5 mb-5 hero-header">
-            <div class="container py-5">
-                <div class="row justify-content-center py-5">
-                    <div class="col-lg-10 pt-lg-5 mt-lg-5 text-center">
-                        <h1 class="display-3 text-white animated slideInDown">Booking</h1>
-                        <nav aria-label="breadcrumb">
-                            <ol class="breadcrumb justify-content-center">
-                                <li class="breadcrumb-item"><a href="#">Home</a></li>
-                                <li class="breadcrumb-item"><a href="#">Pages</a></li>
-                                <li class="breadcrumb-item text-white active" aria-current="page">Booking</li>
-                            </ol>
-                        </nav>
-                    </div>
-                </div>
-            </div>
-        </div>
+<!-- Steps -->
+<section style="background:var(--cream-dark); padding:56px 0;">
+  <div class="container">
+    <div class="section-head center wow fadeInUp">
+      <span class="section-label">Simple Process</span>
+      <h2 class="section-title">How to Book Your Safari</h2>
+      <div class="section-divider center"></div>
     </div>
-    <!-- Navbar & Hero End -->
-
-
-    <!-- Process Start -->
-    <div class="container-xxl py-5">
-        <div class="container">
-            <div class="text-center pb-4 wow fadeInUp" data-wow-delay="0.1s">
-                <h6 class="section-title bg-white text-center text-primary px-3">Process</h6>
-                <h1 class="mb-5">Follow These Easy Steps</h1>
-            </div>
-            <div class="row gy-5 gx-4 justify-content-center">
-                {% for stp in step %}
-                <div class="col-lg-4 col-sm-6 text-center pt-4 wow fadeInUp" data-wow-delay="0.1s">
-                    <div class="position-relative border border-primary pt-5 pb-4 px-4">
-                        <!-- <div class="d-inline-flex align-items-center justify-content-center bg-primary rounded-circle position-absolute top-0 start-50 translate-middle shadow" style="width: 100px; height: 100px;"> -->
-                            <img class="bg-white rounded-circle shadow p-1 mx-auto mb-3" src="{{stp.image}}" style="width: 80px; height: 80px;">
-
-                            <!-- <i class="fa fa-globe fa-3x text-white"></i> -->
-                        <!-- </div> -->
-                        <h5 class="mt-4">{{stp.Title}}</h5>
-                        <hr class="w-25 mx-auto bg-primary mb-1">
-                        <hr class="w-50 mx-auto bg-primary mt-0">
-                        <p class="mb-0">{{stp.description}}</p>
-                    </div>
-                </div>
-
-                {% endfor %}
-
-
-
-            </div>
+    <div class="row g-4 mt-3 justify-content-center wow fadeInUp" data-wow-delay="0.1s">
+      {% for stp in step %}
+      <div class="col-lg-3 col-sm-6 text-center">
+        <div style="position:relative;">
+          <div style="width:56px; height:56px; border-radius:50%; background:var(--forest); border:3px solid var(--gold); display:flex; align-items:center; justify-content:center; margin:0 auto 16px; font-family:'Cinzel',serif; font-size:1rem; font-weight:700; color:var(--gold); box-shadow:0 4px 16px rgba(201,168,76,0.25);">{{ forloop.counter }}</div>
+          {% if stp.image %}
+          <img src="{{ stp.image }}" alt="{{ stp.Title }}" style="width:72px; height:72px; border-radius:50%; object-fit:cover; border:2px solid var(--gold); margin:0 auto 14px; display:block;">
+          {% endif %}
+          <div style="font-family:'Cinzel',serif; font-size:0.85rem; font-weight:700; color:var(--forest); letter-spacing:0.06em; margin-bottom:8px;">{{ stp.Title }}</div>
+          <div style="font-size:0.8rem; color:var(--text-light); line-height:1.6;">{{ stp.description }}</div>
         </div>
+      </div>
+      {% empty %}
+      {% for step_label in "Submit Request,Get Custom Quote,Confirm & Pay,Experience Africa"|split:"," %}
+      <div class="col-lg-3 col-sm-6 text-center">
+        <div style="width:56px; height:56px; border-radius:50%; background:var(--forest); border:3px solid var(--gold); display:flex; align-items:center; justify-content:center; margin:0 auto 16px; font-family:'Cinzel',serif; font-size:1rem; font-weight:700; color:var(--gold);">{{ forloop.counter }}</div>
+        <div style="font-family:'Cinzel',serif; font-size:0.85rem; font-weight:700; color:var(--forest); letter-spacing:0.06em; margin-bottom:8px;">{{ step_label }}</div>
+      </div>
+      {% endfor %}
+      {% endfor %}
     </div>
-    <!-- Process Start -->
+  </div>
+</section>
 
-
-    <!-- Booking Start -->
-    {% include 'booking_form.html' %}
-
-    <!-- Booking Start -->
-        
-    {% endblock %}
+{% include 'booking_form.html' %}
+{% endblock %}

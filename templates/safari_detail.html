@@ -1,327 +1,136 @@
 {% extends 'base.html' %}
 {% load static %}
-
-{% block title %}{{ safaris.title }}{% endblock %}
-
+{% block title %}{{ safaris.title|default:"Safari Detail" }} | Sunrise and Sunset Safaris Limited{% endblock %}
 {% block content %}
+
 <style>
+.detail-hero {
+  position: relative; height: 60vh; min-height: 420px; overflow: hidden;
+}
+.detail-hero img { width:100%; height:100%; object-fit:cover; }
+.detail-hero-overlay {
+  position: absolute; inset:0;
+  background: linear-gradient(to top, rgba(17,28,23,0.88) 0%, rgba(0,0,0,0.35) 55%, transparent 100%);
+}
+.detail-hero-body {
+  position: absolute; bottom:0; left:0; right:0; padding: 40px 5%;
+}
+.detail-title { font-family:'Playfair Display',serif; font-size:clamp(1.8rem,5vw,3rem); font-weight:900; color:var(--white); margin-bottom:10px; text-shadow:0 3px 12px rgba(0,0,0,0.5); }
+.detail-meta { display:flex; flex-wrap:wrap; gap:16px; align-items:center; }
+.detail-meta-item { display:flex; align-items:center; gap:6px; font-size:0.82rem; color:rgba(255,255,255,0.8); font-weight:600; }
+.detail-meta-item i { color:var(--gold); }
+.detail-badge { display:inline-flex; align-items:center; gap:5px; background:var(--gold); color:var(--forest); font-size:0.7rem; font-weight:700; letter-spacing:0.1em; text-transform:uppercase; padding:6px 14px; border-radius:50px; margin-bottom:14px; }
 
+.detail-section { padding: 56px 0; }
+.detail-content-card { background:var(--white); border-radius:var(--radius-lg); padding:32px; box-shadow:var(--shadow); border:1px solid rgba(201,168,76,0.1); margin-bottom:24px; }
+.detail-content-card h3 { font-family:'Cinzel',serif; font-size:0.92rem; font-weight:700; color:var(--forest); letter-spacing:0.08em; text-transform:uppercase; margin-bottom:18px; padding-bottom:12px; border-bottom:2px solid rgba(201,168,76,0.15); }
+.itinerary-day { display:flex; gap:16px; margin-bottom:20px; }
+.itinerary-day-num { width:42px; height:42px; border-radius:50%; background:linear-gradient(135deg,var(--forest),var(--forest-mid)); color:var(--gold); font-family:'Cinzel',serif; font-weight:700; font-size:0.85rem; display:flex; align-items:center; justify-content:center; flex-shrink:0; }
+.itinerary-day h6 { font-size:0.88rem; font-weight:700; color:var(--forest); margin-bottom:4px; }
+.itinerary-day p { font-size:0.82rem; color:var(--text-light); line-height:1.7; margin:0; }
 
-  /* Hero Section */
-  .safari-hero {
-    position: relative;
-    min-height: 60vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: #ffffff;
-    text-align: center;
-    background-size: cover;
-    background-position: center;
-    background-attachment: fixed;
-    animation: heroSlideshow 20s infinite ease-in-out;
-    font-family: 'Poppins', sans-serif;
-  }
+.incl-item { display:flex; align-items:flex-start; gap:8px; margin-bottom:8px; font-size:0.84rem; color:var(--text); }
+.incl-item.include i { color:#22c55e; }
+.incl-item.exclude i { color:#ef4444; }
 
-  @keyframes heroSlideshow {
-    0%, 25% { background-image: url('{% static "img/3.jpg" %}'); }
-    25%, 50% { background-image: url('{% static "img/1.jpg" %}'); }
-    50%, 75% { background-image: url('{% static "img/2.jpg" %}'); }
-    75%, 100% { background-image: url('{% static "img/4.jpg" %}'); }
-  }
-
-  .safari-hero::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(34, 139, 34, 0.3));
-    z-index: 1;
-  }
-
-  .safari-hero .content {
-    position: relative;
-    z-index: 2;
-    max-width: clamp(600px, 80vw, 900px);
-    padding: clamp(20px, 5vw, 30px);
-  }
-
-  .safari-hero h1 {
-    font-family: 'Merienda', cursive;
-    font-size: clamp(2.5rem, 6vw, 4rem);
-    font-weight: 900;
-    text-shadow: 0 3px 10px rgba(0, 0, 0, 0.6);
-    color: var(--accent);
-    margin-bottom: 1rem;
-  }
-
-  /* Safari Details Section */
-  .safari-details {
-    background: linear-gradient(to right, var(--light), #ffffff);
-    padding: clamp(40px, 8vw, 60px) 20px;
-    position: relative;
-    overflow: hidden;
-  }
-
-  .safari-details::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: url('{% static "img/safari-pattern.png" %}') repeat;
-    opacity: 0.03;
-    z-index: 0;
-  }
-
-  .safari-details .container {
-    position: relative;
-    z-index: 1;
-  }
-
-  .safari-details .card {
-    background: #ffffff;
-    border-radius: 20px;
-    box-shadow: var(--shadow-luxe);
-    padding: clamp(20px, 4vw, 30px);
-    transition: transform 0.3s var(--transition-ease), box-shadow 0.3s var(--transition-ease);
-  }
-
-  .safari-details .card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 12px 30px rgba(255, 69, 0, 0.3);
-  }
-
-  .safari-details h1 {
-    font-family: 'Merienda', cursive;
-    font-size: clamp(2rem, 5vw, 3rem);
-    color: var(--dark);
-    margin-bottom: 1.5rem;
-  }
-
-  .safari-details img {
-    width: 100%;
-    height: clamp(250px, 40vw, 400px);
-    object-fit: cover;
-    border-radius: 15px;
-    border: 3px solid var(--accent);
-    transition: transform 0.5s var(--transition-ease);
-  }
-
-  .safari-details img:hover {
-    transform: scale(1.05);
-  }
-
-  .safari-details p {
-    font-family: 'Poppins', sans-serif;
-    color: var(--dark);
-    font-size: clamp(0.95rem, 2.5vw, 1.1rem);
-    line-height: 1.8;
-    margin-bottom: 1rem;
-  }
-
-  .safari-details p strong {
-    color: var(--secondary);
-    margin-right: 0.5rem;
-  }
-
-  .safari-details p strong::before {
-    content: '\f3c5';
-    font-family: 'Font Awesome 6 Free';
-    font-weight: 900;
-    color: var(--accent);
-    margin-right: 0.5rem;
-  }
-
-  .safari-details h5 {
-    font-family: 'Merienda', cursive;
-    font-size: clamp(1.5rem, 4vw, 1.8rem);
-    color: var(--secondary);
-    margin: clamp(1.5rem, 4vw, 2rem) 0 1rem;
-  }
-
-  /* Accordion (Itinerary) */
-  .accordion-item {
-    background: #ffffff;
-    border: 1px solid var(--accent);
-    border-radius: 10px;
-    margin-bottom: 1rem;
-    overflow: hidden;
-    transition: transform 0.3s var(--transition-ease);
-  }
-
-  .accordion-item:hover {
-    transform: translateY(-3px);
-  }
-
-  .accordion-button {
-    font-family: 'Merienda', cursive;
-    font-size: clamp(1rem, 2.5vw, 1.2rem);
-    background: linear-gradient(to right, var(--light), #ffffff);
-    color: var(--dark);
-    padding: clamp(15px, 3vw, 20px);
-  }
-
-  .accordion-button:not(.collapsed) {
-    background: var(--secondary);
-    color: #ffffff;
-  }
-
-  .accordion-button::after {
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='%23FF4500'%3E%3Cpath d='M8 0a8 8 0 018 8 8 8 0 01-8 8 8 8 0 01-8-8 8 8 0 018-8zm0 2.5a5.5 5.5 0 00-5.5 5.5 5.5 5.5 0 005.5 5.5 5.5 5.5 0 005.5-5.5 5.5 5.5 0 00-5.5-5.5zm0 2a.75.75 0 01.75.75v2.5h2.5a.75.75 0 010 1.5h-2.5v2.5a.75.75 0 01-1.5 0v-2.5h-2.5a.75.75 0 010-1.5h2.5v-2.5A.75.75 0 018 4.5z'/%3E%3C/svg%3E");
-  }
-
-  .accordion-button:not(.collapsed)::after {
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='%23FFFFFF'%3E%3Cpath d='M8 0a8 8 0 018 8 8 8 0 01-8 8 8 8 0 01-8-8 8 8 0 018-8zm0 2.5a5.5 5.5 0 00-5.5 5.5 5.5 5.5 0 005.5 5.5 5.5 5.5 0 005.5-5.5 5.5 5.5 0 00-5.5-5.5zm0 2a.75.75 0 01.75.75v5.5a.75.75 0 01-1.5 0v-5.5A.75.75 0 018 4.5z'/%3E%3C/svg%3E");
-  }
-
-  .accordion-button::before {
-    content: '\f6c0';
-    font-family: 'Font Awesome 6 Free';
-    font-weight: 900;
-    color: var(--accent);
-    margin-right: 0.5rem;
-  }
-
-  .accordion-body {
-    font-family: 'Poppins', sans-serif;
-    color: var(--dark);
-    font-size: clamp(0.9rem, 2.5vw, 1rem);
-    line-height: 1.8;
-    padding: clamp(15px, 3vw, 20px);
-  }
-
-  .accordion-body p {
-    margin-bottom: 0.5rem;
-  }
-
-  .accordion-body p strong {
-    color: var(--secondary);
-  }
-
-  /* Booking Form Button */
-  .booking-btn {
-    background: linear-gradient(135deg, var(--primary), var(--accent));
-    color: #ffffff;
-    padding: clamp(10px, 2.5vw, 12px) clamp(20px, 4vw, 30px);
-    font-size: clamp(0.9rem, 2.5vw, 1rem);
-    border-radius: 50px;
-    text-decoration: none;
-    font-weight: 700;
-    transition: all 0.3s var(--transition-ease);
-    box-shadow: var(--shadow-luxe);
-    display: inline-block;
-    margin-top: 1.5rem;
-  }
-
-  .booking-btn:hover {
-    background: linear-gradient(135deg, var(--accent), var(--primary));
-    transform: scale(1.05);
-    box-shadow: 0 8px 20px rgba(255, 69, 0, 0.6);
-  }
-
-  /* Responsive Adjustments */
-  @media (max-width: 576px) {
-    .safari-hero {
-      min-height: 50vh;
-    }
-    .safari-hero h1 {
-      font-size: clamp(2rem, 5vw, 2.5rem);
-    }
-    .safari-details {
-      padding: clamp(30px, 6vw, 40px) 15px;
-    }
-    .safari-details img {
-      height: 200px;
-    }
-    .safari-details h1 {
-      font-size: clamp(1.5rem, 4vw, 2rem);
-    }
-    .safari-details h5 {
-      font-size: clamp(1.2rem, 3.5vw, 1.5rem);
-    }
-    .safari-details p {
-      font-size: clamp(0.85rem, 2vw, 0.95rem);
-    }
-    .accordion-button {
-      font-size: clamp(0.9rem, 2vw, 1rem);
-    }
-    .accordion-body {
-      font-size: clamp(0.85rem, 2vw, 0.95rem);
-    }
-  }
-
-  @media (max-width: 768px) {
-    .safari-details .col-md-8 {
-      margin-bottom: 2rem;
-    }
-  }
-
-  @media (min-width: 769px) and (max-width: 991px) {
-    .safari-hero h1 {
-      font-size: clamp(2.2rem, 5vw, 3rem);
-    }
-    .safari-details img {
-      height: 300px;
-    }
-  }
+.book-sidebar { background:var(--forest); border-radius:var(--radius-lg); padding:28px; border:1px solid rgba(201,168,76,0.2); position:sticky; top:80px; }
+.book-sidebar-price { font-family:'Playfair Display',serif; font-size:2.2rem; font-weight:900; color:var(--gold); }
+.book-sidebar-label { font-size:0.72rem; color:rgba(249,244,236,0.55); letter-spacing:0.1em; text-transform:uppercase; margin-bottom:20px; }
+.sidebar-detail-row { display:flex; justify-content:space-between; align-items:center; padding:10px 0; border-bottom:1px solid rgba(201,168,76,0.1); font-size:0.82rem; }
+.sidebar-detail-row .key { color:rgba(249,244,236,0.55); }
+.sidebar-detail-row .val { color:var(--cream); font-weight:700; }
 </style>
 
-<section class="safari-hero wow fadeIn" data-wow-delay="0.2s">
-  <div class="content">
-    <h1 class="animated slideInDown">{{ safaris.title }}</h1>
+<!-- Hero -->
+<div class="detail-hero">
+  {% if safaris.featured_image %}
+  <img src="{{ safaris.featured_image }}" alt="{{ safaris.title }}">
+  {% else %}
+  <img src="{% static 'img/4.jpg' %}" alt="Safari">
+  {% endif %}
+  <div class="detail-hero-overlay"></div>
+  <div class="detail-hero-body container">
+    <div class="detail-badge"><i class="fas fa-paw"></i> {{ safaris.safari_type|default:"Wildlife Safari" }}</div>
+    <div class="detail-title">{{ safaris.title|default:"Safari Experience" }}</div>
+    <div class="detail-meta">
+      <div class="detail-meta-item"><i class="fas fa-map-marker-alt"></i> {{ safaris.location }}</div>
+      <div class="detail-meta-item"><i class="fas fa-calendar-alt"></i> {{ safaris.days }} Days</div>
+      <div class="detail-meta-item"><i class="fas fa-star" style="color:#F59E0B;"></i> 5.0 Rated</div>
+      <div class="detail-meta-item"><i class="fas fa-users"></i> Small Group</div>
+    </div>
   </div>
-</section>
+</div>
 
-<section class="safari-details wow fadeInUp" data-wow-delay="0.3s">
+<!-- Breadcrumb -->
+<div style="background:var(--cream-dark); padding:14px 0; border-bottom:1px solid rgba(201,168,76,0.12);">
   <div class="container">
-    <div class="row">
-      <div class="col-md-12">
-        <div class="card">
-          <h1>{{ safaris.title }}</h1>
-          {% if safaris.featured_image %}
-            <img src="{{ safaris.featured_image|default:'{% static "img/default-safari.jpg" %}' }}" class="img-fluid mb-4" alt="{{ safaris.title }}">
-          {% endif %}
-          <p><strong>Location:</strong> {{ safaris.location }}</p>
-          <p><strong>Days:</strong> {{ safaris.days }}</p>
-          <p><strong>Type:</strong> {{ safaris.safari_type }}</p>
-          {% if safaris.route %}<p><strong>Route:</strong> {{ safaris.route }}</p>{% endif %}
-          {% if safaris.price %}<p><strong>Price:</strong> ${{ safaris.price }}</p>{% endif %}
-          <h5 class="mt-4">Overview</h5>
-          <p>{{ safaris.overview }}</p>
+    <nav style="font-size:0.8rem;">
+      <a href="{% url 'index' %}" style="color:var(--gold-dark);" onclick="showLoading()"><i class="fas fa-home me-1"></i>Home</a>
+      <i class="fas fa-chevron-right mx-2" style="color:var(--text-light); font-size:0.6rem;"></i>
+      <a href="{% url 'safari_list' %}" style="color:var(--gold-dark);" onclick="showLoading()">Safaris</a>
+      <i class="fas fa-chevron-right mx-2" style="color:var(--text-light); font-size:0.6rem;"></i>
+      <span style="color:var(--text-light);">{{ safaris.title }}</span>
+    </nav>
+  </div>
+</div>
 
-          <h5 class="mt-5">Safari Itinerary</h5>
-          <div class="accordion" id="itineraryAccordion">
-            {% for day in safaris.itiner.all %}
-            <div class="accordion-item wow fadeInUp" data-wow-delay="{{ forloop.counter|floatformat:1|add:'0.1' }}s">
-              <h2 class="accordion-header" id="heading{{ day.day_number }}">
-                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse{{ day.day_number }}" aria-expanded="false" aria-controls="collapse{{ day.day_number }}">
-                  Day {{ day.day_number }}: {{ day.title }}
-                </button>
-              </h2>
-              <div id="collapse{{ day.day_number }}" class="accordion-collapse collapse" aria-labelledby="heading{{ day.day_number }}" data-bs-parent="#itineraryAccordion">
-                <div class="accordion-body">
-                  {% if day.elevation_start and day.elevation_end %}<p><strong>Elevation:</strong> {{ day.elevation_start }} to {{ day.elevation_end }}</p>{% endif %}
-                  {% if day.distance_km %}<p><strong>Distance:</strong> {{ day.distance_km }} km</p>{% endif %}
-                  {% if day.hiking_time %}<p><strong>Hiking Time:</strong> {{ day.hiking_time }}</p>{% endif %}
-                  {% if day.habitat %}<p><strong>Habitat:</strong> {{ day.habitat }}</p>{% endif %}
-                  <p>{{ day.description }}</p>
-                </div>
-              </div>
-            </div>
-            {% endfor %}
-          </div>
+<!-- Main Content -->
+<section class="detail-section" style="background:var(--cream);">
+  <div class="container">
+    <div class="row g-4">
+      <!-- Left: Detail -->
+      <div class="col-lg-8">
+
+        <!-- Overview -->
+        <div class="detail-content-card wow fadeInUp">
+          <h3>Safari Overview</h3>
+          <p style="font-size:0.9rem; line-height:1.85; color:var(--text-light);">
+            {{ safaris.description|default:"Experience the magic of Tanzania's legendary wildlife on this expertly guided safari. Our certified guides will take you through some of Africa's most breathtaking landscapes." }}
+          </p>
         </div>
-      </div>
-      <div class="col-md-4">
+
+        <!-- Itinerary -->
+        {% if safaris.travel_itiner.all %}
+        <div class="detail-content-card wow fadeInUp">
+          <h3><i class="fas fa-map-marked-alt me-2" style="color:var(--gold);"></i>Day by Day Itinerary</h3>
+          {% for day in safaris.travel_itiner.all %}
+          <div class="itinerary-day">
+            <div class="itinerary-day-num">{{ forloop.counter }}</div>
+            <div>
+              <h6>Day {{ forloop.counter }}: {{ day.title }}</h6>
+              <p>{{ day.description }}</p>
+            </div>
+          </div>
+          {% endfor %}
+        </div>
+        {% endif %}
+
+        <!-- Includes / Excludes -->
+              </div>
+
+      <!-- Right: Booking Sidebar -->
+      <div class="col-lg-4 wow fadeInRight">
+        <div class="book-sidebar">
+          <div class="book-sidebar-price">${{ safaris.price|default:"Contact Us" }}</div>
+          <div class="book-sidebar-label">Per Person</div>
+
+          <div style="margin-bottom:20px;">
+            <div class="sidebar-detail-row"><span class="key">Duration</span><span class="val">{{ safaris.days }} Days</span></div>
+            <div class="sidebar-detail-row"><span class="key">Destination</span><span class="val">{{ safaris.location }}</span></div>
+            <div class="sidebar-detail-row"><span class="key">Type</span><span class="val">{{ safaris.safari_type|default:"Safari" }}</span></div>
+            <div class="sidebar-detail-row"><span class="key">Rating</span><span class="val" style="color:#F59E0B;">★★★★★</span></div>
+          </div>
+
+          <a href="{% url 'form' %}" class="btn-book-nav w-100 justify-content-center mb-3" style="border:none; cursor:pointer; display:flex;" onclick="showLoading()">
+            <i class="fas fa-paper-plane"></i> Book This Safari
+          </a>
+          <a href="https://wa.me/255742561041" target="_blank" style="display:flex; align-items:center; justify-content:center; gap:8px; background:rgba(37,211,102,0.15); border:1px solid rgba(37,211,102,0.3); color:rgba(249,244,236,0.85) !important; padding:11px 20px; border-radius:50px; font-size:0.8rem; font-weight:600; transition:var(--transition);">
+            <i class="fab fa-whatsapp" style="color:#25D366;"></i> Ask on WhatsApp
+          </a>
+        </div>
       </div>
     </div>
   </div>
-          {% include "includes_excludes_section.html" with includes=includes excludes=excludes %}
-
 </section>
-
-
-  {% include 'booking_form.html' %}
 
 {% endblock %}

@@ -1,7 +1,7 @@
 from  django.urls import path
 from . import views
 # from .views import TrackVisitView,TrackActivityView,dashboard_view
-from .views import TermsAndConditionsView,dashboard_view
+from .views import TermsAndConditionsView   #dashboard_view
 
 
 urlpatterns = [
@@ -54,6 +54,6 @@ urlpatterns = [
 
     # path("track-visit/", TrackVisitView.as_view(), name="track_visit"),
     # path("track-activity/", TrackActivityView.as_view(), name="track_activity"),
-    path("dashboard/", dashboard_view, name="dashboard"),
+    # path("dashboard/", dashboard_view, name="dashboard"),
 
 ]

@@ -1,101 +1,174 @@
-<section id="booking" class="safari-booking py-5" style="background: linear-gradient(135deg, #2a3c24 0%, #5c3f1a 50%, #d4a017 100%); position: relative; overflow: hidden;">
-  <div class="container">
-    <div class="text-center mb-5 wow fadeIn" data-wow-delay="0.2s">
-      <h6 class="section-title mb-0 text-uppercase tracking-widest" style="letter-spacing: 3px; color: #d4a017; font-weight: 600; font-family: 'Lora', serif;">
+<section id="booking" style="background: linear-gradient(135deg, var(--forest) 0%, var(--dark) 60%, rgba(27,58,45,0.95) 100%); position:relative; overflow:hidden; padding:72px 0;">
+
+  <!-- Background pattern -->
+  <div style="position:absolute; inset:0; opacity:0.03; background-image:repeating-linear-gradient(45deg, var(--gold) 0px, var(--gold) 1px, transparent 1px, transparent 32px); pointer-events:none;"></div>
+  <div style="position:absolute; width:500px; height:500px; border-radius:50%; background:radial-gradient(circle, rgba(201,168,76,0.1), transparent 70%); top:-150px; right:-100px; pointer-events:none;"></div>
+
+  <div class="container" style="position:relative; z-index:1;">
+
+    <!-- Heading -->
+    <div class="text-center mb-5 wow fadeIn" data-wow-delay="0.1s">
+      <span style="display:inline-block; font-size:0.7rem; font-weight:700; letter-spacing:0.22em; text-transform:uppercase; color:var(--gold); border:1px solid rgba(201,168,76,0.35); padding:6px 18px; border-radius:50px; margin-bottom:16px; backdrop-filter:blur(4px);">
         <i class="fas fa-compass me-2"></i>Your Adventure Begins Here
-      </h6>
-      <h2 class="display-4 fw-light mb-3" style="color: #fff; font-family: 'Playfair Display', serif;">
-        Plan Your <span class="fw-bold" style="background: linear-gradient(135deg, #d4a017 0%, #f4c03f 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">Dream Safari</span>
+      </span>
+      <h2 style="font-family:'Playfair Display',serif; font-size:clamp(1.8rem,4vw,2.8rem); font-weight:900; color:var(--white); margin-bottom:10px;">
+        Plan Your <span style="color:var(--gold);">Dream Safari</span>
       </h2>
-      <div class="mx-auto" style="width: 120px; height: 3px; background: linear-gradient(90deg, rgba(212,160,23,0) 0%, #d4a017 50%, rgba(212,160,23,0) 100%); border-radius: 50px;"></div>
-      <p class="text-light mt-3" style="font-family: 'Lora', serif; font-size: 1.1rem;">
-        Let our experts craft your unforgettable Tanzanian journey. Fill out the form, and we’ll contact you soon!
+      <div style="width:60px; height:3px; background:var(--gold); border-radius:2px; margin:0 auto 14px;"></div>
+      <p style="color:rgba(255,255,255,0.6); font-size:0.92rem; max-width:520px; margin:0 auto;">
+        Fill in your details and our safari experts will get back to you within 24 hours with a personalised itinerary.
       </p>
     </div>
+
+    <!-- Form Card -->
     <div class="row justify-content-center">
-      <div class="col-lg-10">
-        <div class="card shadow-lg border-0 rounded-4 safari-card">
-          <div class="card-body p-5" style="background: rgba(0, 0, 0, 0.7);">
-            <form method="post" novalidate>
-              {% csrf_token %}
-              <!-- Personal Info -->
-              <div class="row g-4 mb-4">
-                <div class="col-md-6">
-                  <label class="form-label small text-light" style="font-family: 'Lora', serif;">First Name</label>
-                  {{ form.first_name }}
-                </div>
-                <div class="col-md-6">
-                  <label class="form-label small text-light" style="font-family: 'Lora', serif;">Last Name</label>
-                  {{ form.last_name }}
-                </div>
-                <div class="col-md-6">
-                  <label class="form-label small text-light" style="font-family: 'Lora', serif;">Email</label>
-                  {{ form.email }}
-                </div>
-                <div class="col-md-6">
-                  <label class="form-label small text-light" style="font-family: 'Lora', serif;">Phone Number</label>
-                  {{ form.phone_number }}
-                </div>
-                <div class="col-md-12">
-                  <label class="form-label small text-light" style="font-family: 'Lora', serif;">Country</label>
-                  {{ form.country }}
-                </div>
-              </div>
-              <!-- Dates & Numbers -->
-              <div class="row g-4 mb-4">
-                <div class="col-md-6">
-                  <label class="form-label small text-light" style="font-family: 'Lora', serif;">Arrival Date</label>
-                  {{ form.arrival_date }}
-                </div>
-                <div class="col-md-6">
-                  <label class="form-label small text-light" style="font-family: 'Lora', serif;">Departure Date</label>
-                  {{ form.departure_date }}
-                </div>
-                <div class="col-md-6">
-                  <label class="form-label small text-light" style="font-family: 'Lora', serif;">Adults</label>
-                  {{ form.adults }}
-                </div>
-                <div class="col-md-6">
-                  <label class="form-label small text-light" style="font-family: 'Lora', serif;">Children</label>
-                  {{ form.children }}
-                </div>
-              </div>
-              <!-- Interested In -->
-              <div class="mb-4">
-                <label class="fw-semibold mb-3 d-block text-light" style="font-family: 'Lora', serif;">Interested In:</label>
-                <div class="row g-3">
-                  {% for checkbox in form.interested_in %}
-                    <div class="col-md-6 col-lg-4">
-                      <div class="custom-option p-3 rounded border text-center wow fadeIn" data-wow-delay="0.{{ forloop.counter }}s" onclick="toggleOption(this)">
-                        {{ checkbox.tag }}
-                        <label class="form-check-label d-block mt-2" style="font-family: 'Lora', serif;">{{ checkbox.choice_label }}</label>
-                      </div>
-                    </div>
-                  {% endfor %}
-                </div>
-              </div>
-              <!-- Message -->
-              <div class="mb-4">
-                <label class="form-label small text-light" style="font-family: 'Lora', serif;">Your Message</label>
-                {{ form.message }}
-              </div>
-              <!-- Submit -->
-              <div class="text-center">
-                <button type="submit" class="btn btn-safari-gold btn-lg rounded-pill px-5 py-3 shadow hover-grow" style="font-family: 'Lora', serif; font-weight: 500;" onclick="showLoading(event)">
-                  <i class="fas fa-paper-plane me-2"></i> Send Your Inquiry
-                </button>
-              </div>
-            </form>
-            {% if messages %}
-              <div class="mt-4">
-                {% for message in messages %}
-                  <div class="alert alert-safari-success text-center fw-bold" style="font-family: 'Lora', serif;">{{ message }}</div>
-                {% endfor %}
-              </div>
-            {% endif %}
+      <div class="col-lg-10 wow fadeInUp" data-wow-delay="0.15s">
+        <div style="background:rgba(255,255,255,0.04); backdrop-filter:blur(12px); border:1px solid rgba(201,168,76,0.18); border-radius:var(--radius-lg); padding:clamp(24px,4vw,44px);">
+
+          {% if messages %}
+          {% for msg in messages %}
+          <div style="background:rgba(34,197,94,0.15); border:1px solid rgba(34,197,94,0.3); color:#86efac; border-radius:10px; padding:14px 18px; margin-bottom:24px; display:flex; align-items:center; gap:10px; font-size:0.88rem;">
+            <i class="fas fa-check-circle" style="color:#4ade80;"></i> {{ msg }}
           </div>
+          {% endfor %}
+          {% endif %}
+
+          <form method="post" novalidate>
+            {% csrf_token %}
+
+            <!-- Personal Info -->
+            <div style="font-family:'Cinzel',serif; font-size:0.72rem; font-weight:700; letter-spacing:0.14em; text-transform:uppercase; color:var(--gold); margin-bottom:16px; opacity:0.7;">Personal Information</div>
+            <div class="row g-3 mb-4">
+              <div class="col-md-6">
+                <label style="font-size:0.74rem; font-weight:700; color:rgba(249,244,236,0.65); letter-spacing:0.08em; text-transform:uppercase; margin-bottom:6px; display:block;">First Name</label>
+                {{ form.first_name }}
+              </div>
+              <div class="col-md-6">
+                <label style="font-size:0.74rem; font-weight:700; color:rgba(249,244,236,0.65); letter-spacing:0.08em; text-transform:uppercase; margin-bottom:6px; display:block;">Last Name</label>
+                {{ form.last_name }}
+              </div>
+              <div class="col-md-6">
+                <label style="font-size:0.74rem; font-weight:700; color:rgba(249,244,236,0.65); letter-spacing:0.08em; text-transform:uppercase; margin-bottom:6px; display:block;">Email Address</label>
+                {{ form.email }}
+              </div>
+              <div class="col-md-6">
+                <label style="font-size:0.74rem; font-weight:700; color:rgba(249,244,236,0.65); letter-spacing:0.08em; text-transform:uppercase; margin-bottom:6px; display:block;">Phone / WhatsApp</label>
+                {{ form.phone_number }}
+              </div>
+              <div class="col-12">
+                <label style="font-size:0.74rem; font-weight:700; color:rgba(249,244,236,0.65); letter-spacing:0.08em; text-transform:uppercase; margin-bottom:6px; display:block;">Country of Residence</label>
+                {{ form.country }}
+              </div>
+            </div>
+
+            <!-- Dates & Numbers -->
+            <div style="font-family:'Cinzel',serif; font-size:0.72rem; font-weight:700; letter-spacing:0.14em; text-transform:uppercase; color:var(--gold); margin-bottom:16px; opacity:0.7; border-top:1px solid rgba(201,168,76,0.1); padding-top:20px;">Travel Details</div>
+            <div class="row g-3 mb-4">
+              <div class="col-md-6">
+                <label style="font-size:0.74rem; font-weight:700; color:rgba(249,244,236,0.65); letter-spacing:0.08em; text-transform:uppercase; margin-bottom:6px; display:block;">Arrival Date</label>
+                {{ form.arrival_date }}
+              </div>
+              <div class="col-md-6">
+                <label style="font-size:0.74rem; font-weight:700; color:rgba(249,244,236,0.65); letter-spacing:0.08em; text-transform:uppercase; margin-bottom:6px; display:block;">Departure Date</label>
+                {{ form.departure_date }}
+              </div>
+              <div class="col-md-6">
+                <label style="font-size:0.74rem; font-weight:700; color:rgba(249,244,236,0.65); letter-spacing:0.08em; text-transform:uppercase; margin-bottom:6px; display:block;">Number of Adults</label>
+                {{ form.adults }}
+              </div>
+              <div class="col-md-6">
+                <label style="font-size:0.74rem; font-weight:700; color:rgba(249,244,236,0.65); letter-spacing:0.08em; text-transform:uppercase; margin-bottom:6px; display:block;">Number of Children</label>
+                {{ form.children }}
+              </div>
+            </div>
+
+            <!-- Interested In -->
+            <div style="font-family:'Cinzel',serif; font-size:0.72rem; font-weight:700; letter-spacing:0.14em; text-transform:uppercase; color:var(--gold); margin-bottom:16px; opacity:0.7; border-top:1px solid rgba(201,168,76,0.1); padding-top:20px;">Interested In</div>
+            <div class="row g-2 mb-4">
+              {% for checkbox in form.interested_in %}
+              <div class="col-md-6 col-lg-4">
+                <div class="booking-option" onclick="toggleOption(this)" style="padding:12px 14px; border-radius:10px; border:1px solid rgba(201,168,76,0.2); background:rgba(255,255,255,0.04); cursor:pointer; transition:all 0.25s ease; display:flex; align-items:center; gap:10px;">
+                  {{ checkbox.tag }}
+                  <label style="font-size:0.8rem; color:rgba(249,244,236,0.8); font-weight:600; cursor:pointer; margin:0;">{{ checkbox.choice_label }}</label>
+                </div>
+              </div>
+              {% endfor %}
+            </div>
+
+            <!-- Message -->
+            <div style="font-family:'Cinzel',serif; font-size:0.72rem; font-weight:700; letter-spacing:0.14em; text-transform:uppercase; color:var(--gold); margin-bottom:12px; opacity:0.7; border-top:1px solid rgba(201,168,76,0.1); padding-top:20px;">Your Message</div>
+            <div class="mb-4">
+              <label style="font-size:0.74rem; font-weight:700; color:rgba(249,244,236,0.65); letter-spacing:0.08em; text-transform:uppercase; margin-bottom:6px; display:block;">Tell us about your dream safari</label>
+              {{ form.message }}
+            </div>
+
+            <!-- Submit -->
+            <button type="submit" class="btn-book-nav w-100 justify-content-center" style="border:none; cursor:pointer; display:flex; width:100%; font-size:0.88rem; padding:16px 32px;">
+              <i class="fas fa-paper-plane"></i> Send My Safari Request
+            </button>
+          </form>
         </div>
       </div>
     </div>
   </div>
 </section>
+
+<style>
+/* Style Django form widgets inside booking form */
+#booking input[type="text"],
+#booking input[type="email"],
+#booking input[type="tel"],
+#booking input[type="date"],
+#booking input[type="number"],
+#booking select,
+#booking textarea {
+  width: 100% !important;
+  padding: 12px 16px !important;
+  background: rgba(255,255,255,0.07) !important;
+  border: 1.5px solid rgba(201,168,76,0.2) !important;
+  border-radius: 10px !important;
+  color: var(--cream) !important;
+  font-size: 0.88rem !important;
+  font-family: 'Nunito Sans', sans-serif !important;
+  outline: none !important;
+  transition: border-color 0.3s ease, background 0.3s ease !important;
+  -webkit-appearance: none;
+}
+#booking input:focus,
+#booking select:focus,
+#booking textarea:focus {
+  border-color: var(--gold) !important;
+  background: rgba(255,255,255,0.1) !important;
+  box-shadow: 0 0 0 3px rgba(201,168,76,0.12) !important;
+}
+#booking input::placeholder,
+#booking textarea::placeholder { color: rgba(249,244,236,0.35) !important; }
+#booking select option { background: var(--forest); color: var(--cream); }
+#booking textarea { min-height: 120px; resize: vertical; }
+#booking input[type="checkbox"] { width:16px !important; height:16px !important; accent-color: var(--gold); cursor:pointer; flex-shrink:0; }
+
+.booking-option:has(input:checked) {
+  background: rgba(201,168,76,0.15) !important;
+  border-color: var(--gold) !important;
+}
+.booking-option:hover {
+  background: rgba(201,168,76,0.08) !important;
+  border-color: rgba(201,168,76,0.4) !important;
+}
+</style>
+
+<script>
+function toggleOption(el) {
+  const cb = el.querySelector('input[type="checkbox"]');
+  if (cb) {
+    cb.checked = !cb.checked;
+    if (cb.checked) {
+      el.style.background = 'rgba(201,168,76,0.15)';
+      el.style.borderColor = 'var(--gold)';
+    } else {
+      el.style.background = 'rgba(255,255,255,0.04)';
+      el.style.borderColor = 'rgba(201,168,76,0.2)';
+    }
+  }
+}
+</script>

@@ -1,62 +1,77 @@
 {% extends 'base.html' %}
-
+{% load static %}
+{% block title %}Our Team | Sunrise and Sunset Safaris Limited{% endblock %}
 {% block content %}
-        <div class="container-fluid bg-primary py-5 mb-5 hero-header">
-            <div class="container py-5">
-                <div class="row justify-content-center py-5">
-                    <div class="col-lg-10 pt-lg-5 mt-lg-5 text-center">
-                        <h1 class="display-3 text-white animated slideInDown">Guides</h1>
-                        <nav aria-label="breadcrumb">
-                            <ol class="breadcrumb justify-content-center">
-                                <li class="breadcrumb-item"><a href="#">Home</a></li>
-                                <li class="breadcrumb-item"><a href="#">Pages</a></li>
-                                <li class="breadcrumb-item text-white active" aria-current="page">Guides</li>
-                            </ol>
-                        </nav>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- Navbar & Hero End -->
 
+<style>
+.guide-card {
+  background: var(--white); border-radius: var(--radius-lg);
+  overflow: hidden; box-shadow: var(--shadow);
+  border: 1px solid rgba(201,168,76,0.1);
+  transition: var(--transition); text-align: center;
+}
+.guide-card:hover { transform: translateY(-6px); box-shadow: var(--shadow-gold); border-color: var(--gold); }
+.guide-img-wrap { position: relative; height: 280px; overflow: hidden; }
+.guide-img-wrap img { width:100%; height:100%; object-fit:cover; transition: transform 0.5s ease; }
+.guide-card:hover .guide-img-wrap img { transform: scale(1.06); }
+.guide-overlay {
+  position: absolute; inset:0;
+  background: linear-gradient(to top, rgba(17,28,23,0.85), transparent 55%);
+}
+.guide-socials {
+  position: absolute; bottom: 14px; left:0; right:0;
+  display: flex; justify-content: center; gap: 8px;
+  opacity: 0; transform: translateY(12px);
+  transition: var(--transition);
+}
+.guide-card:hover .guide-socials { opacity:1; transform:translateY(0); }
+.guide-social { width:34px; height:34px; border-radius:50%;
+  background:var(--gold); display:flex; align-items:center; justify-content:center;
+  color:var(--forest) !important; font-size:0.78rem; transition:var(--transition); }
+.guide-social:hover { background:var(--white); transform:scale(1.1); }
+.guide-body { padding: 20px 16px 22px; }
+.guide-name { font-family:'Playfair Display',serif; font-size:1.05rem; font-weight:700; color:var(--forest); margin-bottom:4px; }
+.guide-role { font-size:0.72rem; color:var(--gold-dark); font-weight:700; letter-spacing:0.12em; text-transform:uppercase; }
+</style>
 
-    <!-- Team Start -->
-    <div class="container-xxl py-5">
-        <div class="container">
-            <div class="text-center wow fadeInUp" data-wow-delay="0.1s">
-                <h6 class="section-title bg-white text-center text-primary px-3">Travel Guide</h6>
-                <h1 class="mb-5">Meet Our Guide</h1>
-            </div>
-            <div class="row g-4">
-  {% for i in teams %}
-        <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
-            <div class="team-item">
-                <div class="overflow-hidden">
-                    <img class="img-fluid" src="{{ i.image }}" alt="{{ i.Full_name }}">
-                </div>
-                <div class="position-relative d-flex justify-content-center" style="margin-top: -19px;">
-                    {% if i.facebook_link %}
-                        <a class="btn btn-square mx-1" href="{{ i.facebook_link }}" target="_blank"><i class="fab fa-facebook-f"></i></a>
-                    {% endif %}
-                    {% if i.twitter_link %}
-                        <a class="btn btn-square mx-1" href="{{ i.twitter_link }}" target="_blank"><i class="fab fa-twitter"></i></a>
-                    {% endif %}
-                    {% if i.instagram_link %}
-                        <a class="btn btn-square mx-1" href="{{ i.instagram_link }}" target="_blank"><i class="fab fa-instagram"></i></a>
-                    {% endif %}
-                </div>
-                <div class="text-center p-4">
-                    <h5 class="mb-0">{{ i.Full_name }}</h5>
-                    <small>{{ i.designation }}</small>
-                </div>
-            </div>
-        </div>
-        {% endfor %}
-                
-            </div>
-        </div>
+{% include 'page_hero.html' with title="Meet Our Expert Team" subtitle="Passionate guides with deep local knowledge — making every safari extraordinary." breadcrumb="Our Team" label="The People" %}
+
+<section class="py-5 py-lg-6" style="background:var(--cream);">
+  <div class="container py-3">
+    <div class="section-head center wow fadeInUp">
+      <span class="section-label">Our Guides</span>
+      <h2 class="section-title">The Faces Behind Your Adventure</h2>
+      <div class="section-divider center"></div>
     </div>
-    <!-- Team End -->
-        
-    {% endblock %}
+
+    <div class="row g-4 wow fadeInUp" data-wow-delay="0.1s">
+      {% for i in teams %}
+      <div class="col-lg-3 col-md-6">
+        <div class="guide-card">
+          <div class="guide-img-wrap">
+            <img src="{{ i.image }}" alt="{{ i.Full_name }}">
+            <div class="guide-overlay"></div>
+            <div class="guide-socials">
+              {% if i.facebook_link %}<a href="{{ i.facebook_link }}" target="_blank" class="guide-social"><i class="fab fa-facebook-f"></i></a>{% endif %}
+              {% if i.twitter_link %}<a href="{{ i.twitter_link }}" target="_blank" class="guide-social"><i class="fab fa-twitter"></i></a>{% endif %}
+              {% if i.instagram_link %}<a href="{{ i.instagram_link }}" target="_blank" class="guide-social"><i class="fab fa-instagram"></i></a>{% endif %}
+            </div>
+          </div>
+          <div class="guide-body">
+            <div class="guide-name">{{ i.Full_name }}</div>
+            <div class="guide-role">{{ i.designation }}</div>
+          </div>
+        </div>
+      </div>
+      {% empty %}
+      <div class="col-12 text-center py-5">
+        <i class="fas fa-users fa-3x" style="color:var(--gold); opacity:0.4; margin-bottom:16px; display:block;"></i>
+        <p style="color:var(--text-light);">Team members coming soon.</p>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+{% include 'booking_form.html' %}
+{% endblock %}

@@ -1,411 +1,210 @@
 {% extends 'base.html' %}
 {% load static %}
-
+{% block title %}About Us | Sunrise and Sunset Safaris Limited{% endblock %}
 {% block content %}
+
 <style>
+.mission-card {
+  background: var(--white); border-radius: var(--radius-lg);
+  padding: 32px 28px; box-shadow: var(--shadow);
+  border-top: 4px solid var(--gold);
+  border: 1px solid rgba(201,168,76,0.15);
+  transition: var(--transition); height: 100%;
+}
+.mission-card:hover { transform: translateY(-5px); box-shadow: var(--shadow-gold); border-color: var(--gold); }
+.mission-icon { width: 60px; height: 60px; border-radius: 14px;
+  background: linear-gradient(135deg, var(--forest), var(--forest-mid));
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.3rem; color: var(--gold); margin-bottom: 18px;
+  box-shadow: 0 4px 14px rgba(27,58,45,0.25);
+}
+.mission-title { font-family: 'Cinzel', serif; font-size: 0.92rem; font-weight: 700;
+  color: var(--forest); letter-spacing: 0.06em; margin-bottom: 10px; }
+.mission-desc { font-size: 0.85rem; color: var(--text-light); line-height: 1.7; }
 
+.team-card {
+  background: var(--white); border-radius: var(--radius-lg);
+  overflow: hidden; box-shadow: var(--shadow);
+  border: 1px solid rgba(201,168,76,0.1);
+  transition: var(--transition); text-align: center;
+}
+.team-card:hover { transform: translateY(-5px); box-shadow: var(--shadow-gold); border-color: var(--gold); }
+.team-card-img { position: relative; overflow: hidden; height: 240px; }
+.team-card-img img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s ease; }
+.team-card:hover .team-card-img img { transform: scale(1.06); }
+.team-card-socials {
+  position: absolute; bottom: 0; left: 0; right: 0;
+  background: linear-gradient(to top, rgba(17,28,23,0.88), transparent);
+  display: flex; justify-content: center; gap: 8px; padding: 14px;
+  transform: translateY(100%); transition: var(--transition);
+}
+.team-card:hover .team-card-socials { transform: translateY(0); }
+.team-social-btn {
+  width: 32px; height: 32px; border-radius: 50%;
+  background: var(--gold); display: flex; align-items: center; justify-content: center;
+  color: var(--forest) !important; font-size: 0.75rem; transition: var(--transition);
+}
+.team-social-btn:hover { background: var(--white); transform: scale(1.1); }
+.team-card-body { padding: 20px 16px; }
+.team-name { font-family: 'Playfair Display', serif; font-size: 1rem; font-weight: 700; color: var(--forest); margin-bottom: 4px; }
+.team-role { font-size: 0.76rem; color: var(--gold-dark); font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; }
 
-  /* Hero Section */
-  .about-hero {
-    position: relative;
-    min-height: 80vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: #ffffff;
-    text-align: center;
-    background-size: cover;
-    background-position: center;
-    background-attachment: fixed;
-    overflow: hidden;
-    font-family: 'Poppins', sans-serif;
-    animation: heroSlideshow 20s infinite ease-in-out;
-  }
-
-  @keyframes heroSlideshow {
-    0%, 25% { background-image: url('{% static "img/serengeti.jpg" %}'); }
-    25%, 50% { background-image: url('{% static "img/kilimanjaro.jpg" %}'); }
-    50%, 75% { background-image: url('{% static "img/zanzibar.jpg" %}'); }
-    75%, 100% { background-image: url('{% static "img/ngorongoro.jpg" %}'); }
-  }
-
-  .about-hero::before {
-    content: "";
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(34, 139, 34, 0.3));
-    z-index: 1;
-  }
-
-  .about-hero .content {
-    position: relative;
-    z-index: 2;
-    max-width: clamp(600px, 80vw, 900px);
-    padding: clamp(20px, 5vw, 30px);
-    animation: fadeInUp 1.5s ease-out;
-  }
-
-  .about-hero h1 {
-    font-family: 'Merienda', cursive;
-    font-size: clamp(2rem, 6vw, 3.5rem);
-    font-weight: 900;
-    margin-bottom: 1.5rem;
-    text-transform: uppercase;
-    letter-spacing: 2px;
-    color: var(--accent);
-    text-shadow: 0 3px 10px rgba(0, 0, 0, 0.6);
-  }
-
-  .about-hero p {
-    font-size: clamp(1rem, 2.5vw, 1.2rem);
-    line-height: 1.8;
-    color: var(--light);
-    text-shadow: 0 1px 5px rgba(0, 0, 0, 0.5);
-    max-width: 90%;
-    margin: 0 auto 1.5rem;
-  }
-
-  .about-btn {
-    margin-top: 1.5rem;
-    background: linear-gradient(135deg, var(--primary), var(--accent));
-    color: #ffffff;
-    padding: clamp(10px, 2.5vw, 14px) clamp(20px, 4vw, 30px);
-    font-size: clamp(0.9rem, 2.5vw, 1rem);
-    border-radius: 50px;
-    text-decoration: none;
-    font-weight: 700;
-    transition: all 0.3s var(--transition-ease);
-    box-shadow: var(--shadow-luxe);
-    display: inline-flex;
-    align-items: center;
-  }
-
-  .about-btn i {
-    margin-right: 0.5rem;
-    font-size: clamp(0.9rem, 2.5vw, 1.2rem);
-  }
-
-  .about-btn:hover {
-    background: linear-gradient(135deg, var(--accent), var(--primary));
-    transform: scale(1.05);
-    box-shadow: 0 8px 20px rgba(255, 69, 0, 0.6);
-  }
-
-  /* Vision and Mission Section */
-  .vision-mission {
-    background: linear-gradient(to right, var(--light), #ffffff);
-    padding: clamp(40px, 8vw, 60px) 20px;
-    font-family: 'Poppins', sans-serif;
-    position: relative;
-    overflow: hidden;
-  }
-
-  .vision-mission::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: url('{% static "img/safari-pattern.png" %}') repeat;
-    opacity: 0.05;
-    z-index: 0;
-  }
-
-  .vision-mission .container {
-    position: relative;
-    z-index: 1;
-  }
-
-  .vision-mission h3 {
-    font-family: 'Merienda', cursive;
-    font-weight: 700;
-    color: var(--secondary);
-    margin-bottom: 1rem;
-    font-size: clamp(1.5rem, 4vw, 2rem);
-    position: relative;
-    display: inline-flex;
-    align-items: center;
-  }
-
-  .vision-mission h3::before {
-    content: '\f6c0';
-    font-family: 'Font Awesome 6 Free';
-    font-weight: 900;
-    color: var(--accent);
-    font-size: clamp(1rem, 3vw, 1.5rem);
-    margin-right: 0.5rem;
-  }
-
-  .vision-mission p {
-    color: var(--dark);
-    line-height: 1.8;
-    font-size: clamp(0.9rem, 2.5vw, 1rem);
-    margin-bottom: 1rem;
-  }
-
-  .vision-mission .card {
-    background: #ffffff;
-    border-radius: 15px;
-    padding: clamp(20px, 4vw, 25px);
-    box-shadow: var(--shadow-luxe);
-    transition: transform 0.3s var(--transition-ease), box-shadow 0.3s var(--transition-ease);
-  }
-
-  .vision-mission .card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 10px 25px rgba(255, 69, 0, 0.3);
-  }
-
-  .vision-mission .text-muted {
-    font-size: clamp(0.8rem, 2vw, 0.9rem);
-    color: var(--dark);
-  }
-
-  /* Team Section */
-  .team-section {
-    padding: clamp(40px, 8vw, 60px) 20px;
-    background: linear-gradient(to bottom right, var(--light), #ffffff);
-    text-align: center;
-    position: relative;
-    overflow: hidden;
-  }
-
-  .team-section::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: url('{% static "img/safari-pattern.png" %}') repeat;
-    opacity: 0.05;
-    z-index: 0;
-  }
-
-  .team-section h6 {
-    color: var(--primary);
-    text-transform: uppercase;
-    font-weight: 700;
-    letter-spacing: 1.5px;
-    font-size: clamp(0.9rem, 2.5vw, 1rem);
-    margin-bottom: 0.5rem;
-  }
-
-  .team-section h1 {
-    font-family: 'Merienda', cursive;
-    font-size: clamp(1.8rem, 5vw, 2.5rem);
-    font-weight: 800;
-    margin-bottom: clamp(20px, 5vw, 40px);
-    color: var(--dark);
-    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
-  }
-
-  .team-item {
-    background: #ffffff;
-    border-radius: 15px;
-    overflow: hidden;
-    transition: transform 0.3s var(--transition-ease), box-shadow 0.3s var(--transition-ease);
-    box-shadow: var(--shadow-luxe);
-    position: relative;
-  }
-
-  .team-item:hover {
-    transform: translateY(-8px);
-    box-shadow: 0 12px 30px rgba(255, 69, 0, 0.3);
-  }
-
-  .team-item img {
-    width: 100%;
-    height: clamp(200px, 30vw, 250px);
-    object-fit: cover;
-    transition: transform 0.5s var(--transition-ease);
-  }
-
-  .team-item:hover img {
-    transform: scale(1.1);
-  }
-
-  .team-item .badge {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    background: var(--secondary);
-    color: #ffffff;
-    font-size: clamp(0.75rem, 2vw, 0.85rem);
-    padding: clamp(5px, 1.5vw, 7px) clamp(10px, 2.5vw, 12px);
-    border-radius: 25px;
-  }
-
-  .team-item .social-links {
-    margin-top: -20px;
-    display: flex;
-    justify-content: center;
-    gap: 0.5rem;
-  }
-
-  .team-item .btn {
-    background: var(--secondary);
-    color: #ffffff;
-    border-radius: 50%;
-    width: clamp(36px, 8vw, 40px);
-    height: clamp(36px, 8vw, 40px);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: all 0.3s var(--transition-ease);
-    border: 1px solid var(--accent);
-  }
-
-  .team-item .btn:hover {
-    background: var(--primary);
-    transform: scale(1.1);
-    box-shadow: 0 0 10px rgba(255, 69, 0, 0.5);
-  }
-
-  .team-item .btn i {
-    font-size: clamp(0.9rem, 2.5vw, 1rem);
-  }
-
-  .team-item h5 {
-    font-size: clamp(1rem, 3vw, 1.2rem);
-    font-weight: 700;
-    color: var(--dark);
-    margin-bottom: 0.5rem;
-  }
-
-  .team-item small {
-    font-size: clamp(0.8rem, 2vw, 0.9rem);
-    color: var(--secondary);
-  }
-
-  /* Responsive Adjustments */
-  @media (max-width: 576px) {
-    .about-hero {
-      min-height: 60vh;
-    }
-    .about-hero h1 {
-      font-size: clamp(1.5rem, 5vw, 2rem);
-    }
-    .about-hero p {
-      font-size: clamp(0.85rem, 2.5vw, 1rem);
-    }
-    .about-btn {
-      padding: clamp(8px, 2vw, 10px) clamp(15px, 3vw, 20px);
-      font-size: clamp(0.8rem, 2vw, 0.9rem);
-    }
-    .vision-mission {
-      padding: clamp(30px, 6vw, 40px) 15px;
-    }
-    .vision-mission h3 {
-      font-size: clamp(1.2rem, 3.5vw, 1.5rem);
-    }
-    .vision-mission p {
-      font-size: clamp(0.85rem, 2vw, 0.95rem);
-    }
-    .team-section {
-      padding: clamp(30px, 6vw, 40px) 15px;
-    }
-    .team-section h1 {
-      font-size: clamp(1.5rem, 4vw, 2rem);
-    }
-    .team-item img {
-      height: 180px;
-    }
-    .team-item .btn {
-      width: clamp(32px, 7vw, 36px);
-      height: clamp(32px, 7vw, 36px);
-    }
-  }
-
-  @media (max-width: 768px) {
-    .vision-mission .row {
-      flex-direction: column;
-      gap: 2rem;
-    }
-    .vision-mission .col-lg-6 {
-      text-align: center;
-    }
-    .team-item {
-      margin-bottom: 1.5rem;
-    }
-  }
-
-  @media (min-width: 769px) and (max-width: 991px) {
-    .about-hero h1 {
-      font-size: clamp(2rem, 5vw, 2.8rem);
-    }
-    .about-hero p {
-      font-size: clamp(1rem, 2.5vw, 1.1rem);
-    }
-    .team-item img {
-      height: 220px;
-    }
-  }
+.stat-box { text-align: center; padding: 28px 16px; }
+.stat-num { font-family: 'Playfair Display', serif; font-size: 2.8rem; font-weight: 900; color: var(--gold); display: block; line-height: 1; }
+.stat-label { font-size: 0.78rem; color: rgba(249,244,236,0.6); letter-spacing: 0.12em; text-transform: uppercase; margin-top: 4px; }
 </style>
 
-{% if abouts %}
-  {% for i in abouts %}
-  <section class="about-hero wow fadeIn" data-wow-delay="0.2s" {% if i.image %}style="background-image: url('{{ i.image }}');"{% else %}style="background-image: url('{% static "img/serengeti.jpg" %}');"{% endif %}>
-    <div class="content">
-      <h1>{{ i.title }}</h1>
-      <p>{{ i.content }}</p>
-    </div>
-  </section>
+{% include 'page_hero.html' with title="About Sunrise & Sunset Safaris" subtitle="Tanzania's Most Trusted Safari Company — Guided by Care, Inspired by Africa." bg=static_img breadcrumb="About Us" label="Our Story" %}
 
-  <section class="vision-mission wow fadeInUp" data-wow-delay="0.3s">
-    <div class="container">
-      <div class="row g-5">
-        <div class="col-lg-6">
-          <div class="card">
-            <h3>Our Vision</h3>
-            <p>{{ i.vision }}</p>
-          </div>
-        </div>
-        <div class="col-lg-6">
-          <div class="card">
-            <h3>Our Mission</h3>
-            <p>{{ i.mission }}</p>
+<!-- About Content -->
+<section class="py-5 py-lg-6" style="background:var(--cream);">
+  <div class="container py-3">
+    <div class="row g-5 align-items-center">
+      <div class="col-lg-5 wow fadeInLeft">
+        <div style="position:relative;">
+          <img src="{% if abouts.0.image %}{{ abouts.0.image }}{% else %}{% static 'img/4.jpg' %}{% endif %}"
+               alt="About Sunrise Sunset Safaris"
+               style="width:100%; height:460px; object-fit:cover; border-radius:var(--radius-lg); box-shadow:var(--shadow);">
+          <div style="position:absolute; bottom:-18px; right:-18px; background:var(--gold); border-radius:var(--radius); padding:20px 24px; box-shadow:var(--shadow-gold);">
+            <div style="font-family:'Playfair Display',serif; font-size:2rem; font-weight:900; color:var(--forest); line-height:1;">500+</div>
+            <div style="font-size:0.72rem; font-weight:700; color:var(--forest); letter-spacing:0.08em; text-transform:uppercase;">Happy Travelers</div>
           </div>
         </div>
       </div>
-      <p class="text-muted fst-italic mt-4"><small>Last updated: {{ i.last_updated|date:"F d, Y" }}</small></p>
+      <div class="col-lg-7 wow fadeInRight">
+        <span class="section-label">Who We Are</span>
+        <h2 class="section-title">Sunrise and Sunset<br><span style="color:var(--gold-dark)">Safaris Limited</span></h2>
+        <div class="section-divider" style="margin-bottom:24px;"></div>
+        <p style="font-size:0.95rem; line-height:1.85; color:var(--text-light); margin-bottom:16px;">
+          {{ abouts.0.content|default:"Sunrise and Sunset Safaris Limited is a premier Tanzanian safari company based in Arusha, dedicated to crafting extraordinary wildlife adventures for travelers from around the world. With deep roots in Tanzania's wilderness and a passion for authentic African experiences, we bring you closer to nature in a way that is thoughtful, sustainable, and unforgettable." }}
+        </p>
+        {% if abouts.0.content_2 %}
+        <p style="font-size:0.95rem; line-height:1.85; color:var(--text-light); margin-bottom:24px;">{{ abouts.0.content_2 }}</p>
+        {% endif %}
+        <div class="d-flex flex-wrap gap-3">
+          <a href="{% url 'form' %}" class="btn-book-nav" onclick="showLoading()"><i class="fas fa-paper-plane"></i> Book a Safari</a>
+          <a href="{% url 'contact' %}" class="btn-cta-outline" style="display:inline-flex; align-items:center; gap:8px; background:transparent; border:2px solid rgba(27,58,45,0.25); color:var(--forest) !important; font-size:0.82rem; font-weight:600; padding:12px 22px; border-radius:50px; transition:var(--transition);" onclick="showLoading()"><i class="fas fa-phone"></i> Contact Us</a>
+        </div>
+      </div>
     </div>
-  </section>
-  {% endfor %}
-{% else %}
-  <div class="alert alert-info text-center py-5 wow fadeIn" data-wow-delay="0.2s">
-    <h4>Information about our organization will be available soon.</h4>
   </div>
-{% endif %}
+</section>
+
+<!-- Mission / Values -->
+<section class="py-5 py-lg-6" style="background:var(--cream-dark);">
+  <div class="container py-3">
+    <div class="section-head center wow fadeInUp">
+      <span class="section-label">Our Values</span>
+      <h2 class="section-title">Why Choose Sunrise & Sunset</h2>
+      <div class="section-divider center"></div>
+    </div>
+    <div class="row g-4 wow fadeInUp" data-wow-delay="0.1s">
+      <div class="col-lg-3 col-md-6">
+        <div class="mission-card">
+          <div class="mission-icon"><i class="fas fa-heart"></i></div>
+          <div class="mission-title">Local Experts, Global Standards</div>
+          <div class="mission-desc">Our guides are Tanzanian nationals with years of experience and official licenses from TANAPA and TATO. We know the parks, the animals’ behavior, and the best hidden spots most tourists miss..</div>
+        </div>
+      </div>
+      <div class="col-lg-3 col-md-6">
+        <div class="mission-card">
+          <div class="mission-icon"><i class="fas fa-map-marked-alt"></i></div>
+          <div class="mission-title"> Customized Itineraries</div>
+          <div class="mission-desc">No cookie-cutter packages. We design every trip around your budget, time, interests, and travel style — whether it’s luxury, mid-range, or budget camping.</div>
+        </div>
+      </div>
+      <div class="col-lg-3 col-md-6">
+        <div class="mission-card">
+          <div class="mission-icon"><i class="fas fa-shield-alt"></i></div>
+          <div class="mission-title"> Well-Maintained Safari Vehicles</div>
+          <div class="mission-desc">All our 4x4 Land Cruisers and Land Rovers are serviced regularly and equipped with pop-up roofs, charging ports, cool boxes, and first aid kits for comfort and safety.</div>
+        </div>
+      </div>
+      <div class="col-lg-3 col-md-6">
+        <div class="mission-card">
+          <div class="mission-icon"><i class="fas fa-leaf"></i></div>
+          <div class="mission-title"> Transparent & Fair Pricing</div>
+          <div class="mission-desc">What you see is what you pay. We include all taxes, park fees, and permits upfront so there are no surprises</div>
+        </div>
+      </div>
+
+      <div class="col-lg-3 col-md-6">
+        <div class="mission-card">
+          <div class="mission-icon"><i class="fas fa-heart"></i></div>
+          <div class="mission-title">24/7 Support</div>
+          <div class="mission-desc">From booking to the last day of your trip, our team is available on WhatsApp and phone to assist you. We’re on the ground, not overseas</div>
+        </div>
+      </div>
+
+      <div class="col-lg-3 col-md-6">
+        <div class="mission-card">
+          <div class="mission-icon"><i class="fas fa-shield-alt"></i></div>
+          <div class="mission-title"> Responsible Tourism </div>
+          <div class="mission-desc">We partner with local lodges, employ local staff, and support community projects. A portion of our proceeds goes toward conservation and education initiatives</div>
+        </div>
+      </div>
 
 
+    </div>
+  </div>
+</section>
 
-
-<section class="team-section wow fadeInUp" data-wow-delay="0.4s">
+<!-- Stats Bar -->
+<section style="background:var(--forest); padding:48px 0;">
   <div class="container">
-    <h6>Travel Guides</h6>
-    <h1>Meet Our Expert Team</h1>
-    <div class="row g-4">
+    <div class="row g-0">
+      <div class="col-6 col-md-3 wow fadeInUp" data-wow-delay="0.1s">
+        <div class="stat-box" style="border-right:1px solid rgba(201,168,76,0.15);">
+          <span class="stat-num">500+</span>
+          <span class="stat-label">Happy Travelers</span>
+        </div>
+      </div>
+      <div class="col-6 col-md-3 wow fadeInUp" data-wow-delay="0.2s">
+        <div class="stat-box" style="border-right:1px solid rgba(201,168,76,0.15);">
+          <span class="stat-num">10+</span>
+          <span class="stat-label">Safari Routes</span>
+        </div>
+      </div>
+      <div class="col-6 col-md-3 wow fadeInUp" data-wow-delay="0.3s">
+        <div class="stat-box" style="border-right:1px solid rgba(201,168,76,0.15);">
+          <span class="stat-num">5★</span>
+          <span class="stat-label">TripAdvisor Rated</span>
+        </div>
+      </div>
+      <div class="col-6 col-md-3 wow fadeInUp" data-wow-delay="0.4s">
+        <div class="stat-box">
+          <span class="stat-num">24/7</span>
+          <span class="stat-label">Guest Support</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Team -->
+{% if teams %}
+<section class="py-5 py-lg-6" style="background:var(--cream);">
+  <div class="container py-3">
+    <div class="section-head center wow fadeInUp">
+      <span class="section-label">The People Behind the Magic</span>
+      <h2 class="section-title">Meet Our Expert Team</h2>
+      <div class="section-divider center"></div>
+    </div>
+    <div class="row g-4 wow fadeInUp" data-wow-delay="0.1s">
       {% for i in teams %}
       <div class="col-lg-3 col-md-6">
-        <div class="team-item">
-          <img src="{{ i.image }}" alt="{{ i.Full_name }}">
-          <span class="badge">{{ i.designation }}</span>
-          <div class="social-links">
-            {% if i.facebook_link %}
-              <a class="btn mx-1" href="{{ i.facebook_link }}" target="_blank"><i class="fab fa-facebook-f"></i></a>
-            {% endif %}
-            {% if i.twitter_link %}
-              <a class="btn mx-1" href="{{ i.twitter_link }}" target="_blank"><i class="fab fa-twitter"></i></a>
-            {% endif %}
-            {% if i.instagram_link %}
-              <a class="btn mx-1" href="{{ i.instagram_link }}" target="_blank"><i class="fab fa-instagram"></i></a>
-            {% endif %}
+        <div class="team-card">
+          <div class="team-card-img">
+            <img src="{{ i.image }}" alt="{{ i.Full_name }}">
+            <div class="team-card-socials">
+              {% if i.facebook_link %}<a href="{{ i.facebook_link }}" target="_blank" class="team-social-btn"><i class="fab fa-facebook-f"></i></a>{% endif %}
+              {% if i.twitter_link %}<a href="{{ i.twitter_link }}" target="_blank" class="team-social-btn"><i class="fab fa-twitter"></i></a>{% endif %}
+              {% if i.instagram_link %}<a href="{{ i.instagram_link }}" target="_blank" class="team-social-btn"><i class="fab fa-instagram"></i></a>{% endif %}
+            </div>
           </div>
-          <div class="p-4">
-            <h5 class="mb-0">{{ i.Full_name }}</h5>
-            <small>{{ i.designation }}</small>
+          <div class="team-card-body">
+            <div class="team-name">{{ i.Full_name }}</div>
+            <div class="team-role">{{ i.designation }}</div>
           </div>
         </div>
       </div>
@@ -413,11 +212,7 @@
     </div>
   </div>
 </section>
+{% endif %}
 
-<script>
-  // Initialize WOW.js for animations
-  document.addEventListener('DOMContentLoaded', function() {
-    new WOW().init();
-  });
-</script>
+
 {% endblock %}

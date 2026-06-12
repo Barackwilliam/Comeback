@@ -1252,50 +1252,50 @@ def staff_check(user):
 
 
 
-@login_required(login_url="/admin/login/")   # peleka kwa login ya admin
-@user_passes_test(staff_check)              # zuia non-admin wasione
-def dashboard_view(request):
-    visits = UserVisit.objects.all().order_by("-timestamp")[:100]
-    total_visits = UserVisit.objects.count()
+# @login_required(login_url="/admin/login/")   # peleka kwa login ya admin
+# @user_passes_test(staff_check)              # zuia non-admin wasione
+# def dashboard_view(request):
+#     visits = UserVisit.objects.all().order_by("-timestamp")[:100]
+#     total_visits = UserVisit.objects.count()
 
-    visits_by_country = (
-        UserVisit.objects.values("country")
-        .annotate(count=Count("id"))
-        .order_by("-count")
-    )
+#     visits_by_country = (
+#         UserVisit.objects.values("country")
+#         .annotate(count=Count("id"))
+#         .order_by("-count")
+#     )
 
-    avg_visits_per_ip = (
-        UserVisit.objects.values("ip_address")
-        .annotate(total=Count("id"))
-        .aggregate(avg=Avg("total"))["avg"]
-        or 0
-    )
-    avg_visits_per_ip = round(avg_visits_per_ip, 2)
+#     avg_visits_per_ip = (
+#         UserVisit.objects.values("ip_address")
+#         .annotate(total=Count("id"))
+#         .aggregate(avg=Avg("total"))["avg"]
+#         or 0
+#     )
+#     avg_visits_per_ip = round(avg_visits_per_ip, 2)
 
-    new_visits = (
-        UserVisit.objects.values("ip_address")
-        .annotate(c=Count("id"))
-        .filter(c=1)
-        .count()
-    )
-    returning_visits = (
-        UserVisit.objects.values("ip_address")
-        .annotate(c=Count("id"))
-        .filter(c__gt=1)
-        .count()
-    )
-    local_visits = UserVisit.objects.filter(country="TZ").count()
+#     new_visits = (
+#         UserVisit.objects.values("ip_address")
+#         .annotate(c=Count("id"))
+#         .filter(c=1)
+#         .count()
+#     )
+#     returning_visits = (
+#         UserVisit.objects.values("ip_address")
+#         .annotate(c=Count("id"))
+#         .filter(c__gt=1)
+#         .count()
+#     )
+#     local_visits = UserVisit.objects.filter(country="TZ").count()
 
-    context = {
-        "visits": visits,
-        "total_visits": total_visits,
-        "visits_by_country": visits_by_country,
-        "avg_visits_per_ip": avg_visits_per_ip,
-        "new_visits": new_visits,
-        "returning_visits": returning_visits,
-        "local_visits": local_visits,
-    }
-    return render(request, "dashboard.html", context)
+#     context = {
+#         "visits": visits,
+#         "total_visits": total_visits,
+#         "visits_by_country": visits_by_country,
+#         "avg_visits_per_ip": avg_visits_per_ip,
+#         "new_visits": new_visits,
+#         "returning_visits": returning_visits,
+#         "local_visits": local_visits,
+#     }
+#     return render(request, "dashboard.html", context)
 
 
 
