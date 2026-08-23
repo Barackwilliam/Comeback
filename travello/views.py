@@ -360,7 +360,7 @@ def safari_list(request):
     tours = Tour.objects.all()
     compan = company.objects.all()[:1]
     trips_list = Trip_DB.objects.all()
-    safari_list = Travel.objects.all()
+    safari = Travel.objects.all()
     # all_packages = Package.objects.all()
     location = request.GET.get('location')
     safari_type = request.GET.get('type')
@@ -371,11 +371,11 @@ def safari_list(request):
         safari = safari.filter(safari_type__iexact=safari_type)
 
     # Collect unique tour types for dropdown
-    safari_types = Travel.objects.order_by('safari_type').values_list('safari_type', flat=True).distinct()
+    tour_types = Travel.objects.order_by('safari_type').values_list('safari_type', flat=True).distinct()
 
-    return render(request, 'safari_list.html', {'trip': trip,'qn':qn,
-'compan':compan,'tours': tours, 'safari_types': safari_types,'safari':safari,"trips_list": trips_list,
-        "safari_list": safari_list,})
+    return render(request, 'safari_list.html', {'qn':qn,
+'compan':compan,'tours': tours, 'tour_types': tour_types,'safari':safari,"trips_list": trips_list,
+        })
 
 # def tour_detail(request, pk):
 #     safari = Travel.objects.all()
