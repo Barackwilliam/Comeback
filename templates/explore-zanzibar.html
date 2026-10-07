@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-{% load static %}
+{% load static imgopt %}
 {% load custom_filters %}
 
 {% block title %}Explore Zanzibar | Sunrise and Sunset Safaris Limited{% endblock %}
@@ -38,7 +38,7 @@
         <a href="{% url 'form' %}" class="btn-book-nav mt-3" onclick="showLoading()"><i class="fas fa-umbrella-beach"></i> Plan Your Zanzibar Trip</a>
       </div>
       <div class="col-lg-6">
-        <img src="{% static 'img/4.jpg' %}" alt="Zanzibar" style="width:100%; height:360px; object-fit:cover; border-radius:var(--radius-lg); box-shadow:var(--shadow);">
+        <img loading="lazy" decoding="async" src="{% static 'img/4.jpg' %}" alt="Zanzibar" style="width:100%; height:360px; object-fit:cover; border-radius:var(--radius-lg); box-shadow:var(--shadow);">
       </div>
     </div>
 
@@ -53,7 +53,7 @@
       {% for tour in zanzibar_tours %}
       <div class="col-lg-4 col-md-6">
         <div class="zan-tour-card">
-          <img src="{{ tour.image }}" alt="{{ tour.title }}">
+          <img loading="lazy" decoding="async" src="{{ tour.image|ucare:800 }}" alt="{{ tour.title }}">
           <div class="zan-tour-body">
             <div class="zan-tour-meta">
               <span><i class="fas fa-calendar-alt"></i> {{ tour.days|default:"Flexible" }} Days</span>

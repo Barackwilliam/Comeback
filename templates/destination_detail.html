@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-{% load static %}
+{% load static imgopt %}
 {% block title %}{{ destination.name|default:"Destination" }} | Sunrise and Sunset Safaris Limited{% endblock %}
 {% block content %}
 
@@ -28,7 +28,7 @@
 
 <!-- Hero -->
 <div class="dest-hero">
-  <img src="{{ destination.image }}" alt="{{ destination.name }}">
+  <img fetchpriority="high" decoding="async" src="{{ destination.image|ucare:1200 }}" alt="{{ destination.name }}">
   <div class="dest-hero-overlay"></div>
   <div class="dest-hero-body container">
     {% if destination.Offer_in_percent %}
@@ -91,7 +91,7 @@
           <h3 style="font-family:'Cinzel',serif; font-size:0.92rem; font-weight:700; color:var(--forest); letter-spacing:0.08em; text-transform:uppercase; margin-bottom:16px; padding-bottom:12px; border-bottom:2px solid rgba(201,168,76,0.15);">Gallery</h3>
           <div style="display:grid; grid-template-columns:repeat(3,1fr); gap:10px;">
             {% for img in destination.gallery.all %}
-            <img src="{{ img.image }}" alt="{{ destination.name }}" style="width:100%; aspect-ratio:1; object-fit:cover; border-radius:10px; transition:var(--transition);" onmouseover="this.style.transform='scale(1.04)'" onmouseout="this.style.transform=''">
+            <img loading="lazy" decoding="async" src="{{ img.image|ucare:500 }}" alt="{{ destination.name }}" style="width:100%; aspect-ratio:1; object-fit:cover; border-radius:10px; transition:var(--transition);" onmouseover="this.style.transform='scale(1.04)'" onmouseout="this.style.transform=''">
             {% endfor %}
           </div>
         </div>

@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-{% load static %}
+{% load static imgopt %}
 {% block title %}Testimonials | Sunrise and Sunset Safaris Limited{% endblock %}
 {% block content %}
 
@@ -48,7 +48,7 @@
           <div class="review-stars">★★★★★</div>
           <div class="review-text">{{ test.description }}</div>
           <div class="review-author">
-            <img src="{{ test.image }}" alt="{{ test.Full_name }}">
+            <img loading="lazy" decoding="async" src="{{ test.image|ucare:200 }}" alt="{{ test.Full_name }}">
             <div>
               <div class="review-name">{{ test.Full_name }}</div>
               <div class="review-country"><i class="fas fa-map-marker-alt me-1" style="color:var(--gold);font-size:0.72rem;"></i>{{ test.country }}</div>

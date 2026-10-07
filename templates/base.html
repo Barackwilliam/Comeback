@@ -1,10 +1,10 @@
-{% load static %}
+{% load static imgopt %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="utf-8">
   <title>{% block title %}Sunrise and Sunset Safaris Limited | Premium Tanzania Safari Adventures{% endblock %}</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <!-- SEO -->
   <meta name="description" content="{% block meta_desc %}Experience the magic of Tanzania with Sunrise and Sunset Safaris Limited. Luxury wildlife safaris, Kilimanjaro climbing, Serengeti migration, and Zanzibar beach holidays.{% endblock %}">
@@ -29,19 +29,23 @@
   <link rel="icon" type="image/png" href="{% static 'images/favicon.png' %}">
   <link rel="shortcut icon" href="{% static 'images/favicon.png' %}">
 
-  <!-- Fonts -->
+  <!-- Connect early to the CDNs used below -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Nunito+Sans:wght@300;400;600;700&family=Cinzel:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
+  <link rel="preconnect" href="https://ucarecdn.com">
 
-  <!-- Icons -->
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
+  <!-- Fonts & icons load without blocking the first paint (text shows in a
+       fallback font for a moment, then swaps in) -->
+  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Nunito+Sans:wght@300;400;600;700&family=Cinzel:wght@400;700&display=swap" onload="this.onload=null;this.rel='stylesheet'">
+  <link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" onload="this.onload=null;this.rel='stylesheet'">
+  <noscript>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Nunito+Sans:wght@300;400;600;700&family=Cinzel:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+  </noscript>
 
   <!-- Libraries -->
   <link href="{% static 'lib/animate/animate.min.css' %}" rel="stylesheet">
-  <link href="{% static 'lib/owlcarousel/assets/owl.carousel.min.css' %}" rel="stylesheet">
-  <link href="{% static 'lib/tempusdominus/css/tempusdominus-bootstrap-4.min.css' %}" rel="stylesheet">
 
   <!-- Bootstrap -->
   <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
@@ -767,13 +771,31 @@
     }
     .section-divider.center { margin: 14px auto 0; }
 
+    /* ============================================================
+       MOBILE: keep every page inside the screen width
+    ============================================================ */
+    /* Decorative glows/pulses must never widen the page (clip keeps the
+       sticky navbar working, unlike overflow:hidden). */
+    html, body { overflow-x: hidden; }
+    @supports (overflow: clip) { html, body { overflow-x: clip; } }
+    img, video, iframe { max-width: 100%; }
+    img { height: auto; }
+    p, li, td, a, h1, h2, h3, h4, h5, h6 { overflow-wrap: break-word; }
+    table { max-width: 100%; }
+    @media (max-width: 575.98px) {
+      /* Bootstrap's widest gutters are wider than the phone's side padding */
+      .row.g-5, .row.gx-5, .row.g-4, .row.gx-4 { --bs-gutter-x: 1.5rem; }
+      .container, .container-fluid { padding-left: 16px; padding-right: 16px; }
+      input, select, textarea { font-size: 16px; } /* stops iOS zooming into form fields */
+    }
+
     {% block extra_css %}{% endblock %}
   </style>
 </head>
 <body>
 
   <!-- =============== LOADING SPINNER =============== -->
-  <div id="spinner">
+  <div id="spinner" class="hide">
     <div class="spinner-sun"></div>
     <p class="spinner-text">Sunrise &amp; Sunset Safaris</p>
   </div>
@@ -814,9 +836,9 @@
       <!-- Brand -->
       <a href="{% url 'index' %}" class="navbar-brand-wrap" onclick="showLoading()">
         {% for i in compan %}
-          <img src="{{ i.image }}" alt="Sunrise and Sunset Safaris Logo">
+          <img fetchpriority="high" decoding="async" src="{{ i.image|ucare:300 }}" alt="Sunrise and Sunset Safaris Logo">
         {% empty %}
-          <img src="{% static 'img/logo.jpg' %}" alt="Sunrise and Sunset Safaris Logo">
+          <img loading="lazy" decoding="async" src="{% static 'img/logo.jpg' %}" alt="Sunrise and Sunset Safaris Logo">
         {% endfor %}
         <div class="brand-text">
           <span class="brand-name">Sunrise &amp; Sunset</span>
@@ -899,9 +921,9 @@
     <div class="sidebar-head">
       <div class="sidebar-brand">
         {% for i in compan %}
-          <img src="{{ i.image }}" alt="Logo">
+          <img loading="lazy" decoding="async" src="{{ i.image|ucare:300 }}" alt="Logo">
         {% empty %}
-          <img src="{% static 'img/logo.jpg' %}" alt="Logo">
+          <img loading="lazy" decoding="async" src="{% static 'img/logo.jpg' %}" alt="Logo">
         {% endfor %}
         <div class="sidebar-brand-text">
           <span class="sidebar-brand-name">Sunrise &amp; Sunset<br>Safaris</span>
@@ -1051,9 +1073,9 @@
           <div class="col-lg-3 col-md-6">
             <div class="footer-brand">
               {% for i in compan %}
-                <img src="{{ i.image }}" alt="Logo">
+                <img loading="lazy" decoding="async" src="{{ i.image|ucare:300 }}" alt="Logo">
               {% empty %}
-                <img src="{% static 'img/logo.jpg' %}" alt="Logo">
+                <img loading="lazy" decoding="async" src="{% static 'img/logo.jpg' %}" alt="Logo">
               {% endfor %}
               <div class="footer-brand-name">Sunrise &amp; Sunset Safaris</div>
               <div class="footer-brand-tagline">Your Safari, Our Care</div>
@@ -1132,14 +1154,14 @@
             <h4 class="footer-heading">Safari Gallery</h4>
             <div class="footer-gallery mb-4">
               {% for i in gallery %}
-                <img src="{{i.image|default:'{% static "images/default-safari.jpg" %}' }}" alt="{{i.Title|default:'Safari Image'}}">
+                <img loading="lazy" decoding="async" src="{{i.image|default:'{% static "images/default-safari.jpg" %}' }}" alt="{{i.Title|default:'Safari Image'}}">
               {% empty %}
-                <img src="{% static 'img/safari.jpg' %}" alt="Safari">
-                <img src="{% static 'img/Kilimanjaro.jpg' %}" alt="Kilimanjaro">
-                <img src="{% static 'img/serengeti.jpg' %}" alt="Serengeti">
-                <img src="{% static 'img/zanzibar.jpg' %}" alt="Zanzibar">
-                <img src="{% static 'img/wild.jpg' %}" alt="Wildlife">
-                <img src="{% static 'img/adventure.jpg' %}" alt="Adventure">
+                <img loading="lazy" decoding="async" src="{% static 'img/safari.jpg' %}" alt="Safari">
+                <img loading="lazy" decoding="async" src="{% static 'img/Kilimanjaro.jpg' %}" alt="Kilimanjaro">
+                <img loading="lazy" decoding="async" src="{% static 'img/serengeti.jpg' %}" alt="Serengeti">
+                <img loading="lazy" decoding="async" src="{% static 'img/zanzibar.jpg' %}" alt="Zanzibar">
+                <img loading="lazy" decoding="async" src="{% static 'img/wild.jpg' %}" alt="Wildlife">
+                <img loading="lazy" decoding="async" src="{% static 'img/adventure.jpg' %}" alt="Adventure">
               {% endfor %}
             </div>
             <h4 class="footer-heading">Newsletter</h4>
@@ -1215,15 +1237,10 @@
   </a>
 
   <!-- =============== SCRIPTS =============== -->
-  <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
-  <script src="{% static 'lib/wow/wow.min.js' %}"></script>
-  <script src="{% static 'lib/easing/easing.min.js' %}"></script>
-  <script src="{% static 'lib/waypoints/waypoints.min.js' %}"></script>
-  <script src="{% static 'lib/owlcarousel/owl.carousel.min.js' %}"></script>
-  <script src="{% static 'lib/tempusdominus/js/moment.min.js' %}"></script>
-  <script src="{% static 'lib/tempusdominus/js/moment-timezone.min.js' %}"></script>
-  <script src="{% static 'lib/tempusdominus/js/tempusdominus-bootstrap-4.min.js' %}"></script>
+  <!-- Only what the pages actually use; deferred so they never block rendering.
+       (jQuery + Owl Carousel are loaded by the homepage only.) -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js" defer></script>
+  <script src="{% static 'lib/wow/wow.min.js' %}" defer></script>
   <!-- <script src="{% static 'js/main.js' %}"></script> -->
   <!-- <script src="{% static 'js/tracker.js' %}"></script> -->
 
@@ -1231,10 +1248,14 @@
     /* =========================================================
        SPINNER
     ========================================================= */
-    window.addEventListener('load', () => {
+    function hideLoading() {
       const sp = document.getElementById('spinner');
-      setTimeout(() => sp && sp.classList.add('hide'), 400);
-    });
+      if (sp) sp.classList.add('hide');
+    }
+    // Content is already in the page here, so don't wait for every image to download.
+    hideLoading();
+    // Back/forward cache restores the page with the spinner still showing.
+    window.addEventListener('pageshow', hideLoading);
 
     function showLoading() {
       const sp = document.getElementById('spinner');
@@ -1321,9 +1342,11 @@
     /* =========================================================
        WOW.js
     ========================================================= */
-    if (typeof WOW !== 'undefined') {
-      new WOW({ mobile: true, offset: 50, duration: 0.8 }).init();
-    }
+    document.addEventListener('DOMContentLoaded', () => {
+      if (typeof WOW !== 'undefined') {
+        new WOW({ mobile: true, offset: 50, duration: 0.8 }).init();
+      }
+    });
 
     /* =========================================================
        VISIT TRACKING (preserved from original)

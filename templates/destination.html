@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% load static %}
+{% load static imgopt %}
 
 {% block title %}All Destinations{% endblock %}
 
@@ -59,7 +59,7 @@
         <a href="{% url 'destination_detail' destination.pk %}" class="block flex-1">
           <div class="relative aspect-w-16 aspect-h-9 overflow-hidden">
             <img
-              src="{{ destination.get_image_url }}"
+              src="{{ destination.get_image_url|ucare:800 }}"
               alt="{{ destination.name }}"
               class="object-cover w-full h-full transition-transform duration-500 group-hover:scale-105"
               loading="lazy"
@@ -175,7 +175,7 @@
           <a target="_blank"
              href="https://www.tripadvisor.com/Attraction_Review-g293748-d33985157-Reviews-Kilindo_Tours-Dar_es_Salaam_Dar_Es_Salaam_Region.html"
              style="display: inline-block; text-decoration: none;">
-            <img src="https://www.tripadvisor.com/img/cdsi/img2/branding/v2/Tripadvisor_lockup_horizontal_secondary_registered-11900-2.svg"
+            <img loading="lazy" decoding="async" src="https://www.tripadvisor.com/img/cdsi/img2/branding/v2/Tripadvisor_lockup_horizontal_secondary_registered-11900-2.svg"
                  alt="TripAdvisor"
                  style="width: 240px; transition: transform 0.4s ease; filter: drop-shadow(0 3px 6px rgba(0,0,0,0.2));"
                  onmouseover="this.style.transform='scale(1.08)';"

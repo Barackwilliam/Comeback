@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-{% load static %}
+{% load static imgopt %}
 
 {% block title %}{{ tour.title }} | Premium Camping Safari Experience{% endblock %}
 
@@ -33,7 +33,7 @@ h1, h2, h3, h4, h5 {
     display: flex;
     align-items: flex-end;
     background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.7)), 
-                url("{{ tour.image }}") center/cover no-repeat fixed;
+                url("{{ tour.image|ucare:1600 }}") center/cover no-repeat fixed;
     overflow: hidden;
     border-radius: 0 0 50px 50px;
     margin-bottom: 60px;

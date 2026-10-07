@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-{% load static %}
+{% load static imgopt %}
 {% block title %}Destinations | Sunrise and Sunset Safaris Limited{% endblock %}
 {% block content %}
 
@@ -42,7 +42,7 @@
       {% for dest in destinations %}
       <div class="col-lg-4 col-md-6">
         <div class="dest-list-card">
-          <img src="{{ dest.image }}" alt="{{ dest.name }}">
+          <img loading="lazy" decoding="async" src="{{ dest.image|ucare:800 }}" alt="{{ dest.name }}">
           <div class="dest-list-overlay"></div>
           {% if dest.Offer_in_percent %}<div class="dest-offer-tag">{{ dest.Offer_in_percent }}% OFF</div>{% endif %}
           <div class="dest-list-body">

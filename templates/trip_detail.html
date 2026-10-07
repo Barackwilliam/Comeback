@@ -281,7 +281,7 @@
         <div class="card">
           <h1>{{ trip.title }}</h1>
           {% if trip.featured_image %}
-            <img src="{{ trip.featured_image|default:'{% static "img/default-trip.jpg" %}' }}" class="img-fluid mb-4" alt="{{ trip.title }}">
+            <img loading="lazy" decoding="async" src="{{ trip.featured_image|default:'{% static "img/default-trip.jpg" %}' }}" class="img-fluid mb-4" alt="{{ trip.title }}">
           {% endif %}
           <p><strong>Location:</strong> {{ trip.location }}</p>
           <p><strong>Days:</strong> {{ trip.days }}</p>

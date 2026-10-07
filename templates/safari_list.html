@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-{% load static %}
+{% load static imgopt %}
 {% block title %}Safari Packages | Sunrise and Sunset Safaris Limited{% endblock %}
 {% block content %}
 
@@ -93,9 +93,9 @@
         <div class="sl-card">
           <div class="sl-img-wrap">
             {% if s.featured_image %}
-            <img src="{{ s.featured_image }}" alt="{{ s.title }}">
+            <img loading="lazy" decoding="async" src="{{ s.featured_image|ucare:800 }}" alt="{{ s.title }}">
             {% else %}
-            <img src="{% static 'img/4.jpg' %}" alt="{{ s.title }}">
+            <img loading="lazy" decoding="async" src="{% static 'img/4.jpg' %}" alt="{{ s.title }}">
             {% endif %}
             <div class="sl-type-badge">{{ s.safari_type|default:"Safari" }}</div>
           </div>

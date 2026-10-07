@@ -1,6 +1,6 @@
 <!-- tour_list.html -->
 {% extends 'base.html' %}
-{% load static %}
+{% load static imgopt %}
 
 {% block title %}Tour Listings{% endblock %}
 
@@ -30,7 +30,7 @@
     <div class="col-md-4 mb-4">
       <div class="card h-100 shadow-sm">
         {% if tour.featured_image %}
-          <img src="{{ tour.featured_image }}" class="card-img-top" alt="{{ tour.title }}">
+          <img loading="lazy" decoding="async" src="{{ tour.featured_image|ucare:800 }}" class="card-img-top" alt="{{ tour.title }}">
         {% endif %}
         <div class="card-body d-flex flex-column">
           <h5 class="card-title">{{ tour.title }}</h5>

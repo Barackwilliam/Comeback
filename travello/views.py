@@ -514,6 +514,7 @@ def Trip_list(request):
     location = request.GET.get('location')
     trip_type = request.GET.get('type')
 
+    trip = Trip_DB.objects.all()
     if location:
         trip = trip.filter(location__icontains=location)
     if trip_type:

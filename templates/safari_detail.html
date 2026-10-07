@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-{% load static %}
+{% load static imgopt %}
 {% block title %}{{ safaris.title|default:"Safari Detail" }} | Sunrise and Sunset Safaris Limited{% endblock %}
 {% block content %}
 
@@ -44,9 +44,9 @@
 <!-- Hero -->
 <div class="detail-hero">
   {% if safaris.featured_image %}
-  <img src="{{ safaris.featured_image }}" alt="{{ safaris.title }}">
+  <img fetchpriority="high" decoding="async" src="{{ safaris.featured_image|ucare:1200 }}" alt="{{ safaris.title }}">
   {% else %}
-  <img src="{% static 'img/4.jpg' %}" alt="Safari">
+  <img loading="lazy" decoding="async" src="{% static 'img/4.jpg' %}" alt="Safari">
   {% endif %}
   <div class="detail-hero-overlay"></div>
   <div class="detail-hero-body container">

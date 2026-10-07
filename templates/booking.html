@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-{% load static %}
+{% load static imgopt custom_filters %}
 {% block title %}Book Your Safari | Sunrise and Sunset Safaris Limited{% endblock %}
 {% block content %}
 
@@ -19,7 +19,7 @@
         <div style="position:relative;">
           <div style="width:56px; height:56px; border-radius:50%; background:var(--forest); border:3px solid var(--gold); display:flex; align-items:center; justify-content:center; margin:0 auto 16px; font-family:'Cinzel',serif; font-size:1rem; font-weight:700; color:var(--gold); box-shadow:0 4px 16px rgba(201,168,76,0.25);">{{ forloop.counter }}</div>
           {% if stp.image %}
-          <img src="{{ stp.image }}" alt="{{ stp.Title }}" style="width:72px; height:72px; border-radius:50%; object-fit:cover; border:2px solid var(--gold); margin:0 auto 14px; display:block;">
+          <img loading="lazy" decoding="async" src="{{ stp.image|ucare:200 }}" alt="{{ stp.Title }}" style="width:72px; height:72px; border-radius:50%; object-fit:cover; border:2px solid var(--gold); margin:0 auto 14px; display:block;">
           {% endif %}
           <div style="font-family:'Cinzel',serif; font-size:0.85rem; font-weight:700; color:var(--forest); letter-spacing:0.06em; margin-bottom:8px;">{{ stp.Title }}</div>
           <div style="font-size:0.8rem; color:var(--text-light); line-height:1.6;">{{ stp.description }}</div>

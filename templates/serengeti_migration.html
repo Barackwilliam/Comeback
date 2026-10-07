@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-{% load static %}
+{% load static imgopt %}
 {% load custom_filters %}
 
 {% block title %}Great Serengeti Migration | Sunrise and Sunset Safaris Limited{% endblock %}
@@ -23,7 +23,7 @@
         <a href="{% url 'form' %}" class="btn-book-nav" onclick="showLoading()"><i class="fas fa-binoculars"></i> Book Migration Safari</a>
       </div>
       <div class="col-lg-6 wow fadeInRight">
-        <img src="{% static 'img/serengeti.jpg' %}" alt="Serengeti Migration" style="width:100%; height:420px; object-fit:cover; border-radius:var(--radius-lg); box-shadow:var(--shadow);">
+        <img loading="lazy" decoding="async" src="{% static 'img/serengeti.jpg' %}" alt="Serengeti Migration" style="width:100%; height:420px; object-fit:cover; border-radius:var(--radius-lg); box-shadow:var(--shadow);">
       </div>
     </div>
 
@@ -57,7 +57,7 @@
       {% for tour in serengeti_tours %}
       <div class="col-lg-4 col-md-6">
         <div style="background:var(--white); border-radius:var(--radius-lg); overflow:hidden; box-shadow:var(--shadow); border:1px solid rgba(201,168,76,0.1); transition:var(--transition);" onmouseover="this.style.transform='translateY(-5px)'; this.style.boxShadow='var(--shadow-gold)'" onmouseout="this.style.transform=''; this.style.boxShadow='var(--shadow)'">
-          <img src="{{ tour.image }}" alt="{{ tour.title }}" style="width:100%; height:200px; object-fit:cover;">
+          <img loading="lazy" decoding="async" src="{{ tour.image|ucare:800 }}" alt="{{ tour.title }}" style="width:100%; height:200px; object-fit:cover;">
           <div style="padding:20px 18px;">
             <div style="font-family:'Playfair Display',serif; font-size:1rem; font-weight:700; color:var(--forest); margin-bottom:8px;">{{ tour.title }}</div>
             <div style="font-size:0.82rem; color:var(--text-light); margin-bottom:14px;">{{ tour.description|truncatewords:18 }}</div>

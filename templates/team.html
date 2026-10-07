@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-{% load static %}
+{% load static imgopt %}
 {% block title %}Our Team | Sunrise and Sunset Safaris Limited{% endblock %}
 {% block content %}
 
@@ -49,7 +49,7 @@
       <div class="col-lg-3 col-md-6">
         <div class="guide-card">
           <div class="guide-img-wrap">
-            <img src="{{ i.image }}" alt="{{ i.Full_name }}">
+            <img loading="lazy" decoding="async" src="{{ i.image|ucare:500 }}" alt="{{ i.Full_name }}">
             <div class="guide-overlay"></div>
             <div class="guide-socials">
               {% if i.facebook_link %}<a href="{{ i.facebook_link }}" target="_blank" class="guide-social"><i class="fab fa-facebook-f"></i></a>{% endif %}

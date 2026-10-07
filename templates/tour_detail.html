@@ -280,7 +280,7 @@
         <div class="card">
           <h1>{{ tour.title }}</h1>
           {% if tour.featured_image %}
-            <img src="{{ tour.featured_image|default:'{% static "img/default-tour.jpg" %}' }}" class="img-fluid mb-4" alt="{{ tour.title }}">
+            <img loading="lazy" decoding="async" src="{{ tour.featured_image|default:'{% static "img/default-tour.jpg" %}' }}" class="img-fluid mb-4" alt="{{ tour.title }}">
           {% endif %}
           <p><strong>Location:</strong> {{ tour.location }}</p>
           <p><strong>Days:</strong> {{ tour.days }}</p>

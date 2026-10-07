@@ -195,6 +195,10 @@ class JamiiTekStatusMiddleware:
 
     CACHE_KEY = 'jamiitek_site_status'
     CACHE_TIMEOUT = 300  # 5 minutes
+    # When the API is unreachable, remember that briefly so visitors don't each
+    # wait for the request to time out.
+    FAIL_CACHE_KEY = 'jamiitek_site_status_unreachable'
+    FAIL_CACHE_TIMEOUT = 60
     BYPASS_PATHS = ['/admin/', '/api/', '/static/', '/media/']
 
     def __init__(self, get_response):
@@ -241,10 +245,12 @@ class JamiiTekStatusMiddleware:
         cached = cache.get(self.CACHE_KEY)
         if cached is not None:
             return cached
+        if cache.get(self.FAIL_CACHE_KEY):
+            return None
 
         try:
             url = f"{self.api_url.rstrip('/')}/{self.api_key}/"
-            resp = requests.get(url, timeout=3)
+            resp = requests.get(url, timeout=2)
             if resp.status_code == 200:
                 data = resp.json()
                 cache.set(self.CACHE_KEY, data, self.CACHE_TIMEOUT)
@@ -252,6 +258,7 @@ class JamiiTekStatusMiddleware:
         except Exception as e:
             logger.warning(f"JamiiTek: Could not reach status API: {e}")
 
+        cache.set(self.FAIL_CACHE_KEY, True, self.FAIL_CACHE_TIMEOUT)
         return None
 
 

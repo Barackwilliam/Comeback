@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-{% load static %}
+{% load static imgopt %}
 
 {% block title %}{{ tour.title }}{% endblock %}
 
@@ -15,7 +15,7 @@
 
   /* Hero */
   .hero {
-    background: linear-gradient(rgba(0,0,0,0.55), rgba(0,0,0,0.55)), url("{{tour.image}}") center/cover no-repeat;
+    background: linear-gradient(rgba(0,0,0,0.55), rgba(0,0,0,0.55)), url("{{ tour.image|ucare:1600 }}") center/cover no-repeat;
     height: 55vh;
     display: flex;
     align-items: center;

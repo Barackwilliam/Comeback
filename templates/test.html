@@ -28,7 +28,7 @@
             {% for i in abouts %}
             <div class="row align-items-center mb-5 bg-white shadow rounded-4 p-4">
                 <div class="col-lg-6 mb-3 mb-lg-0">
-                    <img src="{{ i.image.url }}" class="img-fluid rounded-4 shadow-sm w-100" style="object-fit: cover; max-height: 400px;" alt="About Image">
+                    <img loading="lazy" decoding="async" src="{{ i.image.url }}" class="img-fluid rounded-4 shadow-sm w-100" style="object-fit: cover; max-height: 400px;" alt="About Image">
                 </div>
                 <div class="col-lg-6">
                     <h3 class="text-dark fw-bold">{{ i.title }}</h3>

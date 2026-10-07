@@ -1,11 +1,10 @@
 {% extends 'base.html' %}
-{% load static %}
+{% load static imgopt %}
 
 {% block title %}Sunrise and Sunset Safaris Limited | Luxury Tanzania Safari Adventures{% endblock %}
 {% block meta_desc %}Experience Africa's finest safaris with Sunrise and Sunset Safaris Limited. Serengeti, Kilimanjaro, Zanzibar &amp; beyond. Your Safari, Our Care.{% endblock %}
 
 {% block extra_css %}
-<style>
 /* ============================================================
    HERO — bulletproof full-screen fix
 ============================================================ */
@@ -401,6 +400,8 @@
 .cta-bg-pattern { position: absolute; inset: 0; opacity: 0.04; background-image: repeating-linear-gradient(45deg, var(--gold) 0px, var(--gold) 1px, transparent 1px, transparent 32px); }
 .cta-glow { position: absolute; width: 500px; height: 500px; border-radius: 50%; background: radial-gradient(circle, rgba(201,168,76,0.12), transparent 70%); top: -100px; right: -100px; }
 .cta-content { position: relative; z-index: 1; }
+/* keep both columns above the absolutely-positioned background layers */
+.cta-section .container { position: relative; z-index: 1; }
 .cta-label { font-size: 0.7rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold); font-weight: 700; display: block; margin-bottom: 14px; }
 .cta-title { font-family: 'Playfair Display', serif; font-size: clamp(1.8rem, 4vw, 3rem); font-weight: 900; color: #fff; line-height: 1.2; margin-bottom: 16px; }
 .cta-title span { color: var(--gold); }
@@ -434,7 +435,6 @@
   .btn-hero-primary, .btn-hero-outline { justify-content: center; }
   .hero-badge    { font-size: 0.62rem; }
 }
-</style>
 {% endblock %}
 
 {% block content %}
@@ -471,11 +471,11 @@
           </p>
           {# image URLs hidden for JS to read #}
           <div id="heroImages" style="display:none;" aria-hidden="true">
-            {% if hero.image_1 %}<span data-src="{{ hero.image_1 }}"></span>{% endif %}
-            {% if hero.image_2 %}<span data-src="{{ hero.image_2 }}"></span>{% endif %}
-            {% if hero.image_3 %}<span data-src="{{ hero.image_3 }}"></span>{% endif %}
-            {% if hero.image_4 %}<span data-src="{{ hero.image_4 }}"></span>{% endif %}
-            {% if hero.image_5 %}<span data-src="{{ hero.image_5 }}"></span>{% endif %}
+            {% if hero.image_1 %}<span data-src="{{ hero.image_1|ucare:1600 }}"></span>{% endif %}
+            {% if hero.image_2 %}<span data-src="{{ hero.image_2|ucare:1600 }}"></span>{% endif %}
+            {% if hero.image_3 %}<span data-src="{{ hero.image_3|ucare:1600 }}"></span>{% endif %}
+            {% if hero.image_4 %}<span data-src="{{ hero.image_4|ucare:1600 }}"></span>{% endif %}
+            {% if hero.image_5 %}<span data-src="{{ hero.image_5|ucare:1600 }}"></span>{% endif %}
           </div>
         {% endwith %}
       {% else %}
@@ -558,7 +558,7 @@
       <div class="col-lg-3 col-md-6">
         <a href="{% url 'safari_detail' s.id %}" onclick="showLoading()">
           <div class="safari-card">
-            <img src="{{ s.featured_image }}" alt="{{ s.location }}">
+            <img loading="lazy" decoding="async" src="{{ s.featured_image|ucare:800 }}" alt="{{ s.location }}">
             <div class="safari-card-overlay"></div>
             <div class="safari-card-body">
               <div class="safari-card-badge"><i class="fas fa-paw"></i> {{ s.safari_type|default:"Safari" }}</div>
@@ -572,7 +572,7 @@
       {% empty %}
       <div class="col-lg-3 col-md-6">
         <div class="safari-card">
-          <img src="{% static 'img/4.jpg' %}" alt="Serengeti">
+          <img loading="lazy" decoding="async" src="{% static 'img/4.jpg' %}" alt="Serengeti">
           <div class="safari-card-overlay"></div>
           <div class="safari-card-body">
             <div class="safari-card-badge"><i class="fas fa-paw"></i> Safari</div>
@@ -584,7 +584,7 @@
       </div>
       <div class="col-lg-3 col-md-6">
         <div class="safari-card">
-          <img src="{% static 'img/4.jpg' %}" alt="Ngorongoro">
+          <img loading="lazy" decoding="async" src="{% static 'img/4.jpg' %}" alt="Ngorongoro">
           <div class="safari-card-overlay"></div>
           <div class="safari-card-body">
             <div class="safari-card-badge"><i class="fas fa-paw"></i> Safari</div>
@@ -596,7 +596,7 @@
       </div>
       <div class="col-lg-3 col-md-6">
         <div class="safari-card">
-          <img src="{% static 'img/4.jpg' %}" alt="Zanzibar">
+          <img loading="lazy" decoding="async" src="{% static 'img/4.jpg' %}" alt="Zanzibar">
           <div class="safari-card-overlay"></div>
           <div class="safari-card-body">
             <div class="safari-card-badge"><i class="fas fa-paw"></i> Safari</div>
@@ -608,7 +608,7 @@
       </div>
       <div class="col-lg-3 col-md-6">
         <div class="safari-card">
-          <img src="{% static 'img/4.jpg' %}" alt="Kilimanjaro">
+          <img loading="lazy" decoding="async" src="{% static 'img/4.jpg' %}" alt="Kilimanjaro">
           <div class="safari-card-overlay"></div>
           <div class="safari-card-body">
             <div class="safari-card-badge"><i class="fas fa-paw"></i> Safari</div>
@@ -636,7 +636,7 @@
     <div class="row g-5 align-items-center">
       <div class="col-lg-5 wow fadeInLeft">
         <div class="about-img-wrap">
-          <img class="about-main-img"
+          <img loading="lazy" decoding="async" class="about-main-img"
             src="{% if abouts %}{{ abouts.0.image }}{% else %}{% static 'img/4.jpg' %}{% endif %}"
             alt="Sunrise and Sunset Safaris">
           <div class="about-badge-overlay">⭐ Trusted Safari Company</div>
@@ -769,7 +769,7 @@
       {% for dest in destinations|slice:":3" %}
       <div class="col-lg-4 col-md-6">
         <div class="dest-card">
-          <img src="{{ dest.image }}" alt="{{ dest.name }}">
+          <img loading="lazy" decoding="async" src="{{ dest.image|ucare:800 }}" alt="{{ dest.name }}">
           <div class="dest-overlay"></div>
           {% if dest.Offer_in_percent %}
           <div class="dest-offer-badge">{{ dest.Offer_in_percent }}% OFF</div>
@@ -787,7 +787,7 @@
       {% empty %}
       <div class="col-lg-4 col-md-6">
         <div class="dest-card">
-          <img src="{% static 'img/4.jpg' %}" alt="Serengeti">
+          <img loading="lazy" decoding="async" src="{% static 'img/4.jpg' %}" alt="Serengeti">
           <div class="dest-overlay"></div>
           <div class="dest-body">
             <div class="dest-name">Serengeti</div>
@@ -799,7 +799,7 @@
       </div>
       <div class="col-lg-4 col-md-6">
         <div class="dest-card">
-          <img src="{% static 'img/4.jpg' %}" alt="Ngorongoro">
+          <img loading="lazy" decoding="async" src="{% static 'img/4.jpg' %}" alt="Ngorongoro">
           <div class="dest-overlay"></div>
           <div class="dest-body">
             <div class="dest-name">Ngorongoro</div>
@@ -811,7 +811,7 @@
       </div>
       <div class="col-lg-4 col-md-6">
         <div class="dest-card">
-          <img src="{% static 'img/4.jpg' %}" alt="Zanzibar">
+          <img loading="lazy" decoding="async" src="{% static 'img/4.jpg' %}" alt="Zanzibar">
           <div class="dest-overlay"></div>
           <div class="dest-body">
             <div class="dest-name">Zanzibar</div>
@@ -847,7 +847,7 @@
       <div class="col-lg-4 col-md-6">
         <div class="pkg-card">
           <div class="pkg-img-wrap">
-            <img src="{{ pac.featured_image }}" alt="{{ pac.location }}">
+            <img loading="lazy" decoding="async" src="{{ pac.featured_image|ucare:800 }}" alt="{{ pac.location }}">
             <div class="pkg-type-badge">{{ pac.safari_type|default:"SAFARI" }}</div>
           </div>
           <div class="pkg-body">
@@ -874,7 +874,7 @@
       <div class="col-lg-4 col-md-6">
         <div class="pkg-card">
           <div class="pkg-img-wrap">
-            <img src="{% static 'img/4.jpg' %}" alt="Great Migration">
+            <img loading="lazy" decoding="async" src="{% static 'img/4.jpg' %}" alt="Great Migration">
             <div class="pkg-type-badge">SAFARI</div>
           </div>
           <div class="pkg-body">
@@ -941,7 +941,7 @@
       </div>
       <div class="col-lg-4">
         <div class="seasons-img">
-          <img src="{% static 'img/4.jpg' %}" alt="Safari Season Tanzania">
+          <img loading="lazy" decoding="async" src="{% static 'img/4.jpg' %}" alt="Safari Season Tanzania">
         </div>
       </div>
     </div>
@@ -967,8 +967,8 @@
         <div class="step-wrap">
           <div class="step-num">{{ forloop.counter }}</div>
           {% if stp.image %}
-          <img style="width:80px;height:80px;border-radius:50%;object-fit:cover;border:3px solid var(--gold);margin:0 auto 14px;display:block;"
-               src="{{ stp.image }}" alt="{{ stp.Title }}">
+          <img loading="lazy" decoding="async" style="width:80px;height:80px;border-radius:50%;object-fit:cover;border:3px solid var(--gold);margin:0 auto 14px;display:block;"
+               src="{{ stp.image|ucare:200 }}" alt="{{ stp.Title }}">
           {% else %}
           <div class="step-icon">
             {% if forloop.counter == 1 %}<i class="fas fa-headset"></i>
@@ -1035,7 +1035,7 @@
         <div class="testi-quote">"</div>
         <div class="testi-text">{{ test.description }}</div>
         <div class="testi-author">
-          <img src="{{ test.image }}" alt="{{ test.Full_name }}">
+          <img loading="lazy" decoding="async" src="{{ test.image|ucare:200 }}" alt="{{ test.Full_name }}">
           <div>
             <div class="testi-name">{{ test.Full_name }}</div>
             <div class="testi-country">{{ test.country }}</div>
@@ -1048,7 +1048,7 @@
         <div class="testi-quote">"</div>
         <div class="testi-text">Sunrise and Sunset Safaris gave us the most incredible experience of our lives. Every detail was thoughtfully planned, and our guide's knowledge of the wildlife was extraordinary.</div>
         <div class="testi-author">
-          <img src="{% static 'img/prof.png' %}" alt="Sarah Johnson">
+          <img loading="lazy" decoding="async" src="{% static 'img/prof.png' %}" alt="Sarah Johnson">
           <div>
             <div class="testi-name">Sarah Johnson</div>
             <div class="testi-country">New York, USA</div>
@@ -1060,7 +1060,7 @@
         <div class="testi-quote">"</div>
         <div class="testi-text">The Serengeti migration was absolutely breathtaking. The team at Sunrise and Sunset ensured we had front-row seats to nature's greatest show. Truly world-class service!</div>
         <div class="testi-author">
-          <img src="{% static 'img/prof.png' %}" alt="David Müller">
+          <img loading="lazy" decoding="async" src="{% static 'img/prof.png' %}" alt="David Müller">
           <div>
             <div class="testi-name">David Müller</div>
             <div class="testi-country">Berlin, Germany</div>
@@ -1072,7 +1072,7 @@
         <div class="testi-quote">"</div>
         <div class="testi-text">Our honeymoon safari was pure magic. From the private game drives to the sunset dinners in the bush — everything was perfect. Sunrise and Sunset Safaris made our dream come true.</div>
         <div class="testi-author">
-          <img src="{% static 'img/prof.png' %}" alt="The Patel Family">
+          <img loading="lazy" decoding="async" src="{% static 'img/prof.png' %}" alt="The Patel Family">
           <div>
             <div class="testi-name">The Patel Family</div>
             <div class="testi-country">London, UK</div>
@@ -1143,10 +1143,14 @@
 {% endblock %}
 
 {% block extra_js %}
+<!-- Carousel libraries are only needed on the homepage -->
+<link href="{% static 'lib/owlcarousel/assets/owl.carousel.min.css' %}" rel="stylesheet">
+<script src="https://code.jquery.com/jquery-3.4.1.min.js" defer></script>
+<script src="{% static 'lib/owlcarousel/owl.carousel.min.js' %}" defer></script>
 <script>
 /* Testimonials carousel */
 document.addEventListener('DOMContentLoaded', function () {
-  if (typeof $.fn.owlCarousel !== 'undefined') {
+  if (window.jQuery && typeof jQuery.fn.owlCarousel !== 'undefined') {
     $('.testimonial-carousel').owlCarousel({
       autoplay: true, smartSpeed: 1000, margin: 24,
       dots: true, loop: true, autoplayTimeout: 5000,
@@ -1179,7 +1183,9 @@ document.addEventListener('DOMContentLoaded', function () {
   srcs.forEach(function (src, idx) {
     var div = document.createElement('div');
     div.className = 'hero-bg-slide' + (idx === 0 ? ' active' : '');
-    div.style.backgroundImage = "url('" + src + "')";
+    div.dataset.src = src;
+    // Only the first photo downloads straight away; the rest load just before they show.
+    if (idx === 0) loadSlide(div);
     slider.appendChild(div);
     slides.push(div);
 
@@ -1191,16 +1197,27 @@ document.addEventListener('DOMContentLoaded', function () {
     dots.push(btn);
   });
 
+  function loadSlide(el) {
+    if (el && el.dataset.src) {
+      el.style.backgroundImage = "url('" + el.dataset.src + "')";
+      delete el.dataset.src;
+    }
+  }
+
   function goTo(n) {
+    loadSlide(slides[(n + slides.length) % slides.length]);
     slides[current].classList.remove('active');
     dots[current].classList.remove('active');
     current = (n + slides.length) % slides.length;
     slides[current].classList.add('active');
+    loadSlide(slides[(current + 1) % slides.length]);
     dots[current].classList.add('active');
   }
 
   var timer;
   function startTimer() { timer = setInterval(function () { goTo(current + 1); }, 5500); }
+  // Warm up the next photo once the page has finished loading.
+  window.addEventListener('load', function () { loadSlide(slides[1]); });
   function resetTimer()  { clearInterval(timer); startTimer(); }
   startTimer();
 

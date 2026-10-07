@@ -68,6 +68,9 @@ MIDDLEWARE = [
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'whitenoise.middleware.WhiteNoiseMiddleware',
+    # Compress HTML pages. Sits below WhiteNoise, which already serves
+    # pre-compressed static files and returns before reaching this.
+    'django.middleware.gzip.GZipMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
@@ -123,6 +126,10 @@ DATABASES = {
         'PASSWORD': 'NyumbaChap@123', 
         'HOST': 'aws-1-eu-west-1.pooler.supabase.com',  
         'PORT': '5432',  
+        # Reuse the database connection between requests instead of opening a
+        # new (slow, encrypted) connection to Supabase on every page view.
+        'CONN_MAX_AGE': 600,
+        'CONN_HEALTH_CHECKS': True,
     }
 }
 

@@ -1,3 +1,4 @@
+{% load imgopt %}
 {# destination_card.html - expects variable `destination` #}
 <div
   data-destination-name="{{ destination.name }}"
@@ -9,7 +10,7 @@
     <!-- Image with blur-up placeholder -->
     <div class="relative w-full aspect-[16/9] bg-gray-100 overflow-hidden">
       <img
-        src="{{ destination.image }}"
+        src="{{ destination.image|ucare:800 }}"
         alt="{{ destination.name }} image"
         class="object-cover w-full h-full transition-transform duration-500 group-hover:scale-105"
         loading="lazy"
